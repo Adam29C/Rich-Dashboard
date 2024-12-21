@@ -10993,7 +10993,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
-  background: #fff;
+  /* background: #fff; */
 }
 .nk-sidebar .metismenu > li {
   display: -webkit-box;
