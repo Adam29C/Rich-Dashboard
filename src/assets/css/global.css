@@ -1,0 +1,461 @@
+@import url("./style.css");
+.page-not-found {
+  height: 100vh;
+  width: 100%;
+  border: 1px solid black;
+  background-image: url("/public/assets/images/unveiling-ultimate-online-casino-experience-captivating-green-screen-gambling-concept-with-poke_1000124-103149.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-fs{
+  font-size: 13px;
+}
+.message-box {
+  height: 300px;
+  width: 500px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-family: Roboto;
+  font-weight: 300;
+}
+.message-box h1 {
+  font-size: 80px;
+  line-height: 64px;
+  margin-bottom: 40px;
+  color: var(--khatri-color);
+  color: var(--khatri-color);
+}
+.buttons-con .action-link-wrap {
+  margin: 40px 0px 0px 20px;
+}
+.buttons-con .action-link-wrap a {
+  background: var(--khatri-color);
+  background: var(--khatri-color);
+  padding: 12px 25px;
+  border-radius: 4px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 14px;
+  transition: all 0.3s linear;
+  cursor: pointer;
+  text-decoration: none;
+  margin-right: 10px;
+}
+.buttons-con .action-link-wrap a:hover {
+  background: var(--khatri-color);
+  color: #fff;
+}
+
+.message-box p {
+  font-size: 20px;
+  color: var(--khatri-color);
+  color: var(--khatri-color);
+
+  font-weight: bold;
+}
+
+.superadmin-preview-img {
+  height: 150px;
+  width: 100%;
+  object-fit: fill;
+  background-position: center;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 34px;
+  height: 10px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 15px;
+  width: 15px;
+  left: 0px;
+  bottom: 0.4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+  padding: 0px;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+  border: 1px solid rgb(196, 193, 193);
+  padding: 8px;
+}
+
+input:checked + .slider {
+  background-color: var(--khatri-color);
+  background-color: var(--khatri-color);
+}
+
+.error-text {
+  font-size: 0.7rem;
+  font-weight: bold;
+  margin-top: 5px;
+  line-height: 1rem;
+  color: var(--red);
+}
+
+.main-loader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+input:checked + .slider:before {
+  transform: translateX(17px);
+}
+
+#dynamic-background {
+  height: auto;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.custom-card {
+  backdrop-filter: blur(0px);
+  background-color: #ffffff73;
+}
+
+.custom-label {
+  color: var(--black);
+}
+
+.react-form-wizard .wizard-tab-content {
+  min-height: 100px;
+  padding: 30px 20px 10px;
+  text-align: left !important;
+}
+
+.game-setting-font {
+  font-size: 11.5px !important;
+}
+
+.update-button {
+  background: #478767;
+  background: #478767;
+  color: #fff;
+  height: 24px;
+  width: 66px;
+  border: none;
+  border-radius: 18px;
+  padding: 5px 8px;
+}
+
+.break-text {
+  white-space: break-spaces !important;
+}
+
+.Date-picker-control {
+  width: 59.4rem;
+}
+/* ---- error 404  */
+
+#main_404 {
+  display: table;
+  width: 100%;
+  height: 100vh;
+  text-align: center;
+}
+
+.fof {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.fof h1 {
+  font-size: 50px;
+  display: inline-block;
+  padding-right: 12px;
+  animation: type 0.5s alternate infinite;
+}
+
+.card-title-text {
+  margin-bottom: 40px;
+  font-size: 27px;
+  margin-top: 20px;
+}
+
+.click-btn-game-result {
+  margin-top: 10px;
+  padding: 5px 10px 5px 10px;
+  border-radius: 5px;
+}
+.short-datatable-main {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  padding: 15px 0px 0px 20px;
+}
+.short-datatable-data {
+  font-size: 14px;
+}
+@keyframes type {
+  from {
+    box-shadow: inset -3px 0px 0px #888;
+  }
+  to {
+    box-shadow: inset -3px 0px 0px transparent;
+  }
+}
+
+/* -------------- Responsive  ------------ */
+
+@media (max-width: 1400px) {
+  .Date-picker-control {
+    width: 58.2rem;
+  }
+}
+@media (max-width: 1024px) {
+  .Date-picker-control {
+    width: 39.4rem;
+  }
+}
+@media (max-width: 768px) {
+  .Date-picker-control {
+    width: 25rem;
+  }
+}
+
+.htp-card {
+  border: 1px solid #e3e3e3;
+  padding: 20px;
+  margin-top: 10px;
+}
+
+.bbb {
+  border: 1px solid black;
+}
+
+.card-color {
+  /* background: #4a8c6b2e; */
+  background: #3c7c8334;
+  box-shadow: rgba(21, 152, 156, 0.25) 0px 30px 50px -12px inset,
+    rgba(21, 84, 95, 0.3) 0px 18px 26px -18px inset;
+}
+
+.edit-icon {
+  color: var(--khatri-color);
+}
+.edit-icon:hover {
+  color: var(--khatri-color);
+}
+
+.delete-icon {
+  color: var(--red);
+}
+
+.delete-icon:hover {
+  color: var(--red);
+}
+
+/* set background image favicon css start*/
+#dynamic-background {
+  background-image: url("../Images/back-image-2.jpg");
+}
+
+#company-logo {
+  content: url("../Images/Khatri_Main_logo_white.svg");
+}
+
+#favicon {
+  content: url("../Images/favicon.png");
+}
+
+#sidebar-logo {
+  content: url("../Images/Khatri_Main_logo_white.svg");
+}
+/* #sidebar-logo-short {
+  content: url("../Images/favicon.png");
+} */
+
+/* set background image favicon css end */
+
+.hideFieldCss {
+  display: none;
+}
+
+.winner-list-text-main {
+  color: rgb(141, 128, 128);
+  font-size: 21px;
+  text-align: center;
+}
+
+.confirm-payment-text {
+  font-size: 18px;
+  color: var(--khatri-color);
+  margin: 25px 0;
+  font-weight: 600;
+  font-family: Karla, sans-serif;
+}
+
+
+
+.main {
+  background: #fff;
+  position: relative;
+  z-index: 3;
+  text-align: center;
+}
+
+.user-data {
+  padding-top: 40px;
+}
+
+.title {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: #3c4858;
+  font-weight: 700;
+  font-family: "Roboto Slab", "Times New Roman", serif;
+  font-size: 20px;
+}
+
+.walletbalance {
+  font-weight: 500;
+  color: #888888;
+  margin-bottom: 0;
+}
+
+.name{
+  display: flex;
+  flex-direction: column;
+}
+.profile-note-title{
+  font-size: 1.5rem;
+  margin: 0 0 25px 0;
+  font-weight: 600;
+  color: #343a40;
+}
+
+.delete-user-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.eYzbsH:not(:last-of-type) {
+  border-bottom-style: none !important;
+  border-bottom-width: 0 !important;
+  border-bottom-color: none !important;
+}
+
+/* data table css end */
+
+.deleted-user-field {
+  display: block;
+  width: 100%;
+  height: calc(1.5em + 0.9rem + 2px);
+  padding: 0.45rem 0.9rem;
+  font-size: 0.9rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #6c757d;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.2rem;
+}
+
+/* css for pending request get user profile model  */
+.user-profile-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.model-cross-btn {
+  border: none;
+  background-color: transparent;
+  float: right;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
+  color: #000;
+  text-shadow: none;
+  opacity: 0.5;
+  margin-bottom: 30px;
+}
+
+/* css for pending request get user profile model  */
+
+/* user profile css start */
+
+.main-user-profile-list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.user-profile-list-first{
+  display: flex;
+}
+/* user profile css end */
+
+.news-header-title{
+  font-size: 1.3rem;
+  margin: 0 0 25px 0;
+  color: #343a40;
+  font-weight: 600;
+}
+
+
+.rc-time-picker-panel {
+  z-index: 10001 !important; 
+  position: absolute; 
+}
+.custom-padding-for-label{
+  padding: 7px 0px !important;
+}
+
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
