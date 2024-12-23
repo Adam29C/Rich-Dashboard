@@ -10265,16 +10265,20 @@ sub {
     width: 14.375rem;
   }
 }
+
+.nav-header{
+  background: var(--primary-color) 
+}
 .nav-header .brand-logo {
   z-index: 999;
   /* background-color: red */
-  background: var(--primary-color) !important; 
+  /* background: var(--primary-color) !important;  */
 }
 .nav-header .brand-logo a {
   /* padding: 1.607rem 1.8125rem; */
   padding: 1rem;
   display: block;
-background:  var(--primary-color) !important;
+/* background:  var(--primary-color) !important; */
 }
 .nav-header .brand-logo a i {
   font-size: 1.375rem;
