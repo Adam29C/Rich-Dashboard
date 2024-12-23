@@ -115,9 +115,10 @@ const ViewWallet = () => {
   };
 
   var formik = useFormik({
+    
     initialValues: {
       amount: "",
-      type: "",
+      type: 1,
       particular: "",
     },
 
@@ -139,6 +140,7 @@ const ViewWallet = () => {
 
       return errors;
     },
+    
     onSubmit: async (values) => {
       const payload = {
         id: ModalStateHistoryUserDetails._id,
@@ -406,7 +408,7 @@ const ViewWallet = () => {
                 <PagesIndex.Formikform
                   fieldtype={fields.filter((field) => !field.showWhen)}
                   formik={formik}
-                  btn_name={"Submit"}
+                  btn_name={"Submitmm"}
                   button_Size={"w-100"}
                   show_submit={true}
                 />
