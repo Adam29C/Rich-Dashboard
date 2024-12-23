@@ -497,3 +497,24 @@ input:checked + .slider:before {
   background: #fff;
   transition: all 0.2s ease;
 }
+
+.custom-table-container {
+  width: 100%; 
+  overflow-x: auto; 
+  -webkit-overflow-scrolling: touch; 
+}
+
+#myTable {
+  width: 100%; 
+  table-layout: fixed; 
+  border-collapse: collapse; 
+}
+
+#myTable th, #myTable td {
+  word-wrap: break-word; 
+  padding: 10px; 
+  text-align: center; 
+  max-width: 200px; 
+  overflow:hidden;
+  text-overflow: ellipsis; 
+}
