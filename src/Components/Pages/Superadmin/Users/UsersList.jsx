@@ -32,7 +32,7 @@ const App = () => {
         token
       );
 
-      const totalRows = response?.recordsTotal || 5;
+      const totalRows = response?.recordsTotal || 25;
       let mainRes = response.data;
 
       return { mainRes, totalRows };

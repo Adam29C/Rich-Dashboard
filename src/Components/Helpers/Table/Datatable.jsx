@@ -18,11 +18,11 @@
       },
       headCells: {
         style: {
-          backgroundColor: "linear-gradient(97.51deg, #1C3E35 -39.91%, #4AA48C 117.67%);",
+          background: "linear-gradient(97.51deg, #1C3E35 -39.91%, #4AA48C 117.67%);",
           color:"#fff",
           fontSize:"14px",
           fontWeight:"bold",
-        border:"1px solid #dee2e6",
+        // border:"1px solid #dee2e6",
         justifyContent: 'center', 
         textAlign: 'center', 
         },

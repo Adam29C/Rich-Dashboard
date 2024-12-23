@@ -15,8 +15,10 @@
 @import url(../plugins/animate/animate.min.css);
 @import url(../plugins/metismenu/css/metisMenu.min.css);
 
+@import url("https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap");
+
 :root {
-  --primary-color: linear-gradient(97.51deg, #1C3E35 -39.91%, #4AA48C 117.67%);
+  --primary-color: linear-gradient(97.51deg, #1c3e35 -39.91%, #4aa48c 117.67%);
   --secondary-color: #fff;
 }
 
@@ -121,11 +123,11 @@
   --khatri-color: linear-gradient(97.51deg, #1c3e35 -39.91%, #4aa48c 117.67%);
   /* background: linear-gradient(97.51deg, #1C3E35 -39.91%, #4AA48C 117.67%); */
   /* --khatri-color: #458163; */
-  --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
+  --font-family-sans-serif: "Libre Baskerville", serif, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-family-monospace: "Libre Baskerville", serif, SFMono-Regular, Menlo,
+    Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
   --main-bg-color: "#7571F9";
 }
@@ -149,7 +151,7 @@
 }
 
 html {
-  font-family: sans-serif;
+  font-family: Libre Baskerville, serif  sans-serif;
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
@@ -176,7 +178,7 @@ section {
 
 body {
   margin: 0;
-  font-family: "Roboto", sans-serif;
+  font-family: "Libre Baskerville", serif , "Roboto", sans-serif;
   font-size: 0.875rem;
   font-weight: 400;
   line-height: 1.5;
@@ -308,7 +310,7 @@ pre,
 code,
 kbd,
 samp {
-  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+  font-family: "Libre Baskerville", serif  , SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
     "Courier New", monospace;
   font-size: 1em;
 }
@@ -5488,7 +5490,7 @@ button.close {
   z-index: 1070;
   display: block;
   margin: 0;
-  font-family: "Roboto", sans-serif;
+  font-family:"Libre Baskerville", serif , "Roboto", sans-serif;
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
@@ -5602,7 +5604,7 @@ button.close {
   z-index: 1060;
   display: block;
   max-width: 276px;
-  font-family: "Roboto", sans-serif;
+  font-family: "Libre Baskerville", serif ,"Roboto", sans-serif;
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
@@ -10268,13 +10270,13 @@ sub {
 .nav-header .brand-logo {
   z-index: 999;
   /* background-color: red */
-  background: var(--primary-color) !important; 
+  background: var(--primary-color) !important;
 }
 .nav-header .brand-logo a {
   /* padding: 1.607rem 1.8125rem; */
   padding: 1rem;
   display: block;
-background:  var(--primary-color) !important;
+  background: var(--primary-color) !important;
 }
 .nav-header .brand-logo a i {
   font-size: 1.375rem;
@@ -10983,7 +10985,6 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
   margin: 0;
   list-style: none;
   background: var(--primary-color);
-
 }
 .nk-sidebar .metismenu {
   display: -webkit-box;
@@ -14307,7 +14308,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 }
 #morris-donut-chart text {
   font-size: 10px !important;
-  font-family: "Poppins";
+  font-family: "Libre Baskerville", serif , "Poppins";
 }
 #morris-donut-chart text tspan {
   font-size: 10px !important;
@@ -16263,7 +16264,7 @@ table.dataTable thead .sorting::after {
   border-radius: 0;
 }
 .card .card-body {
-  padding: 1.88rem 1.81rem;
+  /* padding: 1.88rem 1.81rem; */
 }
 .card-action a {
   display: inline-block;
@@ -21459,19 +21460,19 @@ html[dir="rtl"]
 }
 
 .nk-nav-scroll::-webkit-scrollbar-thumb {
-  background-color: var(--primary-color) ;
+  background-color: var(--primary-color);
   border-radius: 10px;
   border: 2px solid #fff;
 }
 
 .nk-nav-scroll::-webkit-scrollbar-track {
-  background:var(--primary-color) ;
+  background: var(--primary-color);
   border-radius: 10px;
 }
 
 /* For Firefox */
 .nk-nav-scroll {
-  scrollbar-color: var(--primary-color) ;
+  scrollbar-color: var(--primary-color);
   scrollbar-width: thin;
 }
 
@@ -21550,7 +21551,7 @@ html[dir="rtl"]
 }
 
 body {
-  font-family: sans-serif;
+  font-family: "Libre Baskerville", serif , sans-serif;
   background-image: url("bgimage.jpg");
   repeat: no-repeat;
 }
@@ -21836,17 +21837,17 @@ a:hover {
 }
 
 .modal-container::-webkit-scrollbar-track {
-  background: var(--primary-color) ; /* Background of the scrollbar track */
+  background: var(--primary-color); /* Background of the scrollbar track */
   border-radius: 10px;
 }
 
 .modal-container::-webkit-scrollbar-thumb {
-  background: var(--primary-color) ; /* Color of the scrollbar thumb */
+  background: var(--primary-color); /* Color of the scrollbar thumb */
   border-radius: 10px;
 }
 
 .modal-container::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-color) ; /* Hover color for the scrollbar thumb */
+  background: var(--primary-color); /* Hover color for the scrollbar thumb */
 }
 
 .modal-header {

@@ -9,7 +9,7 @@ const PaginatedTable = ({
   additional,
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(initialRowsPerPage);
+  const [rowsPerPage, setRowsPerPage] = useState(25);
   const [filteredData, setFilteredData] = useState(data || []);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortConfig, setSortConfig] = useState({ key: null, direction: null });

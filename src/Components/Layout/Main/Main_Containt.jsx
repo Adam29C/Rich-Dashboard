@@ -12,7 +12,7 @@ const Main_Containt = ({
   children,
   btn_modal,
   setVisible,
-  handleAdd
+  handleAdd,
 }) => {
   return (
     <div className="content-body">
@@ -22,10 +22,7 @@ const Main_Containt = ({
             <div className="d-flex align-items-center justify-content-between">
               <h4 className="m-0 p-3">{title}</h4>
               {btn_modal ? (
-                <button
-                  onClick={handleAdd}
-                  className="submitBtn btn"
-                >
+                <button onClick={handleAdd} className="submitBtn btn">
                   <Icon
                     icon="line-md:plus"
                     className="fw-bold"
