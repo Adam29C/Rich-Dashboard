@@ -50,55 +50,14 @@ const SIdebar = () => {
         >
           {/* <Logo/> */}
           <ul className="metismenu in" id="menu">
-            {/* {admin_Sidebar &&
-              admin_Sidebar.map((item, index) => {
-                const isActive = expandedItem === index;
-                return (
-                  <div key={`${item.headerTitle}_${index}`}>
-                    <li
-                      className={`${isActive ? "active" : ""}`}
-                      key={`${item.headerTitle}_${index}`}
-                    >
-                      {(item.permission != null || "null") && (
-                        <Link
-                          to={item.route}
-                          className={
-                            item.NestedElement.length > 0 ? "has-arrow" : ""
-                          }
-                          aria-expanded={isActive}
-                          onClick={() => handleToggle(index)}
-                        >
-                          <i className={`${item.Icon} menu-icon me-2`} />
-                          <span className="nav-text">{item.title}</span>
-                        </Link>
-                      )}
-
-                      <ul
-                        aria-expanded={isActive}
-                        className={`collapse ${isActive ? "in" : ""}`}
-                      >
-                        {item.NestedElement.map((nested) => (
-                          <li
-                            key={nested.id}
-                            className={isActive ? "active" : ""}
-                          >
-                            <Link
-                              to={nested.route}
-                              className={isActive ? "active" : ""}
-                            >
-                              {nested.title}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </li>
-                  </div>
-                );
-              })} */}
+           
             {filteredSidebar &&
               filteredSidebar.map((item, index) => {
                 const isActive = expandedItem === index;
+                const hasNested = item.NestedElement.length > 0;
+              
                 return (
+              
                   <div key={`${item.headerTitle}_${index}`}>
                     <li
                       className={`${isActive ? "active" : ""}`}
@@ -106,7 +65,7 @@ const SIdebar = () => {
                     >
                       {(item.permission != null || "null") && (
                         <Link
-                          to={item.route}
+                          to={hasNested ? "#" : item.route}
                           className={
                             item.NestedElement.length > 0 ? "has-arrow" : ""
                           }

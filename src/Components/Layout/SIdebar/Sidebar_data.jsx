@@ -21,7 +21,6 @@ export const admin_Sidebar = [
 
   {
     id: 3,
-    route: "",
     permission: "games",
     headerTitle: "Games",
     title: "Main Games",
