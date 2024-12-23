@@ -45,7 +45,7 @@ const TeamMets = () => {
     <div className="card">
       <div className="card-body">
         <h3 className="card-title-text text-center fw-bold">
-          Khatri Games Team Members
+          Rich143 Games Team Members
         </h3>
         {data &&
           data?.map((row) => (

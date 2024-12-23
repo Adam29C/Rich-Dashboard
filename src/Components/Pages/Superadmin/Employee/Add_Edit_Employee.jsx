@@ -5,6 +5,8 @@ import PagesIndex from "../../../Pages/PagesIndex";
 import { Get_permissions } from "../../../Redux/slice/CommonSlice";
 
 function AddEmployee() {
+  
+
 //get token in localstorage
 const token = localStorage.getItem("token");
 //get userid in localstorage
@@ -175,6 +177,8 @@ const token = localStorage.getItem("token");
 
   //handlecomplete for complete the add and update form 
   const handleComplete = async () => {
+
+    
     const PermissionKeys = Object.keys(formik1.values).filter(
       (key) => formik1.values[key]
     );
@@ -248,7 +252,7 @@ const token = localStorage.getItem("token");
     >
       <FormWizardComponent
         shape="circle"
-        color="linear-gradient(97.51deg, #1C3E35 -39.91%, #4AA48C 117.67%);"
+        color="rgb(50 111 95)"
         stepSize="sm"
         onComplete={handleComplete}
         tabs={tabs}

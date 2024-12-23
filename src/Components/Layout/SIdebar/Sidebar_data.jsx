@@ -17,31 +17,14 @@ export const admin_Sidebar = [
     Icon: "fa fa-users",
     NestedElement: [],
   },
-  // {
-  //   id: 2,
-  //   route: "system",
-  //   headerTitle: "Penal Info",
-  // permission: "000",
 
-  //   title: "Penal Info",
-  //   Icon: "icon-globe-alt",
-  //   NestedElement: [
-  //     {
-  //       id: 1,
-  //       title: "Systems",
-  // permission: "000",
-
-  //       route: "system",
-  //     },
-  //   ],
-  // },
 
   {
     id: 3,
-    route: "games",
+    route: "",
     permission: "games",
     headerTitle: "Games",
-    title: "Available Games",
+    title: "Main Games",
     Icon: "fa-solid fa-gamepad",
     NestedElement: [
       {
@@ -85,7 +68,7 @@ export const admin_Sidebar = [
   },
   {
     id: 4,
-    route: "games/starlineProvider",
+    route: "",
     title: "Starline",
     permission: "starline",
     Icon: "fa-regular fa-star",
@@ -136,7 +119,7 @@ export const admin_Sidebar = [
   },
   {
     id: 5,
-    route: "games/jackpotProvider",
+    route: "",
     title: "Jackpot",
     permission: "ab",
     Icon: "fa-regular fa-heart",
@@ -199,7 +182,7 @@ export const admin_Sidebar = [
 
   {
     id: 7,
-    route: "OCGroup",
+    route: "",
     headerTitle: "Bookie Corner",
     permission: "bookie",
     title: "Bookie Corner",
@@ -221,7 +204,7 @@ export const admin_Sidebar = [
   },
   {
     id: 8,
-    route: "wallet/manualrequest",
+    route: "",
     headerTitle: "Wallet",
     permission: "wallet",
     title: "Wallet",
@@ -292,7 +275,7 @@ export const admin_Sidebar = [
     id: 10,
     headerTitle: "Approved Requests",
     title: "Approved Debit Requests",
-    route: "approvedReports/bank",
+    route: "",
     permission: "appDebit",
     Icon: "fa-solid fa-check",
     NestedElement: [
@@ -312,7 +295,7 @@ export const admin_Sidebar = [
   },
   {
     id: 11,
-    route: "fundRequest/pendingBank",
+    route: "",
     headerTitle: "Pending Requests",
     title: "Pending Debit Requests",
     permission: "fundRequest",
@@ -346,7 +329,7 @@ export const admin_Sidebar = [
   {
     id: 13,
     headerTitle: "Reports",
-    route: "report/salesreport",
+    route: "",
     title: "Reports",
     permission: "reports",
     Icon: "ti-agenda",
@@ -494,7 +477,7 @@ export const admin_Sidebar = [
 
   {
     id: 18,
-    route: "appSettings/howToPlay",
+    route: "",
     headerTitle: "App Settings",
     title: "App Settings",
     permission: "app_settings",
@@ -543,7 +526,7 @@ export const admin_Sidebar = [
   },
   {
     id: 19,
-    route: "masters/UPI",
+    route: "",
     headerTitle: "Masters",
     permission: "masters",
     title: "Masters",

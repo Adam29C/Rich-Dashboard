@@ -285,7 +285,7 @@ input:checked + .slider:before {
 }
 
 #company-logo {
-  content: url("../Images/Khatri_Main_logo_white.svg");
+  content: url("../Images/rich143-logo.svg");
 }
 
 #favicon {
@@ -293,7 +293,7 @@ input:checked + .slider:before {
 }
 
 #sidebar-logo {
-  content: url("../Images/Khatri_Main_logo_white.svg");
+  content: url("../Images/123.svg");
 }
 /* #sidebar-logo-short {
   content: url("../Images/favicon.png");
@@ -459,3 +459,27 @@ input:checked + .slider:before {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+/* step form css start */
+
+.react-form-wizard .wizard-progress-bar {
+  background: linear-gradient(97.51deg, #1c3e35 -39.91%, #4aa48c 117.67%) !important;
+}
+
+.react-form-wizard .active .wizard-icon-container {
+  background: linear-gradient(97.51deg, #1c3e35 -39.91%, #4aa48c 117.67%) !important;
+  color:#ffff 
+  
+}
+
+
+.react-form-wizard .stepTitle {
+  color:#1C3E35 !important; /* Ensures contrast on gradient background */
+}
+
+.react-form-wizard .wizard-btn{
+  background: linear-gradient(97.51deg, #1c3e35 -39.91%, #4aa48c 117.67%) !important;
+  border-color: #1C3E35;
+}
+
+/* step form css end */
