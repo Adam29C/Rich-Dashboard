@@ -538,12 +538,12 @@ export const admin_Sidebar = [
         route: "masters/UPI",
         permission: "upiId",
       },
-      {
-        id: 2,
-        title: "Add Fund Mode",
-        permission: "addFoundMode",
-        route: "masters/fundMode",
-      },
+      // {
+      //   id: 2,
+      //   title: "Add Fund Mode",
+      //   permission: "addFoundMode",
+      //   route: "masters/fundMode",
+      // },
       {
         id: 3,
         title: "Manage Employee",
