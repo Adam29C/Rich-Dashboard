@@ -191,7 +191,7 @@ const CustomTable = ({
       ) : ( */}
       <table
         id="myTable"
-        className={`table table-striped table-bordered  ${
+        className={`table table-striped table-bordered custom-table-container ${
           isResponsive ? "table-responsive" : ""
         }`}
       >
