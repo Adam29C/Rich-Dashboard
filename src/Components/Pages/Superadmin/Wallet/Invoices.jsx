@@ -43,9 +43,9 @@ const Invoices = () => {
       // name: "Profile",
       name: "View Chnage History",
       isButton: true,
-      className : 'color-primary' ,
+      // className : 'color-primary' ,
       value: (row) => "View Chnage History",
-      // buttonColor: "success",
+      buttonColor: "primary",
       Conditions: (row) => {
         handleViewHistory(row);
       },
