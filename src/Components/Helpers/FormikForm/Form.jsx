@@ -26,7 +26,7 @@ const ReusableForm = ({
   show_submit,
   label_size,
   show_preview,
-  after_submit_button1
+  after_submit_button1,
 }) => {
   const location = useLocation();
 
@@ -118,20 +118,23 @@ const ReusableForm = ({
                   </>
                 ) : field.type === "checkbox" ? (
                   <>
+                    {console.log("field.options.Nasted.length", fieldtype)}
                     {field.options &&
                       field.options.map((option) => (
                         <div
                           className={`mb-3 col-lg-${field.col_size}`}
                           key={option.id}
                         >
-                          <label
-                            className={`custom-label col-lg-12`}
-                            htmlFor={option.labelName}
-                          >
-                            {/* {field.label} */}
-                            {option.labelName}
-                            <span className="text-danger">*</span>
-                          </label>
+                          {option.labelName && (
+                            <label
+                              className={`custom-label col-lg-12`}
+                              htmlFor={option.labelName}
+                            >
+                              {/* {field.label} */}
+                              {option.labelName}
+                              <span className="text-danger">*</span>
+                            </label>
+                          )}
                           <div className="form-check custom-checkbox mb-2 ">
                             <input
                               type={field.type}
@@ -149,6 +152,7 @@ const ReusableForm = ({
                             </label>
                           </div>
                           {/* Nested checkboxes */}
+
                           {option.Nasted &&
                             option.Nasted.map((subOption) => (
                               <div className="row d-flex" key={subOption.id}>

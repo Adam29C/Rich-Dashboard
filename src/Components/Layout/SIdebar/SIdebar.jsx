@@ -33,6 +33,10 @@ const SIdebar = () => {
     getPermissions
   );
 
+
+
+  console.log("filteredSidebar", filteredSidebar);
+  
   return (
     <div className="nk-sidebar">
       <div

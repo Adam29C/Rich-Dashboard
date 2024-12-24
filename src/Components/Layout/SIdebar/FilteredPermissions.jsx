@@ -1,4 +1,8 @@
 export const filterSidebarItems = (admin_Sidebar, role, permissions) => {
+  // console.log("admin_Sidebar", admin_Sidebar);
+  // // console.log("role", role);
+  // console.log("permissions", permissions);
+
   let allPermissions = (permissions && permissions?.col_view_permission) || [];
   return admin_Sidebar.filter((item) => {
     const hasPermission =
