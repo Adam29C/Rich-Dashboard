@@ -192,7 +192,7 @@ const DownloadDebitReport = () => {
               />
             }
           />
-          <h3 className="ml-3 mb-3 fw-bold">Total Amount {totalAmount}/-</h3>
+          <h3 className="ml-3 mb-3 fw-bold responsive-total-amount">Total Amount {totalAmount}/-</h3>
         </div>
       ),
     },

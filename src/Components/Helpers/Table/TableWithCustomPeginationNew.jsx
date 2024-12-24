@@ -219,7 +219,7 @@ const CustomTable = ({
             filteredData.map((row, index) => (
               <tr key={index}>
                 {showIndex && <td>{(page - 1) * rowsPerPage + index + 1}</td>}
-                {columns.map((field) => (
+                {columns?.map((field) => (
                   <td
                     className={` ${field.className}`}
                     key={field.value}
@@ -243,7 +243,7 @@ const CustomTable = ({
             ))}
           {!show_additional && (
             <tr>
-              <td colSpan={columns.length + 1}>{additional}</td>
+              <td colSpan={columns?.length + 1}>{additional}</td>
             </tr>
           )}
         </tbody>

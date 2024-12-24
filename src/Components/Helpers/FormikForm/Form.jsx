@@ -122,7 +122,7 @@ const ReusableForm = ({
                     {field.options &&
                       field.options.map((option) => (
                         <div
-                          className={`mb-3 col-lg-${field.col_size}`}
+                          className={`mb-3 col-md-4 col-sm-6 col-6 col-lg-${field.col_size}`}
                           key={option.id}
                         >
                           {/* {option.labelName && (

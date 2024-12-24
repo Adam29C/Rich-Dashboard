@@ -483,6 +483,17 @@ input:checked + .slider:before {
   border-color: #1C3E35;
 }
 
+
+.react-form-wizard .wizard-icon-circle .wizard-icon-container {
+  display: flex
+;
+  justify-content: center;
+  flex: 1;
+  border-radius: 50%;
+  margin: -3px;
+  background: #267157;
+  color: whitesmoke;
+}
 /* step form css end */
 
 
