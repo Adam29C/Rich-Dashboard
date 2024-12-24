@@ -33,10 +33,8 @@ const SIdebar = () => {
     getPermissions
   );
 
-
-
   console.log("filteredSidebar", filteredSidebar);
-  
+
   return (
     <div className="nk-sidebar">
       <div
@@ -54,14 +52,12 @@ const SIdebar = () => {
         >
           {/* <Logo/> */}
           <ul className="metismenu in" id="menu">
-           
             {filteredSidebar &&
               filteredSidebar.map((item, index) => {
                 const isActive = expandedItem === index;
                 const hasNested = item.NestedElement.length > 0;
-              
+
                 return (
-              
                   <div key={`${item.headerTitle}_${index}`}>
                     <li
                       className={`${isActive ? "active" : ""}`}
@@ -103,6 +99,29 @@ const SIdebar = () => {
                   </div>
                 );
               })}
+
+          
+            <li className="">
+              <a
+                className="has-arrow"
+                href="javascript:void()"
+                aria-expanded="false"
+              >
+                <i className="icon-screen-tablet menu-icon" />
+                <span className="nav-text">Apps</span>
+              </a>
+              <ul
+                aria-expanded="false"
+                className="collapse"
+              >
+                <li>
+                  <a href="./app-profile.html">Profile</a>
+                </li>
+                <li>
+                  <a href="./app-calender.html">Calender</a>
+                </li>
+              </ul>
+            </li>
           </ul>
         </div>
 

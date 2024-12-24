@@ -12,6 +12,8 @@ const Header = () => {
 
   const token = localStorage.getItem("token");
 
+  const [Toggle, setsetToggle] = PagesIndex.useState(false);
+
   //get userdetails in localstorage
   let userdetails = JSON.parse(localStorage.getItem("userdetails"));
 
@@ -52,17 +54,18 @@ const Header = () => {
             {/* <li className="icons dropdown">
               <ToggleDark />
             </li> */}
-            <li className="icons dropdown">
+            <li className={` icons dropdown ${Toggle ? "show" : ""}`}>
               <div
                 className="user-img c-pointer position-relative"
                 data-toggle="dropdown"
+                onClick={() => setsetToggle(!Toggle)}
               >
                 <img src={profileImage} alt="" />
                 <span className="pro-user-name ml-1">
                   {userdetails?.name} <i className="mdi mdi-chevron-down" />
                 </span>
               </div>
-              <div className="drop-down dropdown-profile animated fadeIn dropdown-menu">
+              <div className={`drop-down dropdown-profile animated fadeIn dropdown-menu ${Toggle ? "show" : ""}`}>
                 <div className="dropdown-content-body">
                   <ul>
                     <li>
