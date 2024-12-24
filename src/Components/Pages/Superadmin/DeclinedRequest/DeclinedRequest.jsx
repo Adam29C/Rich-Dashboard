@@ -47,7 +47,7 @@ const DeclinedRequest = () => {
         token
       );
 
-      const totalRows = response?.total || 5;
+      const totalRows = response?.total || res?.total || 5;
       let mainRes = Object.values(response.data);
       setTableData(mainRes);
 
