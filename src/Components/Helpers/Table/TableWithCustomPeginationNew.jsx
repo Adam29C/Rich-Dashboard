@@ -20,7 +20,7 @@ const CustomTable = ({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
-  const [isResponsive, setIsResponsive] = useState(window.innerWidth < 768);
+  const [isResponsive, setIsResponsive] = useState(window.innerWidth <= 768);
   const [Refresh1, setRefresh1] = useState(false);
 
   const fetchTableData = async () => {
@@ -136,7 +136,7 @@ const CustomTable = ({
   };
 
   const handleResize = () => {
-    setIsResponsive(window.innerWidth < 768);
+    setIsResponsive(window.innerWidth <= 768);
   };
 
 useEffect(() => {

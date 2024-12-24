@@ -20,8 +20,7 @@ function MainContent() {
   const handleResize = () => {
     setIsResponsive(window.innerWidth > 550);
 
-    $('#main-wrapper').addClass('show');
-    $('#main-wrapper').removeClass('menu-toggle');
+    // $('#main-wrapper').removeClass('menu-toggle');
   };
 
   useEffect(() => {
@@ -35,15 +34,14 @@ function MainContent() {
 
   return (
     <div
-      id={`main-wrapper `}
-      className={`show ${ SidebarToggle ? "menu-toggle" : ""}`}
+      id={`main-wrapper`}
+      className={`show ${SidebarToggle ? "menu-toggle" : ""}`}
     >
       <Logo />
       <Header />
       <SIdebar />
-      {/* <Dashboard /> */}
+
       <Outlet />
-      outlet
       <Footer />
     </div>
   );

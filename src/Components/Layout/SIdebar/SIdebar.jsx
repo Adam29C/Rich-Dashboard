@@ -5,9 +5,12 @@ import PagesIndex from "../../Pages/PagesIndex";
 import { Get_permissions } from "../../Redux/slice/CommonSlice";
 import { filterSidebarItems } from "./FilteredPermissions";
 import Logo from "../Logo/Logo_png";
+import { useMyContext } from "../../Hooks/Context/CreateSidebarContext";
 
 const SIdebar = () => {
   let { user_id, role } = JSON.parse(localStorage.getItem("userdetails"));
+
+  const { main_wrapper } = useMyContext();
 
   const { getPermissions } = PagesIndex.useSelector(
     (state) => state.CommonSlice
@@ -15,8 +18,6 @@ const SIdebar = () => {
   const dispatch = PagesIndex.useDispatch();
 
   const [expandedItem, setExpandedItem] = useState(null);
-
-  console.log("expandedItem", expandedItem);
 
   const getPermissionApi = () => {
     dispatch(Get_permissions(user_id));
@@ -26,10 +27,8 @@ const SIdebar = () => {
     getPermissionApi();
   }, []);
 
-  const handleToggle = (index) => {
+  const handleToggle = (index, isActive) => {
     setExpandedItem(expandedItem === index ? null : index);
-
-    $("#main-wrapper").addClass("menu-toggle");
   };
   const filteredSidebar = filterSidebarItems(
     admin_Sidebar,
@@ -72,7 +71,7 @@ const SIdebar = () => {
                             item.NestedElement.length > 0 ? "has-arrow" : ""
                           }
                           aria-expanded={isActive}
-                          onClick={() => handleToggle(index)}
+                          onClick={() => handleToggle(index, isActive)}
                         >
                           <i className={`${item.Icon} menu-icon me-2`} />
                           <span className="nav-text">{item.title}</span>
@@ -91,6 +90,7 @@ const SIdebar = () => {
                             <Link
                               to={nested.route}
                               className={isActive ? "active" : ""}
+                              onClick={() => main_wrapper()}
                             >
                               {nested.title}
                             </Link>
