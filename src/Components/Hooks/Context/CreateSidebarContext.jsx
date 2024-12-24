@@ -13,11 +13,11 @@ export const SidebarProvider = ({ children }) => {
   // toggleSidebar
   const toggleSidebar = () => {
     setSidebarToggle(!SidebarToggle);
-    $("#main-wrapper").toggleClass("menu-toggle");
+    // $("#main-wrapper").toggleClass("menu-toggle");
   };
 
   const main_wrapper = () => {
-    $("#main-wrapper").toggleClass("menu-toggle");
+    // $("#main-wrapper").toggleClass("menu-toggle");
   };
 
   const handleResize = () => {
