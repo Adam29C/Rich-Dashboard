@@ -18,6 +18,7 @@ const Header = () => {
   //get userdetails in localstorage
   let userdetails = JSON.parse(localStorage.getItem("userdetails"));
 
+  
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userdetails");
@@ -71,7 +72,8 @@ const Header = () => {
                   <ul>
                     <li>
                       <h6 className="text-overflow m-0">
-                        <marquee> Welcome ! {userdetails?.name} </marquee>
+                        {" "}
+                        <marquee> Welcome ! {userdetails?.name} </marquee>{" "}
                       </h6>
                     </li>
                     <li>

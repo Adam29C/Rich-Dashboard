@@ -137,12 +137,12 @@
 }
 
 .unblock-btn {
-  background-color: var(--khatri-color);
+  background: linear-gradient(97.51deg, #1c3e35 -39.91%, #4aa48c 117.67%);
   color: var(--light);
 }
 .unblock-btn:hover {
   color: var(--light);
-  background-color: var(--khatri-color);
+  background: linear-gradient(97.51deg, #1c3e35 -39.91%, #4aa48c 117.67%);
 }
 .btn-color {
   background-color: var(--main-bg-color);
@@ -22094,7 +22094,7 @@ a:hover {
   margin: 20px;
   text-decoration: none;
   text-align: center;
-  background-color: var(--khatri-color);
+  background: linear-gradient(97.51deg, #1c3e35 -39.91%, #4aa48c 117.67%);
   color: var(--white);
   min-width: 120px;
   border: 1px solid transparent;

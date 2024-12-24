@@ -75,7 +75,27 @@
   }
 }
 
-@media (min-width: 767px) {
-
+@media (max-width: 768px) {
+  .react-datepicker-wrapper {
+      width: 100%;
+  }
 }
+
+@media (max-width: 450px) {
+  .approve-btn {
+    font-weight: 500;
+    display: inline-block;
+    margin: 5px;}
+
+    .profile-note-title {
+      font-size: 1rem;}
+      .react-form-wizard .wizard-card-footer {
+        padding: 0 0px !important;
+    }
+
+    .responsive-total-amount{
+      font-size: 1rem;
+    }
+}
+
 
