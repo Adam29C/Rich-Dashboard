@@ -15,10 +15,13 @@ import { Outlet } from "react-router-dom";
 function MainContent() {
   const { SidebarToggle } = useMyContext();
 
-  const [isResponsive, setIsResponsive] = useState(window.innerWidth > 768);
+  const [isResponsive, setIsResponsive] = useState(window.innerWidth > 550);
 
   const handleResize = () => {
-    setIsResponsive(window.innerWidth > 768);
+    setIsResponsive(window.innerWidth > 550);
+
+    $('#main-wrapper').addClass('show');
+    $('#main-wrapper').removeClass('menu-toggle');
   };
 
   useEffect(() => {

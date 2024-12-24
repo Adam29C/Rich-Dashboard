@@ -16,6 +16,8 @@ const SIdebar = () => {
 
   const [expandedItem, setExpandedItem] = useState(null);
 
+  console.log("expandedItem", expandedItem);
+
   const getPermissionApi = () => {
     dispatch(Get_permissions(user_id));
   };
@@ -26,14 +28,14 @@ const SIdebar = () => {
 
   const handleToggle = (index) => {
     setExpandedItem(expandedItem === index ? null : index);
+
+    $("#main-wrapper").addClass("menu-toggle");
   };
   const filteredSidebar = filterSidebarItems(
     admin_Sidebar,
     role,
     getPermissions
   );
-
-  console.log("filteredSidebar", filteredSidebar);
 
   return (
     <div className="nk-sidebar">
