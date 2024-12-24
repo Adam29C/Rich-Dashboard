@@ -13,7 +13,7 @@ const PaginatedTable = ({
   const [filteredData, setFilteredData] = useState(data || []);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
-  const [isResponsive, setIsResponsive] = useState(window.innerWidth < 425);
+  const [isResponsive, setIsResponsive] = useState(window.innerWidth < 768);
 
   const maxPagesToShow = 10;
 
@@ -95,7 +95,7 @@ const PaginatedTable = ({
   };
 
   const handleResize = () => {
-    setIsResponsive(window.innerWidth < 425);
+    setIsResponsive(window.innerWidth < 768);
   };
 
   useEffect(() => {

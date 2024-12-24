@@ -20,10 +20,12 @@ const CustomTable = ({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
-  const [isResponsive, setIsResponsive] = useState(window.innerWidth < 425);
+  const [isResponsive, setIsResponsive] = useState(window.innerWidth < 768);
   const [Refresh1, setRefresh1] = useState(false);
 
-  // console.log("setUserPagenateData", setUserPagenateData);
+
+  console.log("isResponsive", isResponsive);
+  console.log("window.innerWidth", window.innerWidth);
 
   const fetchTableData = async () => {
     setLoading(true);
@@ -138,7 +140,7 @@ const CustomTable = ({
   };
 
   const handleResize = () => {
-    setIsResponsive(window.innerWidth < 425);
+    setIsResponsive(window.innerWidth < 768);
   };
 
   useEffect(() => {
@@ -148,7 +150,7 @@ const CustomTable = ({
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [window.innerWidth]);
 
   return (
     <div className="container">

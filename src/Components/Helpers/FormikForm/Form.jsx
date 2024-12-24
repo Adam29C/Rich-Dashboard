@@ -125,16 +125,16 @@ const ReusableForm = ({
                           className={`mb-3 col-lg-${field.col_size}`}
                           key={option.id}
                         >
-                          {option.labelName && (
+                          {/* {option.labelName && (
                             <label
                               className={`custom-label col-lg-12`}
                               htmlFor={option.labelName}
-                            >
+                            > */}
                               {/* {field.label} */}
-                              {option.labelName}
+                              {/* {option.labelName}
                               <span className="text-danger">*</span>
                             </label>
-                          )}
+                          )} */}
                           <div className="form-check custom-checkbox mb-2 ">
                             <input
                               type={field.type}
