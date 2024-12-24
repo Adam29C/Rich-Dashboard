@@ -11,6 +11,9 @@ const CreditDeclinedRequest = ({
   subtitle,
   Refresh,
   fetchData,
+  setUserPagenateData,
+  UserPagenateData,
+  TotalPages,
 }) => {
   const totalAmount = useMemo(
     () => tableData.reduce((acc, item) => acc + (item?.reqAmount || 0), 0),
@@ -42,11 +45,17 @@ const CreditDeclinedRequest = ({
           </div>
 
           <PagesIndex.TableWithCustomPeginationNew
-            fetchData={fetchData}
+            tableData={tableData && tableData}
+            TotalPagesCount={(TotalPages && TotalPages) || []}
             columns={visibleFields}
-            // UserFullButtonList={UserFullButtonList}
             showIndex={true}
             Refresh={Refresh}
+            setUserPagenateData={setUserPagenateData}
+            UserPagenateData={UserPagenateData}
+            // fetchData={fetchData}
+            // columns={visibleFields}
+            // UserFullButtonList={UserFullButtonList}
+            // showIndex={true}
           />
           {/* <PagesIndex.TableWitCustomPegination
             data={tableData}
@@ -63,7 +72,9 @@ const CreditDeclinedRequest = ({
               />
             }
           /> */}
-          <h3 className="ml-3 mb-3 fw-bold responsive-total-amount">Total Amount {totalAmount}/-</h3>
+          <h3 className="ml-3 mb-3 fw-bold responsive-total-amount">
+            Total Amount {totalAmount}/-
+          </h3>
         </div>
       ),
     },

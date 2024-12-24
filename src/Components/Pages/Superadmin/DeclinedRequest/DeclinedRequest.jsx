@@ -14,16 +14,23 @@ const DeclinedRequest = () => {
   const [SearchInTable, setSearchInTable] = PagesIndex.useState("");
   const [tableData, setTableData] = PagesIndex.useState([]);
 
-  const title = "Declined Report"
-  const subtitle = "Declined Debit Requests"
+  const [UserPagenateData, setUserPagenateData] = PagesIndex.useState({
+    pageno: 1,
+    limit: 10,
+  });
 
-  // get api decline request 
+  const [TotalPages, setTotalPages] = PagesIndex.useState(1);
+
+  const title = "Declined Report";
+  const subtitle = "Declined Debit Requests";
+
+  // get api decline request
 
   const getDeclinedRequest = async (date = actual_date_formet) => {
     const payload = {
       date_cust: date,
-      page: 1,
-      limit: 10,
+      page: UserPagenateData.pageno,
+      limit: UserPagenateData.limit,
       search: SearchInTable,
     };
     const res = await PagesIndex.admin_services.GET_DECLINED_REQUEST_API(
@@ -31,8 +38,11 @@ const DeclinedRequest = () => {
       token
     );
 
+    console.log("res", res);
+
     if (res?.status) {
       setTableData(res?.data);
+      setTotalPages(res.total || res.pagination.totalItems);
     }
   };
 
@@ -47,11 +57,9 @@ const DeclinedRequest = () => {
     validate: (values) => {},
 
     onSubmit: async (values) => {
-        getDeclinedRequest(values.date);
+      getDeclinedRequest(values.date);
     },
   });
-
-  
 
   const fields = [
     {
@@ -63,21 +71,67 @@ const DeclinedRequest = () => {
     },
   ];
 
+  // const visibleFields = [
+  //   "id",
+  //   "username",
+  //   "fullname",
+  //   "mobile",
+  //   "reqDate",
+  //   "reqTime",
+  //   "withdrawalMode",
+  //   "reqAmount",
+  // ];
+
   const visibleFields = [
-    "id",
-    "username",
-    "fullname",
-    "mobile",
-    "reqDate",
-    "reqTime",
-    "withdrawalMode",
-    "reqAmount",
+    {
+      name: "Fullname",
+      value: "fullname",
+      sortable: false,
+    },
+    {
+      name: "User Name",
+      value: "username",
+      sortable: true,
+    },
+    {
+      name: "Request Date",
+      value: "reqDate",
+      sortable: false,
+    },
+    {
+      name: "Request Time",
+      value: "reqTime",
+      sortable: true,
+    },
+    {
+      name: "withdrawal Mode",
+      value: "withdrawalMode",
+      sortable: false,
+    },
+    {
+      name: "Request Amount",
+      value: "reqAmount",
+      sortable: true,
+    },
   ];
 
+  console.log("tableData", tableData);
 
   return (
     <>
-      <CreditDeclinedRequest fields={fields} formik={formik} tableData={tableData} SearchInTable={SearchInTable} setSearchInTable={setSearchInTable} visibleFields={visibleFields} title={title} subtitle={subtitle}/>
+      <CreditDeclinedRequest
+        fields={fields}
+        formik={formik}
+        tableData={tableData && tableData}
+        SearchInTable={SearchInTable}
+        setSearchInTable={setSearchInTable}
+        visibleFields={visibleFields}
+        title={title}
+        subtitle={subtitle}
+        setUserPagenateData={setUserPagenateData}
+        UserPagenateData={UserPagenateData}
+        TotalPages={TotalPages}
+      />
     </>
   );
 };
