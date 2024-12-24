@@ -17,7 +17,9 @@ export const SidebarProvider = ({ children }) => {
   };
 
   const main_wrapper = () => {
-    // $("#main-wrapper").toggleClass("menu-toggle");
+    if (window.innerWidth <= 768) {
+      $("#main-wrapper").toggleClass("menu-toggle");
+    }
   };
 
   const handleResize = () => {
