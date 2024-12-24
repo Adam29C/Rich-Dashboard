@@ -23,16 +23,12 @@ const CustomTable = ({
   const [isResponsive, setIsResponsive] = useState(window.innerWidth < 768);
   const [Refresh1, setRefresh1] = useState(false);
 
-
-  console.log("isResponsive", isResponsive);
-  console.log("window.innerWidth", window.innerWidth);
-
   const fetchTableData = async () => {
     setLoading(true);
     setError(null);
 
     try {
-      const result = await fetchData(page, rowsPerPage);
+      const result = await fetchData(page, rowsPerPage, searchQuery);
       setRefresh1(!Refresh1);
       setData(result.mainRes || []);
       setFilteredData(result.mainRes || []);
@@ -46,7 +42,7 @@ const CustomTable = ({
 
   useEffect(() => {
     fetchTableData();
-  }, [Refresh, page, rowsPerPage]);
+  }, [Refresh, page, rowsPerPage, searchQuery]);
 
   let abc = () => {
     if (tableData && tableData != undefined) {
@@ -66,7 +62,7 @@ const CustomTable = ({
 
   useEffect(() => {
     abc();
-  }, [tableData, page, rowsPerPage]);
+  }, [tableData, page, rowsPerPage, searchQuery]);
 
   // const handleFetchData = () => {};
 
@@ -143,7 +139,7 @@ const CustomTable = ({
     setIsResponsive(window.innerWidth < 768);
   };
 
-  useEffect(() => {
+useEffect(() => {
     handleResize();
 
     window.addEventListener("resize", handleResize);

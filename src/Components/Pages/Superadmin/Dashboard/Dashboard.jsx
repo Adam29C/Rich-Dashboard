@@ -48,7 +48,7 @@ const Dashboard_Component = () => {
       reqType: request,
       page: 1,
       limit: 10,
-      searchQuery: SearchInTable,
+      search: SearchInTable,
     };
 
     try {

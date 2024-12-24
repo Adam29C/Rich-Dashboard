@@ -56,13 +56,13 @@ const SplitForm = () => {
     },
     onSubmit: async (values) => {
       const payload = {
-        // gameDate: values.gameDate || today(new Date()),
-        // gameSession: values.gameSession,
-        // providerId: values.providerId,s
+        gameDate: values.gameDate || today(new Date()),
+        gameSession: values.gameSession,
+        providerId: values.providerId,
 
-        gameDate: "12/04/2024",
-        gameSession: "Jodi Digit",
-        providerId: "668d4228211a65d88600f6f0",
+        // gameDate: "12/04/2024",
+        // gameSession: "Jodi Digit",
+        // providerId: "668d4228211a65d88600f6f0",
       };
 
       if (values.gameSession === "Open" || values.gameSession === "Close") {

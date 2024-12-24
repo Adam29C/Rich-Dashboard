@@ -99,29 +99,6 @@ const SIdebar = () => {
                   </div>
                 );
               })}
-
-          
-            <li className="">
-              <a
-                className="has-arrow"
-                href="javascript:void()"
-                aria-expanded="false"
-              >
-                <i className="icon-screen-tablet menu-icon" />
-                <span className="nav-text">Apps</span>
-              </a>
-              <ul
-                aria-expanded="false"
-                className="collapse"
-              >
-                <li>
-                  <a href="./app-profile.html">Profile</a>
-                </li>
-                <li>
-                  <a href="./app-calender.html">Calender</a>
-                </li>
-              </ul>
-            </li>
           </ul>
         </div>
 

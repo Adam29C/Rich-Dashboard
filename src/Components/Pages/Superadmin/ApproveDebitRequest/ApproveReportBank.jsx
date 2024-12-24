@@ -22,14 +22,14 @@ const ApproveReportBank = () => {
   const fetchData = async (
     page,
     rowsPerPage,
-    searchQuery = "",
+    searchQuery,
     date = actual_date_formet
   ) => {
     const payload = {
       page: page,
       limit: rowsPerPage,
       date_cust: date,
-      searchQuery,
+      search :searchQuery ,
     };
 
     try {

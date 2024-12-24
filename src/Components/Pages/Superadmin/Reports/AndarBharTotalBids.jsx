@@ -79,7 +79,7 @@
 //   // const getDetailails = async (values) => {
 //   //   console.log("payloadpayload" );
 
-//   // var fetchData = async (page, rowsPerPage, searchQuery = "") => {
+//   // var fetchData = async (page, rowsPerPage, searchQuery ) => {
 //   //   const payload = {
 //   //     page: page,
 //   //     limit: rowsPerPage,
@@ -146,7 +146,7 @@
 //       //   PagesIndex.toast.error(errorMessage);
 //       // }
 
-//       fetchData = async (page, rowsPerPage, searchQuery = "") => {
+//       fetchData = async (page, rowsPerPage, searchQuery ) => {
 //         const payload = {
 //           page: page,
 //           limit: rowsPerPage,

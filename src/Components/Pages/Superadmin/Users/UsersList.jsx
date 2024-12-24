@@ -19,11 +19,13 @@ const App = () => {
   const [ManageModalStatus, setManageModalStatus] = PagesIndex.useState(false);
   const [GetUserProfile, seGetUserProfile] = PagesIndex.useState([]);
 
-  const fetchData = async (page, rowsPerPage, searchQuery = "") => {
+  const fetchData = async (page, rowsPerPage, searchQuery) => {
+    // console.log("searchQuerysearchQuerysearchQuery" ,searchQuery);
+
     const payload = {
       page: page,
       limit: rowsPerPage,
-      searchQuery,
+      search: searchQuery,
     };
 
     try {

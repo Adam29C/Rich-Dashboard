@@ -45,15 +45,6 @@ const ViewWallet = () => {
     { name: "Added by", value: "Added_by", sortable: true },
   ];
 
-  const visibleFields = [
-    "id",
-    "username",
-    "name",
-    "mobile",
-    "wallet_balance",
-    "wallet_bal_updated_at",
-  ];
-
   const getHistory = async (row, number) => {
     setRowStatus(number);
     setModalStateHistoryUserDetails(row);
@@ -115,7 +106,6 @@ const ViewWallet = () => {
   };
 
   var formik = useFormik({
-    
     initialValues: {
       amount: "",
       type: 1,
@@ -140,7 +130,7 @@ const ViewWallet = () => {
 
       return errors;
     },
-    
+
     onSubmit: async (values) => {
       const payload = {
         id: ModalStateHistoryUserDetails._id,
@@ -263,25 +253,71 @@ const ViewWallet = () => {
     },
   ];
 
-  const getList = async () => {
-    const payload = {
-      page: 1,
-      perPage: 10,
-      search: SearchInTable,
-    };
-
-    const res = await PagesIndex.admin_services.GET_WALLET_LIST(payload, token);
-
-    setTableData(res?.records);
-  };
-
-  PagesIndex.useEffect(() => {
-    getList();
-  }, []);
-
   const { userData1, userData2 } = UserDetails && UserDetails;
 
-  console.log("ModalStateHistoryUserDetails", ModalStateHistoryUserDetails);
+  const fetchData = async (page, rowsPerPage, searchQuery) => {
+
+
+    const payload = {
+      page: page,
+      limit: rowsPerPage || 25,
+      search :searchQuery,
+    };
+
+    try {
+      const response = await PagesIndex.admin_services.GET_WALLET_LIST(
+        payload,
+        token
+      );
+
+      const totalRows = response?.totalRecords ;
+      let mainRes = response.records;
+
+      console.log("mainResmainRes", mainRes);
+
+      return { mainRes, totalRows };
+    } catch {}
+  };
+  PagesIndex.useEffect(() => {
+    fetchData();
+  }, []);
+
+  // const visibleFields = [
+  //   "id",
+  //   "username",
+  //   "name",
+  //   "mobile",
+  //   "wallet_balance",
+  //   "wallet_bal_updated_at",
+  // ];
+
+  const visibleFields = [
+    {
+      name: "User Name",
+      value: "username",
+      sortable: true,
+    },
+    {
+      name: "Name",
+      value: "name",
+      sortable: false,
+    },
+    {
+      name: "mobile",
+      value: "mobile",
+      sortable: false,
+    },
+    {
+      name: "wallet balance",
+      value: "wallet_balance",
+      sortable: false,
+    },
+    {
+      name: "wallet Balence Updated At",
+      value: "wallet_bal_updated_at",
+      sortable: false,
+    },
+  ];
 
   return (
     <PagesIndex.Main_Containt
@@ -289,7 +325,11 @@ const ViewWallet = () => {
       // route="/admin/user/add"
       title="View Wallet"
     >
-      <PagesIndex.TableWitCustomPegination
+      <PagesIndex.TableWithCustomPeginationNew
+        fetchData={fetchData}
+        columns={visibleFields}
+        showIndex={true}
+        Refresh={Refresh}
         data={TableData}
         // columns={columns}
         initialRowsPerPage={5}

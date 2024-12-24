@@ -27,11 +27,11 @@ const PendingBankRequests = () => {
     return numberRegexp(value);
   };
 
-  const fetchData = async (page, rowsPerPage, searchQuery = "") => {
+  const fetchData = async (page, rowsPerPage, searchQuery ) => {
     const payload = {
       page: page,
       limit: rowsPerPage,
-      searchQuery,
+      search :searchQuery,
     };
 
     try {

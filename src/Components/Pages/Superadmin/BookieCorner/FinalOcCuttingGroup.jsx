@@ -149,14 +149,6 @@ const SplitForm = () => {
         if (response1.status == 1) {
           setGetTotal(response1.dataSum);
 
-          //   {
-          //     "_id": "17",
-          //     "sumdigit": 335,
-          //     "countBid": 25,
-          //     "date": "12/16/2024",
-          //     "gamePrice": 100
-          // }
-
           let total = 0;
 
           let aaa = 0;

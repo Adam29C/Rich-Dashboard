@@ -29,14 +29,14 @@ const WinnerList = () => {
     setGetStatus(state);
     setModalState(true);
   };
-  const fetchData = async (page, rowsPerPage, searchQuery = "") => {
+  const fetchData = async (page, rowsPerPage, searchQuery ) => {
     const apidata = {
       providerId: data.providerId,
       date: data.resultDate,
       session: data.session,
       page: page,
       limit: rowsPerPage,
-      searchQuery,
+      search :searchQuery,
     };
 
     try {
@@ -63,7 +63,7 @@ const WinnerList = () => {
     } catch {}
   };
 
-  const fetchData1 = async (page, rowsPerPage, searchQuery = "") => {
+  const fetchData1 = async (page, rowsPerPage, searchQuery ) => {
     const apidata1 = {
       digit: data.winningDigit,
       provider: data.providerId,

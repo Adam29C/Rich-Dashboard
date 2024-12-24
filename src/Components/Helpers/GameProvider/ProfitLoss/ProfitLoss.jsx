@@ -337,7 +337,9 @@ const SplitForm = ({
       sortable: true,
       transform: (item, row) => {
         return `${
-          parseInt(row.bidCount) > 0 ? `View Bids Info (${row.bidCount})` : "No Bids"
+          parseInt(row.bidCount) > 0
+            ? `View Bids Info (${row.bidCount})`
+            : "No Bids"
         }`;
       },
       onClick: (row) => {
@@ -458,8 +460,6 @@ const SplitForm = ({
   ];
 
   const showBidInfor = async (rowdata) => {
-
-
     setShowBidInfoModal(true);
     const payload = {
       date: formik.values.gameDate || today(new Date()),
@@ -469,6 +469,7 @@ const SplitForm = ({
       page: UserPagenateData.pageno,
       // limit: UserPagenateData.limit,
       limit: rowdata.bidCount,
+      search: SearchInTable,
     };
     const response1 = await PagesIndex.report_service.ALL_GAME_REPORT_API(
       getBidData,

@@ -49,7 +49,7 @@ const RevertPayment = ({ main_result, confirm_revert_payment, gameType }) => {
     const payload = {
       page: 1,
       limit: 10,
-      searchQuery: SearchInTable,
+      search: SearchInTable,
     };
 
     const res = await PagesIndex.game_service.ALL_GAME_REVERT_PAYMENT_API(

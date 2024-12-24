@@ -12,11 +12,11 @@ const EmployeeList = () => {
 
   const [Refresh, setRefresh] = PagesIndex.useState(false);
 
-  const fetchData = async (page, rowsPerPage, searchQuery = "") => {
+  const fetchData = async (page, rowsPerPage, searchQuery ) => {
     const payload = {
       page: page,
       limit: rowsPerPage,
-      searchQuery,
+      search :searchQuery,
     };
 
     try {

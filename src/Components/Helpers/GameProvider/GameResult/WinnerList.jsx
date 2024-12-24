@@ -314,7 +314,7 @@ const WinnerList = () => {
     setGetStatus(state);
     setModalState(true);
   };
-  const fetchData = async (page, rowsPerPage, searchQuery = "") => {
+  const fetchData = async (page, rowsPerPage, searchQuery) => {
     if (gameType != "StarLine" || gameType != "JackPot") {
       const apidata = {
         providerId: data.providerId,
@@ -322,7 +322,7 @@ const WinnerList = () => {
         session: data.session,
         page: page,
         limit: rowsPerPage,
-        searchQuery,
+        search :searchQuery
       };
       try {
         const res1 =
@@ -346,7 +346,7 @@ const WinnerList = () => {
     }
   };
 
-  const fetchData1 = async (page, rowsPerPage, searchQuery = "") => {
+  const fetchData1 = async (page, rowsPerPage, searchQuery) => {
     try {
       let res = "";
       if (gameType === "StarLine" || gameType === "JackPot") {
@@ -376,7 +376,7 @@ const WinnerList = () => {
           providerName: data.providerName,
           page: page,
           limit: rowsPerPage,
-          searchQuery,
+          search :searchQuery,
         };
 
         res = await PagesIndex.admin_services.GAME_MAIN_WINNER_LIST_API(
