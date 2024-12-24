@@ -45,15 +45,15 @@ const CreditDeclinedRequest = ({
           </div>
 
           <PagesIndex.TableWithCustomPeginationNew
-            tableData={tableData && tableData}
-            TotalPagesCount={(TotalPages && TotalPages) || []}
-            columns={visibleFields}
+            // tableData={tableData && tableData}
+            // TotalPagesCount={(TotalPages && TotalPages) || []}
+            // columns={visibleFields}
             showIndex={true}
             Refresh={Refresh}
-            setUserPagenateData={setUserPagenateData}
-            UserPagenateData={UserPagenateData}
-            // fetchData={fetchData}
-            // columns={visibleFields}
+            // setUserPagenateData={setUserPagenateData}
+            // UserPagenateData={UserPagenateData}
+            fetchData={fetchData}
+            columns={visibleFields}
             // UserFullButtonList={UserFullButtonList}
             // showIndex={true}
           />

@@ -14,6 +14,8 @@ const DeclinedRequest = () => {
   const [SearchInTable, setSearchInTable] = PagesIndex.useState("");
   const [tableData, setTableData] = PagesIndex.useState([]);
 
+  const [Refresh, setRefresh] = PagesIndex.useState(false);
+
   const [UserPagenateData, setUserPagenateData] = PagesIndex.useState({
     pageno: 1,
     limit: 10,
@@ -26,29 +28,56 @@ const DeclinedRequest = () => {
 
   // get api decline request
 
-  const getDeclinedRequest = async (date = actual_date_formet) => {
+  const fetchData = async (
+    page,
+    rowsPerPage,
+    searchQuery,
+    date = actual_date_formet
+  ) => {
     const payload = {
+      page: page,
+      limit: rowsPerPage,
       date_cust: date,
-      page: UserPagenateData.pageno,
-      limit: UserPagenateData.limit,
-      search: SearchInTable,
+      search: searchQuery,
     };
-    const res = await PagesIndex.admin_services.GET_DECLINED_REQUEST_API(
-      payload,
-      token
-    );
 
-    console.log("res", res);
+    try {
+      const response = await PagesIndex.admin_services.GET_DECLINED_REQUEST_API(
+        payload,
+        token
+      );
 
-    if (res?.status) {
-      setTableData(res?.data);
-      setTotalPages(res.total || res.pagination.totalItems);
-    }
+      const totalRows = response?.total || 5;
+      let mainRes = Object.values(response.data);
+      setTableData(mainRes);
+
+      return { mainRes, totalRows };
+    } catch {}
   };
 
-  PagesIndex.useEffect(() => {
-    getDeclinedRequest();
-  }, []);
+  // const getDeclinedRequest = async (date = actual_date_formet) => {
+  //   const payload = {
+  //     date_cust: date,
+  //     page: UserPagenateData.pageno,
+  //     limit: UserPagenateData.limit,
+  //     search: SearchInTable,
+  //   };
+  //   const res = await PagesIndex.admin_services.GET_DECLINED_REQUEST_API(
+  //     payload,
+  //     token
+  //   );
+
+  //   console.log("res", res);
+
+  //   if (res?.status) {
+  //     setTableData(res?.data);
+  //     setTotalPages(res.total || res.pagination.totalItems);
+  //   }
+  // };
+
+  // PagesIndex.useEffect(() => {
+  //   getDeclinedRequest();
+  // }, []);
 
   const formik = PagesIndex.useFormik({
     initialValues: {
@@ -115,22 +144,19 @@ const DeclinedRequest = () => {
     },
   ];
 
-  console.log("tableData", tableData);
-
   return (
     <>
       <CreditDeclinedRequest
         fields={fields}
         formik={formik}
-        tableData={tableData && tableData}
+        tableData={tableData}
         SearchInTable={SearchInTable}
         setSearchInTable={setSearchInTable}
         visibleFields={visibleFields}
         title={title}
         subtitle={subtitle}
-        setUserPagenateData={setUserPagenateData}
-        UserPagenateData={UserPagenateData}
-        TotalPages={TotalPages}
+        fetchData={fetchData}
+        Refresh={Refresh}
       />
     </>
   );
