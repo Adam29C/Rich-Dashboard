@@ -18,9 +18,11 @@ const ModalComponent = ({
 
   return (
     <section>
-      <Modal
+  <div className="custom-model">
+  <Modal
+  className="custom-model"
         visible={visible}
-        width="400"
+        width="350"
         effect="fadeInDown"
         onClickAway={closeModal}
       >
@@ -47,6 +49,7 @@ const ModalComponent = ({
           />
         </div>
       </Modal>
+  </div>
     </section>
   );
 };
