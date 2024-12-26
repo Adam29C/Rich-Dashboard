@@ -26,7 +26,6 @@ const ExportDebitReport = () => {
   const [Payload, setPayload] = PagesIndex.useState("");
 
   const handleBtnStatus = (status) => {
-    console.log("status", status);
 
     setBtnStatus(status);
     setModalState(true);
@@ -136,7 +135,6 @@ const ExportDebitReport = () => {
       data,
       token
     );
-    console.log(res);
     if (res?.status) {
       const { filename, writeString } = res;
       if (writeString) {

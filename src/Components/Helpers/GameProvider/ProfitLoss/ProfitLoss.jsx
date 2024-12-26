@@ -32,7 +32,6 @@ const SplitForm = ({
     limit: 10,
   });
 
-  console.log("TableTwoTableTwo", TableTwo);
 
   const [Refresh, setRefresh] = PagesIndex.useState(false);
   const [TotalPages, setTotalPages] = PagesIndex.useState(1);
@@ -105,7 +104,6 @@ const SplitForm = ({
           let profit = 0;
           let pl = e.sumdigit * gamePrice;
 
-          console.log("plplpl", pl);
 
           if (pl > sumdigit) {
             // loss
@@ -465,7 +463,7 @@ const SplitForm = ({
       date: formik.values.gameDate || today(new Date()),
       id: formik.values.providerId,
       bidDigit: rowdata.digit,
-      gameSession: rowdata.session,
+      gameSession: rowdata?.session,
       page: UserPagenateData.pageno,
       // limit: UserPagenateData.limit,
       limit: rowdata.bidCount,

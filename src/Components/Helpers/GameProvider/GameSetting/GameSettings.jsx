@@ -76,7 +76,6 @@ const GameProvider = ({ path, title, gameType, api_Route }) => {
 
   let amc  =  gameType === "StarLine" || gameType === "JackPot" ? GameSettingList : gameSettings
 
-  console.log("GameSettingListGameSettingListGameSettingList" ,GameSettingList);
 
 
   const columns = [

@@ -33,11 +33,9 @@ export const SidebarProvider = ({ children }) => {
 
   const handleClickOutside = (event) => {
     const mainWrapper = document.getElementById("main-wrapper");
-    console.log(mainWrapper,"chekc")
     if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
       //  // Close sidebar
       if (mainWrapper) {
-        console.log("gfdgdfgdf")
       }
     }
   };

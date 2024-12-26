@@ -83,7 +83,6 @@ const UpiIdList = () => {
           apidata,
           token
         );
-        console.log(res);
         if (res?.status) {
           PagesIndex.toast.success(res?.message);
           getList();
@@ -147,7 +146,6 @@ const UpiIdList = () => {
         apidata,
         token
       );
-      console.log(res);
       if (res.status) {
         getList();
         alert(res?.message);

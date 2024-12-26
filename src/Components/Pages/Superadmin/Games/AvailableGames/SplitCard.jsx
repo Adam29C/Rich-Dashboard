@@ -104,14 +104,12 @@ const ExamplePage = () => {
 
       try {
         const res = await PagesIndex.admin_services.ADD_GAME_RESULT(req, token);
-        console.log(res);
         if (res.status) {
           PagesIndex.toast.success(res?.data?.message || res?.message);
         } else {
           PagesIndex.toast.error(res.response.data.message);
         }
       } catch (error) {
-        console.log(error);
         const errorMessage =
           error.response?.data?.message ||
           "Something went wrong. Please try again.";
@@ -231,7 +229,6 @@ const ExamplePage = () => {
         token
       );
 
-      console.log("resresres", res);
       if (res.statusCode === 200) {
         alert(res?.message);
         getGameResultApi;
@@ -239,7 +236,6 @@ const ExamplePage = () => {
         PagesIndex.toast.error(res.response.data.message);
       }
     } catch (error) {
-      console.log(error);
     }
   };
 

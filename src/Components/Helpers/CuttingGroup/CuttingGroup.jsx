@@ -486,7 +486,7 @@ const SplitForm = () => {
       date: formik.values.gameDate || today(new Date()),
       id: formik.values.providerId,
       bidDigit: rowdata._id,
-      gameSession: rowdata.session,
+      gameSession: rowdata?.session,
       page: UserPagenateData.pageno,
       limit: UserPagenateData.limit,
     };

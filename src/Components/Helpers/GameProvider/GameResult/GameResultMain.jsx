@@ -28,7 +28,6 @@ const ExamplePage = ({
   //all state
   const [SearchInTable, setSearchInTable] = PagesIndex.useState("");
   const [tableData, setTableData] = useState([]);
-  console.log("tableDatatableData" ,tableData);
   
   const [GetProvider, setGetProvider] = useState([]);
 
@@ -41,7 +40,6 @@ const ExamplePage = ({
       token
     );
 
-    console.log("res?.data?.result" ,res);
     
     // if (res.status) {
       setTableData(res?.data?.result || res?.data?.results || res.result );
@@ -114,7 +112,6 @@ const ExamplePage = ({
           PagesIndex.toast.error(res.response.data.message);
         }
       } catch (error) {
-        console.log(error);
         const errorMessage =
           error.response?.data?.message ||
           "Something went wrong. Please try again.";
@@ -145,7 +142,6 @@ const ExamplePage = ({
       const apidata = values.date;
       try {
 
-        // console.log('past_resultpast_result' ,past_result);
         
         const res = await PagesIndex.game_service.ALL_GAME_PAST_RESULTS(
           past_result,
@@ -164,7 +160,7 @@ const ExamplePage = ({
       }
     },
   });
-
+// gameType === "StarLine"
   const fields = [
     {
       name: "providerId",
@@ -181,17 +177,32 @@ const ExamplePage = ({
       col_size: 3,
     },
 
-    {
-      name: "session",
-      label: "Session",
-      type: "select",
-      options: [
-        { label: "Open", values: 1 },
-        { label: "Close", values: 0 },
-      ],
-      label_size: 12,
-      col_size: 3,
-    },
+    // {
+    //   name: "session",
+    //   label: "Session",
+    //   type: "select",
+    //   options: [
+    //     { label: "Open", values: 1 },
+    //     // { label: "Close", values: 0 },
+    //   ],
+    //   label_size: 12,
+    //   col_size: 3,
+    // },
+    ...(gameType === "StarLine"
+      ? [
+          {
+            name: "session",
+            label: "Session",
+            type: "select",
+            options: [
+              { label: "Open", value: 1 },
+              // { label: "Close", value: 0 },
+            ],
+            label_size: 12,
+            col_size: 3,
+          },
+        ]
+      : ""),
     {
       name: "resultDate",
       label: "Result Date",
@@ -255,7 +266,6 @@ const ExamplePage = ({
         PagesIndex.toast.error(res.response.data.message);
       }
     } catch (error) {
-      console.log(error);
     }
   };
 
@@ -401,6 +411,7 @@ const ExamplePage = ({
             initialRowsPerPage={5}
             SearchInTable={SearchInTable}
             visibleFields={visibleFields}
+            showIndex={true}
             // UserFullButtonList={UserFullButtonList}
             // searchInput={
             //   <input

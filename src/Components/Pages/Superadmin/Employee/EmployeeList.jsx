@@ -110,7 +110,6 @@ const EmployeeList = () => {
 
   //handle block and unblock status function
   const handleStatusUpdate = async (row) => {
-    console.log(row);
     try {
       let apidata = {
         adminId: row._id,

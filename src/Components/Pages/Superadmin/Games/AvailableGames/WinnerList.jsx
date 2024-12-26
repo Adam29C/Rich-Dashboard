@@ -33,7 +33,7 @@ const WinnerList = () => {
     const apidata = {
       providerId: data.providerId,
       date: data.resultDate,
-      session: data.session,
+      session: data?.session,
       page: page,
       limit: rowsPerPage,
       search :searchQuery,
@@ -71,7 +71,7 @@ const WinnerList = () => {
       resultId: data._id,
       resultStatus: String(data.status),
       digitFamily: String(data.winningDigitFamily),
-      sessionType: data.session,
+      sessionType: data?.session,
       providerName: data.providerName,
       page: page,
       limit: rowsPerPage,
@@ -209,7 +209,7 @@ const WinnerList = () => {
         <div>
           <h4 className="winner-list-text-main">
             Game Winners Of Date : {data?.resultDate}, Provider :{" "}
-            {data?.providerName}, Session : {data.session}, Digit :{" "}
+            {data?.providerName}, Session : {data?.session}, Digit :{" "}
             {data?.winningDigit}-{data?.winningDigitFamily}
           </h4>
         </div>

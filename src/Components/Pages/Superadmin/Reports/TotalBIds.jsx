@@ -145,7 +145,6 @@ const AllReports = () => {
           // limit: 10,
         };
 
-        console.log("payload", payload);
 
         try {
           // Call your API for report 1

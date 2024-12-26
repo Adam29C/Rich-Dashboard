@@ -240,9 +240,9 @@ const GameRatesProvider = ({
         <PagesIndex.TableWithCustomPeginationNew123
           data={GAME_RATE_DATA}
           initialRowsPerPage={5}
-          showIndex={true}
           SearchInTable={SearchInTable}
           visibleFields={visibleFields}
+          showIndex={true}
           // UserFullButtonList={UserFullButtonList}
           searchInput={
             <input

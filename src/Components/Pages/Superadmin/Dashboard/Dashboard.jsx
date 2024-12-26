@@ -75,7 +75,6 @@ const Dashboard_Component = () => {
     let totalBalance = 0;
 
     if (Request === 1 && userFundArr) {
-      console.log("vvuserFundArr", Request);
       totalBalance = Object.values(userFundArr).reduce(
         (sum, item) => sum + item.wallet_balance,
         // (sum, value) => sum + (value || 0),
@@ -88,7 +87,6 @@ const Dashboard_Component = () => {
       });
     }
 
-    console.log("totalBalance", totalBalance);
 
     return totalBalance;
   };

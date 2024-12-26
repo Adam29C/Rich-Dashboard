@@ -54,11 +54,11 @@ const Api = {
   MAIN_GAME_CONFIRM_REVERT_PAYMENT_All: "mainGameResult/refundAll",
   // GAME PROVIDER
 
-  STARLINE_GAME_PROVIDERS_LIST: "starlineProvider/getStarlineProvider",
-  STARLINE_GAME_PROVIDER_ADD: "starlineProvider/insertStarLineProvider",
-  STARLINE_GAME_PROVIDER_UPDATE: "starlineProvider/updateStarLineProvider",
-  STARLINE_GAME_PROVIDERS_DELETE: "starlineProvider/deleteStarLineProvider",
-  STARLINE_GAME_PROVIDERS_GET_BY_ID: "starlineProvider/starLineProviderById",
+  STARLINE_GAME_PROVIDERS_LIST: "starGameProvider/getStarlineProvider",
+  STARLINE_GAME_PROVIDER_ADD: "starGameProvider/insertStarLineProvider",
+  STARLINE_GAME_PROVIDER_UPDATE: "starGameProvider/updateStarLineProvider",
+  STARLINE_GAME_PROVIDERS_DELETE: "starGameProvider/deleteStarLineProvider",
+  STARLINE_GAME_PROVIDERS_GET_BY_ID: "starGameProvider/starLineProviderById",
 
   // GAME RATE
 

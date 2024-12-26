@@ -52,7 +52,6 @@ const Users = () => {
 
         const res = await PagesIndex.LOGIN_API(req);
 
-        console.log("resres" ,res);
         
 
         if (res?.status) {

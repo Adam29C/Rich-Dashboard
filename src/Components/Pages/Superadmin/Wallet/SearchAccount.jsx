@@ -13,7 +13,6 @@ const SearchAccount = () => {
   const [SearchInTable, setSearchInTable] = PagesIndex.useState("");
 
   const [oldData, setOldData] = PagesIndex.useState([]);
-  console.log(oldData);
   //formik form
   const formik = PagesIndex.useFormik({
     initialValues: {
@@ -29,7 +28,6 @@ const SearchAccount = () => {
 
     onSubmit: async (values) => {
       try {
-        console.log(values);
         let apidata = {
           acc_num: values.acc_num,
         };

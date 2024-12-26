@@ -317,6 +317,44 @@ const ViewWallet = () => {
       value: "wallet_bal_updated_at",
       sortable: false,
     },
+    // {
+    //   // name: "Profile",
+    //   name: "View Chnage History",
+    //   isButton: true,
+    //   // className : 'color-primary' ,
+    //   value: (row) => "View Chnage History",
+    //   buttonColor: "primary",
+    //   Conditions: (row) => {
+    //     handleViewHistory(row);
+    //   },
+    // },
+
+    {
+   
+      name: "C/D Histoy",
+      isButton: true,
+      buttonColor: "dark",
+      value: (row) => "Histoy",
+      Conditions: (row) => {
+        //setGetBannedData(row.banned);
+        getHistory(row, 1);
+      },
+      // Visiblity: true,
+      // type: "button",
+    },
+    {
+     
+      name: "Edit",
+      isButton: true,
+      buttonColor: "info",
+      value: (row) => "Edit",
+      Conditions: (row) => {
+        // getProfile(row);
+        getHistory(row, 4);
+      },
+      // Visiblity: false,
+      // type: "button",
+    },
   ];
 
   return (
@@ -368,7 +406,6 @@ const ViewWallet = () => {
                 showIndex={true}
                 Refresh={Refresh}
                 setUserPagenateData={setUserPagenateData}
-
                 // data={ModalStateHistoryTable}
                 // // columns={columns}
                 // initialRowsPerPage={5}
@@ -448,7 +485,7 @@ const ViewWallet = () => {
                 <PagesIndex.Formikform
                   fieldtype={fields.filter((field) => !field.showWhen)}
                   formik={formik}
-                  btn_name={"Submitmm"}
+                  btn_name={"Submit"}
                   button_Size={"w-100"}
                   show_submit={true}
                 />
