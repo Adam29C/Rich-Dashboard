@@ -322,7 +322,6 @@ export const ALL_GAME_RESULTS_ADD_API = async (api_Route, data, token) => {
 };
 
 export const ALL_GAME_PAST_RESULTS = async (api_Route, data, token) => {
-  console.log("data", data);
 
   try {
     const res = await axios.get(`${BASE_URL}${api_Route}?date=${data}`, {

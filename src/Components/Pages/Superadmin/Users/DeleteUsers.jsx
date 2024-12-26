@@ -90,7 +90,6 @@ const DeleteUsers = () => {
 
   // Submit handler
   const handleSubmit = async () => {
-    console.log(updatedData)
     const timeList = timehistoryData.map((item) => ({
       _id: item._id,
       deleteTime: updatedData[item._id]?.deleteTime || item.deleteTime,

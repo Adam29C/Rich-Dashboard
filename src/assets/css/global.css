@@ -529,3 +529,7 @@ input:checked + .slider:before {
   overflow:hidden;
   text-overflow: ellipsis; 
 }
+
+.custom-model{
+ /* width: 400px; */
+}

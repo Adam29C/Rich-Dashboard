@@ -242,6 +242,7 @@ const GameRatesProvider = ({
           initialRowsPerPage={5}
           SearchInTable={SearchInTable}
           visibleFields={visibleFields}
+          showIndex={true}
           // UserFullButtonList={UserFullButtonList}
           searchInput={
             <input

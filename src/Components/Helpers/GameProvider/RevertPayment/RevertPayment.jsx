@@ -22,6 +22,11 @@ const RevertPayment = ({ main_result, confirm_revert_payment, gameType }) => {
       sortable: true,
     },
     {
+      name: "Session",
+      value: "session",
+      sortable: true,
+    },
+    {
       name: "result Date",
       value: "resultDate",
       sortable: false,
@@ -58,7 +63,6 @@ const RevertPayment = ({ main_result, confirm_revert_payment, gameType }) => {
       token
     );
 
-    console.log("resresres", res);
 
     setTableData(res?.data || res?.result);
   };
@@ -116,7 +120,6 @@ const RevertPayment = ({ main_result, confirm_revert_payment, gameType }) => {
         PagesIndex.toast.error(res.response.data.message);
       }
     } catch (error) {
-      console.log(error);
     }
   };
   return (

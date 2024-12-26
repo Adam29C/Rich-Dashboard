@@ -306,7 +306,6 @@ const WinnerList = () => {
   const [GetResultStatus, setGetResultStatus] = PagesIndex.useState([]);
   const [JackportData, setJackportData] = PagesIndex.useState("");
 
-  console.log("JackportData", JackportData);
 
   const [BtnVisiably, setBtnVisiably] = PagesIndex.useState(false);
 
@@ -317,9 +316,9 @@ const WinnerList = () => {
   const fetchData = async (page, rowsPerPage, searchQuery) => {
     if (gameType != "StarLine" || gameType != "JackPot") {
       const apidata = {
-        providerId: data.providerId,
-        date: data.resultDate,
-        session: data.session,
+        providerId: data?.providerId,
+        date: data?.resultDate,
+        session: data?.session,
         page: page,
         limit: rowsPerPage,
         search :searchQuery
@@ -351,12 +350,12 @@ const WinnerList = () => {
       let res = "";
       if (gameType === "StarLine" || gameType === "JackPot") {
         const payload = {
-          digit: data.winningDigit,
-          provider: data.providerId,
-          date: data.resultDate,
-          resultId: data._id,
-          resultStatus: String(data.status),
-          digitFamily: String(data.winningDigitFamily),
+          digit: data?.winningDigit,
+          provider: data?.providerId,
+          date: data?.resultDate,
+          resultId: data?._id,
+          resultStatus: String(data?.status),
+          digitFamily: String(data?.winningDigitFamily),
         };
 
         res = await PagesIndex.game_service.ALL_GAME_WINNER_LIST_API(
@@ -366,14 +365,14 @@ const WinnerList = () => {
         );
       } else {
         const apidata1 = {
-          digit: data.winningDigit,
-          provider: data.providerId,
-          gamedate: data.resultDate,
-          resultId: data._id,
-          resultStatus: String(data.status),
-          digitFamily: String(data.winningDigitFamily),
-          sessionType: data.session,
-          providerName: data.providerName,
+          digit: data?.winningDigit,
+          provider: data?.providerId,
+          gamedate: data?.resultDate,
+          resultId: data?._id,
+          resultStatus: String(data?.status),
+          digitFamily: String(data?.winningDigitFamily),
+          sessionType: data?.session,
+          providerName: data?.providerName,
           page: page,
           limit: rowsPerPage,
           search :searchQuery,
@@ -414,7 +413,6 @@ const WinnerList = () => {
             ? res.resultData
             : nonEmptyCategories;
 
-        console.log("mainRes", mainRes);
 
         return { mainRes, totalRows };
       }
@@ -474,16 +472,16 @@ const WinnerList = () => {
     setBtnVisiably(false);
 
     const payload = {
-      providerId: GetResultStatus.provider,
-      windigit: GetResultStatus.winDigit,
+      providerId: GetResultStatus?.provider,
+      windigit: GetResultStatus?.winDigit,
       gameDate: GetResultStatus.gameDate,
-      digitFamily: String(GetResultStatus.digitFamily),
-      session: GetResultStatus.session,
-      jodiDigit: GetResultStatus.jodiDigit,
-      halfSangam1: GetResultStatus.halfSangam2,
-      halfSangam2: GetResultStatus.halfSangam1,
-      fullSangam: GetResultStatus.fullSangam,
-      resultId: GetResultStatus.resultId,
+      digitFamily: String(GetResultStatus?.digitFamily),
+      session: GetResultStatus?.session,
+      jodiDigit: GetResultStatus?.jodiDigit,
+      halfSangam1: GetResultStatus?.halfSangam2,
+      halfSangam2: GetResultStatus?.halfSangam1,
+      fullSangam: GetResultStatus?.fullSangam,
+      resultId: GetResultStatus?.resultId,
       adminId: user_id,
       page: 1,
       limit: 10,
@@ -496,19 +494,19 @@ const WinnerList = () => {
         let payload;
         if (gameType === "StarLine") {
           payload = {
-            providerId: GetResultStatus.provider,
-            windigit: GetResultStatus.winDigit,
-            gameDate: GetResultStatus.gameDate,
-            digitFamily: String(GetResultStatus.digitFamily),
-            resultId: GetResultStatus.resultId,
+            providerId: GetResultStatus?.provider,
+            windigit: GetResultStatus?.winDigit,
+            gameDate: GetResultStatus?.gameDate,
+            digitFamily: String(GetResultStatus?.digitFamily),
+            resultId: GetResultStatus?.resultId,
           };
         } else if (gameType === "JackPot") {
           payload = {
-            providerId: GetResultStatus.dispData._id,
-            windigit: GetResultStatus.dispData.providerResult,
-            gameDate: GetResultStatus.dispData.modifiedAt,
-            gamePrice: GetResultStatus.gametype[0].gamePrice,
-            resultId: GetResultStatus.gametype[0]._id,
+            providerId: GetResultStatus?.dispData?._id,
+            windigit: GetResultStatus?.dispData?.providerResult,
+            gameDate: GetResultStatus?.dispData?.modifiedAt,
+            gamePrice: GetResultStatus?.gametype?.[0]?.gamePrice,
+            resultId: GetResultStatus?.gametype?.[0]?._id,
           };
         }
 
@@ -557,7 +555,7 @@ const WinnerList = () => {
         <div>
           <h4 className="winner-list-text-main">
             Game Winners Of Date : {data?.resultDate}, Provider :{" "}
-            {data?.providerName}, Session : {data.session}, Digit :{" "}
+            {data?.providerName}, Session : {data?.session}, Digit :{" "}
             {data?.winningDigit}-{data?.winningDigitFamily}
           </h4>
         </div>

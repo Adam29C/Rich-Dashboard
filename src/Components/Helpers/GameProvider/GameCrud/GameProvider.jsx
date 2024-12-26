@@ -345,6 +345,7 @@ const GameProvider = ({
           <PagesIndex.TableWithCustomPeginationNew123
             data={(PROVIDERDATA && PROVIDERDATA) || []}
             initialRowsPerPage={25}
+            showIndex={true}
             // SearchInTable={SearchInTable}
             visibleFields={visibleFields1}
             UserFullButtonList={UserFullButtonList}

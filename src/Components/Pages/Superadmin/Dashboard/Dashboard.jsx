@@ -75,7 +75,6 @@ const Dashboard_Component = () => {
     let totalBalance = 0;
 
     if (Request === 1 && userFundArr) {
-      console.log("vvuserFundArr", Request);
       totalBalance = Object.values(userFundArr).reduce(
         (sum, item) => sum + item.wallet_balance,
         // (sum, value) => sum + (value || 0),
@@ -88,12 +87,11 @@ const Dashboard_Component = () => {
       });
     }
 
-    console.log("totalBalance", totalBalance);
 
     return totalBalance;
   };
 
-  const visibleFields = ["Id", "name", "mobile", "wallet_balance"];
+  const visibleFields = ["Sr.", "name", "mobile", "wallet_balance"];
 
   return (
     <div>
@@ -319,12 +317,13 @@ const Dashboard_Component = () => {
             </div>
 
             <ReusableModal
-              ModalTitle={"title"}
+              ModalTitle={"User Registered Today"}
               ModalBody={
                 <div>
                   <TableWitCustomPegination
                     data={TableData}
                     // columns={columns}
+                    showIndex={true}
                     initialRowsPerPage={5}
                     SearchInTable={SearchInTable}
                     visibleFields={visibleFields}

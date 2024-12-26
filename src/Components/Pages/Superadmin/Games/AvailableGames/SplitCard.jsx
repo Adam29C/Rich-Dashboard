@@ -57,12 +57,16 @@ const ExamplePage = () => {
     formik.setFieldValue("providerName", selectedProviderName);
   };
 
+
+
+
+
   //formik form
   const formik = PagesIndex.useFormik({
     initialValues: {
       winningDigit: "",
       resultDate: actual_date_formet || null,
-      session: "",
+      session: 1,
       providerId: "",
       providerName: "",
     },
@@ -70,9 +74,9 @@ const ExamplePage = () => {
     validate: (values) => {
       const errors = {};
 
-      if (!values.providerId) {
-        errors.providerId = PagesIndex.valid_err.GAME_PROVIDER_ERROR;
-      }
+      // if (!values.providerId) {
+      //   errors.providerId = PagesIndex.valid_err.GAME_PROVIDER_ERROR;
+      // }
 
       if (!values.session) {
         errors.session = PagesIndex.valid_err.GAME_SESSION_ERROR;
@@ -100,14 +104,12 @@ const ExamplePage = () => {
 
       try {
         const res = await PagesIndex.admin_services.ADD_GAME_RESULT(req, token);
-        console.log(res);
         if (res.status) {
           PagesIndex.toast.success(res?.data?.message || res?.message);
         } else {
           PagesIndex.toast.error(res.response.data.message);
         }
       } catch (error) {
-        console.log(error);
         const errorMessage =
           error.response?.data?.message ||
           "Something went wrong. Please try again.";
@@ -115,6 +117,13 @@ const ExamplePage = () => {
       }
     },
   });
+
+  useEffect(() => {
+    if (data?.length > 0) {
+      formik.setFieldValue('providerId', data[0]._id); 
+      formik.setFieldValue('providerName', data[0].providerName); 
+    }
+  }, [data]);
 
   //formik form for only result date
   const formik1 = PagesIndex.useFormik({
@@ -220,7 +229,6 @@ const ExamplePage = () => {
         token
       );
 
-      console.log("resresres", res);
       if (res.statusCode === 200) {
         alert(res?.message);
         getGameResultApi;
@@ -228,7 +236,6 @@ const ExamplePage = () => {
         PagesIndex.toast.error(res.response.data.message);
       }
     } catch (error) {
-      console.log(error);
     }
   };
 

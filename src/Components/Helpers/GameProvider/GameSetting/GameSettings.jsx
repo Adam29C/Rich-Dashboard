@@ -76,7 +76,6 @@ const GameProvider = ({ path, title, gameType, api_Route }) => {
 
   let amc  =  gameType === "StarLine" || gameType === "JackPot" ? GameSettingList : gameSettings
 
-  console.log("GameSettingListGameSettingListGameSettingList" ,GameSettingList);
 
 
   const columns = [
@@ -86,8 +85,8 @@ const GameProvider = ({ path, title, gameType, api_Route }) => {
         const rowData = row.gameDetails && row.gameDetails[0];
 
         return (
-          <div className="">
-            <div className="break-text mb-2">{row.providerName}</div>
+          <div className="p-1">
+            <div className="break-text mb-2 ">{row.providerName}</div>
             <PagesIndex.Link
               to={`${path}/edit`}
               state={{ row: row, rowData: rowData, edit: "multiple" }}

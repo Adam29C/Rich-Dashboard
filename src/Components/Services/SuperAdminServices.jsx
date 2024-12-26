@@ -195,8 +195,6 @@ export const GAME_PROVIDER_DELETE_API = async (id, token) => {
 };
 
 export const GAME_PROVIDER_UPDATE_API = async (data, token) => {
-  console.log(data);
-  console.log(token);
   try {
     const res = await axios.patch(`${BASE_URL}${Api.MAIN_GAME}`, data, {
       headers: header(token),
@@ -297,8 +295,6 @@ export const ADD_GAME_RESULT = async (data, token) => {
 };
 
 export const GAME_RESULT_DELETE = async (data, token) => {
-  console.log(token, "check game result");
-  console.log(data);
   try {
     const res = await axios.delete(
       `${BASE_URL}${Api.ADMIN_GAME_RESULT_DELETE}`,
@@ -367,7 +363,6 @@ export const GAME_MAIN_WINNER_LIST_API = async (data, token) => {
 
 //HTP LIST START
 export const GET_HTP_LIST_API = async (token) => {
-  console.log(token);
   try {
     const res = await axios.get(`${BASE_URL}${Api.HOW_TO_PLAY_GET_LIST}`, {
       headers: header(token),
@@ -1059,7 +1054,6 @@ export const EXPORT_DEBIT_APPROVE_ALL_REQUEST_API = async (data, token) => {
 };
 
 export const EXPORT_DEBIT_GET_REPORT_API = async (data, token, endpoint) => {
-  console.log(data);
   try {
     const res = await axios.post(
       `${BASE_URL}${Api.GET_EXPORT_DEBIT_REPORT}/${endpoint}`,
@@ -1075,7 +1069,6 @@ export const EXPORT_DEBIT_GET_REPORT_API = async (data, token, endpoint) => {
 };
 
 export const EXPORT_MKXLS_FILE_API = async (data, token) => {
-  console.log(data);
   try {
     const res = await axios.post(
       `${BASE_URL}${Api.GET_EXPORT_DEBIT_REPORT}/mkxls`,
