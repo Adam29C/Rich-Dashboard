@@ -64,16 +64,16 @@ const ExamplePage = ({
     initialValues: {
       winningDigit: "",
       resultDate: actual_date_formet || null,
-      session: "",
+      session:1,
       providerId: "",
       providerName: "",
     },
 
     validate: (values) => {
       const errors = {};
-      if (!values.providerId) {
-        errors.providerId = PagesIndex.valid_err.GAME_PROVIDER_ERROR;
-      }
+      // if (!values.providerId) {
+      //   errors.providerId = PagesIndex.valid_err.GAME_PROVIDER_ERROR;
+      // }
       if (!values.session) {
         errors.session = PagesIndex.valid_err.GAME_SESSION_ERROR;
       }
@@ -122,6 +122,14 @@ const ExamplePage = ({
       }
     },
   });
+
+
+    useEffect(() => {
+      if (GetProvider?.length > 0) {
+        formik.setFieldValue('providerId', GetProvider?.[0]._id); 
+        formik.setFieldValue('providerName', GetProvider?.[0].providerName); 
+      }
+    }, [GetProvider]);
 
   //formik form for only result date
   const formik1 = PagesIndex.useFormik({

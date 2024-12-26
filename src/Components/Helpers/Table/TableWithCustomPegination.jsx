@@ -202,7 +202,7 @@ const PaginatedTable = ({
         <thead className="text-center table-header-backeground">
           {data && data?.length > 0 && (
             <tr>
-              {showIndex && <th>ID</th>}
+              {showIndex && <th>Sr.No.</th>}
               {columns.map(
                 (column, id) =>
                   column.visible && (

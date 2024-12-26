@@ -76,12 +76,21 @@
 }
 
 @media (max-width: 768px) {
+
   .react-datepicker-wrapper {
       width: 100%;
+  }
+  .hamburger{
+    display: block;
+   
   }
 }
 
 @media (max-width: 450px) {
+  .hamburger{
+
+    transition: all 0s ease-in-out 0s !important;
+  }
   .approve-btn {
     font-weight: 500;
     display: inline-block;
@@ -96,6 +105,35 @@
     .responsive-total-amount{
       font-size: 1rem;
     }
+
+    [data-sidebar-style="full"][data-layout="vertical"] .menu-toggle .nav-header {
+      width: 0rem !important;
+  }
+  [data-sidebar-style="full"][data-layout="vertical"] .menu-toggle .nav-header .brand-logo a {
+    padding: 0rem !important;
+    /* text-align: center; */
+}
+
+[data-sidebar-style="full"][data-layout="vertical"] .menu-toggle .header {
+  margin-left: 0rem !important;
+  width: calc(100% - 0rem) !important;
+}
+
+[data-sidebar-style="full"][data-layout="vertical"] .menu-toggle .nk-sidebar {
+  display: none;
+ 
+}
+
+[data-sidebar-style="full"][data-layout="vertical"] .menu-toggle .content-body {
+  margin-left: 0rem;
+}
+
 }
 
 
+@media (min-width:769px){
+
+  .hamburger{
+    display: none;
+  }
+}

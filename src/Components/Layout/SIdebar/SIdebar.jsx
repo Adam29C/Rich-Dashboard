@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { admin_Sidebar } from "./Sidebar_data";
 import { Link } from "react-router-dom";
 import PagesIndex from "../../Pages/PagesIndex";
@@ -9,7 +9,6 @@ import { useMyContext } from "../../Hooks/Context/CreateSidebarContext";
 
 const SIdebar = () => {
   let { user_id, role } = JSON.parse(localStorage.getItem("userdetails"));
-
   const { main_wrapper } = useMyContext();
 
   const { getPermissions } = PagesIndex.useSelector(
@@ -27,8 +26,15 @@ const SIdebar = () => {
     getPermissionApi();
   }, []);
 
-  const handleToggle = (index, isActive) => {
-    setExpandedItem(expandedItem === index ? null : index);
+  const handleToggle = (index, hasNested,isActive) => {
+    // setExpandedItem(expandedItem === index ? null : index);
+    if (hasNested) {
+      // Toggle expand/collapse for parent menu
+      setExpandedItem(expandedItem === index ? null : index);
+    } else {
+      // Trigger `main_wrapper()` directly if no nested elements
+      main_wrapper();
+    }
   };
   const filteredSidebar = filterSidebarItems(
     admin_Sidebar,
@@ -74,7 +80,7 @@ const SIdebar = () => {
                             item.NestedElement.length > 0 ? "has-arrow" : ""
                           }
                           aria-expanded={isActive}
-                          onClick={() => handleToggle(index, isActive)}
+                          onClick={() => handleToggle(index,hasNested, isActive)}
                         >
                           <i className={`${item.Icon} menu-icon me-2`} />
                           <span className="nav-text">{item.title}</span>

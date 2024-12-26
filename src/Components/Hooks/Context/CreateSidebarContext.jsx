@@ -1,5 +1,5 @@
 // CreateSidebarContext.js
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect, useRef } from "react";
 
 const Sidebar_Context = createContext();
 
@@ -8,8 +8,9 @@ export const useMyContext = () => {
 };
 
 export const SidebarProvider = ({ children }) => {
+  
   const [SidebarToggle, setSidebarToggle] = useState(false);
-
+  const sidebarRef = useRef(null);
   // toggleSidebar
   const toggleSidebar = () => {
     setSidebarToggle(!SidebarToggle);
@@ -30,17 +31,33 @@ export const SidebarProvider = ({ children }) => {
     }
   };
 
+  const handleClickOutside = (event) => {
+    const mainWrapper = document.getElementById("main-wrapper");
+    console.log(mainWrapper,"chekc")
+    if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
+      //  // Close sidebar
+      if (mainWrapper) {
+        console.log("gfdgdfgdf")
+      }
+    }
+  };
+
+
   useEffect(() => {
     handleResize();
     window.addEventListener("resize", handleResize);
+    document.addEventListener("mousedown", handleClickOutside);
+
     return () => {
       window.removeEventListener("resize", handleResize);
+      document.removeEventListener("mousedown", handleClickOutside);
+
     };
   }, []);
 
   return (
     <Sidebar_Context.Provider
-      value={{ main_wrapper, toggleSidebar, SidebarToggle }}
+      value={{ main_wrapper, toggleSidebar, SidebarToggle,sidebarRef  }}
     >
       {children}
     </Sidebar_Context.Provider>

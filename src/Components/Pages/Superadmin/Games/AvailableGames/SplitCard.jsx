@@ -57,12 +57,16 @@ const ExamplePage = () => {
     formik.setFieldValue("providerName", selectedProviderName);
   };
 
+
+
+
+
   //formik form
   const formik = PagesIndex.useFormik({
     initialValues: {
       winningDigit: "",
       resultDate: actual_date_formet || null,
-      session: "",
+      session: 1,
       providerId: "",
       providerName: "",
     },
@@ -70,9 +74,9 @@ const ExamplePage = () => {
     validate: (values) => {
       const errors = {};
 
-      if (!values.providerId) {
-        errors.providerId = PagesIndex.valid_err.GAME_PROVIDER_ERROR;
-      }
+      // if (!values.providerId) {
+      //   errors.providerId = PagesIndex.valid_err.GAME_PROVIDER_ERROR;
+      // }
 
       if (!values.session) {
         errors.session = PagesIndex.valid_err.GAME_SESSION_ERROR;
@@ -115,6 +119,13 @@ const ExamplePage = () => {
       }
     },
   });
+
+  useEffect(() => {
+    if (data?.length > 0) {
+      formik.setFieldValue('providerId', data[0]._id); 
+      formik.setFieldValue('providerName', data[0].providerName); 
+    }
+  }, [data]);
 
   //formik form for only result date
   const formik1 = PagesIndex.useFormik({

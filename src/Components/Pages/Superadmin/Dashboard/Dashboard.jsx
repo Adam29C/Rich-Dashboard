@@ -93,7 +93,7 @@ const Dashboard_Component = () => {
     return totalBalance;
   };
 
-  const visibleFields = ["Id", "name", "mobile", "wallet_balance"];
+  const visibleFields = ["Sr.", "name", "mobile", "wallet_balance"];
 
   return (
     <div>
@@ -319,12 +319,13 @@ const Dashboard_Component = () => {
             </div>
 
             <ReusableModal
-              ModalTitle={"title"}
+              ModalTitle={"User Registered Today"}
               ModalBody={
                 <div>
                   <TableWitCustomPegination
                     data={TableData}
                     // columns={columns}
+                    showIndex={true}
                     initialRowsPerPage={5}
                     SearchInTable={SearchInTable}
                     visibleFields={visibleFields}

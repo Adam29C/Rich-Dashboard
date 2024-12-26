@@ -10316,7 +10316,7 @@ background:  var(--primary-color) !important;
 }
 
 .hamburger {
-  display: inline-block;
+  /* display: inline-block; */
   right: 0;
   position: relative;
   top: 0.3125rem;
@@ -10397,12 +10397,12 @@ background:  var(--primary-color) !important;
 }
 
 @media (max-width: 767px) {
-  .nav-header {
+  /* .nav-header {
     width: 3.75rem;
-  }
-  .nav-header .brand-title {
+  } */
+  /* .nav-header .brand-title {
     display: none;
-  }
+  } */
   .header-left {
     margin-left: 1.875rem;
   }
@@ -11101,12 +11101,12 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 }
 
 @media (max-width: 767px) {
-  .nav-header {
+  /* .nav-header {
     width: 3.75rem;
-  }
-  .nav-header .brand-title {
+  } */
+  /* .nav-header .brand-title {
     display: none;
-  }
+  } */
   .header-left {
     margin-left: 1.875rem;
   }

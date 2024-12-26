@@ -195,7 +195,7 @@ useEffect(() => {
       >
         <thead className="primary-color text-center table-header-backeground">
           <tr>
-            {showIndex && <th>#</th>}
+            {showIndex && <th>Sr.</th>}
             {columns?.map((col) => (
               <th
                 key={col.key}

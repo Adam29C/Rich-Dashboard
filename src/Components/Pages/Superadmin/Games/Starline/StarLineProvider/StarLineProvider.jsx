@@ -7,7 +7,7 @@ const StarLineProvider = () => {
   return (
     <div>
       <GameProvider
-        path="/admin/games/starlineProvider"
+        path="/starGameProvider/getStarlineProvider"
         title="StarLine Provider"
         gametype="StarLine"
         provider_list={Api.STARLINE_GAME_PROVIDERS_LIST}

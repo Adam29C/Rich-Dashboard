@@ -147,7 +147,7 @@ const PaginatedTable = ({
       >
         <thead className="primary-color text-center">
           <tr>
-            {showIndex && <th>#</th>}
+            {showIndex && <th>Sr.</th>}
             {visibleFields.map((field) => (
               <th
                 key={field.value}

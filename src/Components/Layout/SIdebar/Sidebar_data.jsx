@@ -23,7 +23,7 @@ export const admin_Sidebar = [
     id: 3,
     permission: "games",
     headerTitle: "Games",
-    title: "Main Games",
+    title: "Games",
     Icon: "fa-solid fa-gamepad",
     NestedElement: [
       {
