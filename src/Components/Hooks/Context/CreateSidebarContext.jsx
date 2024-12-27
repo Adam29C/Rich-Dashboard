@@ -31,12 +31,31 @@ export const SidebarProvider = ({ children }) => {
     }
   };
 
+  // const handleClickOutside = (event) => {
+  //   const mainWrapper = document.getElementById("main-wrapper");
+  //   if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
+  //     //  // Close sidebar
+  //     if (mainWrapper) {
+  //     }
+  //   }
+  // };
+
   const handleClickOutside = (event) => {
     const mainWrapper = document.getElementById("main-wrapper");
-    if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
-      //  // Close sidebar
-      if (mainWrapper) {
-      }
+    const sidebar = document.getElementById("menu"); // Assuming sidebar has an id "sidebar"
+
+    // Check if the clicked element is part of the sidebar (e.g., a page link inside sidebar)
+    if (sidebar && sidebar.contains(event.target)) {
+        return; // Allow the click if inside the sidebar (links inside sidebar)
+    }
+
+    // If sidebar is open, and the click is outside sidebar
+    if (sidebar && sidebar.classList.contains('menu-toggle')) {
+        // Sidebar is open, close it by removing the 'menu-toggle' class
+        $('#sidebar').removeClass('menu-toggle');
+    } else {
+        // Sidebar is closed, prevent click inside the main-wrapper
+        $('#main-wrapper').addClass('menu-toggle');
     }
   };
 
