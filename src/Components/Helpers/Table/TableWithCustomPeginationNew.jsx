@@ -150,7 +150,7 @@ useEffect(() => {
 
   return (
     <div className="container">
-      <div className="row d-flex">
+      {/* <div className="row d-flex">
         <div className=" align-items-center col-md-4">
           <label htmlFor="rowsPerPage" className="form-label me-2">
             Show:
@@ -180,6 +180,41 @@ useEffect(() => {
             onChange={(e) => setSearchQuery(e.target.value)}
             style={{ marginBottom: "10px" }}
           />
+        </div>
+      </div> */}
+         <div className="main-table-fields">
+        <div className="select-search-main">
+          <label htmlFor="rowsPerPage" className="form-label me-2">
+            Show:
+          </label>
+    
+          <select
+            id="rowsPerPage"
+            className="form-select w-auto custom-select"
+            value={rowsPerPage}
+            onChange={(e) => setRowsPerPage(Number(e.target.value))}
+          >
+            {[5, 10, 25, 50].map((value) => (
+              <option key={value} value={value}>
+                {value}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+        <div className="search-main-table">
+          <label htmlFor="rowsPerPage" className="form-label mr-2">
+            Search
+          </label>
+          <input
+            type="text"
+            className="form-control custom-search"
+            placeholder="Search..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            style={{ marginBottom: "10px" }}
+          />
+        </div>
         </div>
       </div>
       {/* {loading ? (

@@ -55,29 +55,29 @@ const DeclinedRequest = () => {
     } catch {}
   };
 
-  // const getDeclinedRequest = async (date = actual_date_formet) => {
-  //   const payload = {
-  //     date_cust: date,
-  //     page: UserPagenateData.pageno,
-  //     limit: UserPagenateData.limit,
-  //     search: SearchInTable,
-  //   };
-  //   const res = await PagesIndex.admin_services.GET_DECLINED_REQUEST_API(
-  //     payload,
-  //     token
-  //   );
+  const getDeclinedRequest = async (date = actual_date_formet) => {
+    const payload = {
+      date_cust: date,
+      page: UserPagenateData.pageno,
+      limit: UserPagenateData.limit,
+      search: SearchInTable,
+    };
+    const res = await PagesIndex.admin_services.GET_DECLINED_REQUEST_API(
+      payload,
+      token
+    );
 
-  //   console.log("res", res);
+    console.log("res", res);
 
-  //   if (res?.status) {
-  //     setTableData(res?.data);
-  //     setTotalPages(res.total || res.pagination.totalItems);
-  //   }
-  // };
+    if (res?.status) {
+      setTableData(res?.data);
+      setTotalPages(res.total || res.pagination.totalItems);
+    }
+  };
 
-  // PagesIndex.useEffect(() => {
-  //   getDeclinedRequest();
-  // }, []);
+  PagesIndex.useEffect(() => {
+    getDeclinedRequest();
+  }, []);
 
   const formik = PagesIndex.useFormik({
     initialValues: {

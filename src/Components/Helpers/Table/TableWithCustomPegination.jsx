@@ -169,14 +169,14 @@ const PaginatedTable = ({
   }, [window]);
   return (
     <div className="container">
-      <div className="d-flex justify-content-between align-items-center mb-3">
-        <div className="d-flex align-items-center">
+      <div className="main-table-fields">
+        <div className="select-search-main">
           <label htmlFor="rowsPerPage" className="form-label me-2">
             Show:
           </label>
           <select
             id="rowsPerPage"
-            className="form-select w-auto"
+            className="form-select w-auto custom-select"
             value={rowsPerPage}
             onChange={handleRowsPerPageChange}
           >
@@ -189,7 +189,7 @@ const PaginatedTable = ({
         <div>
           <input
             type="text"
-            className="form-control"
+            className="form-control custom-search"
             placeholder="Search..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}

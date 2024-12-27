@@ -533,3 +533,24 @@ input:checked + .slider:before {
 .custom-model{
  /* width: 400px; */
 }
+
+
+/* d-flex align-items-center */
+.select-search-main{
+  display: flex;
+  align-items: center;
+}
+
+/* d-flex justify-content-between align-items-center mb-3 */
+.main-table-fields{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.search-main-table{
+  /* d-flex align-items-center */
+  display: flex;
+  align-items: center;
+}

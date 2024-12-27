@@ -128,6 +128,31 @@
   margin-left: 0rem;
 }
 
+.react-responsive-modal-modal {
+  max-width: 800px;
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+  background: #ffffff;
+  box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.25);
+  margin: 1rem;
+  padding: 0.5rem;
+  position: relative;
+  overflow-y: auto;
+  width: 90%;
+}
+
+.main-table-fields {
+  justify-content: space-around;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.custom-search{
+  margin-top: 0.8rem;
+}
+
 }
 
 

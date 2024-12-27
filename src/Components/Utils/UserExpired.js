@@ -6,7 +6,8 @@ export const GetExpired = (tokenExpiry, navigate) => {
   // console.log("navigate", navigate);
 
   if (decoded.exp < parseInt(Date.now() / 1000)) {
-    navigate("/tokenexpiry", { replace: true });
+    // navigate("/tokenexpiry", { replace: true });
+    navigate("/", { replace: true });
     localStorage.removeItem("token");
     localStorage.removeItem("userdetails");
     // setTimeout(() => {
