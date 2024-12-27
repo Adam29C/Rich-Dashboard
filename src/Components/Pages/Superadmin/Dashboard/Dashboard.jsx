@@ -5,6 +5,8 @@ import ReusableModal from "../../../Helpers/Modal/ReusableModal";
 import TableWitCustomPegination from "../../../Helpers/Table/TableWithCustomPegination";
 
 const Dashboard_Component = () => {
+
+  console.log(typeof jQuery);
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
   const [DashboardData, setDashboardData] = PagesIndex.useState([]);
