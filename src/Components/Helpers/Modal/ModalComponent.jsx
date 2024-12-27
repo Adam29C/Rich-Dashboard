@@ -17,7 +17,7 @@ const ModalComponent = ({
   };
 
   return (
-    <section>
+  <section>
   <div className="custom-model">
   <Modal
   className="custom-model"
