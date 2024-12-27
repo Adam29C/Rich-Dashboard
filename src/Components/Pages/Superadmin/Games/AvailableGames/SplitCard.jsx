@@ -66,7 +66,7 @@ const ExamplePage = () => {
     initialValues: {
       winningDigit: "",
       resultDate: actual_date_formet || null,
-      session: 1,
+      session: "Open",
       providerId: "",
       providerName: "",
     },
@@ -175,8 +175,8 @@ const ExamplePage = () => {
       label: "Session",
       type: "select",
       options: [
-        { label: "Open", values: 1 },
-        { label: "Close", values: 0 },
+        { label: "Open", values: "Open" },
+        { label: "Close", values: "Close" },
       ],
       label_size: 12,
       col_size: 3,
