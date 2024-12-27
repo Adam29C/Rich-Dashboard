@@ -104,10 +104,11 @@ const ExamplePage = () => {
 
       try {
         const res = await PagesIndex.admin_services.ADD_GAME_RESULT(req, token);
+        console.log(res)
         if (res.status) {
           PagesIndex.toast.success(res?.data?.message || res?.message);
         } else {
-          PagesIndex.toast.error(res.response.data.message);
+          PagesIndex.toast.error(res?.message);
         }
       } catch (error) {
         const errorMessage =
