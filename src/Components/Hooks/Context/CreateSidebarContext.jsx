@@ -41,6 +41,11 @@ export const SidebarProvider = ({ children }) => {
   // };
 
   const handleClickOutside = (event) => {
+
+    // Check if the viewport width is for mobile (e.g., 768px or smaller)
+    if (window.innerWidth > 768) {
+      return; // Exit if not mobile
+    }
     const mainWrapper = document.getElementById("main-wrapper");
     const sidebar = document.getElementById("menu"); // Assuming sidebar has an id "sidebar"
 

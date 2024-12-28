@@ -67,7 +67,6 @@ const PagesIndex = {
   Main_Containt,
   Formikform,
   Toast,
-
   useEffect,
   Link,
   valid_err,

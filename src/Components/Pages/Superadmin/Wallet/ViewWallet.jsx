@@ -144,9 +144,12 @@ const ViewWallet = () => {
         payload,
         token
       );
-
       if (res.status) {
-        toast.success("update sucessfully");
+     
+        if(res?.status){
+          toast.success("update sucessfully");
+          
+        }
         setModalStateHistory(false);
       }
     },
@@ -256,12 +259,10 @@ const ViewWallet = () => {
   const { userData1, userData2 } = UserDetails && UserDetails;
 
   const fetchData = async (page, rowsPerPage, searchQuery) => {
-
-
     const payload = {
       page: page,
       limit: rowsPerPage || 25,
-      search :searchQuery,
+      search: searchQuery,
     };
 
     try {
@@ -270,7 +271,7 @@ const ViewWallet = () => {
         token
       );
 
-      const totalRows = response?.totalRecords ;
+      const totalRows = response?.totalRecords;
       let mainRes = response.records;
 
       console.log("mainResmainRes", mainRes);
@@ -330,7 +331,6 @@ const ViewWallet = () => {
     // },
 
     {
-   
       name: "C/D Histoy",
       isButton: true,
       buttonColor: "dark",
@@ -343,11 +343,10 @@ const ViewWallet = () => {
       // type: "button",
     },
     {
-     
-      name: "Edit",
+      name: "Add",
       isButton: true,
-      buttonColor: "info",
-      value: (row) => "Edit",
+      buttonColor: "secondary",
+      value: (row) => "Add",
       Conditions: (row) => {
         // getProfile(row);
         getHistory(row, 4);
@@ -392,7 +391,7 @@ const ViewWallet = () => {
           rowStatus === 1 || rowStatus === 2
             ? `Transaction History of : ${ModalStateHistoryUserDetails.username} `
             : rowStatus === 4
-            ? "Update Wallet Balance "
+            ? "Add Wallet Balance "
             : "User Profile"
         }
         size={rowStatus === 4 ? "sm" : "lg"}
