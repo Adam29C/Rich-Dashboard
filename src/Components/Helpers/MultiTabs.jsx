@@ -6,11 +6,11 @@ const MultiTabs = ({ tabs, activeTabIndex, onTabSelect }) => {
   return (
     <div className="mt-3 mb-2">
       <Tabs selectedIndex={activeTabIndex} onSelect={onTabSelect}>
-        <TabList >
+        <TabList className="custom-tab-list" >
           {tabs.map((tab, index) => (
             <Tab  key={index}>{tab.title}</Tab>
           ))}
-        </TabList>
+        </TabList >
         {tabs.map((tab, index) => (
           <TabPanel key={index}>{tab.content}</TabPanel>
         ))}
