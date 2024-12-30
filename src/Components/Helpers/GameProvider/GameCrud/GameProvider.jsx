@@ -278,7 +278,7 @@ const GameProvider = ({
     },
     {
       name: "Update",
-      value: "Update",
+      value: (<i class='fa  fa-edit'></i>),
       buttonColor: "info",
       sortable: true,
       isButton: true,

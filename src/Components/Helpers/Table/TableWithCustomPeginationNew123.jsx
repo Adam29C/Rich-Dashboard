@@ -7,6 +7,7 @@ const PaginatedTable = ({
   UserFullButtonList,
   showIndex,
   additional,
+  Responsive,
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(25);
@@ -159,7 +160,7 @@ const PaginatedTable = ({
       {/* Table */}
       <table
         className={`table table-striped table-bordered  ${
-          isResponsive ? "table-responsive" : ""
+          isResponsive || Responsive ? "table-responsive" : ""
         }`}
       >
         <thead className="primary-color text-center">

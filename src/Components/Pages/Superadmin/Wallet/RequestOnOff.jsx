@@ -22,7 +22,6 @@ const RequestOnOff = () => {
     if (res.status) {
       setTableData(res.reqdata);
     }
-
   };
 
   const RequestList1 = async () => {
@@ -67,7 +66,18 @@ const RequestOnOff = () => {
       value: "updatedAt",
       sortable: true,
     },
-    { name: "Actions", value: "editButton", isButton: true, sortable: true },
+    // { name: "Actions", value: "editButton", isButton: true, sortable: true },
+    {
+      // name: "Profile",
+      name: "Edit Setting",
+      isButton: true,
+      value: "Edit Setting",
+      buttonColor: "info",
+      Conditions: (row) => {
+        setRowDetails(row);
+        setShowModal(true);
+      },
+    },
   ];
 
   const UserFullButtonList = [
@@ -253,7 +263,7 @@ const RequestOnOff = () => {
   return (
     <>
       <Split_Main_Containt
-        title="Game Results"
+        title="Request On/Off"
         add_button={false}
         btnTitle="Add"
         route="/add"

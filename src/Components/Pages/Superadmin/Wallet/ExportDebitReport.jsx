@@ -26,7 +26,6 @@ const ExportDebitReport = () => {
   const [Payload, setPayload] = PagesIndex.useState("");
 
   const handleBtnStatus = (status) => {
-
     setBtnStatus(status);
     setModalState(true);
     if (status === "see-report") {
@@ -316,8 +315,8 @@ const ExportDebitReport = () => {
 
   const formik = PagesIndex.useFormik({
     initialValues: {
-      searchType: "",
-      reportType: "",
+      searchType: "Pending",
+      reportType: "mkxls",
       date: actual_date_formet,
     },
     validate: (values) => {
@@ -343,6 +342,13 @@ const ExportDebitReport = () => {
       );
       if (res?.status) {
         const { filename, writeString, Profile, profile } = res;
+
+ 
+        if (res.writeString === "") {
+          PagesIndex.toast.error("No Data Found");
+          return;
+        }
+
         if (writeString) {
           // Handle plain text format
           handleTextFile(writeString, filename || `${values.reportType}.txt`);
@@ -355,16 +361,17 @@ const ExportDebitReport = () => {
               filename || `${values.reportType}.csv`
             );
           } else {
-            console.error("Unexpected profile data format.");
+            //   console.error("Unexpected profile data format.");
           }
         } else {
-          console.error("Unsupported response format.");
+          //  console.error("Unsupported response format.");
         }
       } else {
-        console.error("Failed to fetch report:", response?.message);
+        // console.error("Failed to fetch report:", response?.message);
       }
     },
   });
+
   const formik1 = PagesIndex.useFormik({
     initialValues: {
       reason: "",
@@ -391,10 +398,17 @@ const ExportDebitReport = () => {
           data,
           token
         );
+
       if (res?.status) {
+        if (res.writeString === "") {
+          PagesIndex.toast.error("No Data Found");
+          return;
+        }
         PagesIndex.toast.success(res?.message);
         setModalState(false);
         getExportDebitList();
+      } else {
+        PagesIndex.toast.error(res?.response?.data?.message);
       }
     },
   });
@@ -482,6 +496,9 @@ const ExportDebitReport = () => {
 
   return (
     <>
+      {/* <div class="alingBadge"> */}
+
+      {/* </div> */}
       <PagesIndex.WalletMain
         title="Export Debit Report"
         TableData={TableData}

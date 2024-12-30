@@ -15,13 +15,59 @@ const DownloadDebitReport = () => {
   const [totalAmount, setTotalAmount] = PagesIndex.useState(0);
   const [btnStatus, setBtnStatus] = PagesIndex.useState("");
 
+  console.log("TableData" ,TableData);
+
+  // const visibleFields = [
+  //   "id",
+  //   "username",
+  //   "account_holder_name",
+  //   "bank_name",
+  //   "ifsc_code",
+  //   "account_no",
+  // ];
+
   const visibleFields = [
-    "id",
-    "username",
-    "account_holder_name",
-    "bank_name",
-    "ifsc_code",
-    "account_no",
+    {
+      name: "User Name",
+      value: "username",
+      sortable: true,
+    },
+    {
+      name: "Account Holder",
+      value: "account_holder_name",
+      sortable: true,
+    },
+    {
+      name: "Bank",
+      value: "bank_name",
+      sortable: true,
+    },
+    {
+      name: "IFSC",
+      value: "ifsc_code",
+      sortable: true,
+    },
+    {
+      name: "A/C No",
+      value: "account_no",
+      sortable: true,
+    },
+    // {
+    //   name: "Amount",
+    //   value: "bank_name",
+    //   sortable: true,
+    // },
+
+    // {
+    //   // name: "Profile",
+    //   name: "Download MK.txt Report",
+    //   isButton: true,
+    //   value: "Download MK.txt Report",
+    //   className: "color-primary",
+    //   Conditions: (row) => {
+    //     handleDownloadFiles(row);
+    //   },
+    // },
   ];
 
   const handleBtnStatus = (status) => {
@@ -31,8 +77,8 @@ const DownloadDebitReport = () => {
 
   const formik = PagesIndex.useFormik({
     initialValues: {
-      searchType: "0",
-      reportType: "8",
+      searchType: "",
+      reportType: "",
       date: actual_date_formet,
     },
     validate: (values) => {
@@ -177,7 +223,7 @@ const DownloadDebitReport = () => {
           >
             Approve All
           </button> */}
-          <PagesIndex.TableWitCustomPegination
+          {/* <PagesIndex.TableWitCustomPegination
             data={TableData}
             initialRowsPerPage={5}
             SearchInTable={SearchInTable}
@@ -190,13 +236,20 @@ const DownloadDebitReport = () => {
                 onChange={(e) => setSearchInTable(e.target.value)}
                 className="form-control ms-auto"
               />
-            }
+            } */}
+          {/* /> */}
+
+          <PagesIndex.TableWithCustomPeginationNew123
+            data={TableData}
+            initialRowsPerPage={10}
+            SearchInTable={SearchInTable}
+            visibleFields={visibleFields}
+            showIndex={true}
           />
-          {totalAmount > 0 && 
+
           <h3 className="ml-3 mb-3 fw-bold responsive-total-amount">
             Total Amount {totalAmount}/-
           </h3>
-          }
         </div>
       ),
     },

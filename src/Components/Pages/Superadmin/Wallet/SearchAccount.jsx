@@ -8,8 +8,6 @@ const SearchAccount = () => {
   //all state
   const [currentData, setCurrentData] = PagesIndex.useState([]);
 
-
-  
   const [SearchInTable, setSearchInTable] = PagesIndex.useState("");
 
   const [oldData, setOldData] = PagesIndex.useState([]);
@@ -37,8 +35,12 @@ const SearchAccount = () => {
             token
           );
 
-        setCurrentData(res?.data);
-        setOldData(res.data?.[0]?.changeDetails);
+        if (res?.data?.length > 0) {
+          setCurrentData(res?.data);
+          setOldData(res?.data?.[0]?.changeDetails);
+        } else {
+          PagesIndex.toast.error("No data found");
+        }
       } catch (error) {
         PagesIndex.toast.error(error);
       }
@@ -54,7 +56,6 @@ const SearchAccount = () => {
       col_size: 4,
     },
   ];
-
 
   const visibleFields = [
     {
@@ -84,12 +85,19 @@ const SearchAccount = () => {
     },
   ];
 
-
   const visibleFields1 = [
     {
       name: "Username",
+      value: "username",
+      sortable: true,
+    },
+    {
+      name: "Old Acc Name",
       value: "old_acc_name",
       sortable: true,
+      transform: (row, item) => {
+        return row ? row : "N/A";
+      },
     },
     {
       name: "Old Acc No",
@@ -106,7 +114,7 @@ const SearchAccount = () => {
       value: "old_ifsc",
       sortable: true,
     },
-   
+
     {
       name: "Changed On",
       value: "changeDate",

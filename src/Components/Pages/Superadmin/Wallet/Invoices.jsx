@@ -27,6 +27,11 @@ const Invoices = () => {
       sortable: false,
     },
     {
+      name: "IFSC",
+      value: "ifsc_code",
+      sortable: false,
+    },
+    {
       name: "Account Holder Name",
       value: "account_holder_name",
       sortable: false,
@@ -54,15 +59,20 @@ const Invoices = () => {
 
   const visibleFields1 = [
     {
+      name: "Old A/c Holder Name",
+      value: "old_acc_name",
+      sortable: false,
+    },
+    {
       name: "Old Bank Name",
       value: "old_bank_name",
       sortable: false,
     },
-    {
-      name: "Old Account No",
-      value: "old_acc_no",
-      sortable: false,
-    },
+    // {
+    //   name: "Old Account No",
+    //   value: "old_acc_no",
+    //   sortable: false,
+    // },
     {
       name: "Account No",
       value: "account_no",

@@ -59,21 +59,40 @@ const WalletMain = ({
       size: 12,
       body: (
         <>
-          <button
-            onClick={() => handleBtnStatus("approve-all")}
-            className="approve-btn"
-          >
-            Approve All
-          </button>
+          <div className="">
+            <div className="row d-flex justify-content-between">
+              <div className="col-6 ">
+                <span class="badge badge-success badge-pill float-left mt-3 selectAll badge-custom px-4 py-2">
+                  Valid Req.
+                </span>
+                <span class="badge badge-danger badge-pill float-left mt-3 wrongBal badge-custom px-4 py-2 ">
+                  Invalid Req Amt.
+                </span>
+              </div>
+              <div className="col-6 ">
+                <button
+                  onClick={() => handleBtnStatus("approve-all")}
+                  className="approve-btn float-right"
+                >
+                  Approve All
+                </button>
+              </div>
+            </div>
+          </div>
 
-          <PagesIndex.TableWithCustomPeginationNew123
-            data={TableData}
-            initialRowsPerPage={10}
-            SearchInTable={""}
-            visibleFields={visibleFields}
-            showIndex={true}
-          />
-          <h3 className="ml-3 mb-3 fw-bold responsive-total-amount">Total Amount {totalAmount}/-</h3>
+          <div>
+            <PagesIndex.TableWithCustomPeginationNew123
+              data={TableData}
+              initialRowsPerPage={10}
+              SearchInTable={""}
+              visibleFields={visibleFields}
+              showIndex={true}
+              Responsive={true}
+            />
+            <h3 className="ml-3 mb-3 fw-bold responsive-total-amount">
+              Total Amount {totalAmount}/-
+            </h3>
+          </div>
         </>
       ),
     },
@@ -85,6 +104,7 @@ const WalletMain = ({
         add_button={false}
         cardLayouts={cardLayouts}
       />
+
       <ReusableModal
         ModalTitle={
           btnStatus === "see-report"
