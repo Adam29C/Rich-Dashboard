@@ -34,6 +34,7 @@ const AllReports = () => {
     getReportDetails();
   }, []);
 
+
   const FIELDS = [
     {
       title: "Bidding Report",
@@ -42,6 +43,8 @@ const AllReports = () => {
           name: "providerName",
           label: "Select Provider",
           type: "select",
+          // default: GetBankDetails && GetBankDetails[0]?._id,
+          default: '668d41ca211a65d88600f673',
           isRequired: true,
           validation: (value) => value !== "",
           options:
@@ -57,6 +60,9 @@ const AllReports = () => {
           name: "gameType",
           label: "Select Game Type",
           type: "select",
+          default: "6690701918732c8c3c427b09",
+          // default: GetDetails && GetDetails[0]?._id,
+
           options:
             (GetDetails &&
               GetDetails?.map((item) => ({
@@ -70,6 +76,7 @@ const AllReports = () => {
           name: "session",
           label: "Select Session",
           type: "select",
+          default: "Open",
           options:
             [
               {
@@ -146,7 +153,6 @@ const AllReports = () => {
             payload,
             token
           );
-
 
           if (res.status) {
             setTotalPages(res.pagination.totalRecords);

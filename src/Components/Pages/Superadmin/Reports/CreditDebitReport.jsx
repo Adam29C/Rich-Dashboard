@@ -12,7 +12,7 @@ const AllReports = () => {
 
   const [Refresh, setRefresh] = PagesIndex.useState(false);
 
-  const [UserPagenateData, setUserPagenateData ] = PagesIndex.useState({
+  const [UserPagenateData, setUserPagenateData] = PagesIndex.useState({
     pageno: 1,
     limit: 10,
   });
@@ -42,6 +42,7 @@ const AllReports = () => {
           name: "reqType",
           label: "Select Credit/Debit",
           type: "select",
+          default: "Credit",
           options:
             [
               {
@@ -59,13 +60,19 @@ const AllReports = () => {
           name: "adminName",
           label: "Select Admin",
           type: "select",
-          options:
-            (GetBankDetails &&
-              GetBankDetails?.map((item) => ({
-                label: item.username,
-                value: item._id,
-              }))) ||
-            [],
+          default: "0",
+          options: [
+            {
+              label: "All",
+              value: "0",
+            },
+            ...(GetBankDetails
+              ? GetBankDetails.map((item) => ({
+                  label: item.username,
+                  value: item._id,
+                }))
+              : []),
+          ],
           col_size: 3,
         },
       ],
@@ -111,6 +118,13 @@ const AllReports = () => {
           page: UserPagenateData.pageno,
           limit: UserPagenateData.limit,
           searchKey: "",
+
+          // "adminName": "0",
+          // "date":  "25/12/2024",
+          // "reqType": "Credit",
+          // "page": 1,
+          // "limit": 10,
+          // "searchKey": ""
         };
 
         try {
@@ -122,8 +136,9 @@ const AllReports = () => {
           );
 
 
-          console.log("resresres" ,res);
+          console.log("res.pagination.total" ,res.pagination.total);
           
+
           if (res.status) {
             setTotalPages(res.pagination.total);
             setRefresh(!Refresh);

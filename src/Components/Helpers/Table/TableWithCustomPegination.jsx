@@ -15,7 +15,9 @@ const PaginatedTable = ({
   const [rowsPerPage, setRowsPerPage] = useState(initialRowsPerPage);
   const [filteredData, setFilteredData] = useState(data);
   const [searchQuery, setSearchQuery] = useState("");
-  //
+  const [showCounting, setShowCounting] = useState("");
+
+
   const columns = useMemo(() => {
     if (data?.length > 0) {
       return Object.keys(data[0]).map((key) => ({
@@ -36,6 +38,18 @@ const PaginatedTable = ({
           .includes(searchQuery.toLowerCase())
       )
     );
+
+    console.log("data", data);
+
+    let abc = filtered.map(
+      (item, index) => (currentPage - 1) * rowsPerPage + index + 1
+    );
+
+    const firstElement = abc[0];
+    const lastElement = abc[abc.length - 1];
+
+    setShowCounting(`Showing ${firstElement} to ${lastElement} of entries`);
+
     setFilteredData(filtered);
     setCurrentPage(1);
   };
@@ -310,33 +324,43 @@ const PaginatedTable = ({
       </table>
 
       {/* Pagination */}
-      <nav>
-        <ul className="pagination justify-content-end">
-          <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
-            <button
-              className="page-link"
-              onClick={() => setCurrentPage(currentPage - 1)}
-              disabled={currentPage === 1}
-            >
-              Previous
-            </button>
-          </li>
-          {renderPagination()}
-          <li
-            className={`page-item ${
-              currentPage === totalPages ? "disabled" : ""
-            }`}
-          >
-            <button
-              className="page-link"
-              onClick={() => setCurrentPage(currentPage + 1)}
-              disabled={currentPage === totalPages}
-            >
-              Next
-            </button>
-          </li>
-        </ul>
-      </nav>
+
+      <div className="row d-flex align-items-center">
+        <div className="col-md-6">
+          <span className="fw-bold">{showCounting}</span>
+        </div>
+        <div className="col-md-6">
+          <nav>
+            <ul className="pagination justify-content-end">
+              <li
+                className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
+              >
+                <button
+                  className="page-link"
+                  onClick={() => setCurrentPage(currentPage - 1)}
+                  disabled={currentPage === 1}
+                >
+                  Previous
+                </button>
+              </li>
+              {renderPagination()}
+              <li
+                className={`page-item ${
+                  currentPage === totalPages ? "disabled" : ""
+                }`}
+              >
+                <button
+                  className="page-link"
+                  onClick={() => setCurrentPage(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                >
+                  Next
+                </button>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
     </div>
   );
 };

@@ -10,9 +10,19 @@ const ApproveReportBankManual = () => {
   //set actual date
   const actual_date_formet = getActualDateWithFormat(new Date());
 
+  console.log("actual_date_formet", actual_date_formet);
+
   //all state
   const [SearchInTable, setSearchInTable] = PagesIndex.useState("");
   const [tableData, setTableData] = PagesIndex.useState([]);
+  const [Refresh, setRefresh] = PagesIndex.useState(false);
+
+  const [UserPagenateData, setUserPagenateData] = PagesIndex.useState({
+    pageno: 1,
+    limit: 10,
+  });
+
+  const [TotalPages, setTotalPages] = PagesIndex.useState(1);
 
   const title = "Declined Report";
   const subtitle = "APPROVED Debit Requests : Bank Account";
@@ -22,21 +32,22 @@ const ApproveReportBankManual = () => {
   const fetchData = async (
     page,
     rowsPerPage,
-    searchQuery ,
+    searchQuery,
     date = actual_date_formet
   ) => {
     const payload = {
       page: page,
       limit: rowsPerPage,
       date: date,
-      search :searchQuery
+      search: searchQuery,
     };
 
     try {
-      const response = await PagesIndex.admin_services.APPROVED_DEBIT_BANK_MANUAL_API(
-        payload,
-        token
-      );
+      const response =
+        await PagesIndex.admin_services.APPROVED_DEBIT_BANK_MANUAL_API(
+          payload,
+          token
+        );
 
       const totalRows = response?.total || 5;
       let mainRes = response.data;
@@ -46,7 +57,6 @@ const ApproveReportBankManual = () => {
     } catch {}
   };
 
-
   const formik = PagesIndex.useFormik({
     initialValues: {
       date: actual_date_formet || null,
@@ -54,9 +64,34 @@ const ApproveReportBankManual = () => {
     validate: (values) => {},
 
     onSubmit: async (values) => {
-      getDataList(values.date);
+      getDeclinedRequest(values.date);
     },
   });
+
+  const getDeclinedRequest = async (date = actual_date_formet) => {
+    const payload = {
+      date: actual_date_formet,
+      page: UserPagenateData.pageno,
+      limit: UserPagenateData.limit,
+      search: SearchInTable,
+    };
+    const res = await PagesIndex.admin_services.APPROVED_DEBIT_BANK_MANUAL_API(
+      payload,
+      token
+    );
+
+    if (res?.status) {
+      console.log("res?.total", res.data);
+      let mainRes = Object.values(res.data);
+      setTableData(mainRes);
+
+      setTotalPages(res?.total || res?.pagination?.totalItems);
+    }
+  };
+
+  PagesIndex.useEffect(() => {
+    getDeclinedRequest();
+  }, [UserPagenateData.limit, UserPagenateData.pageno]);
 
   const fields = [
     {
@@ -74,13 +109,22 @@ const ApproveReportBankManual = () => {
     { name: "Mobile", value: "mobile", sortable: true },
     { name: "Mode", value: "withdrawalMode", sortable: true },
     { name: "Amount", value: "reqAmount", sortable: true },
-    { name: "Time", value: "reqDate", sortable:  true },
+    { name: "Time", value: "reqDate", sortable: true },
     // { name: "Request Time", value: "createTime", sortable: true },
     { name: "Approved On ", value: "reqUpdatedAt", sortable: true },
     // { name: "Account No", value: "account_no", sortable: true },
   ];
   return (
     <CreditDeclinedRequest
+      // fields={fields}
+      // formik={formik}
+      // tableData={tableData}
+      // SearchInTable={SearchInTable}
+      // setSearchInTable={setSearchInTable}
+      // visibleFields={visibleFields}
+      // title={title}
+      // subtitle={subtitle}
+      // fetchData={fetchData}
       fields={fields}
       formik={formik}
       tableData={tableData}
@@ -90,6 +134,10 @@ const ApproveReportBankManual = () => {
       title={title}
       subtitle={subtitle}
       fetchData={fetchData}
+      Refresh={Refresh}
+      setUserPagenateData={setUserPagenateData}
+      UserPagenateData={UserPagenateData}
+      TotalPages={TotalPages}
     />
   );
 };

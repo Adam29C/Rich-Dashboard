@@ -88,11 +88,13 @@ const SplitForm = () => {
 
     return pannaArr;
   };
+
   const formik = useFormik({
     initialValues: {
       gameDate: "",
-      gameSession: "",
-      providerId: "",
+      gameSession: "default",
+      providerId: "668d41ca211a65d88600f673",
+      // providerId: gameProviders[0] && gameProviders[0]?._id,
     },
 
     validate: (values) => {
@@ -118,6 +120,8 @@ const SplitForm = () => {
       let pannaArr = [];
       const singleArr = [];
 
+      console.log("values", values);
+      
       if (values.gameSession === "Open") {
         const response1 = await PagesIndex.report_service.ALL_GAME_REPORT_API(
           Api.OC_CUTTING_GROUP_LIST,
@@ -125,14 +129,17 @@ const SplitForm = () => {
           token
         );
 
+        console.log("response1response1" ,response1);
+        
+
+        if (!response1.status) {
+          PagesIndex.toast.success(response1.message);
+          return;
+        } else {
+        }
         if (response1.status == 1) {
           setGetTotal(response1.dataSum);
 
-
-
-
-
-          
           let singleDigit = response1.dataSum.singleDigit;
           let pana = response1.dataSum.Pana;
           let JodiPrice = response1.price.jodiPrice;
@@ -183,46 +190,51 @@ const SplitForm = () => {
           token
         );
 
-        setGetTotal(response.dataSum);
+        if (!response.status) {
+          PagesIndex.toast.error(response?.response?.data?.message);
+          return;
+        } else {
+          setGetTotal(response.dataSum);
 
-        let panaArrayMain = response.finalData.panaArray;
-        let singleDigitArray = response.finalData.singleDigitArray;
+          let panaArrayMain = response.finalData.panaArray;
+          let singleDigitArray = response.finalData.singleDigitArray;
 
-        let singlePanaPrice = parseInt(response.price.sp);
-        let doublePanaPrice = parseInt(response.price.dp);
-        let triplePanaPrice = parseInt(response.price.tp);
-        let jodiPrice = parseInt(response.price.jodiPrice);
+          let singlePanaPrice = parseInt(response.price.sp);
+          let doublePanaPrice = parseInt(response.price.dp);
+          let triplePanaPrice = parseInt(response.price.tp);
+          let jodiPrice = parseInt(response.price.jodiPrice);
 
-        let pana = response.dataSum.Pana;
-        let signleDigitCal = response.dataSum.singleDigit;
+          let pana = response.dataSum.Pana;
+          let signleDigitCal = response.dataSum.singleDigit;
 
-        Object.entries(singleDigitArray).map(([key, value]) => {
-          const {
-            amountToPay = 0,
-            profit = 0,
-            loss = 0,
-          } = calculatePL(value.biddingPoints, jodiPrice, signleDigitCal);
+          Object.entries(singleDigitArray).map(([key, value]) => {
+            const {
+              amountToPay = 0,
+              profit = 0,
+              loss = 0,
+            } = calculatePL(value.biddingPoints, jodiPrice, signleDigitCal);
 
-          singleArr.push({
-            _id: key,
-            totalBidAmm: value.biddingPoints,
-            session: formik.values.gameSession || "Null",
-            Amounttopay: amountToPay,
-            Profit: profit,
-            Loss: loss,
+            singleArr.push({
+              _id: key,
+              totalBidAmm: value.biddingPoints,
+              session: formik.values.gameSession || "Null",
+              Amounttopay: amountToPay,
+              Profit: profit,
+              Loss: loss,
+            });
           });
-        });
 
-        setTableTwo(singleArr);
+          setTableTwo(singleArr);
 
-        let getPanaArray = forPanaCalulation(
-          panaArrayMain,
-          singlePanaPrice,
-          doublePanaPrice,
-          triplePanaPrice,
-          pana
-        );
-        setTableThree(getPanaArray);
+          let getPanaArray = forPanaCalulation(
+            panaArrayMain,
+            singlePanaPrice,
+            doublePanaPrice,
+            triplePanaPrice,
+            pana
+          );
+          setTableThree(getPanaArray);
+        }
       }
     },
   });
@@ -240,7 +252,8 @@ const SplitForm = () => {
       label: "Provider",
       type: "select",
       label_size: 12,
-
+      default: gameProviders[0] && gameProviders[0]?._id,
+      default: "668d41ca211a65d88600f673",
       col_size: 4,
       options:
         (gameProviders &&
@@ -255,7 +268,7 @@ const SplitForm = () => {
       label: "Session",
       type: "select",
       label_size: 12,
-
+      default: "Open",
       col_size: 4,
       options: [
         {

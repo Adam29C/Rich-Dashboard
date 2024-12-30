@@ -93,9 +93,11 @@ const SplitForm = () => {
   const formik = useFormik({
     initialValues: {
       gameDate: "",
-      gameSession: "",
-      providerId: "",
-      devidby: "",
+      gameSession: "Open",
+      providerId:
+        (gameProviders[0] && gameProviders[0]?._id) ||
+        "668d41ca211a65d88600f673",
+      devidby: "16",
     },
 
     validate: (values) => {
@@ -348,6 +350,9 @@ const SplitForm = () => {
       label: "Provider",
       type: "select",
       label_size: 12,
+      default:
+        (gameProviders[0] && gameProviders[0]?._id) ||
+        "668d41ca211a65d88600f673",
 
       col_size: 3,
       options:
@@ -363,7 +368,7 @@ const SplitForm = () => {
       label: "Session",
       type: "select",
       label_size: 12,
-
+      default: "Open",
       col_size: 3,
       options: [
         {
@@ -381,6 +386,7 @@ const SplitForm = () => {
       name: "devidby",
       label: "Divide By",
       type: "text",
+      // default: 16,
       label_size: 12,
       col_size: 3,
     },
@@ -499,7 +505,7 @@ const SplitForm = () => {
   return (
     <div>
       <Split_Main_Containt
-        title="OC Cutting Group"
+        title="Final OC Cutting Group"
         add_button={false}
         btnTitle="Add"
         route="/add"

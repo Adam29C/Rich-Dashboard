@@ -42,8 +42,8 @@ const SplitForm = () => {
   const formik = useFormik({
     initialValues: {
       gameDate: "",
-      gameSession: "",
-      providerId: "",
+      gameSession: "Open",
+      providerId: "668d41ca211a65d88600f673",
     },
 
     validate: (values) => {
@@ -310,7 +310,7 @@ const SplitForm = () => {
       label: "Session",
       type: "select",
       label_size: 12,
-
+      default: "Open",
       col_size: 4,
       options: [
         {

@@ -27,11 +27,11 @@ const PendingBankRequests = () => {
     return numberRegexp(value);
   };
 
-  const fetchData = async (page, rowsPerPage, searchQuery ) => {
+  const fetchData = async (page, rowsPerPage, searchQuery) => {
     const payload = {
       page: page,
       limit: rowsPerPage,
-      search :searchQuery,
+      search: searchQuery,
     };
 
     try {
@@ -95,7 +95,7 @@ const PendingBankRequests = () => {
       // name: "Profile",
       name: "Request Amount",
       isButton: true,
-      value: "Request Amount",
+      value: <i class="fas fa-check-circle"></i>,
       buttonColor: "success",
       Conditions: (row) => {
         handleActionBtn(row, 0);
@@ -105,7 +105,7 @@ const PendingBankRequests = () => {
       // name: "Profile",
       name: "Delete",
       isButton: true,
-      value: "Delete",
+      value: <i class="fas fa-trash"></i>,
       buttonColor: "danger",
       Conditions: (row) => {
         handleActionBtn(row, 1);
@@ -115,7 +115,7 @@ const PendingBankRequests = () => {
       // name: "Profile",
       name: "Profile",
       isButton: true,
-      value: "Profile",
+      value: <i class="fas fa-user"></i>,
       buttonColor: "success",
       Conditions: (row) => {
         handleActionBtn(row, 2);
@@ -286,7 +286,9 @@ const PendingBankRequests = () => {
               />
             }
           /> */}
-          <h3 className="ml-3 mb-3 fw-bold responsive-total-amount">Total Amount {totalAmount}/-</h3>
+          <h3 className="ml-3 mb-3 fw-bold responsive-total-amount">
+            Total Amount {totalAmount}/-
+          </h3>
         </div>
       ),
     },

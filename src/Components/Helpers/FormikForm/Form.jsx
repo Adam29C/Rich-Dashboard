@@ -27,6 +27,7 @@ const ReusableForm = ({
   label_size,
   show_preview,
   after_submit_button1,
+  
 }) => {
   const location = useLocation();
 
@@ -88,6 +89,7 @@ const ReusableForm = ({
                             id={field.name}
                             {...formik.getFieldProps(field.name)}
                             disabled={field.disable}
+                            defaultValue={field.default}
                             onChange={(e) => {
                               formik.handleChange(e); // Handle Formik's default change
                               if (field.onChange) field.onChange(e); // Custom onChange logic

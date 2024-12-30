@@ -3,7 +3,6 @@ import PagesIndex from "../../PagesIndex";
 import Split_Main_Containt from "../../../Layout/Main/Split_Main_Content";
 import { getActualDateWithFormat } from "../../../Utils/Common_Date";
 const CreditRequest = () => {
-
   //get token in local storage
   const token = localStorage.getItem("token");
 
@@ -46,12 +45,13 @@ const CreditRequest = () => {
     validate: (values) => {},
 
     onSubmit: async (values) => {
-      getCreditRequest(values.date)
+      getCreditRequest(values.date);
     },
   });
 
-
-const totalAmount = tableData && tableData.reduce((acc,item)=>acc + (item?.reqAmount || 0),0)
+  const totalAmount =
+    tableData &&
+    tableData.reduce((acc, item) => acc + (item?.reqAmount || 0), 0);
 
   const fields = [
     {
@@ -63,18 +63,55 @@ const totalAmount = tableData && tableData.reduce((acc,item)=>acc + (item?.reqAm
     },
   ];
 
-  const visibleFields = [
-    "id",
-    "username",
-    "fullname",
-    "mobile",
-    "reqStatus",
-    "reqDate",
-    "reqTime",
-    "paymentMode",
-    "reqAmount",
-  ];
+  // const visibleFields = [
+  //   "id",
+  //   "username",
+  //   "fullname",
+  //   "mobile",
+  //   "reqStatus",
+  //   "reqDate",
+  //   "reqTime",
+  //   "paymentMode",
+  //   "reqAmount",
+  // ];
 
+  const visibleFields = [
+    {
+      name: "User Name",
+      value: "username",
+      sortable: false,
+    },
+    {
+      name: "Full name",
+      value: "fullname",
+      sortable: false,
+    },
+    {
+      name: "Mobile",
+      value: "mobile",
+      sortable: false,
+    },
+    {
+      name: "Status",
+      value: "reqStatus",
+      sortable: false,
+    },
+    {
+      name: "Time",
+      value: "reqDate",
+      sortable: false,
+    },
+    {
+      name: "Mode",
+      value: "paymentMode",
+      sortable: false,
+    },
+    {
+      name: "Amount",
+      value: "reqAmount",
+      sortable: false,
+    },
+  ];
   const cardLayouts = [
     {
       size: 12,
@@ -95,7 +132,7 @@ const totalAmount = tableData && tableData.reduce((acc,item)=>acc + (item?.reqAm
       size: 12,
       body: (
         <div>
-          <PagesIndex.TableWitCustomPegination
+          <PagesIndex.TableWithCustomPeginationNew123
             data={tableData}
             initialRowsPerPage={5}
             SearchInTable={SearchInTable}
@@ -110,7 +147,9 @@ const totalAmount = tableData && tableData.reduce((acc,item)=>acc + (item?.reqAm
               />
             }
           />
-          <h3 className="ml-3 mb-3 fw-bold responsive-total-amount">Total Amount {totalAmount}/-</h3>
+          <h3 className="ml-3 mb-3 fw-bold responsive-total-amount">
+            Total Amount {totalAmount}/-
+          </h3>
         </div>
       ),
     },

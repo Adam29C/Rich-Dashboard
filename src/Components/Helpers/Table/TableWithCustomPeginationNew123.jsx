@@ -14,6 +14,9 @@ const PaginatedTable = ({
   const [searchQuery, setSearchQuery] = useState("");
   const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
   const [isResponsive, setIsResponsive] = useState(window.innerWidth < 768);
+  const [showCounting, setShowCounting] = useState(
+    "Showing 0 to 0 of 0 entries"
+  );
 
   const maxPagesToShow = 10;
 
@@ -21,6 +24,20 @@ const PaginatedTable = ({
   useEffect(() => {
     let sortedData = [...data];
 
+    let abc = data.map(
+      (item, index) => (currentPage - 1) * rowsPerPage + index + 1
+    );
+
+    const firstElement = abc.length > 0 ? abc[0] : 0;
+    const lastElement = abc.length > 0 ? abc[abc.length - 1] : 0;
+
+    // console.log(
+    //   "Showing ${firstElement} to ${lastElement} of ${result.totalRows} entries",
+    //   `Showing ${firstElement} to ${lastElement} of entries`
+    // );
+    setShowCounting(
+      `Showing ${firstElement} to ${lastElement} of ${data.length} entries`
+    );
     // Apply sorting
     if (sortConfig.key) {
       sortedData.sort((a, b) => {
@@ -216,75 +233,86 @@ const PaginatedTable = ({
       </table>
 
       {/* Pagination */}
-      <nav>
-        <ul className="pagination justify-content-end">
-          {/* "First" Button */}
-          {currentPage > 1 && (
-            <li className="page-item">
-              <button className="page-link" onClick={() => setCurrentPage(1)}>
-                First
-              </button>
-            </li>
-          )}
-          {/* "Previous" Button */}
-          {currentPage > 1 && (
-            <li className="page-item">
-              <button
-                className="page-link"
-                onClick={() => setCurrentPage(currentPage - 1)}
-              >
-                Previous
-              </button>
-            </li>
-          )}
 
-          {/* Range of Pages */}
-          {startPage > 1 && <li className="page-item disabled"></li>}
-          {[...Array(endPage - startPage + 1)].map((_, i) => {
-            const pageNum = startPage + i;
-            return (
-              <li
-                key={pageNum}
-                className={`page-item ${
-                  currentPage === pageNum ? "active" : ""
-                }`}
-              >
-                <button
-                  className="page-link"
-                  onClick={() => setCurrentPage(pageNum)}
-                >
-                  {pageNum}
-                </button>
-              </li>
-            );
-          })}
-          {endPage < totalPages && <li className="page-item disabled"></li>}
+      <div className="row d-flex align-items-center">
+        <div className="col-md-6">
+          <span className="fw-bold">{showCounting}</span>
+        </div>
+        <div className="col-md-6">
+          <nav>
+            <ul className="pagination justify-content-end">
+              {/* "First" Button */}
+              {currentPage > 1 && (
+                <li className="page-item">
+                  <button
+                    className="page-link"
+                    onClick={() => setCurrentPage(1)}
+                  >
+                    First
+                  </button>
+                </li>
+              )}
+              {/* "Previous" Button */}
+              {currentPage > 1 && (
+                <li className="page-item">
+                  <button
+                    className="page-link"
+                    onClick={() => setCurrentPage(currentPage - 1)}
+                  >
+                    Previous
+                  </button>
+                </li>
+              )}
 
-          {/* "Next" Button */}
-          {currentPage < totalPages && (
-            <li className="page-item">
-              <button
-                className="page-link"
-                onClick={() => setCurrentPage(currentPage + 1)}
-              >
-                Next
-              </button>
-            </li>
-          )}
+              {/* Range of Pages */}
+              {startPage > 1 && <li className="page-item disabled"></li>}
+              {[...Array(endPage - startPage + 1)].map((_, i) => {
+                const pageNum = startPage + i;
+                return (
+                  <li
+                    key={pageNum}
+                    className={`page-item ${
+                      currentPage === pageNum ? "active" : ""
+                    }`}
+                  >
+                    <button
+                      className="page-link"
+                      onClick={() => setCurrentPage(pageNum)}
+                    >
+                      {pageNum}
+                    </button>
+                  </li>
+                );
+              })}
+              {endPage < totalPages && <li className="page-item disabled"></li>}
 
-          {/* "Last" Button */}
-          {currentPage < totalPages && (
-            <li className="page-item">
-              <button
-                className="page-link"
-                onClick={() => setCurrentPage(totalPages)}
-              >
-                Last
-              </button>
-            </li>
-          )}
-        </ul>
-      </nav>
+              {/* "Next" Button */}
+              {currentPage < totalPages && (
+                <li className="page-item">
+                  <button
+                    className="page-link"
+                    onClick={() => setCurrentPage(currentPage + 1)}
+                  >
+                    Next
+                  </button>
+                </li>
+              )}
+
+              {/* "Last" Button */}
+              {currentPage < totalPages && (
+                <li className="page-item">
+                  <button
+                    className="page-link"
+                    onClick={() => setCurrentPage(totalPages)}
+                  >
+                    Last
+                  </button>
+                </li>
+              )}
+            </ul>
+          </nav>
+        </div>
+      </div>
     </div>
   );
 };

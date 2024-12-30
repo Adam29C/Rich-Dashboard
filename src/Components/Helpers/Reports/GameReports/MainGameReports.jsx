@@ -67,6 +67,7 @@ const MainGameReports = ({
 
     {
       name: "Profit/Loss",
+      notheader: true,
       value: "bidPointDiffence",
       style: (row) => ({
         color:
@@ -98,7 +99,7 @@ const MainGameReports = ({
 
   const formik = PagesIndex.useFormik({
     initialValues: {
-      providerId: "",
+      providerId: "0",
       startdate: today(new Date()),
       enddate: today(new Date()),
       username: "",
@@ -197,20 +198,27 @@ const MainGameReports = ({
       name: "providerId",
       label: "Provider Name",
       type: "select",
+      default: "0",
       options:
         gameType === "mainGame"
-          ? (gameProviders &&
-              gameProviders.map((item) => ({
-                label: item.providerName,
-                value: item._id,
-              }))) ||
-            []
-          : (ProviderList &&
-              ProviderList.map((item) => ({
-                label: item.providerName,
-                value: item._id,
-              }))) ||
-            [],
+          ? [
+              { label: "All", value: "0" },
+              ...(gameProviders
+                ? gameProviders.map((item) => ({
+                    label: item.providerName,
+                    value: item._id,
+                  }))
+                : []),
+            ] || []
+          : [
+              { label: "All", value: "0" },
+              ...(ProviderList
+                ? ProviderList.map((item) => ({
+                    label: item.providerName,
+                    value: item._id,
+                  }))
+                : []),
+            ] || [],
       label_size: 12,
       col_size: 3,
     },
@@ -220,6 +228,7 @@ const MainGameReports = ({
       type: "text",
       label_size: 12,
       col_size: 3,
+      default: "",
     },
   ];
 

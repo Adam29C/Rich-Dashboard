@@ -7,8 +7,6 @@ const ProfileNote = () => {
   //all state
   const [getProfileData, setGetProfileData] = useState([]);
 
-
-  console.log("getProfileDatagetProfileData" ,getProfileData.note); 
   
   //get profile note api
   const getProfileNote = async () => {
@@ -22,7 +20,7 @@ const ProfileNote = () => {
 
   //set inital value in formik
   const noteValueSet = () => {
-    formik.setFieldValue("note", getProfileData?.note);
+  //  formik.setFieldValue("note", getProfileData?.note);
   };
 
   useEffect(() => {

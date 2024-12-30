@@ -5,7 +5,6 @@ import ReusableModal from "../../../Helpers/Modal/ReusableModal";
 import TableWitCustomPegination from "../../../Helpers/Table/TableWithCustomPegination";
 
 const Dashboard_Component = () => {
-
   console.log(typeof jQuery);
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
@@ -89,12 +88,28 @@ const Dashboard_Component = () => {
       });
     }
 
-
     return totalBalance;
   };
 
   const visibleFields = ["Sr.", "name", "mobile", "wallet_balance"];
 
+  // const visibleFields = [
+  //   {
+  //     name: "Name",
+  //     value: "name",
+  //     sortable: true,
+  //   },
+  //   {
+  //     name: "Mobile",
+  //     value: "mobile",
+  //     sortable: false,
+  //   },
+  //   {
+  //     name: "wallet_balance",
+  //     value: "wallet_balance",
+  //     sortable: false,
+  //   },
+  // ]
   return (
     <div>
       <div className="content-body">
@@ -322,6 +337,20 @@ const Dashboard_Component = () => {
               ModalTitle={"User Registered Today"}
               ModalBody={
                 <div>
+                  {/* <PagesIndex.TableWithCustomPeginationNew123
+              data={viewHistory}
+              initialRowsPerPage={5}
+              SearchInTable={SearchInTable}
+              visibleFields={visibleFields}
+              searchInput={
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  value={SearchInTable}
+                  onChange={(e) => setSearchInTable(e.target.value)}
+                  className="form-control ms-auto"
+                />
+              } */}
                   <TableWitCustomPegination
                     data={TableData}
                     // columns={columns}

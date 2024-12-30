@@ -44,6 +44,7 @@ const AllReports = () => {
           name: "reqType",
           label: "Credit/Debit",
           type: "select",
+          default: "Credit",
           options: [
             {
               label: "Credit",

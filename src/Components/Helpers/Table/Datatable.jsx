@@ -99,13 +99,15 @@
           print={false}
           export={false}
           filter={showFilter}
+          pagination={false} 
         >
           <DataTable
           className="custom-datatable-design"
             defaultSortAsc={false}
-            pagination
+            pagination={false} 
             highlightOnHover
             customStyles={customStyles}
+       
        
             noDataComponent={
               isLoading ? (

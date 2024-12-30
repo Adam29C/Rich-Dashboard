@@ -11,21 +11,17 @@ const Notification = () => {
 
   //get notification list function
   const getList = async () => {
-    
     try {
       const res = await PagesIndex.common_services.GET_NOTIFICATION_API(token);
       if (res?.status) {
         setData(res?.data);
       }
-    } catch (error) {
-    } 
+    } catch (error) {}
   };
 
   PagesIndex.useEffect(() => {
     getList();
   }, []);
-
-
 
   //formik form
   const formik = PagesIndex.useFormik({
@@ -45,15 +41,17 @@ const Notification = () => {
     },
 
     onSubmit: async (values) => {
-  
       try {
         let apidata = {
           title: values.title,
-          message: values.message ,
+          message: values.message,
         };
 
-        const res = await PagesIndex.common_services.ADD_NOTIFICATION_API(apidata,token);
-   
+        const res = await PagesIndex.common_services.ADD_NOTIFICATION_API(
+          apidata,
+          token
+        );
+
         if (res?.status) {
           PagesIndex.toast.success(res?.message);
           getList();
@@ -101,7 +99,6 @@ const Notification = () => {
     if (!confirmDelete) return;
 
     try {
-    
       const res = await PagesIndex.common_services.DELETE_NOTIFICATION_API(
         row?._id,
         token
@@ -113,36 +110,58 @@ const Notification = () => {
     } catch (error) {}
   };
 
-  const columns = [
+  const visibleFields = [
     {
       name: "Game Name",
-      selector: (row) => row?.title,
+      value: "title",
+      sortable: false,
     },
-
     {
       name: "Game Result",
-      selector: (row) => row.message,
+      value: "message",
+      sortable: false,
     },
-
     {
       name: "Delete Notifiction",
-      selector: (cell, row) => (
-        <div style={{ width: "" }}>
-          <div>
-            <span>
-              <button
-                onClick={() => handleDelete(cell)}
-                class="btn btn-dark waves-effect waves-light btn-sm"
-              >
-                <i class="far fa-trash-alt mr-2 icon-fs" aria-hidden="true"></i>
-                Delete Notifiction
-              </button>
-            </span>
-          </div>
-        </div>
-      ),
+      isButton: true,
+      buttonColor: "dark",
+      value: (row) => "Delete Notifiction",
+
+      Conditions: (row) => {
+        handleDelete(row, 1);
+      },
     },
   ];
+  // const columns = [
+  //   {
+  //     name: "Game Name",
+  //     selector: (row) => row?.title,
+  //   },
+
+  //   {
+  //     name: "Game Result",
+  //     selector: (row) => row.message,
+  //   },
+
+  //   {
+  //     name: "Delete Notifiction",
+  //     selector: (cell, row) => (
+  //       <div style={{ width: "" }}>
+  //         <div>
+  //           <span>
+  //             <button
+  //               onClick={() => handleDelete(cell)}
+  //               class="btn btn-dark waves-effect waves-light btn-sm"
+  //             >
+  //               <i class="far fa-trash-alt mr-2 icon-fs" aria-hidden="true"></i>
+  //               Delete Notifiction
+  //             </button>
+  //           </span>
+  //         </div>
+  //       </div>
+  //     ),
+  //   },
+  // ];
   return (
     <PagesIndex.Main_Containt
       setVisible={setVisible}
@@ -151,10 +170,14 @@ const Notification = () => {
       title="Notifications"
       handleAdd={handleAdd}
     >
-      <PagesIndex.Data_Table
-        columns={columns}
+      <PagesIndex.TableWithCustomPeginationNew123
         data={data}
+        initialRowsPerPage={10}
+        SearchInTable={""}
+        visibleFields={visibleFields}
+        showIndex={true}
       />
+      {/* <PagesIndex.Data_Table columns={columns} data={data} /> */}
       <PagesIndex.ModalComponent
         visible={visible}
         setVisible={setVisible}

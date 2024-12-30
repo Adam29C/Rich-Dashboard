@@ -11,7 +11,7 @@ const SplitForm = () => {
 
   const [Refresh, setRefresh] = PagesIndex.useState(false);
 
-  const [UserPagenateData, setUserPagenateData ] = PagesIndex.useState({
+  const [UserPagenateData, setUserPagenateData] = PagesIndex.useState({
     pageno: 1,
     limit: 10,
   });
@@ -21,7 +21,7 @@ const SplitForm = () => {
   const [MaintableData, setMaintableData] = PagesIndex.useState([]);
   const formik = useFormik({
     initialValues: {
-      market: "",
+      market: 1,
       username: "",
     },
 
@@ -29,7 +29,7 @@ const SplitForm = () => {
       const errors = {};
 
       if (!values.username) {
-        errors.username = "Please Enter Username ";
+        errors.username = "Please Enter Player Name";
       }
 
       if (!values.market && formik.touched.market) {
@@ -42,8 +42,8 @@ const SplitForm = () => {
       const payload = {
         market: parseInt(values.market) || 1,
         username: values.username || "rock",
-         page: UserPagenateData.pageno,
-          limit: UserPagenateData.limit,
+        page: UserPagenateData.pageno,
+        limit: UserPagenateData.limit,
         search: "",
       };
       const res = await PagesIndex.report_service.GET_FUND_REPORT_API(
@@ -53,7 +53,6 @@ const SplitForm = () => {
       );
 
       if (res.status) {
-        
         let bidsum = 0;
         let amountsum = 0;
 
@@ -74,7 +73,9 @@ const SplitForm = () => {
 
         settableData(resultArray);
 
-        setTotalPages(res.totalPages);
+        PagesIndex.toast.success(res.data.groupData.length<1 ? "Data Not Found " : res.message);
+
+        setTotalPages(res.pagination.totalRecords);
         setRefresh(!Refresh);
       }
     },
@@ -124,7 +125,6 @@ const SplitForm = () => {
         value === 0 ? " Pending" : value === 1 ? "Win" : "Loss",
     },
   ];
-
 
   const fields = [
     {
@@ -220,9 +220,7 @@ const SplitForm = () => {
       size: 12,
       body: (
         <div>
-               <PagesIndex.TableWithCustomPeginationNew
-            // fetchData={handleFetchDataManually}
-            // handleFetchDataManually={handleFetchDataManually}
+          <PagesIndex.TableWithCustomPeginationNew
             tableData={tableData && tableData}
             TotalPagesCount={(TotalPages && TotalPages) || []}
             columns={visibleFields}

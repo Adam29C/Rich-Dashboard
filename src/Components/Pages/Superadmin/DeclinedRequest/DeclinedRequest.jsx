@@ -49,6 +49,7 @@ const DeclinedRequest = () => {
 
       const totalRows = response?.total || res?.total || 5;
       let mainRes = Object.values(response.data);
+
       setTableData(mainRes);
 
       return { mainRes, totalRows };
@@ -67,17 +68,15 @@ const DeclinedRequest = () => {
       token
     );
 
-    console.log("res", res);
-
     if (res?.status) {
       setTableData(res?.data);
-      setTotalPages(res.total || res.pagination.totalItems);
+      setTotalPages(res?.total || res?.pagination?.totalItems);
     }
   };
 
   PagesIndex.useEffect(() => {
     getDeclinedRequest();
-  }, []);
+  }, [UserPagenateData.limit, UserPagenateData.pageno]);
 
   const formik = PagesIndex.useFormik({
     initialValues: {
@@ -99,17 +98,6 @@ const DeclinedRequest = () => {
       col_size: 12,
     },
   ];
-
-  // const visibleFields = [
-  //   "id",
-  //   "username",
-  //   "fullname",
-  //   "mobile",
-  //   "reqDate",
-  //   "reqTime",
-  //   "withdrawalMode",
-  //   "reqAmount",
-  // ];
 
   const visibleFields = [
     {
@@ -157,6 +145,9 @@ const DeclinedRequest = () => {
         subtitle={subtitle}
         fetchData={fetchData}
         Refresh={Refresh}
+        setUserPagenateData={setUserPagenateData}
+        UserPagenateData={UserPagenateData}
+        TotalPages={TotalPages}
       />
     </>
   );

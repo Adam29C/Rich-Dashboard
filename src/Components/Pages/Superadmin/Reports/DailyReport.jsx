@@ -59,6 +59,7 @@ const AllReports = () => {
         {
           name: "reqType",
           label: "Report Type",
+          default: optionsArray && optionsArray[0]?.value,
           type: "select",
           options:
             (optionsArray &&

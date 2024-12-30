@@ -97,7 +97,6 @@ const ViewWallet = () => {
         setUserDetails(res.data);
         setModalStateHistory(true);
       } else {
-        // alert(res.response.data.message)
         toast.error(res.response.data.message);
       }
     } else if (number === 4) {
@@ -145,10 +144,16 @@ const ViewWallet = () => {
         token
       );
       if (res.status) {
-     
-        if(res?.status){
+        if (res?.status) {
+          setRefresh(!Refresh);
           toast.success("update sucessfully");
-          
+          formik.resetForm({
+            values: {
+              amount: "",
+              type: 1,
+              particular: "",
+            },
+          });
         }
         setModalStateHistory(false);
       }
@@ -207,55 +212,6 @@ const ViewWallet = () => {
     },
   ];
 
-  const UserFullButtonList = [
-    {
-      id: 0,
-      buttonName: "C/D Histoy",
-      buttonColor: "info",
-      route: "",
-      Conditions: (row) => {
-        //setGetBannedData(row.banned);
-        getHistory(row, 1);
-      },
-      Visiblity: true,
-      type: "button",
-    },
-    {
-      id: 1,
-      buttonName: "Update Wallet",
-      buttonColor: "info",
-      route: "test",
-      Conditions: (row) => {
-        // getProfile(row);
-        getHistory(row, 4);
-      },
-      Visiblity: false,
-      type: "button",
-    },
-    {
-      id: 2,
-      buttonName: "History",
-      buttonColor: "info",
-      Conditions: (row) => {
-        getHistory(row, 2);
-      },
-
-      Visiblity: false,
-      type: "button",
-    },
-    {
-      id: 2,
-      buttonName: "profile",
-      buttonColor: "info",
-      Conditions: (row) => {
-        getHistory(row, 3);
-      },
-
-      Visiblity: false,
-      type: "button",
-    },
-  ];
-
   const { userData1, userData2 } = UserDetails && UserDetails;
 
   const fetchData = async (page, rowsPerPage, searchQuery) => {
@@ -274,23 +230,12 @@ const ViewWallet = () => {
       const totalRows = response?.totalRecords;
       let mainRes = response.records;
 
-      console.log("mainResmainRes", mainRes);
-
       return { mainRes, totalRows };
     } catch {}
   };
   PagesIndex.useEffect(() => {
     fetchData();
   }, []);
-
-  // const visibleFields = [
-  //   "id",
-  //   "username",
-  //   "name",
-  //   "mobile",
-  //   "wallet_balance",
-  //   "wallet_bal_updated_at",
-  // ];
 
   const visibleFields = [
     {
@@ -299,57 +244,67 @@ const ViewWallet = () => {
       sortable: true,
     },
     {
-      name: "Name",
+      name: "Full Name",
       value: "name",
       sortable: false,
     },
     {
-      name: "mobile",
+      name: "Mobile",
       value: "mobile",
       sortable: false,
     },
     {
-      name: "wallet balance",
+      name: "Balance",
       value: "wallet_balance",
       sortable: false,
     },
     {
-      name: "wallet Balence Updated At",
+      name: "Last Updated",
       value: "wallet_bal_updated_at",
       sortable: false,
     },
-    // {
-    //   // name: "Profile",
-    //   name: "View Chnage History",
-    //   isButton: true,
-    //   // className : 'color-primary' ,
-    //   value: (row) => "View Chnage History",
-    //   buttonColor: "primary",
-    //   Conditions: (row) => {
-    //     handleViewHistory(row);
-    //   },
-    // },
-
     {
       name: "C/D Histoy",
       isButton: true,
       buttonColor: "dark",
-      value: (row) => "Histoy",
+      value: (row) => <i class="fa fa-history"></i>,
+
+      Conditions: (row) => {
+        getHistory(row, 1);
+      },
+    },
+    {
+      name: "Edit",
+      isButton: true,
+      buttonColor: "secondary",
+      value: (row) => <i class="fa  fa-edit"></i>,
+      Conditions: (row) => {
+        // getProfile(row);
+        getHistory(row, 4);
+      },
+    },
+    {
+      id: 3,
+      name: "History",
+      isButton: true,
+      buttonColor: "info",
+      value: (row) => <i class="fa fa-history"></i>,
       Conditions: (row) => {
         //setGetBannedData(row.banned);
-        getHistory(row, 1);
+        getHistory(row, 2);
       },
       // Visiblity: true,
       // type: "button",
     },
     {
-      name: "Add",
+      id: 4,
+      name: "profile",
       isButton: true,
       buttonColor: "secondary",
-      value: (row) => "Add",
+      value: (row) => <i class="fa fa-user"></i>,
       Conditions: (row) => {
         // getProfile(row);
-        getHistory(row, 4);
+        getHistory(row, 3);
       },
       // Visiblity: false,
       // type: "button",
@@ -371,17 +326,17 @@ const ViewWallet = () => {
         // columns={columns}
         initialRowsPerPage={5}
         SearchInTable={SearchInTable}
-        visibleFields={visibleFields}
-        UserFullButtonList={UserFullButtonList}
-        searchInput={
-          <input
-            type="text"
-            placeholder="Search..."
-            value={SearchInTable}
-            onChange={(e) => setSearchInTable(e.target.value)}
-            className="form-control ms-auto"
-          />
-        }
+        // visibleFields={visibleFields}
+
+        // searchInput={
+        //   <input
+        //     type="text"
+        //     placeholder="Search..."
+        //     value={SearchInTable}
+        //     onChange={(e) => setSearchInTable(e.target.value)}
+        //     className="form-control ms-auto"
+        //   />
+        // }
       />
 
       <ReusableModal

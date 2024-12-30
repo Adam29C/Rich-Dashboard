@@ -15,13 +15,16 @@ const CustomTable = ({
   const [filteredData, setFilteredData] = useState([]);
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(25);
-  const [TotalPages, setTotalPages] = useState(1);
+  const [TotalPages, setTotalPages] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
   const [isResponsive, setIsResponsive] = useState(window.innerWidth <= 768);
   const [Refresh1, setRefresh1] = useState(false);
+  const [showCounting, setShowCounting] = useState(
+    "Showing 0 to 0 of 0 entries"
+  );
 
   const fetchTableData = async () => {
     setLoading(true);
@@ -29,10 +32,23 @@ const CustomTable = ({
 
     try {
       const result = await fetchData(page, rowsPerPage, searchQuery);
+      console.log('fetchData' );
+      
       setRefresh1(!Refresh1);
       setData(result.mainRes || []);
       setFilteredData(result.mainRes || []);
       setTotalPages(result.totalRows);
+
+      let abc = result.mainRes.map(
+        (item, index) => (page - 1) * rowsPerPage + index + 1
+      );
+
+      const firstElement = abc[0] || 0;
+      const lastElement = abc[abc.length - 1];
+
+      setShowCounting(
+        `Showing ${firstElement} to ${lastElement} of ${result.totalRows} entries`
+      );
     } catch (err) {
       setError("Failed to fetch data.");
     } finally {
@@ -42,7 +58,7 @@ const CustomTable = ({
 
   useEffect(() => {
     fetchTableData();
-  }, [Refresh, page, rowsPerPage, searchQuery]);
+  }, [Refresh, page, rowsPerPage, searchQuery, showCounting]);
 
   let abc = () => {
     if (tableData && tableData != undefined) {
@@ -55,6 +71,23 @@ const CustomTable = ({
       setLoading(false);
       setError(null);
       setTotalPages(TotalPagesCount);
+
+      let abc = tableData.map(
+        (item, index) => (page - 1) * rowsPerPage + index + 1
+      );
+
+      const firstElement = abc[0] || 0;
+      const lastElement = abc[abc.length - 1] || 0;
+
+      // console.log(
+      //   "Showing ${firstElement} to ${lastElement} of ${result.totalRows} entries",
+      //   `Showing ${firstElement} to ${lastElement} of ${result.totalRows} entries`
+      // );
+      setShowCounting(
+        `Showing ${firstElement} to ${lastElement} of ${
+          TotalPages || 0
+        } entries`
+      );
     } else {
       setData([]);
     }
@@ -62,13 +95,7 @@ const CustomTable = ({
 
   useEffect(() => {
     abc();
-  }, [tableData, page, rowsPerPage, searchQuery]);
-
-  // const handleFetchData = () => {};
-
-  // useEffect(() => {
-  //   handleFetchData();
-  // }, []);
+  }, [tableData,  page, rowsPerPage, searchQuery]);
 
   const sordata = () => {
     let sortedData = [...data];
@@ -139,7 +166,7 @@ const CustomTable = ({
     setIsResponsive(window.innerWidth <= 768);
   };
 
-useEffect(() => {
+  useEffect(() => {
     handleResize();
 
     window.addEventListener("resize", handleResize);
@@ -150,44 +177,12 @@ useEffect(() => {
 
   return (
     <div className="container">
-      {/* <div className="row d-flex">
-        <div className=" align-items-center col-md-4">
-          <label htmlFor="rowsPerPage" className="form-label me-2">
-            Show:
-          </label>
-          <select
-            id="rowsPerPage"
-            className="form-select w-auto"
-            value={rowsPerPage}
-            onChange={(e) => setRowsPerPage(Number(e.target.value))}
-          >
-            {[5, 10, 25, 50].map((value) => (
-              <option key={value} value={value}>
-                {value}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className=" ms-auto col-md-3">
-          <label htmlFor="rowsPerPage" className="form-label me-2">
-            Search
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Search..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            style={{ marginBottom: "10px" }}
-          />
-        </div>
-      </div> */}
-         <div className="main-table-fields">
+      <div className="main-table-fields">
         <div className="select-search-main">
           <label htmlFor="rowsPerPage" className="form-label me-2">
             Show:
           </label>
-    
+
           <select
             id="rowsPerPage"
             className="form-select w-auto custom-select"
@@ -202,19 +197,19 @@ useEffect(() => {
           </select>
         </div>
         <div>
-        <div className="search-main-table">
-          <label htmlFor="rowsPerPage" className="form-label mr-2">
-            Search
-          </label>
-          <input
-            type="text"
-            className="form-control custom-search"
-            placeholder="Search..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            style={{ marginBottom: "10px" }}
-          />
-        </div>
+          <div className="search-main-table">
+            <label htmlFor="rowsPerPage" className="form-label mr-2">
+              Search
+            </label>
+            <input
+              type="text"
+              className="form-control custom-search"
+              placeholder="Search..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              style={{ marginBottom: "10px" }}
+            />
+          </div>
         </div>
       </div>
       {/* {loading ? (
@@ -281,46 +276,55 @@ useEffect(() => {
       </table>
       {/* )} */}
 
-      <nav>
-        <ul className="pagination justify-content-end">
-          <li className="page-item">
-            <button
-              className="page-link"
-              onClick={() => setPage(1)}
-              disabled={page === 1}
-            >
-              First
-            </button>
-          </li>
-          <li className="page-item">
-            <button
-              className="page-link"
-              onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
-              disabled={page === 1}
-            >
-              Previous
-            </button>
-          </li>
-          <li className="page-item">
-            <button
-              className="page-link"
-              onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
-              disabled={page === totalPages}
-            >
-              Next
-            </button>
-          </li>
-          <li className="page-item">
-            <button
-              className="page-link"
-              onClick={() => setPage(totalPages)}
-              disabled={page === totalPages}
-            >
-              Last
-            </button>
-          </li>
-        </ul>
-      </nav>
+      <div className="row d-flex align-items-center">
+        <div className="col-md-6">
+          <span className="fw-bold">{showCounting}</span>
+        </div>
+        <div className="col-md-6">
+          <nav className="">
+            <ul className="pagination justify-content-end">
+              <li className="page-item">
+                <button
+                  className="page-link"
+                  onClick={() => setPage(1)}
+                  disabled={page === 1}
+                >
+                  First
+                </button>
+              </li>
+              <li className="page-item">
+                <button
+                  className="page-link"
+                  onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+                  disabled={page === 1}
+                >
+                  Previous
+                </button>
+              </li>
+              <li className="page-item">
+                <button
+                  className="page-link"
+                  onClick={() =>
+                    setPage((prev) => Math.min(prev + 1, totalPages))
+                  }
+                  disabled={page === totalPages}
+                >
+                  Next
+                </button>
+              </li>
+              <li className="page-item">
+                <button
+                  className="page-link"
+                  onClick={() => setPage(totalPages)}
+                  disabled={page === totalPages}
+                >
+                  Last
+                </button>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
     </div>
   );
 };

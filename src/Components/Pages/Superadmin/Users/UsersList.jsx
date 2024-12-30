@@ -20,8 +20,6 @@ const App = () => {
   const [GetUserProfile, seGetUserProfile] = PagesIndex.useState([]);
 
   const fetchData = async (page, rowsPerPage, searchQuery) => {
-    // console.log("searchQuerysearchQuerysearchQuery" ,searchQuery);
-
     const payload = {
       page: page,
       limit: rowsPerPage,
