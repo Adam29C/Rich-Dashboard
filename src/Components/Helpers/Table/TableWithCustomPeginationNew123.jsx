@@ -94,18 +94,29 @@ const PaginatedTable = ({
   const renderButton = (field, row) => {
     const buttonText =
       typeof field.value === "function" ? field.value(row) : field.value;
+
+
     return (
       <button
         key={field.name}
         // className={`btn btn-${field.buttonColor} btn-sm`}
         onClick={() => field.Conditions(row)}
         className={`btn ${
+          // typeof field.buttonColor === "function"
+          //   ? `btn-${field.buttonColor(row)}`
+          //   : field.buttonColor
+          //   ? `btn-${field.buttonColor}`
+          //   : "unblock-btn"
           typeof field.buttonColor === "function"
-            ? `btn-${field.buttonColor(row)}`
+            ? `btn-${field.buttonColor(row)} ${field.className}`
             : field.buttonColor
-            ? `btn-${field.buttonColor}`
-            : "unblock-btn"
-        } btn-sm me-2`}
+            ? `btn-${field.buttonColor}  `
+            : `unblock-btn ${field.className}`
+        } btn-sm me-2  ${
+          typeof field.className === "function"
+            ? field.className(row)
+            : field.className || ""
+        }`}
       >
         {buttonText}
       </button>

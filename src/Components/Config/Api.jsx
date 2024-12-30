@@ -123,7 +123,7 @@ const Api = {
   JACKPOT_GAME_PAST_RESULT: "abGameResult/pastResult",
   JACKPOT_GAME_WINNER_LIST: "abWinner/abWinnerList",
   JACKPOT_GAME_DISTIBUTE_FUND_WINNERS: "abWinner/abWinners",
-  JACKPOT_REMOVE_RESULT: "starGameResult/delete",
+  JACKPOT_REMOVE_RESULT: "abGameResult/delete",
 
   //  JACKPOT PROFIT / LOSS -
   JACKPOT_GAME_PROFIT_LOSS_LIST: "anderBaharProfitLoss/getResult",

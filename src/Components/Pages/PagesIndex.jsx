@@ -52,7 +52,7 @@ import TableWithCustomPeginationNew from "../Helpers/Table/TableWithCustomPegina
 import TableWithCustomPeginationButton from "../Helpers/Table/TableWithCustomPeginationButton";
 import TableWithCustomPeginationNew123 from "../Helpers/Table/TableWithCustomPeginationNew123";
 import ModalComponent from "../Helpers/Modal/ModalComponent";
-import Split_Main_Containt from "../Layout/Main/Split_Main_Content"
+import Split_Main_Containt from "../Layout/Main/Split_Main_Content";
 const PagesIndex = {
   useDispatch,
   useState,

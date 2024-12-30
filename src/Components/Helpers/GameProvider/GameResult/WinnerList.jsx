@@ -306,7 +306,6 @@ const WinnerList = () => {
   const [GetResultStatus, setGetResultStatus] = PagesIndex.useState([]);
   const [JackportData, setJackportData] = PagesIndex.useState("");
 
-
   const [BtnVisiably, setBtnVisiably] = PagesIndex.useState(false);
 
   const handleChange = (state) => {
@@ -321,7 +320,7 @@ const WinnerList = () => {
         session: data?.session,
         page: page,
         limit: rowsPerPage,
-        search :searchQuery
+        search: searchQuery,
       };
       try {
         const res1 =
@@ -375,7 +374,7 @@ const WinnerList = () => {
           providerName: data?.providerName,
           page: page,
           limit: rowsPerPage,
-          search :searchQuery,
+          search: searchQuery,
         };
 
         res = await PagesIndex.admin_services.GAME_MAIN_WINNER_LIST_API(
@@ -412,7 +411,6 @@ const WinnerList = () => {
             : gameType === "JackPot"
             ? res.resultData
             : nonEmptyCategories;
-
 
         return { mainRes, totalRows };
       }

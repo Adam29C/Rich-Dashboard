@@ -28,7 +28,7 @@ const ExamplePage = ({
   //all state
   const [SearchInTable, setSearchInTable] = PagesIndex.useState("");
   const [tableData, setTableData] = useState([]);
-  
+
   const [GetProvider, setGetProvider] = useState([]);
 
   //get game result function
@@ -40,10 +40,9 @@ const ExamplePage = ({
       token
     );
 
-    
     // if (res.status) {
-      setTableData(res?.data?.result || res?.data?.results || res.result );
-      setGetProvider(res?.data?.provider || res?.data?.providers || res?.data );
+    setTableData(res?.data?.result || res?.data?.results || res.result);
+    setGetProvider(res?.data?.provider || res?.data?.providers || res?.data);
     // }
   };
 
@@ -62,7 +61,7 @@ const ExamplePage = ({
     initialValues: {
       winningDigit: "",
       resultDate: actual_date_formet || null,
-      session:1,
+      session: 1,
       providerId: "",
       providerName: "",
     },
@@ -120,13 +119,12 @@ const ExamplePage = ({
     },
   });
 
-
-    useEffect(() => {
-      if (GetProvider?.length > 0) {
-        formik.setFieldValue('providerId', GetProvider?.[0]._id); 
-        formik.setFieldValue('providerName', GetProvider?.[0].providerName); 
-      }
-    }, [GetProvider]);
+  useEffect(() => {
+    if (GetProvider?.length > 0) {
+      formik.setFieldValue("providerId", GetProvider?.[0]._id);
+      formik.setFieldValue("providerName", GetProvider?.[0].providerName);
+    }
+  }, [GetProvider]);
 
   //formik form for only result date
   const formik1 = PagesIndex.useFormik({
@@ -141,8 +139,6 @@ const ExamplePage = ({
     onSubmit: async (values) => {
       const apidata = values.date;
       try {
-
-        
         const res = await PagesIndex.game_service.ALL_GAME_PAST_RESULTS(
           past_result,
           apidata,
@@ -160,7 +156,7 @@ const ExamplePage = ({
       }
     },
   });
-// gameType === "StarLine"
+  // gameType === "StarLine"
   const fields = [
     {
       name: "providerId",
@@ -238,6 +234,10 @@ const ExamplePage = ({
       resultId: row?._id,
       providerId: row?.providerId,
       session: row?.session,
+
+      // "resultId": "672c9e2c3ed6eb600f635cc5",
+      // "providerId": "666199ccb7537c08387c108f",
+      dltPast: 0,
     };
 
     const confirmDelete = window.confirm(
@@ -245,28 +245,35 @@ const ExamplePage = ({
     );
     if (!confirmDelete) return;
 
+    console.log("apidata", apidata);
+
     try {
       let res = "";
       if (gameType === "StarLine" || gameType === "JackPot") {
-        res = await PagesIndex.game_service.REMOVE_WINNER_LIST(
+        const apidata = {
+          resultId: row?._id,
+          providerId: row?.providerId,
+          session: row?.session,
+          dltPast: 0,
+        };
+
+        res = await PagesIndex.game_service.REMOVE_WINNER_LIST123(
           remove_result,
           apidata,
           token
         );
+
+        console.log("resresresresresres", res);
       }
-      res = await PagesIndex.admin_services.GAME_RESULT_DELETE(apidata, token);
+      // res = await PagesIndex.admin_services.GAME_RESULT_DELETE(apidata, token);
 
-
-
-      
       if (res.statusCode === 200 || res.status) {
         alert(res?.message);
-        getGameResultApi;
+        getGameResultApi();
       } else {
         PagesIndex.toast.error(res.response.data.message);
       }
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   //handle actions button function
@@ -333,6 +340,7 @@ const ExamplePage = ({
       buttonColor: "success",
       isButton: true,
       sortable: true,
+
       Conditions: (row) => {
         handleActionBtn(row, 1);
       },
@@ -343,6 +351,7 @@ const ExamplePage = ({
       buttonColor: "danger",
       isButton: true,
       sortable: true,
+      className: (row) => (parseInt(row.status) === 0 ? "d-block" : "d-none"),
       Conditions: (row) => {
         handleActionBtn(row, 2);
       },
@@ -412,16 +421,6 @@ const ExamplePage = ({
             SearchInTable={SearchInTable}
             visibleFields={visibleFields}
             showIndex={true}
-            // UserFullButtonList={UserFullButtonList}
-            // searchInput={
-            //   <input
-            //     type="text"
-            //     placeholder="Search..."
-            //     value={SearchInTable}
-            //     onChange={(e) => setSearchInTable(e.target.value)}
-            //     className="form-control ms-auto"
-            //   />
-            // }
           />
         </div>
       ),

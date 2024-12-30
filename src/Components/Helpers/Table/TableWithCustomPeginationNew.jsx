@@ -153,7 +153,7 @@ const CustomTable = ({
           typeof field.buttonColor === "function"
             ? `btn-${field.buttonColor(row)} ${field.className}`
             : field.buttonColor
-            ? `btn-${field.buttonColor} ${field.className}`
+            ? `btn-${field.buttonColor}  ${field.className}`
             : `unblock-btn ${field.className}`
         } btn-sm me-2 ${field.className}`}
       >

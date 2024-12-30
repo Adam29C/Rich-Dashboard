@@ -149,13 +149,14 @@ export const STARLINE__AND_JACKPOT_GAME_RATE_DELETE_API = async (
   data,
   token
 ) => {
-
-  
   try {
-    const res = await axios.delete(`${BASE_URL}${api_Route}?gameRateId=${data}`, {
-      headers: header(token),
-      // data: data, // Pass the payload here
-    });
+    const res = await axios.delete(
+      `${BASE_URL}${api_Route}?gameRateId=${data}`,
+      {
+        headers: header(token),
+        // data: data, // Pass the payload here
+      }
+    );
     return res?.data;
   } catch (error) {
     return error;
@@ -322,7 +323,6 @@ export const ALL_GAME_RESULTS_ADD_API = async (api_Route, data, token) => {
 };
 
 export const ALL_GAME_PAST_RESULTS = async (api_Route, data, token) => {
-
   try {
     const res = await axios.get(`${BASE_URL}${api_Route}?date=${data}`, {
       headers: header(token),
@@ -359,11 +359,7 @@ export const STARLINE_GAME_DISTIBUTE_FUND_WINNERS_API = async (
   }
 };
 
-export const REMOVE_WINNER_LIST = async (
-  api_Route,
-  data,
-  token
-) => {
+export const REMOVE_WINNER_LIST = async (api_Route, data, token) => {
   try {
     const res = await axios.delete(`${BASE_URL}${api_Route}`, data, {
       headers: header(token),
@@ -374,6 +370,20 @@ export const REMOVE_WINNER_LIST = async (
   }
 };
 
+export const REMOVE_WINNER_LIST123 = async (api_Route, data, token) => {
+  try {
+    const res = await axios.delete(
+      `${BASE_URL}${api_Route}`,
+      { data: data },
+      {
+        headers: header(token),
+      }
+    );
+    return res?.data;
+  } catch (error) {
+    return error;
+  }
+};
 // export const FOR_STARLINE_AND_JACPOT_UPDATE_ONE_GAME_SETTING_API = async (
 //   api_Route,
 //   data,
@@ -421,8 +431,6 @@ export const STARLINE_GAME_CONFIRM_REVERT_PAYMENT_API = async (
 
 // ---------------FOR ALL GAME REVERT PAYMENT  ---------------------
 
-
-
 // ---------------FOR ALL GAME  PROFIT/LOSS  ---------------------
 
 export const ALL_GAME_PROFIT_LOSS_API = async (api_Route, token) => {
@@ -466,8 +474,6 @@ export const STARLINE_GAME_PROFIT_LOSS_BID_DATA_API = async (
   }
 };
 // ---------------FOR ALL GAME PROFIT/LOSS  ---------------------
-
-
 
 // ---------------FOR ALL GAME REFUND PAYMENT  ---------------------
 
