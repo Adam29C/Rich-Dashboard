@@ -87,6 +87,10 @@
 }
 
 @media (max-width: 450px) {
+  .custom-tab-list .react-tabs__tab {
+    padding: 5px;
+    font-size: 12px;
+}
   .hamburger{
 
     transition: all 0s ease-in-out 0s !important;

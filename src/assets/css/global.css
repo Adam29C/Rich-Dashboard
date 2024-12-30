@@ -554,3 +554,26 @@ input:checked + .slider:before {
   display: flex;
   align-items: center;
 }
+
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
+.react-tabs__tab {
+  text-align: center;
+}
+
+
+.custom-tab-list {
+  display: flex;
+  justify-content: space-between;
+  width: 100%; 
+}
+
+.custom-tab-list .react-tabs__tab {
+  flex: 1; 
+  text-align: center; 
+  padding: 8px; 
+  box-sizing: border-box; 
+
+}

@@ -11,6 +11,7 @@ const MainGameReports = ({
   starandjackProvider,
   title,
 }) => {
+  
   //get token in local storage
   const token = localStorage.getItem("token");
   //set actual date

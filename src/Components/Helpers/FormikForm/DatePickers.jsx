@@ -33,7 +33,7 @@ const CustomDatePicker = ({ field, formik, setDateStates, dateStates }) => {
         </label>
         <div className="d-flex">
           <DatePicker
-            className="form-control w-100"
+            className="form-control "
             value={dateStates[field.name]}
             selected={dateStates[field.name] || today(new Date())} // Ensure a valid date object or null
             // className={`form-control`}
