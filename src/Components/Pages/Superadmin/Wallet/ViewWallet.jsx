@@ -12,7 +12,6 @@ const ViewWallet = () => {
   const [SearchInTable, setSearchInTable] = PagesIndex.useState("");
   const [TableData, setTableData] = PagesIndex.useState([]);
   const [DisableSubmit, setDisableSubmit] = PagesIndex.useState(false);
-
   const [ModalStateHistory, setModalStateHistory] = PagesIndex.useState(false);
   const [ModalStateHistoryTable, setModalStateHistoryTable] =
     PagesIndex.useState([]);

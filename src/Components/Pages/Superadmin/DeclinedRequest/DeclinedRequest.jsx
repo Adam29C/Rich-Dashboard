@@ -13,6 +13,7 @@ const DeclinedRequest = () => {
   //all state
   const [SearchInTable, setSearchInTable] = PagesIndex.useState("");
   const [tableData, setTableData] = PagesIndex.useState([]);
+  const [DisableSubmit, setDisableSubmit] = PagesIndex.useState(false);
 
   const [Refresh, setRefresh] = PagesIndex.useState(false);
 
@@ -63,6 +64,7 @@ const DeclinedRequest = () => {
       limit: UserPagenateData.limit,
       search: SearchInTable,
     };
+   try {
     const res = await PagesIndex.admin_services.GET_DECLINED_REQUEST_API(
       payload,
       token
@@ -72,6 +74,11 @@ const DeclinedRequest = () => {
       setTableData(res?.data);
       setTotalPages(res?.total || res?.pagination?.totalItems);
     }
+   } catch (error) {
+    
+   }finally{
+    setDisableSubmit(false)
+   }
   };
 
   PagesIndex.useEffect(() => {
@@ -85,6 +92,7 @@ const DeclinedRequest = () => {
     validate: (values) => {},
 
     onSubmit: async (values) => {
+      setDisableSubmit(!DisableSubmit)
       getDeclinedRequest(values.date);
     },
   });
@@ -148,6 +156,7 @@ const DeclinedRequest = () => {
         setUserPagenateData={setUserPagenateData}
         UserPagenateData={UserPagenateData}
         TotalPages={TotalPages}
+        DisableSubmit={DisableSubmit}
       />
     </>
   );

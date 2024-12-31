@@ -15,10 +15,12 @@ const CreditRequest = () => {
   //all state
   const [SearchInTable, setSearchInTable] = PagesIndex.useState("");
   const [tableData, setTableData] = PagesIndex.useState([]);
+  const [DisableSubmit, setDisableSubmit] = PagesIndex.useState(false);
 
   // get api credit request upi
 
   const getCreditRequest = async (date = actual_date_formet) => {
+   try {
     const payload = {
       date_cust: date,
       page: 1,
@@ -32,6 +34,11 @@ const CreditRequest = () => {
     if (res?.status) {
       setTableData(res?.approvedData);
     }
+   } catch (error) {
+    
+   }finally{
+    setDisableSubmit(false);
+   }
   };
 
   PagesIndex.useEffect(() => {
@@ -45,6 +52,8 @@ const CreditRequest = () => {
     validate: (values) => {},
 
     onSubmit: async (values) => {
+      setDisableSubmit(!DisableSubmit);
+
       getCreditRequest(values.date);
     },
   });
@@ -123,6 +132,7 @@ const CreditRequest = () => {
             formik={formik}
             button_Size={"w-15"}
             btn_name="Submit"
+            disabledSubmit={DisableSubmit}
           />
         </div>
       ),

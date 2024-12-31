@@ -14,6 +14,7 @@ const CreditDeclinedRequest = ({
   setUserPagenateData,
   UserPagenateData,
   TotalPages,
+  DisableSubmit
 }) => {
   const totalAmount = useMemo(
     () => tableData.reduce((acc, item) => acc + (item?.reqAmount || 0), 0),
@@ -31,6 +32,7 @@ const CreditDeclinedRequest = ({
             formik={formik}
             button_Size={"w-15"}
             btn_name="Submit"
+            disabledSubmit={DisableSubmit}
           />
         </div>
       ),

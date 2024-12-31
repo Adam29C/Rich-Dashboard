@@ -21,6 +21,7 @@ const PendingBankRequests = () => {
   // const [Refresh, setRefresh] = PagesIndex.useState();
 
   const [getUserProfile, setGetUserProfile] = PagesIndex.useState();
+  const [DisableSubmit, setDisableSubmit] = PagesIndex.useState(false);
 
   //destructure data fro getuserprofile api
   const userProfileData1 = getUserProfile && getUserProfile?.userData1;
@@ -145,6 +146,8 @@ const PendingBankRequests = () => {
     },
 
     onSubmit: async (values) => {
+      setDisableSubmit(!DisableSubmit);
+
       setVisible(false);
       const apidata = {
         userId: selectedRow?.userId,
@@ -153,21 +156,28 @@ const PendingBankRequests = () => {
         amount: +values.amount,
         id: selectedRow?.reqType === "Debit" ? 2 : 1,
       };
+    try {
       const res =
-        await PagesIndex.admin_services.PENDING_DEBIT_UPDATE_WALLET_API(
-          apidata,
-          token
-        );
+      await PagesIndex.admin_services.PENDING_DEBIT_UPDATE_WALLET_API(
+        apidata,
+        token
+      );
 
-      if (res.status) {
-        PagesIndex.toast.success(res.message);
-        getPendingRequestList();
-      } else {
-        PagesIndex.toast.error(res.message);
-      }
-      if (res?.status === 400) {
-        PagesIndex.toast.error(res?.data?.message);
-      }
+    if (res.status) {
+      PagesIndex.toast.success(res.message);
+      getPendingRequestList();
+      setRefresh(!Refresh);
+    } else {
+      PagesIndex.toast.error(res.message);
+    }
+    if (res?.status === 400) {
+      PagesIndex.toast.error(res?.data?.message);
+    }
+    } catch (error) {
+      
+    }finally{
+      setDisableSubmit(false); 
+    }
     },
   });
 
@@ -240,6 +250,7 @@ const PendingBankRequests = () => {
     if (res?.status) {
       alert(res?.message);
       getPendingRequestList();
+      setRefresh(!Refresh);
     }
   };
 
@@ -309,6 +320,8 @@ const PendingBankRequests = () => {
         formik={formik}
         form_title={selectedRow?.username}
         showBal={getBal?.wallet_balance}
+        DisableSubmit={DisableSubmit}
+     
       />
       <ReusableModal
         ModalTitle={

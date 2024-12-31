@@ -15,6 +15,7 @@ const ForStarlineJackpotAdd = ({
   const navigate = PagesIndex.useNavigate();
   const location = PagesIndex.useLocation();
   const dispatch = PagesIndex.useDispatch();
+  const [DisableSubmit, setDisableSubmit] = PagesIndex.useState(false);
 
   const [Data, setData] = PagesIndex.useState([]);
 
@@ -85,79 +86,63 @@ const ForStarlineJackpotAdd = ({
     },
 
     onSubmit: async (values) => {
-      // let data = {
-      //   adminId: userId,
-      //   gameType: gameType,
-      //   providerId: values.providerId,
-      //   OBT: values.OBT,
-      //   CBT: values.CBT,
-      //   OBRT: values.OBRT,
-      //   CBRT: "null",
-      //   isClosed: values.isClosed.toString(),
-      // };
-
-      // if (location?.state?.rowData?._id) {
-      //   data.gameSettingId = location?.state.rowData?._id;
-      // }
-
-      // if (location?.state?.edit === "multiple") {
-      //   data.providerId = values.providerId;
-      // } else {
-      //   data.providerId = values.providerId;
-      //   data.gameDay = values.gameDay;
-      // }
-
-      // { gameid, game1, game2, game3, status }
-      let data = {
-        // gameDay: values.gameDay,
-        game1: convertTo12HourFormat(values.OBT),
-        game2: convertTo12HourFormat(values.CBT),
-        game3: convertTo12HourFormat(values.OBRT),
-        status: values.isClosed.toString(),
-      };
-
-      if (location?.state?.edit === "single") {
-        data.gameid = location?.state?.rowData?._id;
-      } else if (location?.state?.edit === "multiple") {
-        // data.providerId = values.providerId;
-        data.gameid = values.providerId;
-      } else {
-        // data.providerId = values.providerId;
-        data.gameDay = values.gameDay;
-        data.gameid = values.providerId;
-      }
-
-      const res =
-        location?.state?.edit === "single"
-          ? await PagesIndex.game_service.FOR_STARLINE_AND_JACPOT_UPDATE_ONE_GAME_SETTING_API(
-              updateOne,
-              data,
-              token
-            )
-          : location?.state?.edit === "multiple"
-          ? await PagesIndex.game_service.FOR_STARLINE_AND_JACPOT_UPDATE_GAME_SETTING_API(
-              updateAll,
-              data,
-              token
-            )
-          : await PagesIndex.game_service.FOR_STARLINE_AND_JACPOT_ADD_API(
-              api_Route,
-              data,
-              token
-            );
-
-      if (res?.success || res?.status) {
-        PagesIndex.toast.success(res?.message);
-        setTimeout(() => {
-          navigate(path);
-        }, 1000);
-      } else {
-        PagesIndex.toast.error(res?.response?.data?.message || res?.message);
-        setTimeout(() => {
-          navigate(path);
-        }, 1000);
+      setDisableSubmit(true); // Disable the submit button initially
+    
+      try {
+        let data = {
+          game1: convertTo12HourFormat(values.OBT),
+          game2: convertTo12HourFormat(values.CBT),
+          game3: convertTo12HourFormat(values.OBRT),
+          status: values.isClosed.toString(),
+        };
+    
+        if (location?.state?.edit === "single") {
+          data.gameid = location?.state?.rowData?._id;
+        } else if (location?.state?.edit === "multiple") {
+          data.gameid = values.providerId;
+        } else {
+          data.gameDay = values.gameDay;
+          data.gameid = values.providerId;
+        }
+    
+        const res =
+          location?.state?.edit === "single"
+            ? await PagesIndex.game_service.FOR_STARLINE_AND_JACPOT_UPDATE_ONE_GAME_SETTING_API(
+                updateOne,
+                data,
+                token
+              )
+            : location?.state?.edit === "multiple"
+            ? await PagesIndex.game_service.FOR_STARLINE_AND_JACPOT_UPDATE_GAME_SETTING_API(
+                updateAll,
+                data,
+                token
+              )
+            : await PagesIndex.game_service.FOR_STARLINE_AND_JACPOT_ADD_API(
+                api_Route,
+                data,
+                token
+              );
+    
+        if (res?.success || res?.status) {
+          PagesIndex.toast.success(res?.message);
+          setTimeout(() => {
+            navigate(path);
+          }, 1000);
+        } else {
+          PagesIndex.toast.error(res?.response?.data?.message || res?.message);
+          setTimeout(() => {
+            navigate(path);
+          }, 1000);
+        }
+      } catch (error) {
+        // Log the error or display an error message
+        PagesIndex.toast.error(error?.message || "An unexpected error occurred");
+      } finally {
+        setDisableSubmit(false); // Re-enable the submit button in all cases
       }
     },
+    
   });
 
   const fields = [
@@ -165,6 +150,7 @@ const ForStarlineJackpotAdd = ({
       name: "providerId",
       label: "Provider Name",
       type: "select",
+      disable: location?.state ? true : false,
       options:
         (Data &&
           Data?.map((item) => ({
@@ -174,6 +160,7 @@ const ForStarlineJackpotAdd = ({
         [],
       label_size: 12,
       col_size: 6,
+     
     },
     {
       name: "gameDay",
@@ -245,6 +232,7 @@ const ForStarlineJackpotAdd = ({
         btn_name={location?.state ? "Update" : "Add"}
         button_Size={"w-10"}
         show_submit={true}
+        disabledSubmit={DisableSubmit}
       />
       <PagesIndex.Toast />
     </PagesIndex.Main_Containt>
