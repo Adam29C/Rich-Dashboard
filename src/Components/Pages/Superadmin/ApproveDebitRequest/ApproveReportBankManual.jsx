@@ -16,6 +16,7 @@ const ApproveReportBankManual = () => {
   const [SearchInTable, setSearchInTable] = PagesIndex.useState("");
   const [tableData, setTableData] = PagesIndex.useState([]);
   const [Refresh, setRefresh] = PagesIndex.useState(false);
+  const [DisableSubmit, setDisableSubmit] = PagesIndex.useState(false);
 
   const [UserPagenateData, setUserPagenateData] = PagesIndex.useState({
     pageno: 1,
@@ -64,6 +65,7 @@ const ApproveReportBankManual = () => {
     validate: (values) => {},
 
     onSubmit: async (values) => {
+      setDisableSubmit(!DisableSubmit);
       getDeclinedRequest(values.date);
     },
   });
@@ -75,17 +77,25 @@ const ApproveReportBankManual = () => {
       limit: UserPagenateData.limit,
       search: SearchInTable,
     };
-    const res = await PagesIndex.admin_services.APPROVED_DEBIT_BANK_MANUAL_API(
-      payload,
-      token
-    );
-
-    if (res?.status) {
-      console.log("res?.total", res.data);
-      let mainRes = Object.values(res.data);
-      setTableData(mainRes);
-
-      setTotalPages(res?.total || res?.pagination?.totalItems);
+ 
+    try {
+      const res = await PagesIndex.admin_services.APPROVED_DEBIT_BANK_MANUAL_API(
+        payload,
+        token
+      );
+  
+      if (res?.status) {
+        console.log("res?.total", res.data);
+        let mainRes = Object.values(res.data);
+        setTableData(mainRes);
+  
+        setTotalPages(res?.total || res?.pagination?.totalItems);
+      }
+  
+    } catch (error) {
+      
+    }finally{
+      setDisableSubmit(false);
     }
   };
 
@@ -138,6 +148,7 @@ const ApproveReportBankManual = () => {
       setUserPagenateData={setUserPagenateData}
       UserPagenateData={UserPagenateData}
       TotalPages={TotalPages}
+      DisableSubmit={DisableSubmit}
     />
   );
 };

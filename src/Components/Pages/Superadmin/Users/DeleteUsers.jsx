@@ -10,6 +10,7 @@ const DeleteUsers = () => {
   const [deletedUserData, setDeletedUserData] = PagesIndex.useState([]);
   const [timehistoryData, setTimehistoryData] = PagesIndex.useState([]);
   const [updatedData, setUpdatedData] = PagesIndex.useState({});
+  const [DisableSubmit, setDisableSubmit] = PagesIndex.useState(false);
 
   const [Refresh, setRefresh] = PagesIndex.useState(false);
 
@@ -90,6 +91,8 @@ const DeleteUsers = () => {
 
   // Submit handler
   const handleSubmit = async () => {
+    setDisableSubmit(!DisableSubmit);
+
     const timeList = timehistoryData.map((item) => ({
       _id: item._id,
       deleteTime: updatedData[item._id]?.deleteTime || item.deleteTime,
@@ -100,18 +103,25 @@ const DeleteUsers = () => {
 
     // Send payload to API
     const payload = { timeList };
-    const res = await PagesIndex.admin_services.DELETED_USERS_TIMEHISTORY_API(
-      payload,
-      token
-    );
+try {
+  const res = await PagesIndex.admin_services.DELETED_USERS_TIMEHISTORY_API(
+    payload,
+    token
+  );
 
-    if (res?.status) {
-      PagesIndex.toast.success(res?.message);
-      getDeletedUserTimeHistoryList();
-      setUpdatedData({});
-    } else {
-      PagesIndex.toast.error(res?.message);
-    }
+  if (res?.status) {
+    PagesIndex.toast.success(res?.message);
+    getDeletedUserTimeHistoryList();
+    setUpdatedData({});
+  } else {
+    PagesIndex.toast.error(res?.message);
+  }
+} catch (error) {
+  
+} finally {
+  setDisableSubmit(false); // Enable button after response
+}
+
   };
 
   const columns = [
@@ -213,7 +223,7 @@ const DeleteUsers = () => {
         <div>
           <div className="delete-user-main">
             <h4 class="profile-note-title mt-0 mb-4">Delete All Users Data</h4>
-            <button className="btn btn-info" onClick={handleSubmit}>
+            <button className="btn btn-info" onClick={handleSubmit} disabled={DisableSubmit}>
               Submit
             </button>
           </div>

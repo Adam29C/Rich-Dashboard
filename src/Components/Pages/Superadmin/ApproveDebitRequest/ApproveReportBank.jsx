@@ -9,6 +9,7 @@ const ApproveReportBank = () => {
 
   //set actual date
   const actual_date_formet = getActualDateWithFormat(new Date());
+  const [DisableSubmit, setDisableSubmit] = PagesIndex.useState(false);
 
 
   console.log("actual_date_formet" ,actual_date_formet);
@@ -66,6 +67,7 @@ const ApproveReportBank = () => {
     validate: (values) => {},
 
     onSubmit: async (values) => {
+      setDisableSubmit(!DisableSubmit);
       getDeclinedRequest(values.date);
     },
   });
@@ -77,18 +79,24 @@ const ApproveReportBank = () => {
       limit: UserPagenateData.limit,
       search: SearchInTable,
     };
-    const res = await PagesIndex.admin_services.APPROVED_DEBIT_BANK_API(
-      payload,
-      token
-    );
+try {
+  const res = await PagesIndex.admin_services.APPROVED_DEBIT_BANK_API(
+    payload,
+    token
+  );
 
-    if (res?.status) {
-      console.log("res?.total", res?.total);
-      let mainRes = Object.values(res.approvedData);
-      setTableData(mainRes);
+  if (res?.status) {
+    console.log("res?.total", res?.total);
+    let mainRes = Object.values(res.approvedData);
+    setTableData(mainRes);
 
-      setTotalPages(res?.total || res?.pagination?.totalItems);
-    }
+    setTotalPages(res?.total || res?.pagination?.totalItems);
+  }
+} catch (error) {
+  
+}finally{
+  setDisableSubmit(false);
+}
   };
 
   PagesIndex.useEffect(() => {
@@ -130,6 +138,7 @@ const ApproveReportBank = () => {
       setUserPagenateData={setUserPagenateData}
       UserPagenateData={UserPagenateData}
       TotalPages={TotalPages}
+      DisableSubmit={DisableSubmit}
     />
   );
 };

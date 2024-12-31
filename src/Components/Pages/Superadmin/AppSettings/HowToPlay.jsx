@@ -12,6 +12,7 @@ const HowToPlay = () => {
   //all state
   const [htpData, setHtpData] = useState([]);
   const [loading, setLoading] = PagesIndex.useState(true);
+  const [DisableSubmit, setDisableSubmit] = PagesIndex.useState(false);
 
  
   //get htp data
@@ -33,13 +34,15 @@ const HowToPlay = () => {
   };
 
   const handleFormSubmit = async (values) => {
-  
+    setDisableSubmit(!DisableSubmit);
+
     let apidata = {
       // htpId: htpData[0]?._id,
       howtoplay: values.howtoplay,
     };
 
-    const res = await PagesIndex.admin_services.UPDATE_HTP_API(apidata,token);
+try {
+  const res = await PagesIndex.admin_services.UPDATE_HTP_API(apidata,token);
   console.log(res,50)
     if (res.status) {
       toast.success(res.message);
@@ -47,6 +50,13 @@ const HowToPlay = () => {
     } else {
       toast.error(res.response.data.message);
     }
+  
+} catch (error) {
+  
+}finally {
+  setDisableSubmit(false); // Enable button after response
+}
+
   };
 
   return (
@@ -218,6 +228,7 @@ const HowToPlay = () => {
                       <button
                         type="submit"
                         className="btn  submitBtn "
+                        disabled={DisableSubmit}
                       >
                         Submit
                       </button>

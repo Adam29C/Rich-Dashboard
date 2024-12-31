@@ -10,6 +10,7 @@ const ModalComponent = ({
   formik,
   setSelectedRow,
   showBal,
+  DisableSubmit
 }) => {
 
   const closeModal = () => {
@@ -46,6 +47,7 @@ const ModalComponent = ({
             btn_name={"submit"}
             button_Size={"w-100"}
             show_submit={true}
+            disabledSubmit={DisableSubmit}
           />
         </div>
       </Modal>
