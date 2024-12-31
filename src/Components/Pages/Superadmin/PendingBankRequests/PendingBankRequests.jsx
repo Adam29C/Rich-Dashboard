@@ -18,6 +18,8 @@ const PendingBankRequests = () => {
   const [ModalState, setModalState] = PagesIndex.useState(false);
   const [selectedRow, setSelectedRow] = PagesIndex.useState(null);
   const [getBal, setGetBal] = PagesIndex.useState();
+  // const [Refresh, setRefresh] = PagesIndex.useState();
+
   const [getUserProfile, setGetUserProfile] = PagesIndex.useState();
 
   //destructure data fro getuserprofile api

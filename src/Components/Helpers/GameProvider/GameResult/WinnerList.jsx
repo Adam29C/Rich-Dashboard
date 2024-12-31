@@ -468,7 +468,7 @@ const WinnerList = () => {
   ];
 
   const confirmPayment = async (status) => {
-    setBtnVisiably(false);
+    setBtnVisiably(true);
 
     const payload = {
       providerId: GetResultStatus?.provider,
@@ -487,6 +487,9 @@ const WinnerList = () => {
     };
 
     let res = "";
+
+
+
 
     if (getStatus && getStatus === "0") {
       if (gameType === "StarLine" || gameType === "JackPot") {
@@ -532,6 +535,7 @@ const WinnerList = () => {
         );
     }
 
+
     if (res.status) {
       setBtnVisiably(false);
       PagesIndex.toast.success(res.message);
@@ -545,6 +549,7 @@ const WinnerList = () => {
     } else {
       PagesIndex.toast.error(res.response.data.message);
     }
+
   };
 
   const cardLayouts = [
@@ -661,7 +666,7 @@ const WinnerList = () => {
               </button>
 
               <button
-                onClick={() => setModalState(false)}
+               onClick={() => setModalState(false)}
                 className="btn btn-dark  mx-2"
               >
                 Close

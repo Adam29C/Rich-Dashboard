@@ -304,14 +304,6 @@ const ExamplePage = ({
     }
   };
 
-  // const visibleFields = [
-  //   // "id",
-  //   "providerName",
-  //   "session",
-  //   "resultDate",
-  //   "winningDigit",
-  // ];
-
   const visibleFields = [
     {
       name: "provider Name",
@@ -322,6 +314,9 @@ const ExamplePage = ({
       name: "Session",
       value: "session",
       sortable: true,
+      style: (row) => ({
+        dispay: gameType === "JackPot" ? "none" : "block",
+      }),
     },
     {
       name: "Result Date",

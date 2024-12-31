@@ -21,6 +21,8 @@ const RefundPayment = ({
   const [BtnVisiably, setBtnVisiably] = PagesIndex.useState(false);
   const [RowData, setRowData] = PagesIndex.useState("");
   const [IsSUbmitted, setIsSUbmitted] = PagesIndex.useState(false);
+  const [IsSUbmittedConfirm, setIsSUbmittedConfirm] =
+    PagesIndex.useState(false);
 
   const [UserPagenateData, setUserPagenateData] = PagesIndex.useState({
     pageno: 1,
@@ -45,6 +47,7 @@ const RefundPayment = ({
   PagesIndex.useEffect(() => {
     getGameProviderList();
   }, [Refresh]);
+
   today(new Date());
   const formik = useFormik({
     initialValues: {
@@ -176,6 +179,7 @@ const RefundPayment = ({
   const ConfirmPayment1 = async (staus) => {
     if (confirm("Are you sure you want to delete this payment method? ")) {
       setBtnVisiably(true);
+      setIsSUbmittedConfirm(true);
       try {
         let apidata = {};
 
@@ -200,6 +204,8 @@ const RefundPayment = ({
 
         if (res.statusCode === 200 || res.status) {
           PagesIndex.toast.success(res.message);
+          setIsSUbmittedConfirm(false);
+
           setTableData(tableData);
           setBtnVisiably(false);
           setModalState(false);
@@ -210,6 +216,8 @@ const RefundPayment = ({
         }
       } catch (error) {
         console.log(error);
+      } finally {
+        setIsSUbmittedConfirm(false); // Enable button after response
       }
     }
   };
@@ -279,7 +287,7 @@ const RefundPayment = ({
         <div>
           <button
             className="btn btn-primary primary-color"
-            disabled={tableData.length === 0}
+            disabled={tableData.length === 0 || IsSUbmittedConfirm}
             onClick={() => {
               ConfirmPayment1(2);
             }}
