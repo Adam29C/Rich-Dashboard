@@ -124,6 +124,7 @@ const GameProviderAdd = () => {
       name: "providerId",
       label: "Provider Name",
       type: "select",
+      disable: location?.state ? true : false,
       options:
         data?.map((item) => ({
           label: item.providerName,

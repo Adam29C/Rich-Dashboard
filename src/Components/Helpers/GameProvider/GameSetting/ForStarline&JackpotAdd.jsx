@@ -150,6 +150,7 @@ const ForStarlineJackpotAdd = ({
       name: "providerId",
       label: "Provider Name",
       type: "select",
+      disable: location?.state ? true : false,
       options:
         (Data &&
           Data?.map((item) => ({
@@ -159,6 +160,7 @@ const ForStarlineJackpotAdd = ({
         [],
       label_size: 12,
       col_size: 6,
+     
     },
     {
       name: "gameDay",
