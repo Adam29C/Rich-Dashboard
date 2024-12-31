@@ -46,10 +46,10 @@ const Invoices = () => {
     },
     {
       // name: "Profile",
-      name: "View Chnage History",
+      name: "View Change History",
       isButton: true,
       // className : 'color-primary' ,
-      value: (row) => "View Chnage History",
+      value: (row) => "Change History",
       buttonColor: "primary",
       Conditions: (row) => {
         handleViewHistory(row);
@@ -103,11 +103,11 @@ const Invoices = () => {
     setModalState(true);
   };
 
-  const fetchData = async (page, rowsPerPage, searchQuery ) => {
+  const fetchData = async (page, rowsPerPage, searchQuery) => {
     const payload = {
       page: page,
       limit: rowsPerPage,
-      search :searchQuery,
+      search: searchQuery,
     };
 
     try {

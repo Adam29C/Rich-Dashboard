@@ -517,7 +517,10 @@ const WinnerList = () => {
             resultId: GetResultStatus?.resultId,
           };
         } else if (gameType === "JackPot") {
+          console.log("GetResultStatus", GetResultStatus);
+
           payload = {
+            digitFamily: String(GetResultStatus?.digitFamily),
             providerId: GetResultStatus?.dispData?._id,
             windigit: GetResultStatus?.dispData?.providerResult,
             gameDate: GetResultStatus?.dispData?.modifiedAt,
@@ -526,6 +529,9 @@ const WinnerList = () => {
           };
         }
 
+        console.log("payload", payload);
+
+        return;
         res =
           await PagesIndex.game_service.STARLINE_GAME_DISTIBUTE_FUND_WINNERS_API(
             distribute_fund_Api,
@@ -603,7 +609,9 @@ const WinnerList = () => {
             showIndex={true}
             Refresh={Refresh}
             show_additional={false}
-            additional={<h4 clas>Total Payable Amount : {ShowTotal && ShowTotal}</h4>}
+            additional={
+              <h4 clas>Total Payable Amount : {ShowTotal && ShowTotal}</h4>
+            }
           />
         </div>
       ),
