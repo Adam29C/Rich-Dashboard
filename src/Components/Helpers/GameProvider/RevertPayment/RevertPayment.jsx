@@ -2,7 +2,12 @@ import PagesIndex from "../../../Pages/PagesIndex";
 import { Confirm_box } from "../../Confirm_Box";
 import ReusableModal from "../../../Helpers/Modal/ReusableModal";
 
-const RevertPayment = ({ main_result, confirm_revert_payment, gameType }) => {
+const RevertPayment = ({
+  main_result,
+  title,
+  confirm_revert_payment,
+  gameType,
+}) => {
   const token = localStorage.getItem("token");
   let { user_id, username, role } = JSON.parse(
     localStorage.getItem("userdetails")
@@ -63,7 +68,6 @@ const RevertPayment = ({ main_result, confirm_revert_payment, gameType }) => {
       token
     );
 
-
     setTableData(res?.data || res?.result);
   };
 
@@ -119,15 +123,14 @@ const RevertPayment = ({ main_result, confirm_revert_payment, gameType }) => {
       } else {
         PagesIndex.toast.error(res.response.data.message);
       }
-    } catch (error) {
-    }
+    } catch (error) {}
   };
   return (
     <div>
       <PagesIndex.Main_Containt
         add_button={false}
         route="/admin/user/add"
-        title="Revert Game Result Payment"
+        title={title}
       >
         <PagesIndex.TableWithCustomPeginationNew123
           data={TableData}

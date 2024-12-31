@@ -10,6 +10,7 @@ const Result = () => {
         gameType="StarLine"
         main_result={Api.STARLINE_GAME_REVERT_PAYMENT}
         confirm_revert_payment={Api.STARLINE_GAME_CONFIRM_REVERT_PAYMENT}
+        title={"Revert Game Result Payment"}
       />
     </div>
   );

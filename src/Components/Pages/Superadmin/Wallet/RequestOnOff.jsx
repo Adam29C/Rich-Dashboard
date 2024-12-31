@@ -199,8 +199,8 @@ const RequestOnOff = () => {
     onSubmit: async (values) => {
       const payload = {
         requestCount: values.requestCount,
-        endDate: convertTo12HourFormat123(values.endDate),
-        startDate: convertTo12HourFormat123(values.startDate),
+        endDate: convertTo12HourFormat(values.endDate),
+        startDate: convertTo12HourFormat(values.startDate),
       };
 
       const res = await PagesIndex.admin_services.UPDATE_REQUEST_API(
