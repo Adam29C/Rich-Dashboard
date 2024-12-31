@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Split_Main_Containt from "../../../../Layout/Main/Split_Main_Content";
-import PagesIndex from "../../../PagesIndex";
-import { getActualDateFormate, today } from "../../../../Utils/Common_Date";
+import Split_Main_Containt from "../../../../../Layout/Main/Split_Main_Content";
+import PagesIndex from "../../../../PagesIndex";
+import { getActualDateFormate, today } from "../../../../../Utils/Common_Date";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { Games_Provider_List } from "../../../../Redux/slice/CommonSlice";
+import { Games_Provider_List } from "../../../../../Redux/slice/CommonSlice";
 
 const ExamplePage = () => {
   //get token in local storage
@@ -19,6 +19,8 @@ const ExamplePage = () => {
   //all state
   const [SearchInTable, setSearchInTable] = PagesIndex.useState("");
   const [tableData, setTableData] = useState([]);
+  const [DisableSubmit, setDisableSubmit] = PagesIndex.useState(false);
+  const [DisableSubmit1, setDisableSubmit1] = PagesIndex.useState(false);
 
   //get data in redux
   const data = PagesIndex.useSelector((state) => {
@@ -57,10 +59,6 @@ const ExamplePage = () => {
     formik.setFieldValue("providerName", selectedProviderName);
   };
 
-
-
-
-
   //formik form
   const formik = PagesIndex.useFormik({
     initialValues: {
@@ -74,11 +72,9 @@ const ExamplePage = () => {
     validate: (values) => {
       const errors = {};
 
-      // if (!values.providerId) {
-      //   errors.providerId = PagesIndex.valid_err.GAME_PROVIDER_ERROR;
-      // }
-
       if (!values.session) {
+        setDisableSubmit(!DisableSubmit);
+
         errors.session = PagesIndex.valid_err.GAME_SESSION_ERROR;
       }
 
@@ -94,6 +90,7 @@ const ExamplePage = () => {
     },
 
     onSubmit: async (values) => {
+      setDisableSubmit(true);
       const req = {
         winningDigit: +values.winningDigit,
         resultDate: today(values.resultDate),
@@ -104,9 +101,12 @@ const ExamplePage = () => {
 
       try {
         const res = await PagesIndex.admin_services.ADD_GAME_RESULT(req, token);
-        console.log(res)
+        // console.log(res)
         if (res.status) {
           PagesIndex.toast.success(res?.data?.message || res?.message);
+          getGameResultApi();
+        } else if (res?.response?.status === 400) {
+          PagesIndex.toast.error(res?.response?.data?.message);
         } else {
           PagesIndex.toast.error(res?.message);
         }
@@ -115,14 +115,21 @@ const ExamplePage = () => {
           error.response?.data?.message ||
           "Something went wrong. Please try again.";
         PagesIndex.toast.error(errorMessage);
+      } finally {
+        setDisableSubmit(false);
       }
     },
   });
 
+  // useEffect(() => {
+  //   formik.resetForm();
+  //   // formik.handleChange();
+  // }, [DisableSubmit]);
+
   useEffect(() => {
     if (data?.length > 0) {
-      formik.setFieldValue('providerId', data[0]._id); 
-      formik.setFieldValue('providerName', data[0].providerName); 
+      formik.setFieldValue("providerId", data[0]._id);
+      formik.setFieldValue("providerName", data[0].providerName);
     }
   }, [data]);
 
@@ -137,6 +144,8 @@ const ExamplePage = () => {
       return errors;
     },
     onSubmit: async (values) => {
+      setDisableSubmit1(!DisableSubmit1);
+
       const apidata = values.date;
       try {
         const res = await PagesIndex.admin_services.GAME_RESULT_DATEWISE(
@@ -152,6 +161,8 @@ const ExamplePage = () => {
         }
       } catch (error) {
         PagesIndex.toast.error(error.response.data.message);
+      } finally {
+        setDisableSubmit1(false); // Enable button after response
       }
     },
   });
@@ -230,14 +241,13 @@ const ExamplePage = () => {
         token
       );
 
-      if (res.statusCode === 200) {
+      if (res.statusCode === 200 || res.status) {
         alert(res?.message);
-        getGameResultApi;
+        getGameResultApi();
       } else {
         PagesIndex.toast.error(res.response.data.message);
       }
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   const winnerList = (rowdata) => {
@@ -302,6 +312,11 @@ const ExamplePage = () => {
     },
   ];
 
+  // const clear = ()=>{
+  //   setDisableSubmit(false)
+
+  // }
+
   const cardLayouts = [
     {
       size: 9,
@@ -312,6 +327,19 @@ const ExamplePage = () => {
             show_submit={true}
             formik={formik}
             btn_name="Submit"
+            show_clear={true}
+            disabledSubmit={DisableSubmit}
+
+            // after_submit_button={
+            //   <>
+            //     <button
+            //       className=" mx-2 btn btn-danger"
+            //       onClick={() =>clear()}
+            //     >
+            //       click
+            //     </button>
+            //   </>
+            // }
           />
         </div>
       ),
@@ -326,6 +354,7 @@ const ExamplePage = () => {
               formik={formik1}
               show_submit={true}
               btn_name="Search Result"
+              disabledSubmit={DisableSubmit1}
             />
           </div>
         </div>

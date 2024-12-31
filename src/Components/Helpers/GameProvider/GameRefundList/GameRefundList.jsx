@@ -200,10 +200,12 @@ const RefundPayment = ({
 
         if (res.statusCode === 200 || res.status) {
           PagesIndex.toast.success(res.message);
-
+          setTableData(tableData);
           setBtnVisiably(false);
           setModalState(false);
         } else {
+          console.log("res", res);
+
           PagesIndex.toast.error(res.response.data.message);
         }
       } catch (error) {

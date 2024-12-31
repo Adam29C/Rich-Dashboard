@@ -27,7 +27,8 @@ const ReusableForm = ({
   label_size,
   show_preview,
   after_submit_button1,
-  
+  show_clear,
+  setUnable,
 }) => {
   const location = useLocation();
 
@@ -132,8 +133,8 @@ const ReusableForm = ({
                               className={`custom-label col-lg-12`}
                               htmlFor={option.labelName}
                             > */}
-                              {/* {field.label} */}
-                              {/* {option.labelName}
+                          {/* {field.label} */}
+                          {/* {option.labelName}
                               <span className="text-danger">*</span>
                             </label>
                           )} */}
@@ -526,6 +527,9 @@ const ReusableForm = ({
                             {...formik.getFieldProps(field.name)}
                             // required=""
                             readOnly={field.disable}
+                            onChange={(e) => {
+                              formik.handleChange(e);
+                            }}
                           />
                           {field.showButton ? (
                             <button
@@ -559,7 +563,7 @@ const ReusableForm = ({
               </>
             ))}
 
-            <div className="form-group mb-0 button-main">
+            <div className="form-group mb-0 button-main ">
               {show_submit ? (
                 <>
                   <button
@@ -568,13 +572,14 @@ const ReusableForm = ({
                       location.pathname === "resetpassword" ? "col-md-11" : ""
                     } ${btn_design && "btn_design"}`}
                     type="submit"
-                    disabled={
-                      disabledSubmit
-                        ? disabledSubmit
-                        : isLoading
-                        ? isLoading
-                        : ""
-                    }
+                    disabled={formik.isSubmitting || disabledSubmit}
+                    // disabled={
+                    //   disabledSubmit
+                    //     ? disabledSubmit
+                    //     : isLoading
+                    //     ? isLoading
+                    //     : ""
+                    // }
                   >
                     {/* <Loader/> */}
                     {btn_name}
@@ -583,6 +588,30 @@ const ReusableForm = ({
               ) : (
                 ""
               )}
+              {/* {show_clear ? (
+                <>
+                  <span
+                    // style={{ background: "#4e3897" }}
+                    className={`btn submitBtn  mx-2 mt-2 ${button_Size} ${
+                      location.pathname === "resetpassword" ? "col-md-11" : ""
+                    } ${btn_design && "btn_design"}`}
+                    type="submit"
+                    // disabled={
+                    //   disabledSubmit
+                    //     ? disabledSubmit
+                    //     : isLoading
+                    //     ? isLoading
+                    //     : ""
+                    // }
+
+                    onClick={setUnable}
+                  >
+                    Clear
+                  </span>
+                </>
+              ) : (
+                ""
+              )} */}
               {after_submit_button1}
             </div>
           </div>

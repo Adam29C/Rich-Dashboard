@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Split_Main_Containt from "../../../Layout/Main/Split_Main_Content";
 import PagesIndex from "../../../Pages/PagesIndex";
 import { getActualDateFormate, today } from "../../../Utils/Common_Date";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Games_Provider_List } from "../../../Redux/slice/CommonSlice";
 
@@ -61,7 +60,7 @@ const ExamplePage = ({
     initialValues: {
       winningDigit: "",
       resultDate: actual_date_formet || null,
-      session: 1,
+      session: "Open",
       providerId: "",
       providerName: "",
     },
@@ -107,14 +106,17 @@ const ExamplePage = ({
         if (res.status) {
           PagesIndex.toast.success(res?.data?.message || res?.message);
           getGameResultApi();
+          formik.resetForm();
+        } else if (res?.response?.status === 400) {
+          PagesIndex.toast.error(res?.response?.data?.message);
         } else {
-          PagesIndex.toast.error(res.response.data.message);
+          PagesIndex.toast.error(res?.message);
         }
       } catch (error) {
-        const errorMessage =
-          error.response?.data?.message ||
-          "Something went wrong. Please try again.";
-        PagesIndex.toast.error(errorMessage);
+        // const errorMessage =
+        //   error.response?.data?.message ||
+        //   "Something went wrong. Please try again1212.";
+        // PagesIndex.toast.error(errorMessage);
       }
     },
   });
@@ -191,7 +193,7 @@ const ExamplePage = ({
             label: "Session",
             type: "select",
             options: [
-              { label: "Open", value: 1 },
+              { label: "Open", value: "Open" },
               // { label: "Close", value: 0 },
             ],
             label_size: 12,
@@ -245,8 +247,6 @@ const ExamplePage = ({
     );
     if (!confirmDelete) return;
 
-    console.log("apidata", apidata);
-
     try {
       let res = "";
       if (gameType === "StarLine" || gameType === "JackPot") {
@@ -262,14 +262,13 @@ const ExamplePage = ({
           apidata,
           token
         );
-
-        console.log("resresresresresres", res);
       }
       // res = await PagesIndex.admin_services.GAME_RESULT_DELETE(apidata, token);
 
       if (res.statusCode === 200 || res.status) {
         alert(res?.message);
         getGameResultApi();
+        formik.values("providerId", "");
       } else {
         PagesIndex.toast.error(res.response.data.message);
       }

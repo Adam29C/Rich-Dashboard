@@ -20,7 +20,7 @@ import GameRates from "../../Pages/Superadmin/Games/AvailableGames/GameRates/Gam
 import GameSetting from "../../Pages/Superadmin/Games/AvailableGames/GameSettingList";
 import GameSettingAdd from "../../Helpers/GameProvider/GameSetting/GameSettingAdd";
 import CuttingGroup from "../../Pages/Superadmin/CuttingGroup/CuttingGroup";
-import GameResult from "../../Pages/Superadmin/Games/AvailableGames/GameRasult";
+import GameResult from "../../Pages/Superadmin/Games/AvailableGames/GameResult/GameRasult";
 
 // main game
 import MainRevertPayment from "../../Pages/Superadmin/Games/AvailableGames/RevertPayment";
@@ -66,7 +66,7 @@ import JackPotAddEdit from "../../Pages/Superadmin/Games/Jackpot/JackPotSettings
 import WithdrawScreen from "../../Pages/Superadmin/AppSettings/WithdrawScreen";
 import HowToPlay from "../../Pages/Superadmin/AppSettings/HowToPlay";
 import UpiIdList from "../../Pages/Superadmin/Masters/UpiIdList";
-import WinnerList from "../../Pages/Superadmin/Games/AvailableGames/WinnerList";
+import WinnerList from "../../Pages/Superadmin/Games/AvailableGames/GameResult/WinnerList";
 import ProfileNote from "../../Pages/Superadmin/AppSettings/ProfileNote";
 import FundMode from "../../Pages/Superadmin/Masters/FundMode";
 import Notification from "../../Pages/Superadmin/Notification/Notification";

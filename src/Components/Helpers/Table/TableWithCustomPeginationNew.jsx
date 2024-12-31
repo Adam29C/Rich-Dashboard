@@ -32,7 +32,7 @@ const CustomTable = ({
 
     try {
       const result = await fetchData(page, rowsPerPage, searchQuery);
-      console.log('fetchData' );
+      
       
       setRefresh1(!Refresh1);
       setData(result.mainRes || []);
@@ -44,7 +44,7 @@ const CustomTable = ({
       );
 
       const firstElement = abc[0] || 0;
-      const lastElement = abc[abc.length - 1];
+      const lastElement = abc[abc.length - 1] || 0;
 
       setShowCounting(
         `Showing ${firstElement} to ${lastElement} of ${result.totalRows} entries`
@@ -84,7 +84,7 @@ const CustomTable = ({
       //   `Showing ${firstElement} to ${lastElement} of ${result.totalRows} entries`
       // );
       setShowCounting(
-        `Showing ${firstElement} to ${lastElement} of ${
+        `Showing ${firstElement} to ${lastElement ||0} of ${
           TotalPages || 0
         } entries`
       );

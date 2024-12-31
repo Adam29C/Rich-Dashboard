@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import PagesIndex from "../../../PagesIndex";
-import Split_Main_Containt from "../../../../Layout/Main/Split_Main_Content";
-import ReusableModal from "../../../../Helpers/Modal/ReusableModal";
-import { Api } from "../../../../Config/Api";
+import PagesIndex from "../../../../PagesIndex";
+import Split_Main_Containt from "../../../../../Layout/Main/Split_Main_Content";
+import ReusableModal from "../../../../../Helpers/Modal/ReusableModal";
+import { Api } from "../../../../../Config/Api";
 import { Navigate, useNavigate } from "react-router-dom";
 
 const WinnerList = () => {
