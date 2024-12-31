@@ -76,7 +76,7 @@ const GameProvider = ({ path, title, gameType, api_Route }) => {
 
   let amc  =  gameType === "StarLine" || gameType === "JackPot" ? GameSettingList : gameSettings
 
-
+console.log(gameSettings)
 
   const columns = [
     {
@@ -126,11 +126,10 @@ const GameProvider = ({ path, title, gameType, api_Route }) => {
                 ) : (
                   ""
                 )}
-
                 <p className="game-setting-font">
                   <span className="fw-bold">
                     IsClosed :
-                    {rowData ? (rowData.isClosed ? "Closed" : "Open") : "N/A"}
+                    {rowData ? (rowData.isClosed === "1" ? "Open" : "Closed") : "N/A"}
                   </span>
                 </p>
 
@@ -182,7 +181,7 @@ const GameProvider = ({ path, title, gameType, api_Route }) => {
                   <p className="game-setting-font">
                     <span className="fw-bold">
                       IsClosed :
-                      {rowData ? (rowData.isClosed ? "Closed" : "Open") : "N/A"}
+                      {rowData ? (rowData.isClosed === "1" ? "Open" : "Closed") : "N/A"}
                     </span>
                   </p>
 
@@ -236,7 +235,7 @@ const GameProvider = ({ path, title, gameType, api_Route }) => {
                   <p className="game-setting-font">
                     <span className="fw-bold">
                       IsClosed :
-                      {rowData ? (rowData.isClosed ? "Closed" : "Open") : "N/A"}
+                      {rowData ? (rowData.isClosed === "1" ? "Open" : "Closed") : "N/A"}
                     </span>
                   </p>
 
@@ -290,7 +289,7 @@ const GameProvider = ({ path, title, gameType, api_Route }) => {
                   <p className="game-setting-font">
                     <span className="fw-bold">
                       IsClosed :
-                      {rowData ? (rowData.isClosed ? "Closed" : "Open") : "N/A"}
+                      {rowData ? (rowData.isClosed === "1" ? "Open" : "Closed") : "N/A"}
                     </span>
                   </p>
 
@@ -343,7 +342,7 @@ const GameProvider = ({ path, title, gameType, api_Route }) => {
                   <p className="game-setting-font">
                     <span className="fw-bold">
                       IsClosed :
-                      {rowData ? (rowData.isClosed ? "Closed" : "Open") : "N/A"}
+                      {rowData ? (rowData.isClosed === "1" ? "Open" : "Closed") : "N/A"}
                     </span>
                   </p>
 
@@ -396,7 +395,7 @@ const GameProvider = ({ path, title, gameType, api_Route }) => {
                   <p className="game-setting-font">
                     <span className="fw-bold">
                       IsClosed :
-                      {rowData ? (rowData.isClosed ? "Closed" : "Open") : "N/A"}
+                      {rowData ? (rowData.isClosed === "1" ? "Open" : "Closed") : "N/A"}
                     </span>
                   </p>
 
@@ -449,7 +448,7 @@ const GameProvider = ({ path, title, gameType, api_Route }) => {
                   <p className="game-setting-font">
                     <span className="fw-bold">
                       IsClosed :
-                      {rowData ? (rowData.isClosed ? "Closed" : "Open") : "N/A"}
+                      {rowData ? (rowData.isClosed === "1" ? "Open" : "Closed") : "N/A"}
                     </span>
                   </p>
 
