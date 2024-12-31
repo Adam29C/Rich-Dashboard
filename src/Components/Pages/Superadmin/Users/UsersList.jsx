@@ -18,12 +18,14 @@ const App = () => {
 
   const [ManageModalStatus, setManageModalStatus] = PagesIndex.useState(false);
   const [GetUserProfile, seGetUserProfile] = PagesIndex.useState([]);
+  const [first, setfirst] = PagesIndex.useState("");
 
   const fetchData = async (page, rowsPerPage, searchQuery) => {
+    setfirst(searchQuery);
     const payload = {
       page: page,
       limit: rowsPerPage,
-      search: searchQuery,
+      search: first === undefined ? "" : first,
     };
 
     try {
@@ -40,7 +42,7 @@ const App = () => {
   };
   PagesIndex.useEffect(() => {
     fetchData();
-  }, []);
+  }, [Refresh]);
 
   const visibleFields = [
     {
@@ -179,6 +181,7 @@ const App = () => {
 
         if (res.status) {
           setRefresh(!Refresh);
+          setfirst("");
           PagesIndex.toast.success(res.message);
           setModalStateForRemoveAndBlock(!ModalStateForRemoveAndBlock);
         } else {

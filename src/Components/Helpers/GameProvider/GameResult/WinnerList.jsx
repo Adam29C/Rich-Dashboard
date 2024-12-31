@@ -313,6 +313,7 @@ const WinnerList = () => {
     setModalState(true);
   };
   const fetchData = async (page, rowsPerPage, searchQuery) => {
+    return;
     if (gameType != "StarLine" || gameType != "JackPot") {
       const apidata = {
         providerId: data?.providerId,
@@ -564,20 +565,21 @@ const WinnerList = () => {
       size: 12,
       body: (
         <div>
-          {/* {GetResultStatus.resultStatus === 0 ? ( */}
-          <div class="d-flex justify-content-end mb-3">
-            <button
-              onClick={() => {
-                handleChange("0");
-              }}
-              className="btn btn-dark"
-            >
-              Confirm Payment
-            </button>
-          </div>
-          {/* ) : (
+          {GetResultStatus.resultStatus === 0 &&
+          GetResultStatus?.winnerList?.length > 0 ? (
+            <div class="d-flex justify-content-end mb-3">
+              <button
+                onClick={() => {
+                  handleChange("0");
+                }}
+                className="btn btn-dark"
+              >
+                Confirm Payment
+              </button>
+            </div>
+          ) : (
             ""
-          )} */}
+          )}
           <PagesIndex.TableWithCustomPeginationNew
             fetchData={fetchData1}
             columns={visibleFields}

@@ -11,6 +11,7 @@ const ViewWallet = () => {
 
   const [SearchInTable, setSearchInTable] = PagesIndex.useState("");
   const [TableData, setTableData] = PagesIndex.useState([]);
+  const [DisableSubmit, setDisableSubmit] = PagesIndex.useState(false);
 
   const [ModalStateHistory, setModalStateHistory] = PagesIndex.useState(false);
   const [ModalStateHistoryTable, setModalStateHistoryTable] =
@@ -131,6 +132,7 @@ const ViewWallet = () => {
     },
 
     onSubmit: async (values) => {
+      setDisableSubmit(true);
       const payload = {
         id: ModalStateHistoryUserDetails._id,
         amount: values.amount,
@@ -139,12 +141,16 @@ const ViewWallet = () => {
         admin_id: user_id,
       };
 
+      console.log("payload", payload);
+
       const res = await PagesIndex.admin_services.WALLET_LIST_UPDATE_WALLET_API(
         payload,
         token
       );
       if (res.status) {
         if (res?.status) {
+          setDisableSubmit(false);
+
           setRefresh(!Refresh);
           toast.success("update sucessfully");
           formik.resetForm({
@@ -442,6 +448,7 @@ const ViewWallet = () => {
                   btn_name={"Submit"}
                   button_Size={"w-100"}
                   show_submit={true}
+                  disabledSubmit={DisableSubmit}
                 />
               </>
             ) : (
