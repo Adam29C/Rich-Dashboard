@@ -105,6 +105,7 @@ const ExamplePage = () => {
         if (res.status) {
           PagesIndex.toast.success(res?.data?.message || res?.message);
           getGameResultApi();
+          formik.resetForm()
         } else if (res?.response?.status === 400) {
           PagesIndex.toast.error(res?.response?.data?.message);
         } else {

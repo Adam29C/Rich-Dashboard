@@ -305,6 +305,7 @@ const WinnerList = () => {
   const [Refresh, setRefresh] = PagesIndex.useState(false);
   const [GetResultStatus, setGetResultStatus] = PagesIndex.useState([]);
   const [JackportData, setJackportData] = PagesIndex.useState("");
+  const [ShowTotal, setShowTotal] = PagesIndex.useState(0);
 
   const [BtnVisiably, setBtnVisiably] = PagesIndex.useState(false);
 
@@ -384,11 +385,24 @@ const WinnerList = () => {
         );
       }
 
-      // console.log("resres", res.data.dispData);
+      console.log("resres", res.data.winnerList);
 
       if (res.status) {
         setGetResultStatus(res.data || res.data.dispData);
         setJackportData(res.data.dispData);
+
+        // setShowTotal;
+
+        let total = 0;
+        res.data.winnerList.forEach((item) => {
+          console.log("item", item);
+
+          total += item.biddingPoints * item.gameTypePrice;
+        });
+
+        setShowTotal(total);
+        // console.log("total", total);
+
         const nonEmptyCategories = [];
 
         // if (gameType ) {
@@ -464,6 +478,9 @@ const WinnerList = () => {
       name: "Total Amount",
       value: "gameWinPoints",
       sortable: false,
+      transform: (row, item) => {
+        return item.biddingPoints * item.gameTypePrice;
+      },
     },
   ];
 
@@ -487,9 +504,6 @@ const WinnerList = () => {
     };
 
     let res = "";
-
-
-
 
     if (getStatus && getStatus === "0") {
       if (gameType === "StarLine" || gameType === "JackPot") {
@@ -535,7 +549,6 @@ const WinnerList = () => {
         );
     }
 
-
     if (res.status) {
       setBtnVisiably(false);
       PagesIndex.toast.success(res.message);
@@ -549,7 +562,6 @@ const WinnerList = () => {
     } else {
       PagesIndex.toast.error(res.response.data.message);
     }
-
   };
 
   const cardLayouts = [
@@ -570,8 +582,7 @@ const WinnerList = () => {
       size: 12,
       body: (
         <div>
-          {GetResultStatus.resultStatus === 0 &&
-          GetResultStatus?.winnerList?.length > 0 ? (
+          {GetResultStatus.resultStatus === 0 ? (
             <div class="d-flex justify-content-end mb-3">
               <button
                 onClick={() => {
@@ -591,6 +602,8 @@ const WinnerList = () => {
             // UserFullButtonList={UserFullButtonList}
             showIndex={true}
             Refresh={Refresh}
+            show_additional={false}
+            additional={<h4 clas>Total Payable Amount : {ShowTotal && ShowTotal}</h4>}
           />
         </div>
       ),
@@ -666,7 +679,7 @@ const WinnerList = () => {
               </button>
 
               <button
-               onClick={() => setModalState(false)}
+                onClick={() => setModalState(false)}
                 className="btn btn-dark  mx-2"
               >
                 Close

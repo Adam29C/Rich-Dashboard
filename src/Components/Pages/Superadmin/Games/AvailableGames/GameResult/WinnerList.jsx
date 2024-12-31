@@ -22,6 +22,7 @@ const WinnerList = () => {
   const [ModalState, setModalState] = useState(false);
   const [Refresh, setRefresh] = PagesIndex.useState(false);
   const [GetResultStatus, setGetResultStatus] = PagesIndex.useState([]);
+  const [ShowTotal, setShowTotal] = PagesIndex.useState(0);
 
   const [BtnVisiably, setBtnVisiably] = PagesIndex.useState(false);
 
@@ -29,14 +30,14 @@ const WinnerList = () => {
     setGetStatus(state);
     setModalState(true);
   };
-  const fetchData = async (page, rowsPerPage, searchQuery ) => {
+  const fetchData = async (page, rowsPerPage, searchQuery) => {
     const apidata = {
       providerId: data.providerId,
       date: data.resultDate,
       session: data?.session,
       page: page,
       limit: rowsPerPage,
-      search :searchQuery,
+      search: searchQuery,
     };
 
     try {
@@ -57,13 +58,22 @@ const WinnerList = () => {
 
         const totalRows = res1.data.pagination.totalItems || 10;
         let mainRes = nonEmptyCategories1;
+        console.log("mainRes", mainRes);
+
+        let total = 0;
+        mainRes.forEach((item) => {
+          total += item.biddingPoints * item.gameTypePrice;
+        });
+
+        setShowTotal(total);
+
         setRemainingWinnerData(mainRes.length);
         return { mainRes, totalRows };
       }
     } catch {}
   };
 
-  const fetchData1 = async (page, rowsPerPage, searchQuery ) => {
+  const fetchData1 = async (page, rowsPerPage, searchQuery) => {
     const apidata1 = {
       digit: data.winningDigit,
       provider: data.providerId,
@@ -96,6 +106,13 @@ const WinnerList = () => {
 
         const totalRows = res.data.pagination.totalItems || 5;
         let mainRes = nonEmptyCategories;
+
+        let total = 0;
+        mainRes.forEach((item) => {
+          total += item.biddingPoints * item.gameTypePrice;
+        });
+
+        setShowTotal(total);
 
         return { mainRes, totalRows };
       }
@@ -148,6 +165,9 @@ const WinnerList = () => {
       name: "Total Amount",
       value: "gameWinPoints",
       sortable: false,
+      transform: (row, item) => {
+        return item.biddingPoints * item.gameTypePrice;
+      },
     },
   ];
 
@@ -191,7 +211,7 @@ const WinnerList = () => {
         );
     }
 
-    // console.log("remain" , res);
+    console.log("remain", res);
 
     if (res.status) {
       setBtnVisiably(false);
@@ -240,6 +260,10 @@ const WinnerList = () => {
             // UserFullButtonList={UserFullButtonList}
             showIndex={true}
             Refresh={Refresh}
+            show_additional={false}
+            additional={
+              <h4 clas>Total Payable Amount : {ShowTotal && ShowTotal}</h4>
+            }
           />
         </div>
       ),
