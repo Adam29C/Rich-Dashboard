@@ -305,8 +305,8 @@ const App = () => {
                 <tr>
                   <td scope="col">Mobile Number</td>
                   <td scope="col">
-                    {GetUserProfile && GetUserProfile.paytm_number
-                      ? GetUserProfile && GetUserProfile.paytm_number
+                    {GetUserProfile && GetUserProfile.mobile
+                      ? GetUserProfile && GetUserProfile.mobile
                       : "--"}
                   </td>
                 </tr>
