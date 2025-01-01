@@ -233,7 +233,7 @@ const RefundPayment = ({
           userid: RowData.userId,
           biddingPoints: RowData.biddingPoints,
           providerId: RowData.providerId,
-          resultDate: RowData.gameDate,
+          resultDate:   RowData.gameDate,
           type: staus,
           providerName: RowData.providerName,
         };

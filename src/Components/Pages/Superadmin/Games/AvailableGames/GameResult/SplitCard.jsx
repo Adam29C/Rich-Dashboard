@@ -19,8 +19,10 @@ const ExamplePage = () => {
   //all state
   const [SearchInTable, setSearchInTable] = PagesIndex.useState("");
   const [tableData, setTableData] = useState([]);
+  const [PastResultCount, setPastResultCount] = useState([]);
   const [DisableSubmit, setDisableSubmit] = PagesIndex.useState(false);
   const [DisableSubmit1, setDisableSubmit1] = PagesIndex.useState(false);
+
 
   //get data in redux
   const data = PagesIndex.useSelector((state) => {
@@ -105,7 +107,7 @@ const ExamplePage = () => {
         if (res.status) {
           PagesIndex.toast.success(res?.data?.message || res?.message);
           getGameResultApi();
-          formik.resetForm()
+          formik.resetForm();
         } else if (res?.response?.status === 400) {
           PagesIndex.toast.error(res?.response?.data?.message);
         } else {
@@ -157,6 +159,11 @@ const ExamplePage = () => {
         if (res.status) {
           PagesIndex.toast.success(res.message);
           setTableData(res.data.results);
+          setPastResultCount({
+            countResults: res.data.countResults,
+            pendingCount: res.data.pendingCount,
+            providerCount: res.data.providerCount,
+          });
         } else {
           PagesIndex.toast.error(res.message);
         }
@@ -318,6 +325,8 @@ const ExamplePage = () => {
 
   // }
 
+  console.log(tableData);
+
   const cardLayouts = [
     {
       size: 9,
@@ -365,6 +374,14 @@ const ExamplePage = () => {
       size: 12,
       body: (
         <div>
+          {PastResultCount && Object.keys(PastResultCount).length > 0 && (
+            <h6 className="text-center fw-bold">
+              Total Result Declared : {PastResultCount.countResults}, Total
+              Result To Declared : {PastResultCount.providerCount * 2}, Pending
+              Result : {PastResultCount.pendingCount}
+            </h6>
+          )}
+
           <PagesIndex.TableWithCustomPeginationNew123
             data={tableData}
             initialRowsPerPage={10}

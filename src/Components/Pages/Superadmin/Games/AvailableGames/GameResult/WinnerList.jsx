@@ -94,6 +94,8 @@ const WinnerList = () => {
         token
       );
 
+
+      
       if (res.status) {
         setGetResultStatus(res.data);
         const nonEmptyCategories = [];
@@ -103,6 +105,8 @@ const WinnerList = () => {
             nonEmptyCategories.push(...value);
           }
         });
+
+      console.log("nonEmptyCategories" ,nonEmptyCategories);
 
         const totalRows = res.data.pagination.totalItems || 5;
         let mainRes = nonEmptyCategories;
@@ -261,6 +265,7 @@ const WinnerList = () => {
             showIndex={true}
             Refresh={Refresh}
             show_additional={false}
+            showName={true}
             additional={
               <h4 clas>Total Payable Amount : {ShowTotal && ShowTotal}</h4>
             }

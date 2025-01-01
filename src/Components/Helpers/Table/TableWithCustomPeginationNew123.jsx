@@ -8,9 +8,10 @@ const PaginatedTable = ({
   showIndex,
   additional,
   Responsive,
+  showSingleSearch,
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(25);
+  const [rowsPerPage, setRowsPerPage] = useState(initialRowsPerPage || 25);
   const [filteredData, setFilteredData] = useState(data || []);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
@@ -36,9 +37,7 @@ const PaginatedTable = ({
     //   "Showing ${firstElement} to ${lastElement} of ${result.totalRows} entries",
     //   `Showing ${firstElement} to ${lastElement} of entries`
     // );
-    setShowCounting(
-      `Showing ${firstElement} to ${lastElement} of ${data.length} entries`
-    );
+
     // Apply sorting
     if (sortConfig.key) {
       sortedData.sort((a, b) => {
@@ -51,6 +50,21 @@ const PaginatedTable = ({
     }
 
     // Apply search filtering
+
+    // if (showSingleSearch) {
+    //   const searchResults = sortedData.filter((row) =>
+    //     row.digit_id.includes(searchQuery)
+    //   );
+
+    //   setFilteredData(searchResults);
+
+    //   setShowCounting(
+    //     `Showing ${1} to ${searchResults.length} of ${
+    //       searchResults.length
+    //     } entries (filtered from ${data.length} total entries)`
+    //   );
+    //   return
+    // }
     const searchResults = sortedData.filter((row) =>
       visibleFields.some(
         (field) =>
@@ -61,6 +75,20 @@ const PaginatedTable = ({
             .includes(searchQuery.toLowerCase())
       )
     );
+
+    if (searchQuery === "") {
+      setShowCounting(
+        `Showing ${firstElement} to ${lastElement} of ${data.length} entries`
+      );
+    } else {
+      setShowCounting(
+        `Showing ${searchResults.length < 1 ? 0 : 1} to ${
+          searchResults.length
+        } of ${searchResults.length} entries (filtered from ${
+          data.length
+        } total entries)`
+      );
+    }
 
     setFilteredData(searchResults || []);
     setCurrentPage(1); // Reset to first page on search/sort
@@ -94,7 +122,6 @@ const PaginatedTable = ({
   const renderButton = (field, row) => {
     const buttonText =
       typeof field.value === "function" ? field.value(row) : field.value;
-
 
     return (
       <button
@@ -150,7 +177,7 @@ const PaginatedTable = ({
             value={rowsPerPage}
             onChange={(e) => setRowsPerPage(Number(e.target.value))}
           >
-            {[5, 10, 25, 50].map((value) => (
+            {[10, 25, 50, 100].map((value) => (
               <option key={value} value={value}>
                 {value}
               </option>

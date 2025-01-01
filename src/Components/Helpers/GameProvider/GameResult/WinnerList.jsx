@@ -395,23 +395,12 @@ const WinnerList = () => {
 
         let total = 0;
         res.data.winnerList.forEach((item) => {
-          console.log("item", item);
-
           total += item.biddingPoints * item.gameTypePrice;
         });
 
         setShowTotal(total);
-        // console.log("total", total);
 
         const nonEmptyCategories = [];
-
-        // if (gameType ) {
-        //   Object.entries(res?.data?.winnerList).forEach(([key, value]) => {
-        //     if (value.length > 0) {
-        //       nonEmptyCategories.push(...value);
-        //     }
-        //   });
-        // }
 
         const totalRows =
           res?.data?.pagination?.totalItems ??
@@ -517,7 +506,7 @@ const WinnerList = () => {
             resultId: GetResultStatus?.resultId,
           };
         } else if (gameType === "JackPot") {
-          console.log("GetResultStatus", GetResultStatus);
+          // console.log("GetResultStatus", GetResultStatus);
 
           payload = {
             digitFamily: String(GetResultStatus?.digitFamily),
@@ -529,9 +518,7 @@ const WinnerList = () => {
           };
         }
 
-        console.log("payload", payload);
-
-        return;
+        //  return;
         res =
           await PagesIndex.game_service.STARLINE_GAME_DISTIBUTE_FUND_WINNERS_API(
             distribute_fund_Api,

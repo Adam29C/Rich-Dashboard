@@ -51,6 +51,10 @@ const PendingBankRequests = () => {
     } catch {}
   };
 
+  // PagesIndex.useEffect(() => {
+  //   fetchData();
+  // }, [Refresh]);
+
   //actions button
   const UserFullButtonList = [
     {
@@ -156,28 +160,27 @@ const PendingBankRequests = () => {
         amount: +values.amount,
         id: selectedRow?.reqType === "Debit" ? 2 : 1,
       };
-    try {
-      const res =
-      await PagesIndex.admin_services.PENDING_DEBIT_UPDATE_WALLET_API(
-        apidata,
-        token
-      );
+      try {
+        const res =
+          await PagesIndex.admin_services.PENDING_DEBIT_UPDATE_WALLET_API(
+            apidata,
+            token
+          );
 
-    if (res.status) {
-      PagesIndex.toast.success(res.message);
-      getPendingRequestList();
-      setRefresh(!Refresh);
-    } else {
-      PagesIndex.toast.error(res.message);
-    }
-    if (res?.status === 400) {
-      PagesIndex.toast.error(res?.data?.message);
-    }
-    } catch (error) {
-      
-    }finally{
-      setDisableSubmit(false); 
-    }
+        if (res.status) {
+          PagesIndex.toast.success(res.message);
+          setRefresh(!Refresh);
+
+        } else {
+          PagesIndex.toast.error(res.message);
+        }
+        if (res?.status === 400) {
+          PagesIndex.toast.error(res?.data?.message);
+        }
+      } catch (error) {
+      } finally {
+        setDisableSubmit(false);
+      }
     },
   });
 
@@ -249,8 +252,8 @@ const PendingBankRequests = () => {
     );
     if (res?.status) {
       alert(res?.message);
-      getPendingRequestList();
       setRefresh(!Refresh);
+
     }
   };
 
@@ -321,7 +324,6 @@ const PendingBankRequests = () => {
         form_title={selectedRow?.username}
         showBal={getBal?.wallet_balance}
         DisableSubmit={DisableSubmit}
-     
       />
       <ReusableModal
         ModalTitle={

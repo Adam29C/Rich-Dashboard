@@ -10,6 +10,7 @@ const CustomTable = ({
   tableData,
   show_additional,
   additional,
+  showName,
 }) => {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
@@ -32,8 +33,7 @@ const CustomTable = ({
 
     try {
       const result = await fetchData(page, rowsPerPage, searchQuery);
-      
-      
+
       setRefresh1(!Refresh1);
       setData(result.mainRes || []);
       setFilteredData(result.mainRes || []);
@@ -46,6 +46,8 @@ const CustomTable = ({
       const firstElement = abc[0] || 0;
       const lastElement = abc[abc.length - 1] || 0;
 
+
+      
       setShowCounting(
         `Showing ${firstElement} to ${lastElement} of ${result.totalRows} entries`
       );
@@ -84,7 +86,7 @@ const CustomTable = ({
       //   `Showing ${firstElement} to ${lastElement} of ${result.totalRows} entries`
       // );
       setShowCounting(
-        `Showing ${firstElement} to ${lastElement ||0} of ${
+        `Showing ${firstElement} to ${lastElement || 0} of ${
           TotalPages || 0
         } entries`
       );
@@ -95,7 +97,7 @@ const CustomTable = ({
 
   useEffect(() => {
     abc();
-  }, [tableData,  page, rowsPerPage, searchQuery]);
+  }, [tableData, page, rowsPerPage, searchQuery]);
 
   const sordata = () => {
     let sortedData = [...data];
@@ -189,7 +191,7 @@ const CustomTable = ({
             value={rowsPerPage}
             onChange={(e) => setRowsPerPage(Number(e.target.value))}
           >
-            {[5, 10, 25, 50].map((value) => (
+            {[5, 10, 25, 50 , 100].map((value) => (
               <option key={value} value={value}>
                 {value}
               </option>
@@ -242,31 +244,93 @@ const CustomTable = ({
         </thead>
         <tbody className="text-center">
           {filteredData &&
-            filteredData.map((row, index) => (
-              <tr key={index}>
-                {showIndex && <td>{(page - 1) * rowsPerPage + index + 1}</td>}
-                {columns?.map((field) => (
-                  <td
-                    className={` ${field.className}`}
-                    key={field.value}
-                    style={field.style ? field.style(row) : {}}
-                    onClick={() => {
-                      if (field.onClick) {
-                        field.onClick(row);
-                      }
-                    }}
-                  >
-                    {field.render
-                      ? field.render(row)
-                      : field.transform
-                      ? field.transform(row[field.value], row)
-                      : field.isButton
-                      ? renderButton(field, row)
-                      : row[field.value]}
-                  </td>
-                ))}
-              </tr>
-            ))}
+            filteredData.map((row, index, self) => {
+              const isUnique =
+                index ===
+                self.findIndex((obj) => obj.gameTypeName === row.gameTypeName);
+
+              return (
+                <React.Fragment key={index}>
+                  {isUnique && showName && (
+                    <tr>
+                      <td
+                        colSpan={columns?.length + 1}
+                        className="h5 winner-list-text-main"
+                      >
+                        {row.gameTypeName}
+                      </td>
+                    </tr>
+                  )}
+                  <tr>
+                    {showIndex && (
+                      <td>{(page - 1) * rowsPerPage + index + 1}</td>
+                    )}
+                    {columns?.map((field) => (
+                      <td
+                        className={` ${field.className}`}
+                        key={field.value}
+                        style={field.style ? field.style(row) : {}}
+                        onClick={() => {
+                          if (field.onClick) {
+                            field.onClick(row);
+                          }
+                        }}
+                      >
+                        {field.render
+                          ? field.render(row)
+                          : field.transform
+                          ? field.transform(row[field.value], row)
+                          : field.isButton
+                          ? renderButton(field, row)
+                          : row[field.value]}
+                      </td>
+                    ))}
+                  </tr>
+                </React.Fragment>
+              );
+            })}
+
+          {/* {filteredData &&
+            filteredData.map((row, index , self) => {
+              let abc =    index === self.findIndex(obj => obj.gameTypeName === item.gameTypeName)
+
+            } 
+           return   <>
+                {showName && (
+                  <tr>
+                    <td
+                      colSpan={columns?.length + 1}
+                      className="h5 winner-list-text-main"
+                    >
+                      {row.gameTypeName}
+                    </td>
+                  </tr>
+                )}
+                <tr key={index}>
+                  {showIndex && <td>{(page - 1) * rowsPerPage + index + 1}</td>}
+                  {columns?.map((field) => (
+                    <td
+                      className={` ${field.className}`}
+                      key={field.value}
+                      style={field.style ? field.style(row) : {}}
+                      onClick={() => {
+                        if (field.onClick) {
+                          field.onClick(row);
+                        }
+                      }}
+                    >
+                      {field.render
+                        ? field.render(row)
+                        : field.transform
+                        ? field.transform(row[field.value], row)
+                        : field.isButton
+                        ? renderButton(field, row)
+                        : row[field.value]}
+                    </td>
+                  ))}
+                </tr>
+              </>
+            )} */}
           {!show_additional && (
             <tr>
               <td colSpan={columns?.length + 1}>{additional}</td>

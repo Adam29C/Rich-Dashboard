@@ -27,6 +27,7 @@ const ExamplePage = ({
   //all state
   const [SearchInTable, setSearchInTable] = PagesIndex.useState("");
   const [tableData, setTableData] = useState([]);
+  const [PastResultCount, setPastResultCount] = useState([]);
 
   const [GetProvider, setGetProvider] = useState([]);
 
@@ -148,6 +149,12 @@ const ExamplePage = ({
         );
 
         if (res.status) {
+          setPastResultCount({
+            countResults: res.data.countResults,
+            pendingCount: res.data.pendingCount,
+            providerCount: res.data.providerCount,
+          });
+
           PagesIndex.toast.success(res.message);
           setTableData(res.data.results || res.data.result);
         } else {
@@ -409,6 +416,15 @@ const ExamplePage = ({
       size: 12,
       body: (
         <div>
+          {/* Total Result Declared */}
+          {PastResultCount && Object.keys(PastResultCount).length > 0 && (
+            <h6 className="text-center fw-bold">
+              Total Result Declared : {PastResultCount.countResults}, Total
+              Result To Declared : {PastResultCount.providerCount}, Pending
+              Result : {PastResultCount.pendingCount}
+            </h6>
+          )}
+
           <PagesIndex.TableWithCustomPeginationNew123
             data={tableData}
             initialRowsPerPage={5}

@@ -1,7 +1,6 @@
 import { jwtDecode } from "jwt-decode";
 
 export const GetExpired = (tokenExpiry, navigate) => {
-  return;
   const decoded = jwtDecode(tokenExpiry && tokenExpiry);
 
   // console.log("navigate", navigate);

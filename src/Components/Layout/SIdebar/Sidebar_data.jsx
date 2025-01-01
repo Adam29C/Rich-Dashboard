@@ -18,7 +18,6 @@ export const admin_Sidebar = [
     NestedElement: [],
   },
 
-
   {
     id: 3,
     permission: "games",
@@ -209,12 +208,12 @@ export const admin_Sidebar = [
     title: "Wallet",
     Icon: "fa-solid fa-wallet",
     NestedElement: [
-      {
-        id: 1,
-        title: "Fund Request",
-        permission: "fundRequest",
-        route: "wallet/manualrequest",
-      },
+      // {
+      //   id: 1,
+      //   title: "Fund Request",
+      //   permission: "fundRequest",
+      //   route: "wallet/manualrequest",
+      // },
       // {
       //   id: 1,
       //   title: "Manual Request",
@@ -261,15 +260,15 @@ export const admin_Sidebar = [
     ],
   },
 
-  {
-    id: 9,
-    route: "creditUPI",
-    headerTitle: "Credit Request (UPI)",
-    permission: "appDebit",
-    title: "Credit Request (UPI)",
-    Icon: "fa-solid fa-check",
-    NestedElement: [],
-  },
+  // {
+  //   id: 9,
+  //   route: "creditUPI",
+  //   headerTitle: "Credit Request (UPI)",
+  //   permission: "appDebit",
+  //   title: "Credit Request (UPI)",
+  //   Icon: "fa-solid fa-check",
+  //   NestedElement: [],
+  // },
   {
     id: 10,
     headerTitle: "Approved Requests",
@@ -502,12 +501,12 @@ export const admin_Sidebar = [
         permission: "noticeBoard",
       },
 
-      {
-        id: 4,
-        title: "Profile Note",
-        route: "appSettings/profileNote",
-        permission: "profileNote",
-      },
+      // {
+      //   id: 4,
+      //   title: "Profile Note",
+      //   route: "appSettings/profileNote",
+      //   permission: "profileNote",
+      // },
       {
         id: 5,
         title: "Wallet Contact",
@@ -557,5 +556,4 @@ export const admin_Sidebar = [
       },
     ],
   },
-  
 ];

@@ -6,6 +6,7 @@ import { Games_Provider_List } from "../../Redux/slice/CommonSlice";
 import { Api } from "../../Config/Api";
 import { today } from "../../Utils/Common_Date";
 import ReusableModal from "../Modal/ModalComponent_main";
+import { set } from "date-fns";
 
 const SplitForm = () => {
   const token = localStorage.getItem("token");
@@ -26,6 +27,8 @@ const SplitForm = () => {
   const { gameProviders } = PagesIndex.useSelector(
     (state) => state.CommonSlice
   );
+
+  console.log("SearchInTableSearchInTable", SearchInTable);
 
   PagesIndex.useEffect(() => {
     dispatch(Games_Provider_List(token));
@@ -186,7 +189,7 @@ const SplitForm = () => {
 
         let array3 = [];
 
-        response1.data.pana.map((panaItem) => {
+        response1.data.pana.map((panaItem, index) => {
           const match = pannaArr.find((item) => {
             if (item !== undefined) {
               return parseInt(item._id) === parseInt(panaItem.Digit);
@@ -198,10 +201,12 @@ const SplitForm = () => {
             array3.push({
               ...match,
               digit_id: panaItem.Digit + "-" + panaItem.DigitFamily,
+              index: index + 1,
             });
           } else {
             // If no match is found, push a default object to array3
             array3.push({
+              index: index + 1,
               digit_id: panaItem.Digit + "-" + panaItem.DigitFamily,
               countBid: 0,
               totalBidAmm: 0,
@@ -254,7 +259,7 @@ const SplitForm = () => {
         let totalSum = result.totals.totalSumDigit;
         let Profit = 0;
         let Loss = 0;
-        response.data.data2.map((items) => {
+        response.data.data2.map((items, index) => {
           let totalamm = items.sumdigit * items.gamePrice;
 
           if (totalamm > totalSum) {
@@ -266,6 +271,7 @@ const SplitForm = () => {
           }
 
           jodiArray.push({
+            index: index + 1,
             _id: items._id,
             countBid: items.countBid,
             totalBidAmm: items.sumdigit,
@@ -500,6 +506,19 @@ const SplitForm = () => {
     setShowBidInfoList(response1.bidData);
   };
 
+  const tata = () => {
+    // Check if SearchInTable is not empty, then filter the table, else reset it
+    const filteredData = SearchInTable
+      ? TableThree.filter((item) => item.digit_id.includes(SearchInTable))
+      : TableThree;
+
+    setTableThree(filteredData);
+  };
+
+  PagesIndex.useEffect(() => {
+    tata();
+  }, [SearchInTable]);
+
   const cardLayouts = [
     {
       size: 7,
@@ -580,9 +599,10 @@ const SplitForm = () => {
           <div>
             <PagesIndex.TableWithCustomPeginationNew123
               data={(TableThree && TableThree) || []}
-              initialRowsPerPage={10}
+              initialRowsPerPage={100}
               SearchInTable={SearchInTable}
               visibleFields={visibleFields1}
+              showSingleSearch={true}
             />
           </div>
         ) : null,
