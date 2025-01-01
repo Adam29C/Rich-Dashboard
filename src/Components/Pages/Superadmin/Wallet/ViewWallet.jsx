@@ -402,36 +402,36 @@ const ViewWallet = () => {
                 </div>
                 <div className="user-data">
                   <div className="container">
-                    <table className="table">
+                    <table className="table table-bordered profile-content-table">
                       <tbody>
                         <tr>
-                          <td>Bank Name</td>
-                          <td id="bankName">{userData2.bank_name}</td>
+                          <td className="font-weight-bold">Bank Name</td>
+                          <td  id="bankName">{userData2.bank_name}</td>
                         </tr>
                         <tr>
-                          <td>Account Number</td>
+                          <td className="font-weight-bold">Account Number</td>
                           <td id="accNo"> {userData2.account_no}</td>
                         </tr>
                         <tr>
-                          <td>IFSC Code</td>
+                          <td className="font-weight-bold">IFSC Code</td>
                           <td id="ifsc">{userData2.ifsc_code}</td>
                         </tr>
                         <tr>
-                          <td>Account Holder Name</td>
+                          <td className="font-weight-bold">Account Holder Name</td>
                           <td id="accHolder">
                             {userData2.account_holder_name}
                           </td>
                         </tr>
-                        <tr>
+                        {/* <tr>
                           <td>Paytm Number</td>
                           <td>
                             {userData2.paytm_number
                               ? userData2.paytm_number
                               : "-"}
                           </td>
-                        </tr>
+                        </tr> */}
                         <tr>
-                          <td>Personal Number</td>
+                          <td className="font-weight-bold">Personal Number</td>
                           <td id="regular">{userData1.mobile}</td>
                         </tr>
                       </tbody>

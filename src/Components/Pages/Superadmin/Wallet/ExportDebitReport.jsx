@@ -185,21 +185,7 @@ const ExportDebitReport = () => {
   ];
 
   const visibleFields = [
-    {
-      name: "User Name",
-      value: "username",
-      sortable: true,
-    },
-    {
-      name: "Mobile",
-      value: "mobile",
-      sortable: true,
-    },
-    {
-      name: "Withdrawal Mode",
-      value: "withdrawalMode",
-      sortable: true,
-    },
+
     {
       name: "Name",
       value: "name",
@@ -256,22 +242,22 @@ const ExportDebitReport = () => {
         return item ? item : " null";
       },
     },
-    {
-      name: "Address",
-      value: "address",
-      sortable: true,
-      transform: (item) => {
-        return item ? item : " null";
-      },
-    },
-    {
-      name: "City",
-      value: "city",
-      sortable: true,
-      transform: (item) => {
-        return item ? item : " null";
-      },
-    },
+    // {
+    //   name: "Address",
+    //   value: "address",
+    //   sortable: true,
+    //   transform: (item) => {
+    //     return item ? item : " null";
+    //   },
+    // },
+    // {
+    //   name: "City",
+    //   value: "city",
+    //   sortable: true,
+    //   transform: (item) => {
+    //     return item ? item : " null";
+    //   },
+    // },
     {
       // name: "Profile",
       name: "Decline request",
@@ -281,6 +267,21 @@ const ExportDebitReport = () => {
       Conditions: (row) => {
         handleDeclineReport(row);
       },
+    },
+    {
+      name: "User Name",
+      value: "username",
+      sortable: true,
+    },
+    {
+      name: "Mobile",
+      value: "mobile",
+      sortable: true,
+    },
+    {
+      name: "Withdrawal Mode",
+      value: "withdrawalMode",
+      sortable: true,
     },
   ];
 

@@ -148,7 +148,7 @@ const GameProviderAdd = () => {
         { label: "Wednesday", value: "Wednesday" },
         { label: "Thursday", value: "Thursday" },
         { label: "Friday", value: "Friday" },
-        { label: "Seturday", value: "Seturday" },
+        { label: "Saturday", value: "Saturday" },
       ],
     },
     {

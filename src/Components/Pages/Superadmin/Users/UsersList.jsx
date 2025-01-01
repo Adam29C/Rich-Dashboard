@@ -118,12 +118,39 @@ const App = () => {
     }
   };
 
+  const unblockUser = async(row)=>{
+       const req = {
+          id: row.id,
+          blockStatus: row.banned ? false : true,
+          blockReason: "test",
+        };
+    const res = await PagesIndex.common_services.BLOCK_USER_API(req, token);
+    if (res.status) {
+      setRefresh(!Refresh);
+      PagesIndex.toast.success(res.message);
+    } else {
+      PagesIndex.toast.error(res.response.data.message);
+    }
+  }
+
   const BlockUserAndRemoveUser = async (row, buttonStatus) => {
     setGetRowData(row);
 
     if (buttonStatus === 1) {
-      setManageModalStatus(buttonStatus);
-      setModalStateForRemoveAndBlock(!ModalStateForRemoveAndBlock);
+      if(row.banned){
+        unblockUser(row)
+        if (res.status) {
+          setRefresh(!Refresh);
+          PagesIndex.toast.success(res.message);
+        } else {
+          PagesIndex.toast.error(res.response.data.message);
+        }
+      }else{
+  
+        setManageModalStatus(buttonStatus);
+        setModalStateForRemoveAndBlock(!ModalStateForRemoveAndBlock);
+      }
+
     } else if (buttonStatus === 2) {
       setManageModalStatus(buttonStatus);
       setModalStateForRemoveAndBlock(!ModalStateForRemoveAndBlock);
@@ -227,22 +254,22 @@ const App = () => {
           <div>
             <table class="table table-bordered table-responsive">
               <tbody>
-                <tr>
+                {/* <tr>
                   <td scope="col">Address</td>
                   <td scope="col">
                     {GetUserProfile && GetUserProfile.address
                       ? GetUserProfile && GetUserProfile.address
                       : "--"}
                   </td>
-                </tr>
-                <tr>
+                </tr> */}
+                {/* <tr>
                   <td scope="col">City</td>
                   <td scope="col">
                     {GetUserProfile && GetUserProfile.city
                       ? GetUserProfile && GetUserProfile.city
                       : "--"}
                   </td>
-                </tr>
+                </tr> */}
                 <tr>
                   <td scope="col">Acc Holder Name</td>
                   <td scope="col">
@@ -259,14 +286,14 @@ const App = () => {
                       : "--"}
                   </td>
                 </tr>
-                <tr>
+                {/* <tr>
                   <td scope="col">Pincode</td>
                   <td scope="col">
                     {GetUserProfile && GetUserProfile.pincode
                       ? GetUserProfile && GetUserProfile.pincode
                       : "--"}
                   </td>
-                </tr>
+                </tr> */}
                 <tr>
                   <td scope="col">IFSC</td>
                   <td scope="col">
@@ -276,7 +303,7 @@ const App = () => {
                   </td>
                 </tr>
                 <tr>
-                  <td scope="col">Paytm Number</td>
+                  <td scope="col">Mobile Number</td>
                   <td scope="col">
                     {GetUserProfile && GetUserProfile.paytm_number
                       ? GetUserProfile && GetUserProfile.paytm_number

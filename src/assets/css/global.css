@@ -330,7 +330,7 @@ input:checked + .slider:before {
 }
 
 .user-data {
-  padding-top: 40px;
+  padding-top: 20px;
 }
 
 .title {
@@ -576,4 +576,9 @@ input:checked + .slider:before {
   padding: 8px; 
   box-sizing: border-box; 
 
+}
+
+
+.profile-content-table td, .profile-content-table th {
+  border-color:#1c3e35;
 }
