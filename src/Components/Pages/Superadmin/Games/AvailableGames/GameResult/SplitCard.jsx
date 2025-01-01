@@ -23,7 +23,6 @@ const ExamplePage = () => {
   const [DisableSubmit, setDisableSubmit] = PagesIndex.useState(false);
   const [DisableSubmit1, setDisableSubmit1] = PagesIndex.useState(false);
 
-
   //get data in redux
   const data = PagesIndex.useSelector((state) => {
     return state.CommonSlice.gameProviders;
@@ -86,6 +85,8 @@ const ExamplePage = () => {
 
       if (!values.winningDigit) {
         errors.winningDigit = PagesIndex.valid_err.GAME_WINING_DIGIT_ERROR;
+      } else if (values.winningDigit.length > 2 && gameType === "JackPot") {
+        errors.winningDigit = "Only 3 digit allowed";
       }
 
       return errors;

@@ -205,12 +205,11 @@ const RefundPayment = ({
         if (res.statusCode === 200 || res.status) {
           PagesIndex.toast.success(res.message);
           setIsSUbmittedConfirm(false);
-
+          test()
           setTableData(tableData);
           setBtnVisiably(false);
           setModalState(false);
         } else {
-          console.log("res", res);
 
           PagesIndex.toast.error(res.response.data.message);
         }
@@ -223,6 +222,8 @@ const RefundPayment = ({
   };
 
   const ConfirmPayment = async (staus) => {
+    // console.log("RowData", RowData);
+
     try {
       let apidata = {};
 
@@ -233,9 +234,10 @@ const RefundPayment = ({
           userid: RowData.userId,
           biddingPoints: RowData.biddingPoints,
           providerId: RowData.providerId,
-          resultDate:   RowData.gameDate,
+          resultDate: RowData.gameDate,
           type: staus,
           providerName: RowData.providerName,
+          _id: RowData._id,
         };
       } else if (gametype === "Jackpot") {
         apidata = {
@@ -256,7 +258,7 @@ const RefundPayment = ({
 
       if (res.statusCode === 200 || res.status) {
         PagesIndex.toast.success(res.message);
-
+        test()
         setBtnVisiably(false);
         setModalState(false);
       } else {

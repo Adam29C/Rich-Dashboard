@@ -385,7 +385,6 @@ const WinnerList = () => {
         );
       }
 
-      console.log("resres", res.data.winnerList);
 
       if (res.status) {
         setGetResultStatus(res.data || res.data.dispData);
@@ -570,7 +569,6 @@ const WinnerList = () => {
         </div>
       ),
     },
-
     {
       size: 12,
       body: (
@@ -596,6 +594,7 @@ const WinnerList = () => {
             showIndex={true}
             Refresh={Refresh}
             show_additional={false}
+            showName={true}
             additional={
               <h4 clas>Total Payable Amount : {ShowTotal && ShowTotal}</h4>
             }

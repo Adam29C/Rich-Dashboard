@@ -79,6 +79,10 @@ const ExamplePage = ({
       }
       if (!values.winningDigit) {
         errors.winningDigit = PagesIndex.valid_err.GAME_WINING_DIGIT_ERROR;
+      } else if (values.winningDigit.length > 2 && gameType === "JackPot") {
+        errors.winningDigit = "Only 2 digit allowed";
+      } else if (values.winningDigit.length > 3 && gameType === "StarLine") {
+        errors.winningDigit = "Only 3 digit allowed";
       }
       return errors;
     },
