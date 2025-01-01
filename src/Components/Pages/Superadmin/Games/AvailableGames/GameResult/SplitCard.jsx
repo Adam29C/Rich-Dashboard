@@ -85,7 +85,7 @@ const ExamplePage = () => {
 
       if (!values.winningDigit) {
         errors.winningDigit = PagesIndex.valid_err.GAME_WINING_DIGIT_ERROR;
-      } else if (values.winningDigit.length > 2 && gameType === "JackPot") {
+      } else if (values.winningDigit.length > 3) {
         errors.winningDigit = "Only 3 digit allowed";
       }
 

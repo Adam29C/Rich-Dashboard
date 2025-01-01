@@ -116,7 +116,9 @@ const RefundPayment = ({
         );
 
         if (res.status) {
-          setTotalPages(res?.pagination?.totalCount || res?.pagination?.totalItems);
+          setTotalPages(
+            res?.pagination?.totalCount || res?.pagination?.totalItems
+          );
           setTableData(res?.data);
           // PagesIndex.toast.success(res?.data?.message || res?.message);
         } else {
