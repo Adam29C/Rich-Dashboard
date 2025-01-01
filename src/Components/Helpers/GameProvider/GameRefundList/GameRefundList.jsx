@@ -48,7 +48,7 @@ const RefundPayment = ({
     getGameProviderList();
   }, [Refresh]);
 
-  today(new Date());
+  // today(new Date());
   const formik = useFormik({
     initialValues: {
       providerId: "",
@@ -81,8 +81,10 @@ const RefundPayment = ({
         );
 
         if (res.status) {
-          setTotalPages(res.pagination.totalCount || res.pagination.totalItems);
-          setTableData(res.data || res.data);
+          setTotalPages(
+            res?.pagination?.totalCount || res?.pagination?.totalItems
+          );
+          setTableData(res?.data || res?.data);
           res.data.length === 0 ? PagesIndex.toast.error("No Data Found") : "";
         } else {
           PagesIndex.toast.error(res.response.data.message);
@@ -114,11 +116,11 @@ const RefundPayment = ({
         );
 
         if (res.status) {
-          setTotalPages(res.pagination.totalCount || res.pagination.totalItems);
-          setTableData(res.data);
+          setTotalPages(res?.pagination?.totalCount || res?.pagination?.totalItems);
+          setTableData(res?.data);
           // PagesIndex.toast.success(res?.data?.message || res?.message);
         } else {
-          PagesIndex.toast.error(res.response.data.message);
+          PagesIndex.toast.error(res?.response?.data?.message);
         }
       } catch (error) {
         console.log(error);
@@ -205,12 +207,11 @@ const RefundPayment = ({
         if (res.statusCode === 200 || res.status) {
           PagesIndex.toast.success(res.message);
           setIsSUbmittedConfirm(false);
-          test()
+          test();
           setTableData(tableData);
           setBtnVisiably(false);
           setModalState(false);
         } else {
-
           PagesIndex.toast.error(res.response.data.message);
         }
       } catch (error) {
@@ -247,6 +248,17 @@ const RefundPayment = ({
           resultDate: RowData.gameDate,
           type: staus,
           providerName: RowData.providerName,
+          _id: RowData._id,
+        };
+      } else if (gametype === "StarLine") {
+        apidata = {
+          _id: RowData._id,
+          userId: RowData.userId,
+          biddingPoints: RowData.biddingPoints,
+          providerId: RowData.providerId,
+          resultDate: RowData.gameDate,
+          type: staus,
+          providerName: RowData.providerName,
         };
       }
       const res =
@@ -258,7 +270,7 @@ const RefundPayment = ({
 
       if (res.statusCode === 200 || res.status) {
         PagesIndex.toast.success(res.message);
-        test()
+        test();
         setBtnVisiably(false);
         setModalState(false);
       } else {
