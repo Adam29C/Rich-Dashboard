@@ -419,6 +419,9 @@ const SplitForm = () => {
       transform: (item, row) => {
         return `${parseInt(item) > 0 ? `View Bids Info (${item})` : "No Bids"}`;
       },
+      onClick: (row) => {
+        showBidInfor(row);
+      },
     },
     {
       name: "Total Bid Count",

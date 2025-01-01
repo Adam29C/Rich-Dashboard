@@ -24,7 +24,9 @@ const GameProvider = ({
   const [selectedRow, setSelectedRow] = useState(null);
   const [visible, setVisible] = useState(false);
   const dispatch = PagesIndex.useDispatch();
-
+console.log( selectedRow?.activeStatus !== undefined
+  ? String(selectedRow?.activeStatus)
+  : "true")
   const { gameProviders } = PagesIndex.useSelector(
     (state) => state.CommonSlice
   );
@@ -88,7 +90,7 @@ const GameProvider = ({
       values: {
         gamename: "",
         result: "",
-        mobile: "",
+        // mobile: "",
         activeStatus: "",
       },
     });
@@ -104,7 +106,7 @@ const GameProvider = ({
         values: {
           gamename: row.providerName,
           result: row.providerResult,
-          mobile: row.mobile,
+          // mobile: row.mobile,
           activeStatus: row.activeStatus,
         },
       });
@@ -125,9 +127,11 @@ const GameProvider = ({
       gamename: selectedRow
         ? convertTo12HourFormat(selectedRow.providerName)
         : "",
-      result: selectedRow ? selectedRow.providerResult : "",
-      mobile: selectedRow ? selectedRow.mobile : "",
-      activeStatus: selectedRow ? selectedRow.activeStatus : null,
+      result: selectedRow ? selectedRow?.providerResult : "",
+      // mobile: selectedRow ? selectedRow?.mobile : "",
+      activeStatus:  selectedRow?.activeStatus !== undefined
+      ? String(selectedRow?.activeStatus)
+      : "true",
     },
     validate: (values) => {
       const errors = {};
@@ -174,7 +178,6 @@ const GameProvider = ({
           const payload = {
             gamename: values.gamename,
             result: values.result,
-            mobile: values.mobile.toString(),
             activeStatus: values.activeStatus === "true",
             ...(modalType === "Edit" && { gameId: selectedRow._id }),
           };
@@ -221,15 +224,15 @@ const GameProvider = ({
       label_size: 12,
       col_size: 12,
     },
-    {
-      name: "mobile",
-      label: "Mobile",
-      type: "number",
-      label_size: 12,
-      col_size: 12,
-      Visiblity:
-        gametype === "StarLine" || gametype === "JackPot" ? "hidden" : "show",
-    },
+    // {
+    //   name: "mobile",
+    //   label: "Mobile",
+    //   type: "number",
+    //   label_size: 12,
+    //   col_size: 12,
+    //   Visiblity:
+    //     gametype === "StarLine" || gametype === "JackPot" ? "hidden" : "show",
+    // },
 
     {
       name: "activeStatus",
@@ -299,7 +302,12 @@ const GameProvider = ({
         handleActionBtn(row, 2);
       },
     },
-  ];
+  ].filter((field) => {
+    if (field.value === "activeStatus" && (gametype === "StarLine" || gametype === "JackPot")) {
+      return false; 
+    }
+    return true;
+  });
 
   const UserFullButtonList = [
     {

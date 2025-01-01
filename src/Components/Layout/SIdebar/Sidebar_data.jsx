@@ -168,15 +168,15 @@ export const admin_Sidebar = [
     ],
   },
 
-  {
-    id: 6,
-    headerTitle: "Cutting Group",
-    title: "Cutting Group",
-    route: "cuttinggroup",
-    permission: "cg",
-    Icon: "icon-speedometer",
-    NestedElement: [],
-  },
+  // {
+  //   id: 6,
+  //   headerTitle: "Cutting Group",
+  //   title: "Cutting Group",
+  //   route: "cuttinggroup",
+  //   permission: "cg",
+  //   Icon: "icon-speedometer",
+  //   NestedElement: [],
+  // },
 
   {
     id: 7,
@@ -197,6 +197,12 @@ export const admin_Sidebar = [
         title: "Final OC Cutting Group",
         route: "finalOCGroup",
         permission: "fcg",
+      },
+      {
+        id: 3,
+        title: "Cutting Group",
+        route: "cuttinggroup",
+        permission: "cg",
       },
     ],
   },
@@ -271,8 +277,8 @@ export const admin_Sidebar = [
   // },
   {
     id: 10,
-    headerTitle: "Approved Requests",
-    title: "Approved Debit Requests",
+    headerTitle: "Withdrawal Requests",
+    title: "Withdrawal Requests",
     route: "",
     permission: "appDebit",
     Icon: "fa-solid fa-check",
@@ -289,40 +295,48 @@ export const admin_Sidebar = [
         permission: "bankReq",
         route: "approvedReports/bankManual",
       },
-    ],
-  },
-  {
-    id: 11,
-    route: "",
-    headerTitle: "Pending Requests",
-    title: "Pending Debit Requests",
-    permission: "fundRequest",
-    Icon: "fa-regular fa-clock",
-    NestedElement: [
       {
-        id: 1,
+        id: 3,
         title: "Pending Bank Requests",
         permission: "fundRequest",
         route: "fundRequest/pendingBank",
       },
-      // {
-      //   id: 2,
-      //   title: "Pending Paytm Requests",
-      //   permission: "fundRequest",
-      //   route: "#",
-      // },
+      {
+        id: 4,
+        title: "Declined Request",
+        permission: "decDebit",
+        route: "approvedReports/declined",
+       
+      },
     ],
   },
+  // {
+  //   id: 11,
+  //   route: "",
+  //   headerTitle: "Pending Requests",
+  //   title: "Pending Debit Requests",
+  //   permission: "fundRequest",
+  //   Icon: "fa-regular fa-clock",
+  //   NestedElement: [
+  //     {
+  //       id: 1,
+  //       title: "Pending Bank Requests",
+  //       permission: "fundRequest",
+  //       route: "fundRequest/pendingBank",
+  //     },
 
-  {
-    id: 12,
-    route: "approvedReports/declined",
-    headerTitle: "Declined Request",
-    permission: "decDebit",
-    title: "Declined Request",
-    Icon: "fa-solid fa-times",
-    NestedElement: [],
-  },
+  //   ],
+  // },
+
+  // {
+  //   id: 12,
+  //   route: "approvedReports/declined",
+  //   headerTitle: "Declined Request",
+  //   permission: "decDebit",
+  //   title: "Declined Request",
+  //   Icon: "fa-solid fa-times",
+  //   NestedElement: [],
+  // },
 
   {
     id: 13,
