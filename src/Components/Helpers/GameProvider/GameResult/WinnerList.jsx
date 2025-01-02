@@ -513,9 +513,7 @@ const WinnerList = () => {
             digitFamily: String(GetResultStatus?.digitFamily),
             providerId: GetResultStatus?.dispData?._id,
             windigit: data?.winningDigit,
-            // windigit: GetResultStatus?.dispData?.providerResult,
             gameDate: data?.resultDate,
-            // gameDate: GetResultStatus?.dispData?.modifiedAt,
             gamePrice: GetResultStatus?.gametype?.[0]?.gamePrice,
             resultId: GetResultStatus?.resultId,
           };
