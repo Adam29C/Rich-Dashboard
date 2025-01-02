@@ -222,6 +222,8 @@ const App = () => {
     },
   });
 
+  console.log("GetUserProfile" ,GetUserProfile);
+  
   const fields = [
     {
       name: "blockReason",
@@ -262,14 +264,14 @@ const App = () => {
                       : "--"}
                   </td>
                 </tr> */}
-                {/* <tr>
-                  <td scope="col">City</td>
+                <tr>
+                  <td scope="col">A/C No</td>
                   <td scope="col">
-                    {GetUserProfile && GetUserProfile.city
-                      ? GetUserProfile && GetUserProfile.city
+                    {GetUserProfile && GetUserProfile.account_no
+                      ? GetUserProfile && GetUserProfile.account_no
                       : "--"}
                   </td>
-                </tr> */}
+                </tr>
                 <tr>
                   <td scope="col">Acc Holder Name</td>
                   <td scope="col">

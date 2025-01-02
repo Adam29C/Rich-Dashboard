@@ -306,7 +306,6 @@ export const admin_Sidebar = [
         title: "Declined Request",
         permission: "decDebit",
         route: "approvedReports/declined",
-       
       },
     ],
   },
@@ -376,16 +375,16 @@ export const admin_Sidebar = [
         route: "report/fundreport",
         permission: "upiReport",
       },
-      {
-        id: 6,
-        title: "UPI Fund Report",
-        route: "report/upifundreport",
-        permission: "upiReport",
-      },
+      // {
+      //   id: 6,
+      //   title: "UPI Fund Report",
+      //   route: "report/upifundreport",
+      //   permission: "upiReport",
+      // },
 
       {
         id: 7,
-        title: "New Upi Fund Report",
+        title: "UPI Fund Report",
         route: "report/newupifundreport",
         permission: "upiReport",
       },
@@ -457,26 +456,26 @@ export const admin_Sidebar = [
     NestedElement: [],
   },
 
-  {
-    id: 15,
-    route: "users/ideas",
-    headerTitle: "userIdeas",
-    title: "User Idea's",
-    Icon: "fa-regular fa-bell",
-    permission: "notification",
+  // {
+  //   id: 15,
+  //   route: "users/ideas",
+  //   headerTitle: "userIdeas",
+  //   title: "User Idea's",
+  //   Icon: "fa-regular fa-bell",
+  //   permission: "notification",
 
-    NestedElement: [],
-  },
+  //   NestedElement: [],
+  // },
 
-  {
-    id: 16,
-    headerTitle: "News",
-    title: "News",
-    route: "news",
-    Icon: "fa-solid fa-television",
-    permission: "news",
-    NestedElement: [],
-  },
+  // {
+  //   id: 16,
+  //   headerTitle: "News",
+  //   title: "News",
+  //   route: "news",
+  //   Icon: "fa-solid fa-television",
+  //   permission: "news",
+  //   NestedElement: [],
+  // },
   {
     id: 17,
     route: "users/deleted",

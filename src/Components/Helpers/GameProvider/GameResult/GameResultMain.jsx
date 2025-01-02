@@ -203,6 +203,7 @@ const ExamplePage = ({
             name: "session",
             label: "Session",
             type: "select",
+
             options: [
               { label: "Open", value: "Open" },
               // { label: "Close", value: 0 },
@@ -317,7 +318,7 @@ const ExamplePage = ({
 
   const visibleFields = [
     {
-      name: "provider Name",
+      name: "Game Name",
       value: "providerName",
       sortable: true,
     },
@@ -326,22 +327,22 @@ const ExamplePage = ({
       value: "session",
       sortable: true,
       style: (row) => ({
-        dispay: gameType === "JackPot" ? "none" : "block",
+        display: gameType === "JackPot" ? "none" : "block",
       }),
     },
     {
       name: "Result Date",
-      value: "resultDate",
+      value: "createdAt",
       sortable: true,
     },
-    // {
-    //   name: "winning Digit",
-    //   value: "winningDigit",
-    //   sortable: true,
-    // },
     {
-      name: "Get Winners List",
-      value: "Get Winners List",
+      name: "winning Digits",
+      value: "winningDigit",
+      sortable: true,
+    },
+    {
+      name: "Get Winners ",
+      value: "Get Winners ",
       buttonColor: "success",
       isButton: true,
       sortable: true,

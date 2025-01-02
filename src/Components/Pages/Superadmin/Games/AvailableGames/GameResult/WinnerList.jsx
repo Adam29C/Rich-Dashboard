@@ -31,6 +31,7 @@ const WinnerList = () => {
     setModalState(true);
   };
   const fetchData = async (page, rowsPerPage, searchQuery) => {
+    return
     const apidata = {
       providerId: data.providerId,
       date: data.resultDate,
@@ -274,36 +275,36 @@ const WinnerList = () => {
       ),
     },
 
-    {
-      size: 12,
-      body: (
-        <div>
-          {remainingWinnerData === 0 ? (
-            <div class="d-flex justify-content-end mb-3">
-              <button
-                className={`btn btn-dark  mx-2 ${
-                  BtnVisiably ? "d-none" : "d-block"
-                }`}
-                onClick={() => {
-                  handleChange("1");
-                }}
-              >
-                Confirm Payment
-              </button>
-            </div>
-          ) : (
-            ""
-          )}
-          <PagesIndex.TableWithCustomPeginationNew
-            fetchData={fetchData}
-            columns={visibleFields}
-            // UserFullButtonList={UserFullButtonList}
-            showIndex={true}
-            Refresh={Refresh}
-          />
-        </div>
-      ),
-    },
+    // {
+    //   size: 12,
+    //   body: (
+    //     <div>
+    //       {remainingWinnerData === 0 ? (
+    //         <div class="d-flex justify-content-end mb-3">
+    //           <button
+    //             className={`btn btn-dark  mx-2 ${
+    //               BtnVisiably ? "d-none" : "d-block"
+    //             }`}
+    //             onClick={() => {
+    //               handleChange("1");
+    //             }}
+    //           >
+    //             Confirm Payment
+    //           </button>
+    //         </div>
+    //       ) : (
+    //         ""
+    //       )}
+    //       <PagesIndex.TableWithCustomPeginationNew
+    //         fetchData={fetchData}
+    //         columns={visibleFields}
+    //         // UserFullButtonList={UserFullButtonList}
+    //         showIndex={true}
+    //         Refresh={Refresh}
+    //       />
+    //     </div>
+    //   ),
+    // },
   ];
 
   return (

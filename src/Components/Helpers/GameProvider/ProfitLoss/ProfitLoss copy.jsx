@@ -34,13 +34,11 @@ const SplitForm = ({
 
   const [Refresh, setRefresh] = PagesIndex.useState(false);
   const [TotalPages, setTotalPages] = PagesIndex.useState(1);
+  
 
   // console.log("GetProviders && GetProviders[0]._id" ,GetProviders && GetProviders[0]._id);
-  console.log(
-    "GetProviders && GetProviders[0]._id",
-    GetProviders[0] && GetProviders[0]._id
-  );
-
+  console.log("GetProviders && GetProviders[0]._id" ,GetProviders[0] && GetProviders[0]._id);
+  
   const getProviders = async () => {
     const response1 =
       await PagesIndex.game_service.STARLINE_AND_JACKPOT_GAME_PROVIDERS_LIST_API(
@@ -61,7 +59,7 @@ const SplitForm = ({
       gameDate: "",
       // gameSession: "",
       // providerId: GetProviders[0] && GetProviders[0]._id,
-      providerId: "668d4382211a65d88600fa7e" || "620b5a5dab709c4b86fe704d",
+      providerId: "668d4382211a65d88600fa7e" || '620b5a5dab709c4b86fe704d',
     },
 
     validate: (values) => {
@@ -98,43 +96,47 @@ const SplitForm = ({
         token
       );
 
-      if (gameType === "JackPot") {
-        setGetTotal(response1.data.data1);
-        let gamePrice = response1.data.type[0].gamePrice;
-        let sumdigit = response1.data.data1[0].sumdigit;
 
-        response1.data.data2.forEach(function (e) {
-          let str = e._id;
 
-          let loss = 0;
-          let profit = 0;
-          let pl = e.sumdigit * gamePrice;
+      // if (gameType === "JackPot") {
+      //   setGetTotal(response1.data.data1);
+      //   let gamePrice = response1.data.type[0].gamePrice;
+      //   let sumdigit = response1.data.data1[0].sumdigit;
 
-          if (pl > sumdigit) {
-            // loss
-            loss = pl - sumdigit;
-          } else {
-            // profit
-            profit = sumdigit - pl;
-          }
+      //   response1.data.data2.forEach(function (e) {
+      //     let str = e._id;
 
-          singleArr.push({
-            _id: e._id,
-            digit: e._id,
-            bidCount: e.countBid,
-            sumDigit: e.sumdigit,
-            amountToPay: pl,
-            Profit: profit,
-            Loss: loss,
-          });
-        });
+      //     let loss = 0;
+      //     let profit = 0;
+      //     let pl = e.sumdigit * gamePrice;
 
-        singleArr.sort(function (a, b) {
-          return a._id - b._id;
-        });
+      //     if (pl > sumdigit) {
+      //       // loss
+      //       loss = pl - sumdigit;
+      //     } else {
+      //       // profit
+      //       profit = sumdigit - pl;
+      //     }
 
-        setTableTwo(singleArr);
-      }
+      //     singleArr.push({
+      //       _id: e._id,
+      //       digit: e._id,
+      //       bidCount: e.countBid,
+      //       sumDigit: e.sumdigit,
+      //       amountToPay: pl,
+      //       Profit: profit,
+      //       Loss: loss,
+      //     });
+      //   });
+
+      //   singleArr.sort(function (a, b) {
+      //     return a._id - b._id;
+      //   });
+
+      //   setTableTwo(singleArr);
+
+      //   // console.log("singleArr", singleArr);
+      // }
 
       if (response1.status) {
         let panaTotal = 0;
@@ -179,16 +181,25 @@ const SplitForm = ({
 
         let pannaArr = [];
         let singleArr = [];
+        let allSingle = [
+          { Digit: 0 },
+          { Digit: 1 },
+          { Digit: 2 },
+          { Digit: 3 },
+          { Digit: 4 },
+          { Digit: 5 },
+          { Digit: 6 },
+          { Digit: 7 },
+          { Digit: 8 },
+          { Digit: 9 },
+        ];
 
         let resultArray = [];
 
-        let abaac = response1.data.data2;
 
-        abaac.sort(function (a, b) {
-          return a._id - b._id;
-        });
-
-        abaac.forEach(function (e) {
+        console.log("response1.data" ,response1.data);
+        
+        response1.data.data2.forEach(function (e) {
           let str = e._id;
 
           if (str.length === 1) {
@@ -212,30 +223,8 @@ const SplitForm = ({
               sumDigit: e.sumdigit,
               amountToPay: pl,
               profit: profit,
-              loss: loss,
+              Loss: loss,
             });
-
-            let id_array = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-
-            // console.log("singleArr" ,singleArr);
-
-            let result = id_array.map((id) => {
-              let match = singleArr.find((item) => item._id === id);
-              return match
-                ? match
-                : {
-                    _id: id,
-                    bidCount: "No Bids",
-                    sumDigit: 0,
-                    amountToPay: 0,
-                    profit: singleDigitAm,
-                    loss: 0,
-                  };
-            });
-            console.log("singleArr", singleArr);
-            setTableTwo(result);
-
-            console.log("result", result);
           } else {
             let total = 0;
             let loss = 0;
@@ -256,14 +245,22 @@ const SplitForm = ({
               sumDigit: e.sumdigit,
               amountToPay: pl,
               profit: profit,
-              loss: loss,
+              Loss: loss,
             });
           }
+        });
+
+        singleArr.sort(function (a, b) {
+          return a._id - b._id;
         });
 
         pannaArr.sort(function (a, b) {
           return a.digit - b.digit;
         });
+
+        console.log("singleArr", singleArr);
+
+        setTableTwo(singleArr);
 
         let array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
         Object.keys(spArray).forEach((digit, index) => {
@@ -281,29 +278,12 @@ const SplitForm = ({
               sumDigit: 0,
               amountToPay: 0,
               Profit: panaAm,
-              loss: 0,
+              Loss: 0,
             });
           }
         });
 
         setTableThree(resultArray);
-
-        let id_array = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-
-        let result = id_array.map((id) => {
-          let match = singleArr.find((item) => item._id === id);
-          return match
-            ? match
-            : {
-                _id: id,
-                bidCount: "No Bids",
-                sumDigit: 0,
-                amountToPay: 0,
-                profit: singleDigitAm,
-                loss: 0,
-              };
-        });
-        setTableTwo(result);
 
         return;
       } else {
@@ -311,6 +291,8 @@ const SplitForm = ({
       }
     },
   });
+
+  console.log("rteeeee", formik.values);
 
   const fields = [
     {
@@ -399,8 +381,8 @@ const SplitForm = ({
       }),
     },
     {
-      name: "loss",
-      value: "loss",
+      name: "Loss",
+      value: "Loss",
       sortable: true,
       notheader: true,
       style: (row) => ({
@@ -422,9 +404,6 @@ const SplitForm = ({
       sortable: true,
       transform: (item, row) => {
         return `View Bids Info (${row.bidCount})`;
-      },
-      onClick: (row) => {
-        showBidInfor(row);
       },
     },
 
@@ -450,8 +429,8 @@ const SplitForm = ({
       }),
     },
     {
-      name: "loss",
-      value: "loss",
+      name: "Loss",
+      value: "Loss",
       sortable: true,
       notheader: true,
       style: (row) => ({
@@ -493,11 +472,11 @@ const SplitForm = ({
   ];
 
   const showBidInfor = async (rowdata) => {
+    setShowBidInfoModal(true);
     const payload = {
       date: formik.values.gameDate || today(new Date()),
       id: formik.values.providerId,
-      // bidDigit: rowdata.digit,
-      bidDigit: rowdata._id,
+      bidDigit: rowdata.digit,
       gameSession: rowdata?.session,
       page: UserPagenateData.pageno,
       // limit: UserPagenateData.limit,
@@ -510,9 +489,8 @@ const SplitForm = ({
       token
     );
 
-    if (response1.status) {
-      setShowBidInfoModal(true);
-    }
+    // console.log("response1response1response1", response1);
+
     setTotalPages(
       response1?.pagination?.totalItems || response1?.pagination?.totalItems
     );
