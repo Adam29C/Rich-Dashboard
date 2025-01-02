@@ -8,13 +8,11 @@ const App = () => {
 
   let { user_id, role } = JSON.parse(localStorage.getItem("userdetails"));
 
-  const [ModalStateUserProfile, setModalStateUserProfile] =
-    PagesIndex.useState(false);
+  const [ModalStateUserProfile, setModalStateUserProfile] = PagesIndex.useState(false);
   const [GetRowData, setGetRowData] = PagesIndex.useState("");
   const [Refresh, setRefresh] = PagesIndex.useState(false);
 
-  const [ModalStateForRemoveAndBlock, setModalStateForRemoveAndBlock] =
-    PagesIndex.useState(false);
+  const [ModalStateForRemoveAndBlock, setModalStateForRemoveAndBlock] = PagesIndex.useState(false);
 
   const [ManageModalStatus, setManageModalStatus] = PagesIndex.useState(false);
   const [GetUserProfile, seGetUserProfile] = PagesIndex.useState([]);
@@ -170,7 +168,7 @@ const App = () => {
       let res;
       if (ManageModalStatus === 1) {
         if (!values.blockReason) {
-          PagesIndex.toast.error("Please Enter Reason For Block ");
+          PagesIndex.toast.error("Please Enter Reason For Block");
           return;
         }
 
@@ -243,7 +241,6 @@ const App = () => {
         showIndex={true}
         Refresh={Refresh}
       />
-
       <ReusableModal
         ModalTitle={`User Profile : ${
           GetUserProfile && GetUserProfile.username
@@ -307,7 +304,6 @@ const App = () => {
         setModalState={setModalStateUserProfile}
         ModalState={ModalStateUserProfile}
       />
-
       <ReusableModal
         ModalTitle={
           <h5 class="modal-title" id="mySmallModalLabel">
@@ -318,7 +314,6 @@ const App = () => {
         }
         ModalBody={
           <div>
-            {/* <h6> */}
             <PagesIndex.Formikform
               fieldtype={fields.filter((field) => !field.showWhen)}
               formik={formik}

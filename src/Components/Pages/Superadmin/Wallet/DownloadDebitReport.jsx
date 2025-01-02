@@ -16,12 +16,32 @@ const DownloadDebitReport = () => {
   const [btnStatus, setBtnStatus] = PagesIndex.useState("");
 
   const visibleFields = [
-    "id",
-    "username",
-    "account_holder_name",
-    "bank_name",
-    "ifsc_code",
-    "account_no",
+    {
+      name: "User Name",
+      value: "username",
+      sortable: false,
+    },
+    {
+      name: "Account Holder Name",
+      value: "account_holder_name",
+      sortable: false,
+    },
+    {
+      name: "Bank Name",
+      value: "bank_name",
+      sortable: false,
+    },
+    {
+      name: "IFSC",
+      value: "ifsc_code",
+      sortable: false,
+    },
+    {
+      name: "Account No",
+      value: "account_no",
+      sortable: false,
+    },
+
   ];
 
   const handleBtnStatus = (status) => {
@@ -29,6 +49,7 @@ const DownloadDebitReport = () => {
     formik.handleSubmit();
   };
 
+  
   const formik = PagesIndex.useFormik({
     initialValues: {
       searchType: "0",
@@ -177,7 +198,7 @@ const DownloadDebitReport = () => {
           >
             Approve All
           </button> */}
-          <PagesIndex.TableWitCustomPegination
+          <PagesIndex.TableWithCustomPeginationNew123
             data={TableData}
             initialRowsPerPage={5}
             SearchInTable={SearchInTable}
@@ -192,6 +213,12 @@ const DownloadDebitReport = () => {
               />
             }
           />
+            {/* <PagesIndex.TableWithCustomPeginationNew
+        fetchData={fetchData}
+        columns={visibleFields}
+        showIndex={true}
+        Refresh={Refresh}
+      /> */}
           {totalAmount > 0 && 
           <h3 className="ml-3 mb-3 fw-bold responsive-total-amount">
             Total Amount {totalAmount}/-

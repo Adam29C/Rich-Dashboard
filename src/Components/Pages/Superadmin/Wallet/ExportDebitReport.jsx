@@ -314,6 +314,7 @@ const ExportDebitReport = () => {
         handleDownloadFiles(row);
       },
     },
+    
   ];
 
   const formik = PagesIndex.useFormik({
