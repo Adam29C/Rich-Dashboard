@@ -19,6 +19,7 @@ const SplitForm = () => {
   const [TotalPages, setTotalPages] = PagesIndex.useState(1);
 
   const [MaintableData, setMaintableData] = PagesIndex.useState([]);
+
   const formik = useFormik({
     initialValues: {
       market: 1,
@@ -40,8 +41,8 @@ const SplitForm = () => {
     },
     onSubmit: async (values) => {
       const payload = {
-        market: parseInt(values.market) || 1,
-        username: values.username || "rock",
+        market: parseInt(values.market),
+        username: values.username,
         page: UserPagenateData.pageno,
         limit: UserPagenateData.limit,
         search: "",
@@ -73,7 +74,9 @@ const SplitForm = () => {
 
         settableData(resultArray);
 
-        PagesIndex.toast.success(res.data.groupData.length<1 ? "Data Not Found " : res.message);
+        PagesIndex.toast.success(
+          res.data.groupData.length < 1 ? "Data Not Found " : res.message
+        );
 
         setTotalPages(res.pagination.totalRecords);
         setRefresh(!Refresh);
@@ -199,7 +202,7 @@ const SplitForm = () => {
                 })}
               {tableData.length > 0 && (
                 <>
-                  <tr className="text-center">
+                  <tr className="text-center primary-color">
                     <td colSpan={2} className="fw-bold">
                       Grand Total
                     </td>

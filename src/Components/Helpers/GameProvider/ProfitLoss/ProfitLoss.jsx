@@ -99,6 +99,10 @@ const SplitForm = ({
       );
 
       if (gameType === "JackPot") {
+
+        console.log("response1" ,response1);
+        
+
         setGetTotal(response1.data.data1);
         let gamePrice = response1.data.type[0].gamePrice;
         let sumdigit = response1.data.data1[0].sumdigit;
