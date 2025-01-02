@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import FormWizardComponent from "../../../Helpers/MultiStepForm";
 import Main_Containt from "../../../Layout/Main/Main_Containt";
-import PagesIndex from "../../../Pages/PagesIndex";
+import PagesIndex from "../../PagesIndex";
 import { Get_permissions } from "../../../Redux/slice/CommonSlice";
 
 function AddEmployee() {

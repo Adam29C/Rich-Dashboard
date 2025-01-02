@@ -29,9 +29,8 @@ const SplitForm = ({
   const [ShowBidInfoList, setShowBidInfoList] = PagesIndex.useState([]);
   const [UserPagenateData, setUserPagenateData] = PagesIndex.useState({
     pageno: 1,
-    limit: 10,
+    limit: 100,
   });
-
 
   const [Refresh, setRefresh] = PagesIndex.useState(false);
   const [TotalPages, setTotalPages] = PagesIndex.useState(1);
@@ -103,7 +102,6 @@ const SplitForm = ({
           let loss = 0;
           let profit = 0;
           let pl = e.sumdigit * gamePrice;
-
 
           if (pl > sumdigit) {
             // loss
@@ -535,7 +533,7 @@ const SplitForm = ({
         <div>
           <PagesIndex.TableWithCustomPeginationNew123
             data={TableTwo && TableTwo}
-            initialRowsPerPage={10}
+            initialRowsPerPage={100}
             SearchInTable={SearchInTable}
             visibleFields={visibleFields}
             // UserFullButtonList={UserFullButtonList}

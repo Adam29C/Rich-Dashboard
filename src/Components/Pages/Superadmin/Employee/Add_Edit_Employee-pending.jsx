@@ -35,12 +35,14 @@ function AddEmployee() {
   //destructure data for get single user permission for update form
   const userdataPermission = getEmplData && getEmplData?.col_view_permission;
 
-  console.log("userdataPermission", getEmplData);
-
   //destructure for get all permissions
   const getAllPermissions =
     getPermissions && getPermissions?.col_view_permission;
 
+
+    console.log("getAllPermissions" ,getAllPermissions);
+    console.log("userdataPermission" ,userdataPermission);
+    
   //set for show dynamic permission on add and update form
   const permissionOptions = getAllPermissions?.map((permission) => ({
     labelName: permission,
@@ -152,6 +154,10 @@ function AddEmployee() {
       )
     : fields;
 
+
+
+    // console.log("permissionOptions" ,permissionOptions);
+    
   //initial value set for permission checkbox fields
   const initialValues = useMemo(() => {
     if (!permissionOptions) return {};
@@ -163,11 +169,16 @@ function AddEmployee() {
     }, {});
   }, [permissionOptions, userdataPermission]);
 
+
+
   const formik1 = PagesIndex.useFormik({
     initialValues: initialValues,
     enableReinitialize: true,
     validate: () => ({}),
-    onSubmit: async (values) => {},
+    onSubmit: async (values) => {
+
+
+    },
   });
 
   let arra = [];
@@ -225,7 +236,8 @@ function AddEmployee() {
     const PermissionKeys = Object.keys(formik1.values).filter(
       (key) => formik1.values[key]
     );
-    console.log("PermissionKeys", PermissionKeys);
+    // console.log("formik1.values", formik1.values);
+    // console.log("arra", arra);
 
     let arabc = arra.filter((item) => {
       PermissionKeys.map((x) => {
@@ -233,13 +245,13 @@ function AddEmployee() {
       });
     });
 
-    console.log("arabc", arabc);
+    // console.log("arabc", arabc);
 
     const PermissionKeysresult =
       PermissionKeys.length > 0 ? PermissionKeys : [null];
 
-    console.log("arra", formik1.values);
-    console.log("PermissionKeysresult", PermissionKeysresult);
+    // console.log("arra", formik1.values);
+    // console.log("PermissionKeysresult", PermissionKeysresult);
 
     const updatereq = {
       username: formik.values.username,
@@ -258,7 +270,7 @@ function AddEmployee() {
       loginFor: 1,
     };
 
-    console.log("PermissionKeysresult", PermissionKeysresult);
+    // console.log("PermissionKeysresult", PermissionKeysresult);
 
     return;
     const res = userData

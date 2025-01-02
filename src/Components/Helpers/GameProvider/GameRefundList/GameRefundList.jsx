@@ -225,8 +225,6 @@ const RefundPayment = ({
   };
 
   const ConfirmPayment = async (staus) => {
-    // console.log("RowData", RowData);
-
     try {
       let apidata = {};
 
