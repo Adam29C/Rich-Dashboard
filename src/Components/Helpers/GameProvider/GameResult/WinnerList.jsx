@@ -282,8 +282,11 @@ import Split_Main_Containt from "../../../Layout/Main/Split_Main_Content";
 import ReusableModal from "../../../Helpers/Modal/ReusableModal";
 import { Api } from "../../../Config/Api";
 import { Navigate, useNavigate } from "react-router-dom";
+import { today } from "../../../Utils/Common_Date";
 
 const WinnerList = () => {
+  console.log("today", today);
+
   //get token in localstorage
   const token = localStorage.getItem("token");
   const { user_id } = JSON.parse(localStorage.getItem("userdetails"));
@@ -385,6 +388,7 @@ const WinnerList = () => {
         );
       }
 
+      console.log("apidata1apidata1apidata1", res);
 
       if (res.status) {
         setGetResultStatus(res.data || res.data.dispData);
@@ -505,19 +509,19 @@ const WinnerList = () => {
             resultId: GetResultStatus?.resultId,
           };
         } else if (gameType === "JackPot") {
-          // console.log("GetResultStatus", GetResultStatus);
-
           payload = {
             digitFamily: String(GetResultStatus?.digitFamily),
             providerId: GetResultStatus?.dispData?._id,
-            windigit: GetResultStatus?.dispData?.providerResult,
-            gameDate: GetResultStatus?.dispData?.modifiedAt,
+            windigit: data?.winningDigit,
+            // windigit: GetResultStatus?.dispData?.providerResult,
+            gameDate: data?.resultDate,
+            // gameDate: GetResultStatus?.dispData?.modifiedAt,
             gamePrice: GetResultStatus?.gametype?.[0]?.gamePrice,
-            resultId: GetResultStatus?.gametype?.[0]?._id,
+            resultId: GetResultStatus?.resultId,
           };
         }
 
-        //  return;
+
         res =
           await PagesIndex.game_service.STARLINE_GAME_DISTIBUTE_FUND_WINNERS_API(
             distribute_fund_Api,
