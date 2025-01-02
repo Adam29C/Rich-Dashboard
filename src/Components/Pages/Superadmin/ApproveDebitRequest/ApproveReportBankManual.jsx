@@ -109,7 +109,7 @@ const ApproveReportBankManual = () => {
       label: "Search By Approve Date",
       type: "date",
       label_size: 12,
-      col_size: 12,
+      col_size: 3,
     },
   ];
 

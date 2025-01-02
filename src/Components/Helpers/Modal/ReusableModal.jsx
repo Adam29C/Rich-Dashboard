@@ -48,7 +48,7 @@ const ReusableModal = ({
         center
         animationDuration={400}
       >
-        <h4>{ModalTitle}</h4>
+        <h4 className="font-weight-bold">{ModalTitle}</h4>
         <hr />
         {ModalBody}
       </Modal>

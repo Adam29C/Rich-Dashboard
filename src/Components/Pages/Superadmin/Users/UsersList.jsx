@@ -118,12 +118,12 @@ const App = () => {
     }
   };
 
-  const unblockUser = async(row)=>{
-       const req = {
-          id: row.id,
-          blockStatus: row.banned ? false : true,
-          blockReason: "test",
-        };
+  const unblockUser = async (row) => {
+    const req = {
+      id: row.id,
+      blockStatus: row.banned ? false : true,
+      blockReason: "test",
+    };
     const res = await PagesIndex.common_services.BLOCK_USER_API(req, token);
     if (res.status) {
       setRefresh(!Refresh);
@@ -131,26 +131,24 @@ const App = () => {
     } else {
       PagesIndex.toast.error(res.response.data.message);
     }
-  }
+  };
 
   const BlockUserAndRemoveUser = async (row, buttonStatus) => {
     setGetRowData(row);
 
     if (buttonStatus === 1) {
-      if(row.banned){
-        unblockUser(row)
+      if (row.banned) {
+        unblockUser(row);
         if (res.status) {
           setRefresh(!Refresh);
           PagesIndex.toast.success(res.message);
         } else {
           PagesIndex.toast.error(res.response.data.message);
         }
-      }else{
-  
+      } else {
         setManageModalStatus(buttonStatus);
         setModalStateForRemoveAndBlock(!ModalStateForRemoveAndBlock);
       }
-
     } else if (buttonStatus === 2) {
       setManageModalStatus(buttonStatus);
       setModalStateForRemoveAndBlock(!ModalStateForRemoveAndBlock);
@@ -172,7 +170,7 @@ const App = () => {
       let res;
       if (ManageModalStatus === 1) {
         if (!values.blockReason) {
-          PagesIndex.toast.error("Please Enter Reason For Block ");
+          PagesIndex.toast.error("Please Enter Reason For Block");
           return;
         }
 
@@ -222,8 +220,8 @@ const App = () => {
     },
   });
 
-  console.log("GetUserProfile" ,GetUserProfile);
-  
+  console.log("GetUserProfile", GetUserProfile);
+
   const fields = [
     {
       name: "blockReason",
@@ -247,79 +245,69 @@ const App = () => {
         showIndex={true}
         Refresh={Refresh}
       />
-
       <ReusableModal
         ModalTitle={`User Profile : ${
           GetUserProfile && GetUserProfile.username
         }`}
         ModalBody={
-          <div>
-            <table class="table table-bordered table-responsive">
-              <tbody>
-                {/* <tr>
-                  <td scope="col">Address</td>
-                  <td scope="col">
-                    {GetUserProfile && GetUserProfile.address
-                      ? GetUserProfile && GetUserProfile.address
-                      : "--"}
-                  </td>
-                </tr> */}
-                <tr>
-                  <td scope="col">A/C No</td>
-                  <td scope="col">
-                    {GetUserProfile && GetUserProfile.account_no
-                      ? GetUserProfile && GetUserProfile.account_no
-                      : "--"}
-                  </td>
-                </tr>
-                <tr>
-                  <td scope="col">Acc Holder Name</td>
-                  <td scope="col">
-                    {GetUserProfile && GetUserProfile.account_holder_name
-                      ? GetUserProfile && GetUserProfile.account_holder_name
-                      : "--"}
-                  </td>
-                </tr>
-                <tr>
-                  <td scope="col">Bank Name</td>
-                  <td scope="col">
-                    {GetUserProfile && GetUserProfile.bank_name
-                      ? GetUserProfile && GetUserProfile.bank_name
-                      : "--"}
-                  </td>
-                </tr>
-                {/* <tr>
-                  <td scope="col">Pincode</td>
-                  <td scope="col">
-                    {GetUserProfile && GetUserProfile.pincode
-                      ? GetUserProfile && GetUserProfile.pincode
-                      : "--"}
-                  </td>
-                </tr> */}
-                <tr>
-                  <td scope="col">IFSC</td>
-                  <td scope="col">
-                    {GetUserProfile && GetUserProfile.ifsc_code
-                      ? GetUserProfile && GetUserProfile.ifsc_code
-                      : "--"}
-                  </td>
-                </tr>
-                <tr>
-                  <td scope="col">Mobile Number</td>
-                  <td scope="col">
-                    {GetUserProfile && GetUserProfile.mobile
-                      ? GetUserProfile && GetUserProfile.mobile
-                      : "--"}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+          <div className="main">
+            <div className="user-data">
+              <div className="container">
+                <table className="table table-bordered profile-content-table">
+                  <tbody>
+                    <tr>
+                      <td className="font-weight-bold">Acc Holder Name</td>
+                      <td id="bankName">
+                        {GetUserProfile && GetUserProfile.account_holder_name
+                          ? GetUserProfile && GetUserProfile.account_holder_name
+                          : "--"}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="font-weight-bold">Account Number</td>
+                      <td id="accNo">
+                        {GetUserProfile && GetUserProfile.account_no
+                          ? GetUserProfile && GetUserProfile.account_no
+                          : "--"}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="font-weight-bold">Bank Name</td>
+                      <td id="ifsc">
+                        {" "}
+                        {GetUserProfile && GetUserProfile.bank_name
+                          ? GetUserProfile && GetUserProfile.bank_name
+                          : "--"}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="font-weight-bold">IFSC</td>
+                      <td id="accHolder">
+                        {" "}
+                        {GetUserProfile && GetUserProfile.ifsc_code
+                          ? GetUserProfile && GetUserProfile.ifsc_code
+                          : "--"}
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td className="font-weight-bold">Mobile Number</td>
+                      <td id="regular">
+                        {" "}
+                        {GetUserProfile && GetUserProfile.mobile
+                          ? GetUserProfile && GetUserProfile.mobile
+                          : "--"}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         }
         setModalState={setModalStateUserProfile}
         ModalState={ModalStateUserProfile}
       />
-
       <ReusableModal
         ModalTitle={
           <h5 class="modal-title" id="mySmallModalLabel">
@@ -330,7 +318,6 @@ const App = () => {
         }
         ModalBody={
           <div>
-            {/* <h6> */}
             <PagesIndex.Formikform
               fieldtype={fields.filter((field) => !field.showWhen)}
               formik={formik}

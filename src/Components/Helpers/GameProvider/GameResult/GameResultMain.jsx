@@ -12,7 +12,6 @@ const ExamplePage = ({
   past_result,
   winner_list,
   distribute_fund,
-
   remove_result,
 }) => {
   //get token in local storage
@@ -183,7 +182,7 @@ const ExamplePage = ({
           }))) ||
         [],
       label_size: 12,
-      col_size: 3,
+      col_size: gameType === "JackPot" ? 4 : 3,
     },
 
     // {
@@ -218,7 +217,7 @@ const ExamplePage = ({
       label: "Result Date",
       type: "date",
       label_size: 12,
-      col_size: 3,
+      col_size: gameType === "JackPot" ? 4 : 3,
       // min: { actual_date_formet },
       max: { actual_date_formet },
     },
@@ -227,7 +226,7 @@ const ExamplePage = ({
       label: "Winning Digit",
       type: "text",
       label_size: 12,
-      col_size: 3,
+      col_size: gameType === "JackPot" ? 4 : 3,
     },
   ];
 
