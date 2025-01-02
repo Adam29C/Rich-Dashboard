@@ -169,7 +169,7 @@ const SearchAccount = () => {
 
           <PagesIndex.TableWithCustomPeginationNew123
             data={oldData && oldData}
-            initialRowsPerPage={10}
+            initialRowsPerPage={25}
             SearchInTable={SearchInTable}
             visibleFields={visibleFields1}
           />

@@ -573,7 +573,7 @@ const SplitForm = ({
         <div>
           <PagesIndex.TableWithCustomPeginationNew123
             data={TableTwo && TableTwo}
-            initialRowsPerPage={10}
+            initialRowsPerPage={25}
             SearchInTable={SearchInTable}
             visibleFields={visibleFields1}
             // UserFullButtonList={UserFullButtonList}

@@ -468,7 +468,7 @@ const SplitForm = () => {
           <h4>{formik.values.gameSession}</h4>
           <PagesIndex.TableWithCustomPeginationNew123
             data={TableTwo && TableTwo}
-            initialRowsPerPage={10}
+            initialRowsPerPage={25}
             SearchInTable={SearchInTable}
             visibleFields={visibleFields}
             additional={
@@ -487,7 +487,7 @@ const SplitForm = () => {
         <div>
           <PagesIndex.TableWithCustomPeginationNew123
             data={(TableThree && TableThree) || []}
-            initialRowsPerPage={10}
+            initialRowsPerPage={25}
             SearchInTable={SearchInTable}
             visibleFields={visibleFields1}
             additional={

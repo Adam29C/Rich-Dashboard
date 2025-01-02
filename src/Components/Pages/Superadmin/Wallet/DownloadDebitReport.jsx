@@ -200,7 +200,7 @@ const DownloadDebitReport = () => {
           </button> */}
           <PagesIndex.TableWithCustomPeginationNew123
             data={TableData}
-            initialRowsPerPage={5}
+            initialRowsPerPage={25}
             SearchInTable={SearchInTable}
             visibleFields={visibleFields}
             searchInput={

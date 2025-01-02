@@ -385,7 +385,7 @@ const ExamplePage = () => {
 
           <PagesIndex.TableWithCustomPeginationNew123
             data={tableData}
-            initialRowsPerPage={10}
+            initialRowsPerPage={25}
             SearchInTable={SearchInTable}
             visibleFields={visibleFields}
             searchInput={
