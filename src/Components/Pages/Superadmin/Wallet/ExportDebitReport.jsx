@@ -8,6 +8,7 @@ import {
 } from "../../../Utils/ConvertFile";
 
 const ExportDebitReport = () => {
+  
   //get token in localstorage
   const token = localStorage.getItem("token");
   const userdetails = JSON.parse(localStorage.getItem("userdetails"));
@@ -258,16 +259,7 @@ const ExportDebitReport = () => {
     //     return item ? item : " null";
     //   },
     // },
-    {
-      // name: "Profile",
-      name: "Decline request",
-      isButton: true,
-      value: "Decline request",
-      className: "color-primary",
-      Conditions: (row) => {
-        handleDeclineReport(row);
-      },
-    },
+
     {
       name: "User Name",
       value: "username",
@@ -282,6 +274,16 @@ const ExportDebitReport = () => {
       name: "Withdrawal Mode",
       value: "withdrawalMode",
       sortable: true,
+    },
+    {
+      // name: "Profile",
+      name: "Decline request",
+      isButton: true,
+      value: "Decline request",
+      className: "color-primary",
+      Conditions: (row) => {
+        handleDeclineReport(row);
+      },
     },
   ];
 
@@ -451,10 +453,10 @@ const ExportDebitReport = () => {
         //   label: "Rbl.xls",
         //   value: "rblxls",
         // },
-        {
-          label: "MK.txt",
-          value: "mkxls",
-        },
+        // {
+        //   label: "MK.txt",
+        //   value: "mkxls",
+        // },
         // {
         //   label: "Gajju Bob",
         //   value: "gajjubob",

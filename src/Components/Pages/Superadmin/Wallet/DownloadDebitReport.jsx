@@ -122,10 +122,10 @@ const DownloadDebitReport = () => {
       label_size: 12,
       col_size: 4,
       options: [
-        {
-          label: "MK.txt",
-          value: "8",
-        },
+        // {
+        //   label: "MK.txt",
+        //   value: "8",
+        // },
       ],
     },
     {

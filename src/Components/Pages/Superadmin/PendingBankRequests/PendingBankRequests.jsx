@@ -332,69 +332,71 @@ const PendingBankRequests = () => {
           </h5>
         }
         ModalBody={
-          <div>
-            <div className="user-profile-head">
-              <h3 className="title">Name : {userProfileData1?.username}</h3>
-              <p className="walletbalance" id="balance">
-                Wallet Balance : {userProfileData1?.wallet_balance}/-
-              </p>
-            </div>
-            <div className="user-data">
-              <div className="container">
-                <table className="table">
-                  <tbody>
-                    <tr>
-                      <td>Bank Name</td>
-                      <td>
-                        {userProfileData2?.bank_name
+          <div className="main">
+                 <div className="profile-content">
+                  <div className="container">
+                    <div className="row">
+                      <div className="col-md-6 ml-auto mr-auto">
+                        <div className="profile">
+                          <div className="name">
+                            <h3 className="title" id="username">
+                            Name : {userProfileData1?.username}
+                            </h3>
+                            <p className="walletbalance" id="balance">
+                            Wallet Balance : {userProfileData1?.wallet_balance}/-
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="user-data">
+                  <div className="container">
+                    <table className="table table-bordered profile-content-table">
+                      <tbody>
+                        <tr>
+                          <td className="font-weight-bold">Bank Name</td>
+                          <td  id="bankName"> {userProfileData2?.bank_name
                           ? userProfileData2?.bank_name
-                          : "null"}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Account Number</td>
-                      <td>
-                        {userProfileData2?.account_no
+                          : "null"}</td>
+                        </tr>
+                        <tr>
+                          <td className="font-weight-bold">Account Number</td>
+                          <td id="accNo">  {userProfileData2?.account_no
                           ? userProfileData2?.account_no
-                          : "null"}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>IFSC Code</td>
-                      <td>
-                        {userProfileData2?.ifsc_code
+                          : "null"}</td>
+                        </tr>
+                        <tr>
+                          <td className="font-weight-bold">IFSC Code</td>
+                          <td id="ifsc"> {userProfileData2?.ifsc_code
                           ? userProfileData2?.ifsc_code
-                          : "null"}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Account Holder Name</td>
-                      <td>
-                        {userProfileData2?.account_holder_name
+                          : "null"}</td>
+                        </tr>
+                        <tr>
+                          <td className="font-weight-bold">Account Holder Name</td>
+                          <td id="accHolder">
+                          {userProfileData2?.account_holder_name
                           ? userProfileData2?.account_holder_name
                           : "null"}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Paytm Number</td>
-                      <td>
-                        {userProfileData2?.paytm_number
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className="font-weight-bold">Paytm Number</td>
+                          <td id="regular">{userProfileData2?.paytm_number
                           ? userProfileData2?.paytm_number
-                          : "null"}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Personal Number</td>
-                      <td>
-                        {userProfileData1?.mobile
+                          : "null"}</td>
+                        </tr>
+                        <tr>
+                          <td className="font-weight-bold">Personal Number</td>
+                          <td id="regular"> {userProfileData1?.mobile
                           ? userProfileData1?.mobile
-                          : "null"}
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
+                          : "null"}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
           </div>
         }
         setModalState={setModalState}

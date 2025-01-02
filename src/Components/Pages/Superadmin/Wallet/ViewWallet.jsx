@@ -422,14 +422,7 @@ const ViewWallet = () => {
                             {userData2.account_holder_name}
                           </td>
                         </tr>
-                        {/* <tr>
-                          <td>Paytm Number</td>
-                          <td>
-                            {userData2.paytm_number
-                              ? userData2.paytm_number
-                              : "-"}
-                          </td>
-                        </tr> */}
+                     
                         <tr>
                           <td className="font-weight-bold">Personal Number</td>
                           <td id="regular">{userData1.mobile}</td>

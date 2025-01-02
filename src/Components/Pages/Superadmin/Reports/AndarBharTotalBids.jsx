@@ -355,6 +355,14 @@ const AndarBharTotalBids = ({ gameType, report_api, starandjackProvider }) => {
     },
   });
 
+  
+    useEffect(() => {
+      if (ProviderList?.length > 0) {
+        formik.setFieldValue("gameId", ProviderList?.[0]._id);
+        // formik.setFieldValue("providerName", ProviderList?.[0].providerName);
+      }
+    }, [ProviderList]);
+ 
   // const resss = async () => {
   //   try {
   //     const paylaod = {
