@@ -87,3 +87,26 @@ export const numberRegexp = (value)=>{
   const regex = /^\d+(\.\d{1,2})?$/;
   return regex.test(value);
 } 
+
+
+// Helper function to check if the providerName is a valid time format
+export const isTimeFormat = (providerName) =>{
+  // Example regex to match time formats like "11:00 AM"
+  const timeRegex = /^(0?[1-9]|1[0-2]):[0-5][0-9] ?([AaPp][Mm])$/;
+  return timeRegex.test(providerName);
+}
+
+
+export const convertTo24HourFormat = (time) => {
+  const [hour, minutePart] = time.split(":");
+  const [minutes, period] = [minutePart?.slice(0, 2), minutePart?.slice(3).toUpperCase()];
+
+  let hours24 = parseInt(hour, 10);
+  if (period === "PM" && hours24 !== 12) {
+      hours24 += 12;
+  } else if (period === "AM" && hours24 === 12) {
+      hours24 = 0;
+  }
+
+  return `${String(hours24).padStart(2, "0")}:${minutes}`;
+}

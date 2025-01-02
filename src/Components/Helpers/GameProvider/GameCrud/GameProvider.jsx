@@ -5,6 +5,7 @@ import {
   convertTo12HourFormat,
   convertTo12HourFormat123,
 } from "../../../Utils/Common_Date";
+import { convertTo24HourFormat, isTimeFormat } from "../../../Utils/Valid_Rejex";
 
 const GameProvider = ({
   data,
@@ -24,9 +25,7 @@ const GameProvider = ({
   const [selectedRow, setSelectedRow] = useState(null);
   const [visible, setVisible] = useState(false);
   const dispatch = PagesIndex.useDispatch();
-console.log( selectedRow?.activeStatus !== undefined
-  ? String(selectedRow?.activeStatus)
-  : "true")
+console.log( selectedRow,10)
   const { gameProviders } = PagesIndex.useSelector(
     (state) => state.CommonSlice
   );
@@ -120,13 +119,18 @@ console.log( selectedRow?.activeStatus !== undefined
   };
 
 
-
+const providerNameSet = selectedRow
   const formik = PagesIndex.useFormik({
     enableReinitialize: true,
     initialValues: {
-      gamename: selectedRow
-        ? convertTo12HourFormat(selectedRow.providerName)
-        : "",
+      // gamename: selectedRow
+      //   ? convertTo24HourFormat(selectedRow.providerName)
+      //   : "",
+      gamename : selectedRow
+    ? isTimeFormat(selectedRow.providerName)
+        ? convertTo24HourFormat(selectedRow.providerName)
+        : selectedRow.providerName
+    : "",
       result: selectedRow ? selectedRow?.providerResult : "",
       // mobile: selectedRow ? selectedRow?.mobile : "",
       activeStatus:  selectedRow?.activeStatus !== undefined
