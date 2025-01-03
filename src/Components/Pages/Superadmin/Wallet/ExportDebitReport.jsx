@@ -8,7 +8,6 @@ import {
 } from "../../../Utils/ConvertFile";
 
 const ExportDebitReport = () => {
-  
   //get token in localstorage
   const token = localStorage.getItem("token");
   const userdetails = JSON.parse(localStorage.getItem("userdetails"));
@@ -23,6 +22,7 @@ const ExportDebitReport = () => {
   const [ModalState, setModalState] = PagesIndex.useState(false);
   const [btnStatus, setBtnStatus] = PagesIndex.useState(null);
   const [declineData, setDeclineData] = PagesIndex.useState();
+  const [buttonDisable, setDuttonDisable] = PagesIndex.useState(false);
 
   const [Payload, setPayload] = PagesIndex.useState("");
 
@@ -71,6 +71,7 @@ const ExportDebitReport = () => {
   };
 
   const confirmPayment = async () => {
+    setDuttonDisable(true);
     const res =
       await PagesIndex.admin_services.EXPORT_DEBIT_APPROVE_ALL_REQUEST_API(
         Payload,
@@ -79,6 +80,9 @@ const ExportDebitReport = () => {
 
     if (res.status) {
       PagesIndex.toast.success(res.message);
+      setModalState(false);
+      setDuttonDisable(false);
+      setTableData([]);
     } else {
       PagesIndex.toast.error(res.response.data.message);
     }
@@ -186,7 +190,6 @@ const ExportDebitReport = () => {
   ];
 
   const visibleFields = [
-
     {
       name: "Name",
       value: "name",
@@ -314,7 +317,6 @@ const ExportDebitReport = () => {
         handleDownloadFiles(row);
       },
     },
-    
   ];
 
   const formik = PagesIndex.useFormik({
@@ -347,7 +349,6 @@ const ExportDebitReport = () => {
       if (res?.status) {
         const { filename, writeString, Profile, profile } = res;
 
- 
         if (res.writeString === "") {
           PagesIndex.toast.error("No Data Found");
           return;
@@ -462,7 +463,6 @@ const ExportDebitReport = () => {
         //   label: "Gajju Bob",
         //   value: "gajjubob",
         // },
-
         // {
         //   label: "FINAPNB",
         //   value: "Finapnb",
@@ -523,6 +523,7 @@ const ExportDebitReport = () => {
         fields1={fields1}
         ApprovedAll={ApprovedAll}
         confirmPayment={confirmPayment}
+        buttonDisable={buttonDisable}
       />
     </>
   );

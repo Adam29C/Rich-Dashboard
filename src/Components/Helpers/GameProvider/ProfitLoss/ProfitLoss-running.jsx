@@ -4,9 +4,8 @@ import { useFormik } from "formik";
 import PagesIndex from "../../../Pages/PagesIndex";
 import { Api } from "../../../Config/Api";
 import { today } from "../../../Utils/Common_Date";
-import { spArray, panaArray } from "./data";
+import { spArray } from "./data";
 import ReusableModal from "../../Modal/ModalComponent_main";
-import { number } from "yup";
 
 const SplitForm = ({
   providersList,
@@ -35,6 +34,12 @@ const SplitForm = ({
 
   const [Refresh, setRefresh] = PagesIndex.useState(false);
   const [TotalPages, setTotalPages] = PagesIndex.useState(1);
+
+  // console.log("GetProviders && GetProviders[0]._id" ,GetProviders && GetProviders[0]._id);
+  console.log(
+    "GetProviders && GetProviders[0]._id",
+    GetProviders[0] && GetProviders[0]._id
+  );
 
   const getProviders = async () => {
     const response1 =
@@ -95,97 +100,40 @@ const SplitForm = ({
 
       if (gameType === "JackPot") {
         setGetTotal(response1.data.data1);
-
-        let CalcData = response1.data.data1;
-        let mainData = response1.data.data2;
-        // let mainData = response1.data.data2;
-
         let gamePrice = response1.data.type[0].gamePrice;
         let sumdigit = response1.data.data1[0].sumdigit;
 
-        let result = {
-          groupData: [],
-          grandTotal: {},
-          jodiData: [],
-        };
+        response1.data.data2.forEach(function (e) {
+          let str = e._id;
 
-        let TotalBid = 0;
-        let TotalSum = 0;
-
-        // const gamePrice = data.type[0].gamePrice;
-        CalcData.forEach(function (e) {
-          result.groupData.push({
-            gameType: e.gameType,
-            countBid: e.countBid,
-            sumDigit: e.sumdigit,
-          });
-          TotalBid += e.countBid;
-          TotalSum += e.sumdigit;
-        });
-
-        result.grandTotal = {
-          label: "Grand Total",
-          totalBid: TotalBid,
-          totalSum: TotalSum,
-        };
-
-        let jodiArray = {};
-
-        mainData.forEach(function (e) {
           let loss = 0;
           let profit = 0;
           let pl = e.sumdigit * gamePrice;
-          if (pl > TotalSum) {
-            loss = pl - TotalSum;
+
+          if (pl > sumdigit) {
+            // loss
+            loss = pl - sumdigit;
           } else {
-            profit = TotalSum - pl;
+            // profit
+            profit = sumdigit - pl;
           }
 
-          jodiArray[e._id] = {
+          singleArr.push({
+            _id: e._id,
             digit: e._id,
-            bidCount: `View Bids Info (${e.countBid})`,
-            bidCount1: e.countBid,
+            bidCount: e.countBid,
             sumDigit: e.sumdigit,
-            amountToPay: `${e.sumdigit} * ${gamePrice}`,
-            amountToPayCal: `${e.sumdigit} * ${gamePrice} = ${parseInt(
-              e.sumdigit * gamePrice
-            )}`,
-            profit: profit,
-            loss: loss,
-          };
-        });
-
-        panaArray.forEach(function (Digit) {
-          let bidCount = "No Bids";
-          let bidCount1 = 0;
-          let amountToPay = 0;
-          let sumDigit = 0;
-          let profit = TotalSum;
-          let amtToPayCal = 0;
-          let loss = 0;
-
-          if (jodiArray[Digit]) {
-            bidCount = jodiArray[Digit].bidCount;
-            bidCount1 = jodiArray[Digit].bidCount1;
-            amountToPay = jodiArray[Digit].amountToPay;
-            sumDigit = jodiArray[Digit].sumDigit;
-            amtToPayCal = jodiArray[Digit].amountToPayCal;
-            profit = jodiArray[Digit].profit;
-            loss = jodiArray[Digit].loss;
-          }
-
-          result.jodiData.push({
-            digit: Digit,
-            bidCount: bidCount,
-            bidCount1: bidCount1,
-            sumDigit: sumDigit,
-            amountToPay: amountToPay,
-            amountToPayCal: amtToPayCal,
-            profit: profit,
-            loss: loss,
+            amountToPay: pl,
+            Profit: profit,
+            Loss: loss,
           });
         });
-        setTableTwo(result.jodiData);
+
+        singleArr.sort(function (a, b) {
+          return a._id - b._id;
+        });
+
+        setTableTwo(singleArr);
       }
 
       if (response1.status) {
@@ -208,6 +156,8 @@ const SplitForm = ({
         const grandTotal = panaTotal + singleDigitTotal;
         const grandTotalBid = panaBidDigit + singleDigitBidDigit;
 
+        // console.log("panaTotal", panaTotal);
+
         // Create totals array
         const totals = [
           { name: "Pana", values: panaTotal, values1: panaBidDigit },
@@ -225,137 +175,165 @@ const SplitForm = ({
         let panaB = totals[0].values;
 
         let singleDigitAm = totals[1].values1;
-        let PanaProfit = totals[0].values1;
-
-        let MainData = response1.data.data2;
-        let PanaData = response1.data.pana;
-
-        MainData.sort(function (a, b) {
-          return a._id - b._id;
-        });
+        let panaAm = totals[0].values1;
 
         let pannaArr = [];
         let singleArr = [];
-        let allSingle = [
-          { Digit: 0 },
-          { Digit: 1 },
-          { Digit: 2 },
-          { Digit: 3 },
-          { Digit: 4 },
-          { Digit: 5 },
-          { Digit: 6 },
-          { Digit: 7 },
-          { Digit: 8 },
-          { Digit: 9 },
-        ];
 
-        // Process the data
-        let singleDigitData = [];
-        MainData.forEach(function (e) {
+        let resultArray = [];
+
+        let abaac = response1.data.data2;
+        let PanaData = response1.data.pana;
+
+        abaac.sort(function (a, b) {
+          return a._id - b._id;
+        });
+
+        abaac.forEach(function (e) {
           let str = e._id;
+
           if (str.length === 1) {
             let total = 0;
             let loss = 0;
             let profit = 0;
             let pl = e.sumdigit * e.gamePrice;
+
             if (pl > singleDigitAm) {
+              // loss
               loss = pl - singleDigitAm;
             } else {
+              // profit
               profit = singleDigitAm - pl;
             }
 
-            singleArr[e._id] = {
-              digit: e._id,
+            // Pushing the data into the singleArr array
+            singleArr.push({
+              _id: e._id,
               bidCount: e.countBid,
               sumDigit: e.sumdigit,
               amountToPay: pl,
               profit: profit,
               loss: loss,
-            };
+            });
+
+            let id_array = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+
+            // console.log("singleArr" ,singleArr);
+
+            let result = id_array.map((id) => {
+              let match = singleArr.find((item) => item._id === id);
+              return match
+                ? match
+                : {
+                    _id: id,
+                    bidCount: "No Bids",
+                    sumDigit: 0,
+                    amountToPay: 0,
+                    profit: singleDigitAm,
+                    loss: 0,
+                  };
+            });
+            console.log("singleArr", singleArr);
+            setTableTwo(result);
+
+            console.log("result", result);
           } else {
             let total = 0;
             let loss = 0;
             let profit = 0;
             let pl = e.sumdigit * e.gamePrice;
-            if (pl > PanaProfit) {
-              loss = pl - PanaProfit;
+
+            if (pl > panaAm) {
+              // loss
+              loss = pl - panaAm;
             } else {
-              profit = PanaProfit - pl;
+              // profit
+              profit = panaAm - pl;
             }
 
-            pannaArr[e._id] = {
+            pannaArr.push({
               digit: e._id,
               bidCount: e.countBid,
               sumDigit: e.sumdigit,
               amountToPay: pl,
               profit: profit,
               loss: loss,
-            };
+            });
           }
         });
 
-        // Prepare panna data
-        let pannaData = [];
-        PanaData.forEach(function (e) {
+        pannaArr.sort(function (a, b) {
+          return a.digit - b.digit;
+        });
 
+        // let array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+
+        // Object.keys(spArray).forEach((digit, index) => {
+        //   const arrayValue = array[index % array.length];
+        //   const match = pannaArr.find((item) => item.digit === digit);
+
+        //   if (match) {
+        //     match._id = `${digit}-${arrayValue}`;
+        //     resultArray.push(match);
+        //   } else {
+        //     resultArray.push({
+        //       _id: digit + "-" + arrayValue,
+        //       digit: digit,
+        //       bidCount: 0,
+        //       sumDigit: 0,
+        //       amountToPay: 0,
+        //       Profit: panaAm,
+        //       loss: 0,
+        //     });
+        //   }
+        // });
+
+        // setTableThree(resultArray);
+
+        let id_array = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+
+        let result = id_array.map((id) => {
+          let match = singleArr.find((item) => item._id === id);
+          return match
+            ? match
+            : {
+                _id: id,
+                bidCount: "No Bids",
+                sumDigit: 0,
+                amountToPay: 0,
+                profit: singleDigitAm,
+                loss: 0,
+              };
+        });
+        setTableTwo(result);
+
+        PanaData.forEach(function (e) {
           let tabDigit = e.Digit;
           let bidCount = "No Bids";
           let amountToPay = 0;
           let SumDigit = 0;
-          let profit = PanaProfit;
+          let profit = panaAm;
           let loss = 0;
+          // console.log("PanaData", pannaArr);
+
           if (pannaArr[tabDigit]) {
             bidCount = pannaArr[tabDigit].bidCount;
             amountToPay = pannaArr[tabDigit].amountToPay;
             SumDigit = pannaArr[tabDigit].sumDigit;
             profit = pannaArr[tabDigit].profit;
-            loss = pannaArr[tabDigit].loss;
+            loss = pannaArr[tabDigit].Loss;
+          } else {
+            bidCount = "No Bids";
+            amountToPay = 0;
+            SumDigit = 0;
+            profit = panaAm;
+            loss = 0;
           }
-          pannaData.push({
-            digit: tabDigit + "-" + e.DigitFamily,
-            digitFamily: e.DigitFamily,
-            bidCount: bidCount,
-            sumDigit: SumDigit,
-            amountToPay: amountToPay,
-            profit: profit,
-            loss: loss,
-          });
         });
 
-        // Prepare single digit data
-        allSingle.forEach(function (e) {
-          let tabDigit = e.Digit;
-          let bidCount = "No Bids";
-          let amountToPay = 0;
-          let SumDigit = 0;
-          let profit = singleDigitAm;
-          let loss = 0;
-          if (singleArr[tabDigit]) {
-            bidCount = singleArr[tabDigit].bidCount;
-            amountToPay = singleArr[tabDigit].amountToPay;
-            SumDigit = singleArr[tabDigit].sumDigit;
-            profit = singleArr[tabDigit].profit;
-            loss = singleArr[tabDigit].loss;
-          }
-          singleDigitData.push({
-            digit: tabDigit,
-            bidCount: bidCount,
-            sumDigit: SumDigit,
-            amountToPay: amountToPay,
-            profit: profit,
-            loss: loss,
-          });
-        });
+        console.log("PanaData", pannaArr);
 
-        singleDigitData.sort(function (a, b) {
-          return a.digit - b.digit;
-        });
-
-        pannaData.sort((a, b) => a.digit.localeCompare(b.digit));
-
-        setTableTwo(singleDigitData);
-        setTableThree(pannaData);
-        // Output JSON
+        // setTableThree(resultArray);
 
         return;
       } else {
@@ -410,29 +388,25 @@ const SplitForm = ({
   const visibleFields = [
     {
       name: "Digit",
-      value: "digit",
+      value: "_id",
       sortable: true,
     },
     {
-      name: "Bid Count",
+      name: "countBid",
       value: "countBid",
       sortable: true,
       transform: (item, row) => {
         return `${
-          typeof row.bidCount === "number"
+          parseInt(row.bidCount) > 0
             ? `View Bids Info (${row.bidCount})`
-            : row.bidCount
+            : "No Bids"
         }`;
       },
       onClick: (row) => {
         showBidInfor(row);
       },
     },
-    {
-      name: "Total Bid Count",
-      value: "sumDigit",
-      sortable: true,
-    },
+
     {
       name: "Total Bid Count",
       value: "sumDigit",
@@ -445,7 +419,7 @@ const SplitForm = ({
     },
     {
       name: "Profit",
-      value: "profit",
+      value: "Profit",
       notheader: true,
 
       sortable: true,
@@ -469,22 +443,15 @@ const SplitForm = ({
   const visibleFields1 = [
     {
       name: "Digit",
-      value: "digit",
+      value: "_id",
       sortable: true,
     },
     {
-      name: "Bid Count",
+      name: "countBid",
       value: "countBid",
       sortable: true,
-      // style: (row) => ({
-      //   background: ,
-      // }),
       transform: (item, row) => {
-        return `${
-          typeof row.bidCount === "number"
-            ? `View Bids Info (${row.bidCount})`
-            : row.bidCount
-        }`;
+        return `View Bids Info (${row.bidCount})`;
       },
       onClick: (row) => {
         showBidInfor(row);
@@ -499,14 +466,6 @@ const SplitForm = ({
     {
       name: "Amount To Pay",
       value: "amountToPay",
-      sortable: true,
-    },
-    {
-      name: "Amount To Pay Calculate",
-      value: "amountToPayCal",
-      style: (row) => ({
-        display: gameType === "JackPot" ? "block" : "none",
-      }),
       sortable: true,
     },
     {
@@ -564,14 +523,15 @@ const SplitForm = ({
   ];
 
   const showBidInfor = async (rowdata) => {
-    // return;
-
     const payload = {
       date: formik.values.gameDate || today(new Date()),
-      bidDigit: rowdata.digit,
       id: formik.values.providerId,
-      limit: UserPagenateData.limit,
+      // bidDigit: rowdata.digit,
+      bidDigit: rowdata._id,
+      gameSession: rowdata?.session,
       page: UserPagenateData.pageno,
+      // limit: UserPagenateData.limit,
+      limit: rowdata.bidCount,
       search: SearchInTable,
     };
     const response1 = await PagesIndex.report_service.ALL_GAME_REPORT_API(
@@ -641,7 +601,7 @@ const SplitForm = ({
         <div>
           <PagesIndex.TableWithCustomPeginationNew123
             data={TableTwo && TableTwo}
-            initialRowsPerPage={50}
+            initialRowsPerPage={25}
             SearchInTable={SearchInTable}
             visibleFields={visibleFields1}
             // UserFullButtonList={UserFullButtonList}
@@ -695,7 +655,7 @@ const SplitForm = ({
       <ReusableModal
         show={ShowBidInfoModal}
         onClose={setShowBidInfoModal}
-        title={"Transaction History"}
+        title={"Bid History"}
         size={"lg"}
         body={
           <>

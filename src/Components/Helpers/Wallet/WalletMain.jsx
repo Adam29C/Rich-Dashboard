@@ -21,6 +21,7 @@ const WalletMain = ({
   formik1,
   fields1,
   confirmPayment,
+  buttonDisable
 }) => {
   const totalAmount = useMemo(
     () => TableData.reduce((acc, item) => acc + (item?.reqAmount || 0), 0),
@@ -128,6 +129,7 @@ const WalletMain = ({
                   <button
                     className="btn btn-dark  mx-2"
                     onClick={() => confirmPayment()}
+                    disabled={buttonDisable}
                   >
                     Confirm
                   </button>
