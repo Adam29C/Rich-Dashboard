@@ -240,7 +240,7 @@ const RequestOnOff = () => {
           <PagesIndex.TableWithCustomPeginationNew123
             data={TableData}
             // columns={columns}
-            initialRowsPerPage={5}
+            initialRowsPerPage={25}
             SearchInTable={SearchInTable}
             visibleFields={visibleFields}
             UserFullButtonList={UserFullButtonList}

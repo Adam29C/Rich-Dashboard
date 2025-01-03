@@ -329,7 +329,7 @@ const ViewWallet = () => {
         Refresh={Refresh}
         data={TableData}
         // columns={columns}
-        initialRowsPerPage={5}
+        initialRowsPerPage={25}
         SearchInTable={SearchInTable}
         // visibleFields={visibleFields}
 

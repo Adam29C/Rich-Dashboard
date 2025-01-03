@@ -83,7 +83,7 @@ const WalletMain = ({
           <div>
             <PagesIndex.TableWithCustomPeginationNew123
               data={TableData}
-              initialRowsPerPage={10}
+              initialRowsPerPage={25}
               SearchInTable={""}
               visibleFields={visibleFields}
               showIndex={true}
@@ -142,7 +142,7 @@ const WalletMain = ({
             ) : btnStatus === "see-report" ? (
               <PagesIndex.TableWithCustomPeginationNew123
                 data={todayReportData}
-                initialRowsPerPage={10}
+                initialRowsPerPage={25}
                 SearchInTable={""}
                 visibleFields={visibleFields1}
                 showIndex={true}

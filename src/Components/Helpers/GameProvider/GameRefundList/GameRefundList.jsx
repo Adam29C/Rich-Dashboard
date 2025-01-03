@@ -26,7 +26,7 @@ const RefundPayment = ({
 
   const [UserPagenateData, setUserPagenateData] = PagesIndex.useState({
     pageno: 1,
-    limit: 10,
+    limit: 25,
   });
 
   const [TotalPages, setTotalPages] = PagesIndex.useState(1);

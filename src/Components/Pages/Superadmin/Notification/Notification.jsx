@@ -172,7 +172,7 @@ const Notification = () => {
     >
       <PagesIndex.TableWithCustomPeginationNew123
         data={data}
-        initialRowsPerPage={10}
+        initialRowsPerPage={25}
         SearchInTable={""}
         visibleFields={visibleFields}
         showIndex={true}

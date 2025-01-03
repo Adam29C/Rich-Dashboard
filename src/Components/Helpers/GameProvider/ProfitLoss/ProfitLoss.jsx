@@ -99,6 +99,8 @@ const SplitForm = ({
       );
 
       if (gameType === "JackPot") {
+
+
         setGetTotal(response1.data.data1);
         let gamePrice = response1.data.type[0].gamePrice;
         let sumdigit = response1.data.data1[0].sumdigit;
@@ -571,7 +573,7 @@ const SplitForm = ({
         <div>
           <PagesIndex.TableWithCustomPeginationNew123
             data={TableTwo && TableTwo}
-            initialRowsPerPage={10}
+            initialRowsPerPage={25}
             SearchInTable={SearchInTable}
             visibleFields={visibleFields1}
             // UserFullButtonList={UserFullButtonList}
