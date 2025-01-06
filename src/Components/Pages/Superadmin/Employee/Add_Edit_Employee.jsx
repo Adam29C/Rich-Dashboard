@@ -3,23 +3,19 @@ import FormWizardComponent from "../../../Helpers/MultiStepForm";
 import Main_Containt from "../../../Layout/Main/Main_Containt";
 import PagesIndex from "../../PagesIndex";
 import { Get_permissions } from "../../../Redux/slice/CommonSlice";
-import { filterSidebarItems } from "../../../Layout/SIdebar/FilteredPermissions";
 import { admin_Sidebar } from "../../../Layout/SIdebar/Sidebar_data";
-
-import { Formik, Field, Form, ErrorMessage } from "formik";
+import { keyMapping } from "./permissions";
 
 function AddEmployee() {
   //get token in localstorage
   const token = localStorage.getItem("token");
   //get userid in localstorage
-  let { user_id, role } = JSON.parse(localStorage.getItem("userdetails"));
+  let { user_id } = JSON.parse(localStorage.getItem("userdetails"));
 
   //get all permission in redux
   const { getPermissions } = PagesIndex.useSelector(
     (state) => state.CommonSlice
   );
-
-  // console.log("getPermissions" ,getPermissions);
 
   //use navigate dispatch location hooks
   const navigate = PagesIndex.useNavigate();
@@ -39,10 +35,6 @@ function AddEmployee() {
   const getAllPermissions =
     getPermissions && getPermissions?.col_view_permission;
 
-
-    console.log("getAllPermissions" ,getAllPermissions);
-    console.log("userdataPermission" ,userdataPermission);
-    
   //set for show dynamic permission on add and update form
   const permissionOptions = getAllPermissions?.map((permission) => ({
     labelName: permission,
@@ -154,13 +146,10 @@ function AddEmployee() {
       )
     : fields;
 
-
-
-    // console.log("permissionOptions" ,permissionOptions);
-    
   //initial value set for permission checkbox fields
   const initialValues = useMemo(() => {
     if (!permissionOptions) return {};
+
     return permissionOptions.reduce((acc, option) => {
       acc[option.name] =
         Array.isArray(userdataPermission) &&
@@ -169,19 +158,14 @@ function AddEmployee() {
     }, {});
   }, [permissionOptions, userdataPermission]);
 
-
-
   const formik1 = PagesIndex.useFormik({
     initialValues: initialValues,
     enableReinitialize: true,
     validate: () => ({}),
-    onSubmit: async (values) => {
-
-
-    },
+    onSubmit: async (values) => {},
   });
-
   let arra = [];
+
   admin_Sidebar.forEach((item) => {
     let nastedarra = [];
     if (item.NestedElement?.length > 0) {
@@ -190,7 +174,7 @@ function AddEmployee() {
           id: nestedItem.id,
           label: nestedItem.title,
           permission: nestedItem.permission,
-          checked: false,
+          checked: userdataPermission?.includes(nestedItem.permission) || false,
         });
       });
     }
@@ -198,13 +182,14 @@ function AddEmployee() {
       id: item.id,
       label: item.title,
       permission: item.permission,
-      checked: false,
+      checked: userdataPermission?.includes(item.permission) || false,
       Nasted: nastedarra,
     });
   });
 
   const fields1 = [
     {
+      pagetype: true,
       name: "permission",
       type: "checkbox",
       label_size: 12,
@@ -216,13 +201,13 @@ function AddEmployee() {
           return {
             id: x.id,
             name: x.label,
-            checked: false,
+            checked: formik1.values[x.permission] || false,
             permission: x.permission,
             Nasted: x.Nasted.map((y) => {
               return {
                 id: y.id,
                 name: y.label,
-                checked: false,
+                checked: formik1.values[y.permission] || false,
                 permission: y.permission,
               };
             }),
@@ -233,30 +218,37 @@ function AddEmployee() {
 
   //handlecomplete for complete the add and update form
   const handleComplete = async () => {
+    console.log(formik1.values,"formik1.values")
     const PermissionKeys = Object.keys(formik1.values).filter(
       (key) => formik1.values[key]
     );
-    // console.log("formik1.values", formik1.values);
-    // console.log("arra", arra);
-
-    let arabc = arra.filter((item) => {
-      PermissionKeys.map((x) => {
-        return item.label === x;
-      });
-    });
-
-    // console.log("arabc", arabc);
+    console.log(PermissionKeys, ":PermissionKeys");
 
     const PermissionKeysresult =
       PermissionKeys.length > 0 ? PermissionKeys : [null];
 
-    // console.log("arra", formik1.values);
-    // console.log("PermissionKeysresult", PermissionKeysresult);
+    const matchedKeys = PermissionKeysresult.map((value) => {
+      const matchingKey = Object.keys(keyMapping).find(
+        (key) => keyMapping[key] === value
+      );
+      return matchingKey;
+    }).filter(Boolean);
+
+    // Reverse mapping: Swap key and value of keyMapping for efficient lookup
+    const reverseKeyMapping = Object.fromEntries(
+      Object.entries(keyMapping).map(([key, value]) => [value, key])
+    );
+
+    // Replace elements in PermissionKeysresult
+    const transformedResult = PermissionKeysresult.map((value) => {
+      // Match PermissionKeysresult value with reverseKeyMapping key
+      return reverseKeyMapping[value] || value;
+    });
 
     const updatereq = {
       username: formik.values.username,
       loginPermission: formik.values.loginPermission,
-      colViewPermission: PermissionKeysresult,
+      colViewPermission: transformedResult,
       id: userData?._id,
     };
 
@@ -266,13 +258,11 @@ function AddEmployee() {
       loginPermission: formik.values.loginPermission,
       password: formik.values.password,
       designation: formik.values.designation,
-      colViewPermission: PermissionKeysresult,
+      colViewPermission: matchedKeys,
       loginFor: 1,
     };
 
-    // console.log("PermissionKeysresult", PermissionKeysresult);
-
-    return;
+    // return;
     const res = userData
       ? await PagesIndex.admin_services.UPDATE_EMPLOYEE(updatereq, token)
       : await PagesIndex.admin_services.CREATE_EMPLOYEE(addreq, token);
@@ -287,13 +277,7 @@ function AddEmployee() {
     }
   };
 
-  // const filteredSidebar = filterSidebarItems(
-  //   admin_Sidebar,
-  //   role,
-  //   permissionOptions
-  // );
 
-  // console.log("filteredSidebar", admin_Sidebar);
 
   const tabs = [
     {
@@ -321,13 +305,8 @@ function AddEmployee() {
     },
   ];
 
-  const validate = (values) => {
-    const errors = {};
-    if (!values.name) {
-      errors.name = "Required";
-    }
-    return errors;
-  };
+
+  
 
   return (
     <Main_Containt

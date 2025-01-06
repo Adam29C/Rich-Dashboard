@@ -29,7 +29,6 @@ const ReusableForm = ({
   after_submit_button1,
   show_clear,
   setUnable,
-
 }) => {
   const location = useLocation();
 
@@ -144,7 +143,7 @@ const ReusableForm = ({
                             </label>
                           )} */}
                           <div className="form-check custom-checkbox mb-2 ">
-              
+                 
                             <input
                               type={field.type}
                               className="form-check-input"
