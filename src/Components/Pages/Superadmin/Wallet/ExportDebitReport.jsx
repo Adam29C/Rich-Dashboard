@@ -8,7 +8,6 @@ import {
 } from "../../../Utils/ConvertFile";
 
 const ExportDebitReport = () => {
-  
   //get token in localstorage
   const token = localStorage.getItem("token");
   const userdetails = JSON.parse(localStorage.getItem("userdetails"));
@@ -120,9 +119,9 @@ const ExportDebitReport = () => {
   }, []);
 
   const handleDeclineReport = async (row) => {
+    setModalState(true);
     setDeclineData(row);
     setBtnStatus("decline-report");
-    setModalState(true);
   };
 
   const handleDownloadFiles = async (row) => {
@@ -186,7 +185,6 @@ const ExportDebitReport = () => {
   ];
 
   const visibleFields = [
-
     {
       name: "Name",
       value: "name",
@@ -314,7 +312,6 @@ const ExportDebitReport = () => {
         handleDownloadFiles(row);
       },
     },
-    
   ];
 
   const formik = PagesIndex.useFormik({
@@ -347,7 +344,6 @@ const ExportDebitReport = () => {
       if (res?.status) {
         const { filename, writeString, Profile, profile } = res;
 
- 
         if (res.writeString === "") {
           PagesIndex.toast.error("No Data Found");
           return;
@@ -462,7 +458,6 @@ const ExportDebitReport = () => {
         //   label: "Gajju Bob",
         //   value: "gajjubob",
         // },
-
         // {
         //   label: "FINAPNB",
         //   value: "Finapnb",

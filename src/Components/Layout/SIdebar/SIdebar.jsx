@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { admin_Sidebar } from "./Sidebar_data";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import PagesIndex from "../../Pages/PagesIndex";
 import { Get_permissions } from "../../Redux/slice/CommonSlice";
 import { filterSidebarItems } from "./FilteredPermissions";
@@ -8,6 +8,10 @@ import Logo from "../Logo/Logo_png";
 import { useMyContext } from "../../Hooks/Context/CreateSidebarContext";
 
 const SIdebar = () => {
+  const location = useLocation();
+
+  // console.log("locationlocation" ,location.pathname.split('/')[3] || location.pathname.split('/')[2]);
+
   let { user_id, role } = JSON.parse(localStorage.getItem("userdetails"));
   const { main_wrapper } = useMyContext();
 
@@ -26,7 +30,7 @@ const SIdebar = () => {
     getPermissionApi();
   }, []);
 
-  const handleToggle = (index, hasNested,isActive) => {
+  const handleToggle = (index, hasNested, isActive) => {
     // setExpandedItem(expandedItem === index ? null : index);
     if (hasNested) {
       // Toggle expand/collapse for parent menu
@@ -42,9 +46,16 @@ const SIdebar = () => {
     getPermissions
   );
 
+  PagesIndex.useEffect(() => {
+    $("title").text(
+      location?.pathname?.split("/")[3] || location.pathname.split("/")[2]
+    );
+    // $("#SetTitle").attr(
+    //   "title",
+    //   location?.pathname?.split("/")[3] || location.pathname.split("/")[2]
+    // );
+  }, [location]);
 
-
-  
   return (
     <div className="nk-sidebar">
       <div
@@ -80,7 +91,9 @@ const SIdebar = () => {
                             item.NestedElement.length > 0 ? "has-arrow" : ""
                           }
                           aria-expanded={isActive}
-                          onClick={() => handleToggle(index,hasNested, isActive)}
+                          onClick={() =>
+                            handleToggle(index, hasNested, isActive)
+                          }
                         >
                           <i className={`${item.Icon} menu-icon me-2`} />
                           <span className="nav-text">{item.title}</span>

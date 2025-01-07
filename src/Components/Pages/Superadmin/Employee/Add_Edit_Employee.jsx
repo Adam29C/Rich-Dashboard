@@ -31,17 +31,16 @@ function AddEmployee() {
   //destructure data for get single user permission for update form
   // const userdataPermission = getEmplData && getEmplData?.col_view_permission;
   const userdataPermission = getEmplData && getEmplData?.col_view_permission;
-  
+
   //destructure for get all permissions
   const getAllPermissions =
     getPermissions && getPermissions?.col_view_permission;
-  
+
   //set for show dynamic permission on add and update form
   const permissionOptions = getAllPermissions?.map((permission) => ({
     labelName: permission,
     name: permission,
   }));
-
 
   //get all permission api
   const getPermissionApi = () => {
@@ -89,7 +88,7 @@ function AddEmployee() {
       });
       return errors;
     },
-    onSubmit: async (values) => { },
+    onSubmit: async (values) => {},
   });
 
   //fields for formwizard first tabs
@@ -141,11 +140,11 @@ function AddEmployee() {
 
   const filteredFields = userData
     ? fields.filter(
-      (field) =>
-        field.name !== "password" &&
-        field.name !== "designation" &&
-        field.name !== "employeeName"
-    )
+        (field) =>
+          field.name !== "password" &&
+          field.name !== "designation" &&
+          field.name !== "employeeName"
+      )
     : fields;
 
   //initial value set for permission checkbox fields
@@ -163,15 +162,10 @@ function AddEmployee() {
     initialValues: {},
     enableReinitialize: true,
     validate: () => ({}),
-    onSubmit: async (values) => { },
+    onSubmit: async (values) => {},
   });
-  
 
-  
-  const formik22 =formik1;
-  
-  
-
+  const formik22 = formik1;
 
   let arra = [];
   admin_Sidebar.forEach((item) => {
@@ -194,9 +188,6 @@ function AddEmployee() {
       Nasted: nastedarra,
     });
   });
-
-
-
 
   const fields1 = [
     {
@@ -227,28 +218,21 @@ function AddEmployee() {
     },
   ];
 
-
-  
-  
   //handlecomplete for complete the add and update form
   const handleComplete = async () => {
-  
     const PermissionKeys = Object.keys(formik22.values).filter(
       (key) => formik22.values[key]
     );
-    
-  
+
     const PermissionKeysresult =
       PermissionKeys.length > 0 ? PermissionKeys : [null];
-        
-  
+
     // Reverse mapping: Swap key and value of keyMapping for efficient lookup
     const reverseKeyMapping = Object.fromEntries(
       Object.entries(keyMapping).map(([key, value]) => [value, key])
     );
     // console.log('reverseKeyMapping',reverseKeyMapping)
-    
-  
+
     const transformedFormik22 = Object.fromEntries(
       Object.entries(formik22.values).map(([key, value]) => {
         // Replace the key if it exists in reverseKeyMapping
@@ -257,23 +241,25 @@ function AddEmployee() {
       })
     );
 
-    const addResult = Object.keys(transformedFormik22).filter((key) => transformedFormik22[key] === true);
+    const addResult = Object.keys(transformedFormik22).filter(
+      (key) => transformedFormik22[key] === true
+    );
 
     let result = [];
     result = userdataPermission;
-    if(userdataPermission !== undefined){
-    result = userdataPermission.filter((key) => transformedFormik22[key] != false); // Remove keys with `false` values
-    
-    Object.keys(transformedFormik22).forEach((key) => {
-      if (transformedFormik22[key] === true && !result.includes(key)) {
-        result.push(key);
-      }
-    });
-  }
-    
+    if (userdataPermission !== undefined) {
+      result = userdataPermission.filter(
+        (key) => transformedFormik22[key] != false
+      ); // Remove keys with `false` values
+
+      Object.keys(transformedFormik22).forEach((key) => {
+        if (transformedFormik22[key] === true && !result.includes(key)) {
+          result.push(key);
+        }
+      });
+    }
 
     const updatereq = {
-
       username: formik.values.username,
       loginPermission: formik.values.loginPermission,
       colViewPermission: result,
@@ -305,23 +291,19 @@ function AddEmployee() {
     }
   };
 
-  // const filteredSidebar = filterSidebarItems(
-  //   admin_Sidebar,
-  //   role,
-  //   permissionOptions
-  // );
-
   const tabs = [
     {
       title: "Personal details",
       icon: "ti-user",
       content: (
-        <PagesIndex.Formikform
-          fieldtype={filteredFields.filter((field) => !field.showWhen)}
-          formik={formik}
-          btn_name="Next"
-          show_submit={false}
-        />
+        <>
+          <PagesIndex.Formikform
+            fieldtype={filteredFields.filter((field) => !field.showWhen)}
+            formik={formik}
+            btn_name="Next"
+            show_submit={false}
+          />
+        </>
       ),
     },
     {
@@ -345,7 +327,6 @@ function AddEmployee() {
     return errors;
   };
 
-  // console.log(formik1.values)
   return (
     <Main_Containt
       title={userData ? "Edit Employee" : "Register New Employee"}
