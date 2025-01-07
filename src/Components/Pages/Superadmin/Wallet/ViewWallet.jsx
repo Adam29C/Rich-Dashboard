@@ -108,7 +108,8 @@ const ViewWallet = () => {
     initialValues: {
       amount: "",
       type: 1,
-      particular: "manual",
+
+      particular:"manual",
     },
 
     validate: (values) => {

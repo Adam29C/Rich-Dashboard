@@ -8,7 +8,7 @@ import { admin_Sidebar } from "../../../Layout/SIdebar/Sidebar_data";
 
 import { Formik, Field, Form, ErrorMessage } from "formik";
 
-function AddEmployee() {
+function AddEmployee1() {
   const CheckboxGroup = ({ options, namePrefix }) => {
     return options.map((option, index) => (
       <div

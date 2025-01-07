@@ -32,6 +32,7 @@ const ReusableForm = ({
 }) => {
   const location = useLocation();
 
+
   const [passwordVisible, setPasswordVisible] = useState({});
   let a = new Date();
   const [dateStates, setDateStates] = useState({});
@@ -121,12 +122,16 @@ const ReusableForm = ({
                   </>
                 ) : field.type === "checkbox" ? (
                   <>
+                    
                     {field.options &&
                       field.options.map((option) => (
+                        
                         <div
                           className={`mb-3 col-md-4 col-sm-6 col-6 col-lg-${field.col_size}`}
                           key={option.id}
                         >
+                      
+          
                           {/* {option.labelName && (
                             <label
                               className={`custom-label col-lg-12`}
@@ -138,21 +143,14 @@ const ReusableForm = ({
                             </label>
                           )} */}
                           <div className="form-check custom-checkbox mb-2 ">
+                 
                             <input
                               type={field.type}
                               className="form-check-input"
                               id={option.name}
                               {...formik.getFieldProps(option.name)}
-                              defaultChecked={
-                                field.pagetype
-                                  ? option.checked
-                                  : formik.values[option.name] || false
-                              }
-                              value={
-                                field.pagetype
-                                  ? option.checked
-                                  : formik.values[option.name] || false
-                              }
+                              defaultChecked={field.pagetype ? (option.checked) : formik.values[option.name] || false}
+
                               // checked=
                               // checked={option.checked}
                             />
@@ -188,6 +186,7 @@ const ReusableForm = ({
                               </div>
                             ))}
                         </div>
+                            
                       ))}
 
                     {formik.errors[field.name] && (

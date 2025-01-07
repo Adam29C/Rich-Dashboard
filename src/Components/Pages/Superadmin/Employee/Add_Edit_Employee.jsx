@@ -3,11 +3,13 @@ import FormWizardComponent from "../../../Helpers/MultiStepForm";
 import Main_Containt from "../../../Layout/Main/Main_Containt";
 import PagesIndex from "../../PagesIndex";
 import { Get_permissions } from "../../../Redux/slice/CommonSlice";
+import { admin_Sidebar } from "../../../Layout/SIdebar/Sidebar_data";
+import { keyMapping } from "./permissions";
 
 function AddEmployee() {
-//get token in localstorage
-const token = localStorage.getItem("token");
-//get userid in localstorage
+  //get token in localstorage
+  const token = localStorage.getItem("token");
+  //get userid in localstorage
   let { user_id } = JSON.parse(localStorage.getItem("userdetails"));
 
   //get all permission in redux
@@ -26,11 +28,13 @@ const token = localStorage.getItem("token");
   //destructure data for update form
   const userData = location?.state?.row;
 
-//destructure data for get single user permission for update form 
+  //destructure data for get single user permission for update form
+  // const userdataPermission = getEmplData && getEmplData?.col_view_permission;
   const userdataPermission = getEmplData && getEmplData?.col_view_permission;
 
- //destructure for get all permissions
-  const getAllPermissions = getPermissions && getPermissions?.col_view_permission;
+  //destructure for get all permissions
+  const getAllPermissions =
+    getPermissions && getPermissions?.col_view_permission;
 
   //set for show dynamic permission on add and update form
   const permissionOptions = getAllPermissions?.map((permission) => ({
@@ -43,7 +47,7 @@ const token = localStorage.getItem("token");
     dispatch(Get_permissions(user_id));
   };
 
-  //get single employee api 
+  //get single employee api
   const getSingleEmployee = async () => {
     if (userData?._id) {
       const res = await PagesIndex.admin_services.SINGLE_EMPLOYEE_GET_LIST_API(
@@ -66,8 +70,8 @@ const token = localStorage.getItem("token");
       employeeName: userData?.name || "",
       username: userData?.username || "",
       password: userData?.password || "",
-      designation: userData?.designation || "Rich143 Employee",
-      loginPermission: userData?.loginPermission || 0,
+      designation: userData?.designation || "",
+      loginPermission: userData?.loginPermission || "",
     },
     validate: (values) => {
       const errors = {};
@@ -155,36 +159,110 @@ const token = localStorage.getItem("token");
   }, [permissionOptions, userdataPermission]);
 
   const formik1 = PagesIndex.useFormik({
-    initialValues: initialValues,
+    initialValues: {},
     enableReinitialize: true,
     validate: () => ({}),
     onSubmit: async (values) => {},
   });
 
+  const formik22 = formik1;
+
+  let arra = [];
+  admin_Sidebar.forEach((item) => {
+    let nastedarra = [];
+    if (item.NestedElement?.length > 0) {
+      item.NestedElement.forEach((nestedItem) => {
+        nastedarra.push({
+          id: nestedItem.id,
+          label: nestedItem.title,
+          permission: nestedItem.permission,
+          checked: userdataPermission?.includes(nestedItem.permission) || false,
+        });
+      });
+    }
+    arra.push({
+      id: item.id,
+      label: item.title,
+      permission: item.permission,
+      checked: userdataPermission?.includes(item.permission) || false,
+      Nasted: nastedarra,
+    });
+  });
 
   const fields1 = [
     {
+      pagetype: true,
       name: "permission",
       type: "checkbox",
       label_size: 12,
       title_size: 12,
       col_size: 4,
-      options: permissionOptions,
+      options:
+        arra &&
+        arra.map((x) => {
+          return {
+            id: x.id,
+            name: x.label,
+            checked: x.checked,
+            permission: x.permission,
+            Nasted: x.Nasted.map((y) => {
+              return {
+                id: y.id,
+                name: y.label,
+                checked: y.checked,
+                permission: y.permission,
+              };
+            }),
+          };
+        }),
     },
   ];
 
-  //handlecomplete for complete the add and update form 
+  //handlecomplete for complete the add and update form
   const handleComplete = async () => {
-    const PermissionKeys = Object.keys(formik1.values).filter(
-      (key) => formik1.values[key]
+    const PermissionKeys = Object.keys(formik22.values).filter(
+      (key) => formik22.values[key]
     );
+
     const PermissionKeysresult =
       PermissionKeys.length > 0 ? PermissionKeys : [null];
+
+    // Reverse mapping: Swap key and value of keyMapping for efficient lookup
+    const reverseKeyMapping = Object.fromEntries(
+      Object.entries(keyMapping).map(([key, value]) => [value, key])
+    );
+    // console.log('reverseKeyMapping',reverseKeyMapping)
+
+    const transformedFormik22 = Object.fromEntries(
+      Object.entries(formik22.values).map(([key, value]) => {
+        // Replace the key if it exists in reverseKeyMapping
+        const newKey = reverseKeyMapping[key] || key;
+        return [newKey, value];
+      })
+    );
+
+    const addResult = Object.keys(transformedFormik22).filter(
+      (key) => transformedFormik22[key] === true
+    );
+
+    let result = [];
+    result = userdataPermission;
+    if (userdataPermission !== undefined) {
+      result = userdataPermission.filter(
+        (key) => transformedFormik22[key] != false
+      ); // Remove keys with `false` values
+
+      Object.keys(transformedFormik22).forEach((key) => {
+        if (transformedFormik22[key] === true && !result.includes(key)) {
+          result.push(key);
+        }
+      });
+    }
 
     const updatereq = {
       username: formik.values.username,
       loginPermission: formik.values.loginPermission,
-      colViewPermission: PermissionKeysresult,
+      colViewPermission: result,
       id: userData?._id,
     };
 
@@ -194,9 +272,10 @@ const token = localStorage.getItem("token");
       loginPermission: formik.values.loginPermission,
       password: formik.values.password,
       designation: formik.values.designation,
-      colViewPermission: PermissionKeysresult,
+      colViewPermission: addResult,
       loginFor: 1,
     };
+
     // return;
     const res = userData
       ? await PagesIndex.admin_services.UPDATE_EMPLOYEE(updatereq, token)
@@ -217,12 +296,14 @@ const token = localStorage.getItem("token");
       title: "Personal details",
       icon: "ti-user",
       content: (
-        <PagesIndex.Formikform
-          fieldtype={filteredFields.filter((field) => !field.showWhen)}
-          formik={formik}
-          btn_name="Next"
-          show_submit={false}
-        />
+        <>
+          <PagesIndex.Formikform
+            fieldtype={filteredFields.filter((field) => !field.showWhen)}
+            formik={formik}
+            btn_name="Next"
+            show_submit={false}
+          />
+        </>
       ),
     },
     {
@@ -238,6 +319,14 @@ const token = localStorage.getItem("token");
     },
   ];
 
+  const validate = (values) => {
+    const errors = {};
+    if (!values.name) {
+      errors.name = "Required";
+    }
+    return errors;
+  };
+
   return (
     <Main_Containt
       title={userData ? "Edit Employee" : "Register New Employee"}
@@ -248,11 +337,12 @@ const token = localStorage.getItem("token");
     >
       <FormWizardComponent
         shape="circle"
-        color="linear-gradient(97.51deg, #1C3E35 -39.91%, #4AA48C 117.67%);"
+        color="rgb(50 111 95)"
         stepSize="sm"
         onComplete={handleComplete}
         tabs={tabs}
       />
+
       <PagesIndex.Toast />
     </Main_Containt>
   );

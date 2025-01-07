@@ -117,6 +117,8 @@ import BidingReport from "../../Pages/Superadmin/Reports/BidingReport";
 import UserAnalaysis from "../../Pages/Superadmin/Reports/UserAnalaysis";
 import CustomerBalence from "../../Pages/Superadmin/Reports/CustomerBalence";
 import AllUserBids from "../../Pages/Superadmin/Reports/AllUserBids";
+// import AddEmployee32 from "../../Pages/Superadmin/Employee/Add_Edit_Employee32";
+import AddEmployee from "../../Pages/Superadmin/Employee/Add_Edit_Employee";
 
 // Mock authentication status
 

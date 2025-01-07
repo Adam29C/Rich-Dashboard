@@ -2,27 +2,27 @@ export const makePermissions = [
   {
     id: 1,
     name: "Dashboard Count",
-    labelName:"Dashboard Count Permission",
+    labelName: "Dashboard Count Permission",
     checked: false,
     Nasted: [],
   },
   {
     id: 2,
-    labelName:"Users Permissions",
+    labelName: "Users Permissions",
     name: "Users",
     checked: false,
     Nasted: [],
   },
   {
     id: 3,
-    labelName:"Cutting Group Permissions",
+    labelName: "Cutting Group Permissions",
     name: "Cutting Group",
     checked: false,
     Nasted: [],
   },
   {
     id: 4,
-    labelName:"Games Permissions",
+    labelName: "Games Permissions",
     name: "Games",
     checked: false,
     Nasted_call_size: 12,
@@ -62,7 +62,7 @@ export const makePermissions = [
   },
   {
     id: 5,
-    labelName:"Starline Permissions",
+    labelName: "Starline Permissions",
     name: "Starline",
     checked: false,
     Nasted: [
@@ -100,7 +100,7 @@ export const makePermissions = [
   },
   {
     id: 6,
-    labelName:"Andar Bahar Permissions",
+    labelName: "Andar Bahar Permissions",
     name: "Andar Bahar",
     checked: false,
     Nasted: [
@@ -138,7 +138,7 @@ export const makePermissions = [
   },
   {
     id: 7,
-    labelName:"Bookie Corner Permissions",
+    labelName: "Bookie Corner Permissions",
     name: "Bookie Corner",
     checked: false,
     Nasted: [
@@ -156,7 +156,7 @@ export const makePermissions = [
   },
   {
     id: 8,
-    labelName:"Wallet Permissions",
+    labelName: "Wallet Permissions",
     name: "Wallet",
     checked: false,
     Nasted: [
@@ -184,14 +184,14 @@ export const makePermissions = [
   },
   {
     id: 9,
-    labelName:"Credit Request Permission",
+    labelName: "Credit Request Permission",
     name: "Credit Request",
     checked: false,
     Nasted: [],
   },
   {
     id: 10,
-    labelName:"Approved Debit Pages Permissions",
+    labelName: "Approved Debit Pages Permissions",
     name: "Approved Debit Page",
     checked: false,
     Nasted: [
@@ -209,7 +209,7 @@ export const makePermissions = [
   },
   {
     id: 11,
-    labelName:"Pending Debit Request Permissions",
+    labelName: "Pending Debit Request Permissions",
     name: "Pending Debit Request",
     checked: false,
     Nasted: [
@@ -227,14 +227,14 @@ export const makePermissions = [
   },
   {
     id: 12,
-    labelName:"Declined Request Permission",
+    labelName: "Declined Request Permission",
     name: "Declined Request",
     checked: false,
     Nasted: [],
   },
   {
     id: 13,
-    labelName:"App Settings Permissions",
+    labelName: "App Settings Permissions",
     name: "App Settings",
     checked: false,
     Nasted: [
@@ -267,28 +267,28 @@ export const makePermissions = [
   },
   {
     id: 14,
-    labelName:"Notification Permission",
+    labelName: "Notification Permission",
     name: "Notification",
     checked: false,
     Nasted: [],
   },
   {
     id: 15,
-    labelName:"News Permission",
+    labelName: "News Permission",
     name: "News",
     checked: false,
     Nasted: [],
   },
   {
     id: 16,
-    labelName:"News Permission",
+    labelName: "News Permission",
     name: "Delete User",
     checked: false,
     Nasted: [],
   },
   {
     id: 17,
-    labelName:"App Settings Permissions",
+    labelName: "App Settings Permissions",
     name: "App Settings",
     checked: false,
     Nasted: [
@@ -321,7 +321,7 @@ export const makePermissions = [
   },
   {
     id: 18,
-    labelName:"Masters Permissions",
+    labelName: "Masters Permissions",
     name: "Masters",
     checked: false,
     Nasted: [
@@ -349,7 +349,7 @@ export const makePermissions = [
   },
   {
     id: 19,
-    labelName:"Reports Permissions",
+    labelName: "Reports Permissions",
     name: "Reports",
     checked: false,
     Nasted: [
@@ -426,7 +426,6 @@ export const makePermissions = [
     ],
   },
 ];
-
 
 
 export const InitialValues = {
@@ -511,3 +510,89 @@ export const InitialValues = {
   "Upi Fund Report": false,
   Invoices: false,
 };
+
+export const keyMapping = {
+  main: "Dashboard",
+  users: "Users",
+  games: "Games",
+  gamesProvider: "Game Provider",
+  gamesSetting: "Games Setting",
+  gamesRates: "Game Rates",
+  gamesResult: "Game Result",
+  starline: "Starline",
+  starlineProvider: "Star Game Provider",
+  starlineSetting: "Star Games Setting",
+  starlineRates: "Star Game Rates",
+  starlineProfit: "Star Profit/Loss",
+  starlineResult: "Star Game Result",
+  ab: "Jackpot",
+  abProvider: "Jackpot Game Provider",
+  abSetting: "Jackpot Games Setting",
+  abRates: "Jackpot Game Rates",
+  abProftLoss: "Jackpot Profit/Loss",
+  abResult: "Jackpot Game Result",
+  cg: "Cutting Group",
+  fcg: "Final OC Cutting Group",
+  wallet: "Wallet",
+  fundRequest: "",
+  exportDebit: "Export Debit Report",
+  invoices: "Invoices",
+  viewWallet: "View Wallet",
+  reqONOFF: "Requests On/Off",
+  appDebit: "",
+  paytmReq: "",
+  bankReq: "",
+  decDebit: "Declined Request",
+  notification: "Notification",
+  news: "",
+  app_settings: "App Settings",
+  howToPlay: "How To Play",
+  noticeBoard: "Notice Board",
+  profileNote: "",
+  walletContact: "Wallet Contact",
+  masters: "Masters",
+  reports: "Reports",
+  jodiAll: "",
+  salesReport: "Sales Report",
+  starLineSaleReport: "Starline Sales Report",
+  abSalesReport: "Andar Bahar Sales Report",
+  abTotalBids: "Andar Bahar Total Bids",
+  totalBids: "Total Bids",
+  ajaySir: "",
+  credDebReport: "Credit/Debit Report",
+  dailyReport: "Daily Report",
+  biddingReport: "Bidding Report",
+  customerBal: "Customer Balance",
+  allUserBIds: "All User Bids",
+  manageEmp: "Manage Employee",
+  createEmployee: "Register New Employee",
+  fundReport: "Fund Report",
+  delete: "",
+  upiReport: "UPI Fund Report",
+  ocCutting: "OC Cutting Group",
+  bookie: "Bookie Corner",
+  gamesRevert: "Revert Result Payment",
+  gamesRefund: "Refund User Points",
+  starlineRevert: "Star Revert Result Payment",
+  abRevert: "Jackpot Revert Result Payment",
+  abRefund: "",
+  creditrequest: "",
+  pendingDebitReq: "",
+  pendingBankReq: "Pending Bank Requests",
+  pendingPaytmReq: "",
+  withdrawScreen: "Withdraw Screen",
+  appVersion: "App Version",
+  upiId: "UPI Id",
+  addFoundMode: "",
+  deleteUser: "Deleted Users",
+};
+
+// [
+
+//   "Withdrawal Requests",
+//   "Bank Account(Export)",
+//   "Bank Account(Manual)",
+
+//   "User Analysis",
+
+// ]

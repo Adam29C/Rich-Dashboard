@@ -124,9 +124,9 @@ const ExportDebitReport = () => {
   }, []);
 
   const handleDeclineReport = async (row) => {
+    setModalState(true);
     setDeclineData(row);
     setBtnStatus("decline-report");
-    setModalState(true);
   };
 
   const handleDownloadFiles = async (row) => {
