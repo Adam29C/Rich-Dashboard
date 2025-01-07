@@ -29,17 +29,19 @@ function AddEmployee() {
   const userData = location?.state?.row;
 
   //destructure data for get single user permission for update form
+  // const userdataPermission = getEmplData && getEmplData?.col_view_permission;
   const userdataPermission = getEmplData && getEmplData?.col_view_permission;
-
+  
   //destructure for get all permissions
   const getAllPermissions =
     getPermissions && getPermissions?.col_view_permission;
-
+  
   //set for show dynamic permission on add and update form
   const permissionOptions = getAllPermissions?.map((permission) => ({
     labelName: permission,
     name: permission,
   }));
+
 
   //get all permission api
   const getPermissionApi = () => {
@@ -87,7 +89,7 @@ function AddEmployee() {
       });
       return errors;
     },
-    onSubmit: async (values) => {},
+    onSubmit: async (values) => { },
   });
 
   //fields for formwizard first tabs
@@ -139,17 +141,16 @@ function AddEmployee() {
 
   const filteredFields = userData
     ? fields.filter(
-        (field) =>
-          field.name !== "password" &&
-          field.name !== "designation" &&
-          field.name !== "employeeName"
-      )
+      (field) =>
+        field.name !== "password" &&
+        field.name !== "designation" &&
+        field.name !== "employeeName"
+    )
     : fields;
 
   //initial value set for permission checkbox fields
   const initialValues = useMemo(() => {
     if (!permissionOptions) return {};
-
     return permissionOptions.reduce((acc, option) => {
       acc[option.name] =
         Array.isArray(userdataPermission) &&
@@ -159,13 +160,20 @@ function AddEmployee() {
   }, [permissionOptions, userdataPermission]);
 
   const formik1 = PagesIndex.useFormik({
-    initialValues: initialValues,
+    initialValues: {},
     enableReinitialize: true,
     validate: () => ({}),
-    onSubmit: async (values) => {},
+    onSubmit: async (values) => { },
   });
-  let arra = [];
+  
 
+  
+  const formik22 =formik1;
+  
+  
+
+
+  let arra = [];
   admin_Sidebar.forEach((item) => {
     let nastedarra = [];
     if (item.NestedElement?.length > 0) {
@@ -187,6 +195,9 @@ function AddEmployee() {
     });
   });
 
+
+
+
   const fields1 = [
     {
       pagetype: true,
@@ -201,13 +212,13 @@ function AddEmployee() {
           return {
             id: x.id,
             name: x.label,
-            checked: formik1.values[x.permission] || false,
+            checked: x.checked,
             permission: x.permission,
             Nasted: x.Nasted.map((y) => {
               return {
                 id: y.id,
                 name: y.label,
-                checked: formik1.values[y.permission] || false,
+                checked: y.checked,
                 permission: y.permission,
               };
             }),
@@ -216,39 +227,56 @@ function AddEmployee() {
     },
   ];
 
+
+  
+  
   //handlecomplete for complete the add and update form
   const handleComplete = async () => {
-    console.log(formik1.values,"formik1.values")
-    const PermissionKeys = Object.keys(formik1.values).filter(
-      (key) => formik1.values[key]
+  
+    const PermissionKeys = Object.keys(formik22.values).filter(
+      (key) => formik22.values[key]
     );
-    console.log(PermissionKeys, ":PermissionKeys");
-
+    
+  
     const PermissionKeysresult =
       PermissionKeys.length > 0 ? PermissionKeys : [null];
-
-    const matchedKeys = PermissionKeysresult.map((value) => {
-      const matchingKey = Object.keys(keyMapping).find(
-        (key) => keyMapping[key] === value
-      );
-      return matchingKey;
-    }).filter(Boolean);
-
+        
+  
     // Reverse mapping: Swap key and value of keyMapping for efficient lookup
     const reverseKeyMapping = Object.fromEntries(
       Object.entries(keyMapping).map(([key, value]) => [value, key])
     );
+    // console.log('reverseKeyMapping',reverseKeyMapping)
+    
+  
+    const transformedFormik22 = Object.fromEntries(
+      Object.entries(formik22.values).map(([key, value]) => {
+        // Replace the key if it exists in reverseKeyMapping
+        const newKey = reverseKeyMapping[key] || key;
+        return [newKey, value];
+      })
+    );
 
-    // Replace elements in PermissionKeysresult
-    const transformedResult = PermissionKeysresult.map((value) => {
-      // Match PermissionKeysresult value with reverseKeyMapping key
-      return reverseKeyMapping[value] || value;
+    const addResult = Object.keys(transformedFormik22).filter((key) => transformedFormik22[key] === true);
+
+    let result = [];
+    result = userdataPermission;
+    if(userdataPermission !== undefined){
+    result = userdataPermission.filter((key) => transformedFormik22[key] != false); // Remove keys with `false` values
+    
+    Object.keys(transformedFormik22).forEach((key) => {
+      if (transformedFormik22[key] === true && !result.includes(key)) {
+        result.push(key);
+      }
     });
+  }
+    
 
     const updatereq = {
+
       username: formik.values.username,
       loginPermission: formik.values.loginPermission,
-      colViewPermission: transformedResult,
+      colViewPermission: result,
       id: userData?._id,
     };
 
@@ -258,7 +286,7 @@ function AddEmployee() {
       loginPermission: formik.values.loginPermission,
       password: formik.values.password,
       designation: formik.values.designation,
-      colViewPermission: matchedKeys,
+      colViewPermission: addResult,
       loginFor: 1,
     };
 
@@ -277,7 +305,11 @@ function AddEmployee() {
     }
   };
 
-
+  // const filteredSidebar = filterSidebarItems(
+  //   admin_Sidebar,
+  //   role,
+  //   permissionOptions
+  // );
 
   const tabs = [
     {
@@ -305,9 +337,15 @@ function AddEmployee() {
     },
   ];
 
+  const validate = (values) => {
+    const errors = {};
+    if (!values.name) {
+      errors.name = "Required";
+    }
+    return errors;
+  };
 
-  
-
+  // console.log(formik1.values)
   return (
     <Main_Containt
       title={userData ? "Edit Employee" : "Register New Employee"}
