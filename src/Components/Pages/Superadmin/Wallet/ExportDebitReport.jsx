@@ -278,16 +278,16 @@ const ExportDebitReport = () => {
       value: "withdrawalMode",
       sortable: true,
     },
-    {
-      // name: "Profile",
-      name: "Decline request",
-      isButton: true,
-      value: "Decline request",
-      className: "color-primary",
-      Conditions: (row) => {
-        handleDeclineReport(row);
-      },
-    },
+    // {
+    //   // name: "Profile",
+    //   name: "Decline request",
+    //   isButton: true,
+    //   value: "Decline request",
+    //   className: "color-primary",
+    //   Conditions: (row) => {
+    //     handleDeclineReport(row);
+    //   },
+    // },
   ];
 
   const visibleFields1 = [

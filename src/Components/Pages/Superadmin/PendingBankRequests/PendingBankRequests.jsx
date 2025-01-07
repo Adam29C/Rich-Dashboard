@@ -3,6 +3,7 @@ import Split_Main_Containt from "../../../Layout/Main/Split_Main_Content";
 import PagesIndex from "../../PagesIndex";
 import { numberRegexp } from "../../../Utils/Valid_Rejex";
 import ReusableModal from "../../../Helpers/Modal/ReusableModal";
+import { useFormik } from "formik";
 
 const PendingBankRequests = () => {
   //get token in local storage
@@ -18,7 +19,9 @@ const PendingBankRequests = () => {
   const [ModalState, setModalState] = PagesIndex.useState(false);
   const [selectedRow, setSelectedRow] = PagesIndex.useState(null);
   const [getBal, setGetBal] = PagesIndex.useState();
-  // const [Refresh, setRefresh] = PagesIndex.useState();
+  const [ModalStateForRemoveAndBlock, setModalStateForRemoveAndBlock] =
+    PagesIndex.useState(false);
+  const [RowDetails, setRowDetails] = PagesIndex.useState([]);
 
   const [getUserProfile, setGetUserProfile] = PagesIndex.useState();
   const [DisableSubmit, setDisableSubmit] = PagesIndex.useState(false);
@@ -170,7 +173,6 @@ const PendingBankRequests = () => {
         if (res.status) {
           PagesIndex.toast.success(res.message);
           setRefresh(!Refresh);
-
         } else {
           PagesIndex.toast.error(res.message);
         }
@@ -209,7 +211,7 @@ const PendingBankRequests = () => {
         setVisible(true);
         break;
       case 1:
-        handlePendingRequestDecline(row?._id);
+        handlePendingRequestDecline(row);
         break;
       case 2:
         setModalState(true);
@@ -236,36 +238,55 @@ const PendingBankRequests = () => {
   };
 
   //PENDING DEBIT DECLINE
+
+  const fields1 = [
+    {
+      name: "blockReason",
+      label: "Enter  Message",
+      type: "msgbox",
+      label_size: 12,
+      col_size: 12,
+      row_size: 6,
+    },
+  ];
+
+  const formik1 = useFormik({
+    initialValues: {
+      blockReason: "",
+    },
+
+    validate: (values) => {
+      const errors = {};
+      return errors;
+    },
+    onSubmit: async (values) => {
+      console.log("RowDetails", RowDetails);
+
+      const apidata = {
+        rowId: RowDetails._id,
+        reqamount: RowDetails.reqAmount,
+        reason: values.blockReason,
+        userId: RowDetails.userId,
+        adminId: user_details.user_id,
+      };
+
+      const res = await PagesIndex.admin_services.PENDING_DEBIT_DECLINE_API(
+        apidata,
+        token
+      );
+      if (res?.status) {
+        alert(res?.message);
+        setRefresh(!Refresh);
+        setModalStateForRemoveAndBlock(false);
+      }
+    },
+  });
+
   const handlePendingRequestDecline = async (id) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to decline this pending request?"
-    );
-    if (!confirmDelete) return;
+    setRowDetails(id);
+    setModalStateForRemoveAndBlock(!ModalStateForRemoveAndBlock);
 
-    const apidata = {
-      rowId: id,
-      adminId: user_details.user_id,
-    };
-    const res = await PagesIndex.admin_services.PENDING_DEBIT_DECLINE_API(
-      apidata,
-      token
-    );
-    if (res?.status) {
-      alert(res?.message);
-      setRefresh(!Refresh);
-
-    }
-  };
-
-  //PENDING DEBIT GETPROFILE API
-  const handleGetUserProfile = async (id) => {
-    const res = await PagesIndex.admin_services.PENDING_DEBIT_GETPROFILE_API(
-      id,
-      token
-    );
-    if (res?.status) {
-      setGetUserProfile(res?.data);
-    }
+ 
   };
 
   const cardLayouts = [
@@ -333,74 +354,109 @@ const PendingBankRequests = () => {
         }
         ModalBody={
           <div className="main">
-                 <div className="profile-content">
-                  <div className="container">
-                    <div className="row">
-                      <div className="col-md-6 ml-auto mr-auto">
-                        <div className="profile">
-                          <div className="name">
-                            <h3 className="title" id="username">
-                            Name : {userProfileData1?.username}
-                            </h3>
-                            <p className="walletbalance" id="balance">
-                            Wallet Balance : {userProfileData1?.wallet_balance}/-
-                            </p>
-                          </div>
-                        </div>
+            <div className="profile-content">
+              <div className="container">
+                <div className="row">
+                  <div className="col-md-6 ml-auto mr-auto">
+                    <div className="profile">
+                      <div className="name">
+                        <h3 className="title" id="username">
+                          Name : {userProfileData1?.username}
+                        </h3>
+                        <p className="walletbalance" id="balance">
+                          Wallet Balance : {userProfileData1?.wallet_balance}/-
+                        </p>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="user-data">
-                  <div className="container">
-                    <table className="table table-bordered profile-content-table">
-                      <tbody>
-                        <tr>
-                          <td className="font-weight-bold">Bank Name</td>
-                          <td  id="bankName"> {userProfileData2?.bank_name
+              </div>
+            </div>
+            <div className="user-data">
+              <div className="container">
+                <table className="table table-bordered profile-content-table">
+                  <tbody>
+                    <tr>
+                      <td className="font-weight-bold">Bank Name</td>
+                      <td id="bankName">
+                        {" "}
+                        {userProfileData2?.bank_name
                           ? userProfileData2?.bank_name
-                          : "null"}</td>
-                        </tr>
-                        <tr>
-                          <td className="font-weight-bold">Account Number</td>
-                          <td id="accNo">  {userProfileData2?.account_no
+                          : "null"}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="font-weight-bold">Account Number</td>
+                      <td id="accNo">
+                        {" "}
+                        {userProfileData2?.account_no
                           ? userProfileData2?.account_no
-                          : "null"}</td>
-                        </tr>
-                        <tr>
-                          <td className="font-weight-bold">IFSC Code</td>
-                          <td id="ifsc"> {userProfileData2?.ifsc_code
+                          : "null"}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="font-weight-bold">IFSC Code</td>
+                      <td id="ifsc">
+                        {" "}
+                        {userProfileData2?.ifsc_code
                           ? userProfileData2?.ifsc_code
-                          : "null"}</td>
-                        </tr>
-                        <tr>
-                          <td className="font-weight-bold">Account Holder Name</td>
-                          <td id="accHolder">
-                          {userProfileData2?.account_holder_name
+                          : "null"}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="font-weight-bold">Account Holder Name</td>
+                      <td id="accHolder">
+                        {userProfileData2?.account_holder_name
                           ? userProfileData2?.account_holder_name
                           : "null"}
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="font-weight-bold">Paytm Number</td>
-                          <td id="regular">{userProfileData2?.paytm_number
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="font-weight-bold">Paytm Number</td>
+                      <td id="regular">
+                        {userProfileData2?.paytm_number
                           ? userProfileData2?.paytm_number
-                          : "null"}</td>
-                        </tr>
-                        <tr>
-                          <td className="font-weight-bold">Personal Number</td>
-                          <td id="regular"> {userProfileData1?.mobile
+                          : "null"}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="font-weight-bold">Personal Number</td>
+                      <td id="regular">
+                        {" "}
+                        {userProfileData1?.mobile
                           ? userProfileData1?.mobile
-                          : "null"}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
+                          : "null"}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         }
         setModalState={setModalState}
         ModalState={ModalState}
+      />
+
+      <ReusableModal
+        ModalTitle={
+          <h5 class="modal-title" id="mySmallModalLabel">
+            Reason For Declined Request
+          </h5>
+        }
+        ModalBody={
+          <div>
+            <PagesIndex.Formikform
+              fieldtype={fields1.filter((field) => !field.showWhen)}
+              formik={formik1}
+              btn_name={"Submit"}
+              button_Size={"w-100"}
+              show_submit={true}
+            />
+          </div>
+        }
+        setModalState={setModalStateForRemoveAndBlock}
+        ModalState={ModalStateForRemoveAndBlock}
       />
     </>
   );
