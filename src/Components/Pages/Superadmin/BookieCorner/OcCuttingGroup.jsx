@@ -92,7 +92,7 @@ const SplitForm = () => {
   const formik = useFormik({
     initialValues: {
       gameDate: "",
-      gameSession: "default",
+      gameSession: "Open",
       providerId: "668d41ca211a65d88600f673",
       // providerId: gameProviders[0] && gameProviders[0]?._id,
     },
@@ -120,7 +120,6 @@ const SplitForm = () => {
       let pannaArr = [];
       const singleArr = [];
 
-      console.log("values", values);
       
       if (values.gameSession === "Open") {
         const response1 = await PagesIndex.report_service.ALL_GAME_REPORT_API(
@@ -129,19 +128,20 @@ const SplitForm = () => {
           token
         );
 
-        console.log("response1response1" ,response1);
-        
+      
 
         if (!response1.status) {
           PagesIndex.toast.success(response1.message);
           return;
         } else {
+
         }
         if (response1.status == 1) {
           setGetTotal(response1.dataSum);
 
           let singleDigit = response1.dataSum.singleDigit;
           let pana = response1.dataSum.Pana;
+
           let JodiPrice = response1.price.jodiPrice;
           response1.finalData.singleDigitArray.map((e) => {
             const threshold = singleDigit;
@@ -163,6 +163,9 @@ const SplitForm = () => {
             });
           });
 
+
+          console.log("singleArr" ,singleArr);
+          
           setTableTwo(singleArr);
 
           let pana220 = response1.finalData.panaArray;
