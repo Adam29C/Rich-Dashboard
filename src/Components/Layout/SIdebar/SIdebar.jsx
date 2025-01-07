@@ -47,8 +47,9 @@ const SIdebar = () => {
   );
 
   PagesIndex.useEffect(() => {
-    $("title").text(
-      location?.pathname?.split("/")[3] || location.pathname.split("/")[2]
+    $("title").text(`
+      Rich143 Games : ${location?.pathname?.split("/")[3] || location.pathname.split("/")[2]
+      }`
     );
     // $("#SetTitle").attr(
     //   "title",
