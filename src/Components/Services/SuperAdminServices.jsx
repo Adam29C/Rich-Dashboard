@@ -29,11 +29,14 @@ export const GET_DASHBOARD_COUNT_API = async (id, token) => {
   }
 };
 
-export const GET_DASHBOARD_COUNT_UPI_PAYMENT_API = async (id) => {
+export const GET_DASHBOARD_COUNT_UPI_PAYMENT_API = async (token) => {
   try {
-    const res = await axios.get(`${Api.GET_DASHBOARD_COUNT_UPI_PAYMENT}`, {
-      headers: header(token),
-    });
+    const res = await axios.get(
+      `${BASE_URL}${Api.GET_DASHBOARD_COUNT_UPI_PAYMENT}`,
+      {
+        headers: header(token),
+      }
+    );
     return res?.data;
   } catch (error) {
     return error;

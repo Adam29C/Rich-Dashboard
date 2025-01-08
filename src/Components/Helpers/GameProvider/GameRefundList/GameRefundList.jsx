@@ -31,6 +31,10 @@ const RefundPayment = ({
 
   const [TotalPages, setTotalPages] = PagesIndex.useState(1);
 
+
+  console.log("TotalPages" ,TotalPages);
+  
+
   const getGameProviderList = async () => {
     // if (gametype === "StarLine" || gametype === "JackPot") {
     const res =
@@ -80,7 +84,9 @@ const RefundPayment = ({
           token
         );
 
+        
         if (res.status) {
+          console.log("res" ,res);
           setTotalPages(
             res?.pagination?.totalCount || res?.pagination?.totalItems
           );
@@ -117,7 +123,7 @@ const RefundPayment = ({
 
         if (res.status) {
           setTotalPages(
-            res?.pagination?.totalCount || res?.pagination?.totalItems
+            res?.pagination?.totalCount || res?.pagination?.totalItems ||  res?.pagination?.total
           );
           setTableData(res?.data);
           // PagesIndex.toast.success(res?.data?.message || res?.message);
@@ -135,7 +141,7 @@ const RefundPayment = ({
   };
   PagesIndex.useEffect(() => {
     test();
-  }, [UserPagenateData.pageno, UserPagenateData.limit]);
+  }, [UserPagenateData.pageno, UserPagenateData.limit , TotalPages]);
 
   const fields = [
     {

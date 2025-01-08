@@ -27,9 +27,10 @@ const Dashboard_Component = () => {
 
     const res1 =
       await PagesIndex.admin_services.GET_DASHBOARD_COUNT_UPI_PAYMENT_API(
-        userId,
         token
       );
+
+    console.log("fasafa", res1);
 
     setTodayDesposite(res1.data);
     setDashboardData(res.data);
@@ -41,7 +42,11 @@ const Dashboard_Component = () => {
 
   var totalManualAmount = 0;
   const getMnaualTotal = (items) => {
-    totalManualAmount += items.totalAmount - data.total_deposit_amount;
+    // console.log("items", items);
+    // console.log("data.total_deposit_amount", data.total_deposit_amount);
+
+    totalManualAmount +=data?.total_deposit_amount - items.totalAmount ;
+    // console.log("totalManualAmount", totalManualAmount);
   };
 
   const GetTableData = async (request) => {
@@ -91,6 +96,8 @@ const Dashboard_Component = () => {
     return totalBalance;
   };
 
+  console.log("TodayDesposite", TodayDesposite);
+
   const visibleFields = ["Sr.", "name", "mobile", "wallet_balance"];
 
   // const visibleFields = [
@@ -115,14 +122,14 @@ const Dashboard_Component = () => {
       <div className="content-body">
         <div className="container-fluid mt-3">
           <div className="row">
-            <Cards
+            {/* <Cards
               icon="fas fa-user-clock"
               tillnow="Till Now"
               counts={data?.Active_users}
               Title="Active Users"
               IconBGcolor="#71b6f9"
               ResponsiveClass="col-xl-3 col-md-6"
-            />
+            /> */}
             <Cards
               icon="fas fa-user-clock"
               tillnow="Till Now"
@@ -304,7 +311,7 @@ const Dashboard_Component = () => {
                     <tbody id="depositBriefReport">
                       <tr>
                         <th colSpan={2} className="primary-color">
-                          Today Deposit Log{" "}
+                          Today Deposit Log
                         </th>
                       </tr>
                       {TodayDesposite &&
@@ -313,19 +320,19 @@ const Dashboard_Component = () => {
                             <>
                               <tr>
                                 {getMnaualTotal(items)}
-                                <td>{items.upiName}</td>
-                                <td>{items.totalAmount}/-</td>
+                                <td>{items.upiName} /-</td>
+                                <td>{items.totalAmount} /-</td>
                               </tr>
                             </>
                           );
                         })}
                       <tr>
                         <td>MANUAL ADD AMOUNT</td>
-                        <td>{totalManualAmount}</td>
+                        <td>{totalManualAmount} /-</td>
                       </tr>
                       <tr>
                         <td>GRAND TOTAL</td>
-                        <td>{data?.total_deposit_amount}</td>
+                        <td>{data?.total_deposit_amount} /-</td>
                       </tr>
                     </tbody>
                   </table>
