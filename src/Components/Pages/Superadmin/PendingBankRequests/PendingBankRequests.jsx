@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Split_Main_Containt from "../../../Layout/Main/Split_Main_Content";
 import PagesIndex from "../../PagesIndex";
 import { numberRegexp } from "../../../Utils/Valid_Rejex";
@@ -22,6 +22,8 @@ const PendingBankRequests = () => {
   const [ModalStateForRemoveAndBlock, setModalStateForRemoveAndBlock] =
     PagesIndex.useState(false);
   const [RowDetails, setRowDetails] = PagesIndex.useState([]);
+  const [getUserProfileData,setGetUserProfileData]= useState({})
+  // const [Refresh, setRefresh] = PagesIndex.useState();
 
   const [getUserProfile, setGetUserProfile] = PagesIndex.useState();
   const [DisableSubmit, setDisableSubmit] = PagesIndex.useState(false);
@@ -214,6 +216,8 @@ const PendingBankRequests = () => {
         handlePendingRequestDecline(row);
         break;
       case 2:
+   
+        setGetUserProfileData(row?.toAccount)
         setModalState(true);
         handleGetUserProfile(row?.userId);
         break;
@@ -354,25 +358,27 @@ const PendingBankRequests = () => {
         }
         ModalBody={
           <div className="main">
-            <div className="profile-content">
-              <div className="container">
-                <div className="row">
-                  <div className="col-md-6 ml-auto mr-auto">
-                    <div className="profile">
-                      <div className="name">
-                        <h3 className="title" id="username">
-                          Name : {userProfileData1?.username}
-                        </h3>
-                        <p className="walletbalance" id="balance">
-                          Wallet Balance : {userProfileData1?.wallet_balance}/-
-                        </p>
-                      </div>
+
+                 <div className="profile-content">
+                  <div className="container">
+                    <div className="row">
+                      {/* <div className="col-md-6 ml-auto mr-auto">
+                        <div className="profile">
+                          <div className="name">
+                            <h3 className="title" id="username">
+                           
+                            Name : {userProfileData1?.username}
+                            </h3>
+                            <p className="walletbalance" id="balance">
+                            Wallet Balance : {userProfileData1?.wallet_balance}/-
+                            </p>
+                          </div>
+                        </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div className="user-data">
+            {/* <div className="user-data">
               <div className="container">
                 <table className="table table-bordered profile-content-table">
                   <tbody>
@@ -432,6 +438,56 @@ const PendingBankRequests = () => {
                 </table>
               </div>
             </div>
+======= */}
+                <div className="user-data">
+                  <div className="container">
+                    <table className="table table-bordered profile-content-table">
+                      <tbody>
+                      <tr>
+                          <td className="font-weight-bold">Account Holder Name</td>
+                          <td id="accHolder">
+                          { getUserProfileData?.accName
+                          ? getUserProfileData?.accName
+                          : "null"}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className="font-weight-bold">Bank Name</td>
+                          <td  id="bankName"> { getUserProfileData?.bankName
+                          ? getUserProfileData?.bankName
+                          : "null"}</td>
+                        </tr>
+                        <tr>
+                          <td className="font-weight-bold">Account Number</td>
+                          <td id="accNo">  { getUserProfileData?.accNumber
+                          ? getUserProfileData?.accNumber
+                          : "null"}</td>
+                        </tr>
+                        <tr>
+                          <td className="font-weight-bold">IFSC Code</td>
+                          <td id="ifsc"> { getUserProfileData?.ifscCode
+                          ? getUserProfileData?.ifscCode
+                          : "null"}</td>
+                        </tr>
+                  
+                        {/* <tr>
+                          <td className="font-weight-bold">Paytm Number</td>
+                          <td id="regular">{ getUserProfileData?.bankName
+                          ? getUserProfileData?.bankName
+                          : "null"}</td>
+                        </tr> */}
+                        {/* <tr>
+                          <td className="font-weight-bold">Personal Number</td>
+                          <td id="regular"> 
+                            { getUserProfileData?.bankName
+                          ? getUserProfileData?.bankName
+                          : "null"}
+                          </td>
+                        </tr> */}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
           </div>
         }
         setModalState={setModalState}
