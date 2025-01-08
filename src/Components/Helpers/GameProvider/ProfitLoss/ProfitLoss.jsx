@@ -100,8 +100,8 @@ const SplitForm = ({
         let mainData = response1.data.data2;
         // let mainData = response1.data.data2;
 
-        let gamePrice = response1.data.type[0].gamePrice;
-        let sumdigit = response1.data.data1[0].sumdigit;
+        let gamePrice = response1?.data?.type[0]?.gamePrice;
+        let sumdigit = response1?.data?.data1[0]?.sumdigit;
 
         let result = {
           groupData: [],
@@ -221,14 +221,16 @@ const SplitForm = ({
 
         setGetTotal(totals);
 
-        let singleDigitB = totals[1].values;
-        let panaB = totals[0].values;
+        let singleDigitB = totals[1]?.values;
+        let panaB = totals[0]?.values;
 
-        let singleDigitAm = totals[1].values1;
-        let PanaProfit = totals[0].values1;
+        let singleDigitAm = totals[1]?.values1;
+        let PanaProfit = totals[0]?.values1;
 
-        let MainData = response1.data.data2;
-        let PanaData = response1.data.pana;
+        console.log("response1", response1);
+
+        let MainData = response1?.data?.data2;
+        let PanaData = response1?.data?.pana;
 
         MainData.sort(function (a, b) {
           return a._id - b._id;
@@ -297,7 +299,6 @@ const SplitForm = ({
         // Prepare panna data
         let pannaData = [];
         PanaData.forEach(function (e) {
-
           let tabDigit = e.Digit;
           let bidCount = "No Bids";
           let amountToPay = 0;
