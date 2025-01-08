@@ -32,7 +32,7 @@ const RefundPayment = ({
   const [TotalPages, setTotalPages] = PagesIndex.useState(1);
 
 
-  console.log("TotalPages" ,TotalPages);
+
   
 
   const getGameProviderList = async () => {
