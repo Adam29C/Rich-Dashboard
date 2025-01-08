@@ -188,22 +188,23 @@ export const admin_Sidebar = [
     NestedElement: [
       {
         id: 1,
+        title: "Cutting Group",
+        route: "cuttinggroup",
+        permission: "cg",
+      },
+      {
+        id: 2,
         title: "OC Cutting Group",
         permission: "ocCutting",
         route: "OCGroup",
       },
       {
-        id: 2,
+        id: 3,
         title: "Final OC Cutting Group",
         route: "finalOCGroup",
         permission: "fcg",
       },
-      {
-        id: 3,
-        title: "Cutting Group",
-        route: "cuttinggroup",
-        permission: "cg",
-      },
+      
     ],
   },
   {

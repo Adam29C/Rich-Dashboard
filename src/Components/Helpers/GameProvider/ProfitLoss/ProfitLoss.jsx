@@ -56,7 +56,10 @@ const SplitForm = ({
       gameDate: "",
       // gameSession: "",
       // providerId: GetProviders[0] && GetProviders[0]._id,
-      providerId: "668d4382211a65d88600fa7e" || "620b5a5dab709c4b86fe704d",
+      providerId:
+        gameType === "StarLine"
+          ? "668d4382211a65d88600fa7e"
+          : "620b5a5dab709c4b86fe704d",
     },
 
     validate: (values) => {
