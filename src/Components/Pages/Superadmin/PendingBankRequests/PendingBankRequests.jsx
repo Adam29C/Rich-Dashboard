@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Split_Main_Containt from "../../../Layout/Main/Split_Main_Content";
 import PagesIndex from "../../PagesIndex";
 import { numberRegexp } from "../../../Utils/Valid_Rejex";
@@ -18,6 +18,7 @@ const PendingBankRequests = () => {
   const [ModalState, setModalState] = PagesIndex.useState(false);
   const [selectedRow, setSelectedRow] = PagesIndex.useState(null);
   const [getBal, setGetBal] = PagesIndex.useState();
+  const [getUserProfileData,setGetUserProfileData]= useState({})
   // const [Refresh, setRefresh] = PagesIndex.useState();
 
   const [getUserProfile, setGetUserProfile] = PagesIndex.useState();
@@ -212,6 +213,8 @@ const PendingBankRequests = () => {
         handlePendingRequestDecline(row?._id);
         break;
       case 2:
+   
+        setGetUserProfileData(row?.toAccount)
         setModalState(true);
         handleGetUserProfile(row?.userId);
         break;
@@ -340,6 +343,7 @@ const PendingBankRequests = () => {
                         <div className="profile">
                           <div className="name">
                             <h3 className="title" id="username">
+                           
                             Name : {userProfileData1?.username}
                             </h3>
                             <p className="walletbalance" id="balance">
@@ -355,44 +359,47 @@ const PendingBankRequests = () => {
                   <div className="container">
                     <table className="table table-bordered profile-content-table">
                       <tbody>
-                        <tr>
-                          <td className="font-weight-bold">Bank Name</td>
-                          <td  id="bankName"> {userProfileData2?.bank_name
-                          ? userProfileData2?.bank_name
-                          : "null"}</td>
-                        </tr>
-                        <tr>
-                          <td className="font-weight-bold">Account Number</td>
-                          <td id="accNo">  {userProfileData2?.account_no
-                          ? userProfileData2?.account_no
-                          : "null"}</td>
-                        </tr>
-                        <tr>
-                          <td className="font-weight-bold">IFSC Code</td>
-                          <td id="ifsc"> {userProfileData2?.ifsc_code
-                          ? userProfileData2?.ifsc_code
-                          : "null"}</td>
-                        </tr>
-                        <tr>
+                      <tr>
                           <td className="font-weight-bold">Account Holder Name</td>
                           <td id="accHolder">
-                          {userProfileData2?.account_holder_name
-                          ? userProfileData2?.account_holder_name
+                          { getUserProfileData?.accName
+                          ? getUserProfileData?.accName
                           : "null"}
                           </td>
                         </tr>
                         <tr>
-                          <td className="font-weight-bold">Paytm Number</td>
-                          <td id="regular">{userProfileData2?.paytm_number
-                          ? userProfileData2?.paytm_number
+                          <td className="font-weight-bold">Bank Name</td>
+                          <td  id="bankName"> { getUserProfileData?.bankName
+                          ? getUserProfileData?.bankName
                           : "null"}</td>
                         </tr>
                         <tr>
-                          <td className="font-weight-bold">Personal Number</td>
-                          <td id="regular"> {userProfileData1?.mobile
-                          ? userProfileData1?.mobile
+                          <td className="font-weight-bold">Account Number</td>
+                          <td id="accNo">  { getUserProfileData?.accNumber
+                          ? getUserProfileData?.accNumber
                           : "null"}</td>
                         </tr>
+                        <tr>
+                          <td className="font-weight-bold">IFSC Code</td>
+                          <td id="ifsc"> { getUserProfileData?.ifscCode
+                          ? getUserProfileData?.ifscCode
+                          : "null"}</td>
+                        </tr>
+                  
+                        {/* <tr>
+                          <td className="font-weight-bold">Paytm Number</td>
+                          <td id="regular">{ getUserProfileData?.bankName
+                          ? getUserProfileData?.bankName
+                          : "null"}</td>
+                        </tr> */}
+                        {/* <tr>
+                          <td className="font-weight-bold">Personal Number</td>
+                          <td id="regular"> 
+                            { getUserProfileData?.bankName
+                          ? getUserProfileData?.bankName
+                          : "null"}
+                          </td>
+                        </tr> */}
                       </tbody>
                     </table>
                   </div>
