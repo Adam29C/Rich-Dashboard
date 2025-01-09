@@ -1,4 +1,4 @@
-/* @charset "UTF-8";
+@charset "UTF-8";
 .glyphs.character-mapping {
   margin: 0 0 20px 0;
   padding: 20px 0 20px 30px;
@@ -2405,4 +2405,4 @@
 }
 .icon-weather-windgust:before {
   content: "\e054";
-} */
+}
