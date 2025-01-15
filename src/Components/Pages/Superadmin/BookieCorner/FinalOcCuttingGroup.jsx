@@ -471,6 +471,7 @@ const SplitForm = () => {
             initialRowsPerPage={25}
             SearchInTable={SearchInTable}
             visibleFields={visibleFields}
+            Responsive={"oc"}
             additional={
               <>
                 <td className="fw-bold">Total</td>

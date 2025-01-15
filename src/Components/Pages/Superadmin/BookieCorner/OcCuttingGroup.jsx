@@ -428,6 +428,8 @@ const SplitForm = () => {
             initialRowsPerPage={25}
             SearchInTable={SearchInTable}
             visibleFields={visibleFields}
+            Responsive={"table-responsive"}
+
             // UserFullButtonList={UserFullButtonList}
             // searchInput={
             //   <input
