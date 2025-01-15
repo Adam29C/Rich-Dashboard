@@ -16,6 +16,9 @@ const PaginatedTable = ({
   const [searchQuery, setSearchQuery] = useState("");
   const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
   const [isResponsive, setIsResponsive] = useState(window.innerWidth < 768);
+  const [isResponsive123, setIsResponsive123] = useState(
+    Responsive && Responsive
+  );
   const [showCounting, setShowCounting] = useState(
     "Showing 0 to 0 of 0 entries"
   );
@@ -151,6 +154,7 @@ const PaginatedTable = ({
   };
 
   const handleResize = () => {
+  //  setIsResponsive123(false);
     setIsResponsive(window.innerWidth < 768);
   };
 
@@ -163,6 +167,10 @@ const PaginatedTable = ({
     };
   }, []);
 
+
+
+  console.log("Responsive && Responsive" ,Responsive && Responsive);
+  
   return (
     <div className="container">
       {/* Controls */}
@@ -197,8 +205,8 @@ const PaginatedTable = ({
 
       {/* Table */}
       <table
-        className={`table table-striped table-bordered ${Responsive} ${
-          isResponsive ? "table-responsive" : ""
+        className={`table table-striped table-bordered  ${
+          Responsive && Responsive === "test" ? "" : isResponsive ? "table-responsive" : ""
         }`}
       >
         <thead className="primary-color text-center">

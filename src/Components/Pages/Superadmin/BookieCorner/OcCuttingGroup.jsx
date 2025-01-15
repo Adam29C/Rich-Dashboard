@@ -120,7 +120,6 @@ const SplitForm = () => {
       let pannaArr = [];
       const singleArr = [];
 
-      
       if (values.gameSession === "Open") {
         const response1 = await PagesIndex.report_service.ALL_GAME_REPORT_API(
           Api.OC_CUTTING_GROUP_LIST,
@@ -128,13 +127,10 @@ const SplitForm = () => {
           token
         );
 
-      
-
         if (!response1.status) {
           PagesIndex.toast.success(response1.message);
           return;
         } else {
-
         }
         if (response1.status == 1) {
           setGetTotal(response1.dataSum);
@@ -163,9 +159,8 @@ const SplitForm = () => {
             });
           });
 
+          console.log("singleArr", singleArr);
 
-          console.log("singleArr" ,singleArr);
-          
           setTableTwo(singleArr);
 
           let pana220 = response1.finalData.panaArray;
@@ -428,7 +423,7 @@ const SplitForm = () => {
             initialRowsPerPage={25}
             SearchInTable={SearchInTable}
             visibleFields={visibleFields}
-            Responsive={"table-responsive"}
+          //  Responsive={"test"}
 
             // UserFullButtonList={UserFullButtonList}
             // searchInput={
@@ -459,6 +454,8 @@ const SplitForm = () => {
             initialRowsPerPage={25}
             SearchInTable={SearchInTable}
             visibleFields={visibleFields1}
+            // Responsive={"test"}
+
           />
         </div>
       ),

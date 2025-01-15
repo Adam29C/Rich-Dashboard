@@ -471,7 +471,7 @@ const SplitForm = () => {
             initialRowsPerPage={25}
             SearchInTable={SearchInTable}
             visibleFields={visibleFields}
-            Responsive={"oc"}
+            Responsive={"test"}
             additional={
               <>
                 <td className="fw-bold">Total</td>
@@ -491,6 +491,8 @@ const SplitForm = () => {
             initialRowsPerPage={25}
             SearchInTable={SearchInTable}
             visibleFields={visibleFields1}
+            Responsive={"test"}
+
             additional={
               <>
                 <td className="fw-bold">Total</td>
