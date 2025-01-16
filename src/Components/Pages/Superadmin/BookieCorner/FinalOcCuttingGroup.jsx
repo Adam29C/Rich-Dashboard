@@ -127,8 +127,6 @@ const SplitForm = () => {
         // session: "Close",
       };
 
-      // console.log('formik.values.devidby' ,formik.values.devidby);
-
       let divideBy = formik.values.devidby;
       let pannaArr = [];
       const singleArr = [];
@@ -172,6 +170,14 @@ const SplitForm = () => {
               total = total + parseInt(FinalLoss);
             }
 
+            console.log("arr", {
+              id: e,
+              amountToPay: amountToPay,
+              loss: loss,
+              FinalLoss: FinalLoss,
+              total: total,
+            });
+
             arr.push({
               id: e,
               amountToPay: amountToPay,
@@ -181,7 +187,7 @@ const SplitForm = () => {
             });
             aaa += parseInt(FinalLoss);
           });
-
+          console.log("arr", arr);
           setTotalSingle(aaa);
 
           setTableTwo(arr);
@@ -462,7 +468,7 @@ const SplitForm = () => {
       ),
     },
     {
-      size: 12,
+      size: 7,
       body: (
         <div>
           <h4>{formik.values.gameSession}</h4>
@@ -483,7 +489,7 @@ const SplitForm = () => {
       ),
     },
     {
-      size: 12,
+      size: 7,
       body: (
         <div>
           <PagesIndex.TableWithCustomPeginationNew123
@@ -492,7 +498,6 @@ const SplitForm = () => {
             SearchInTable={SearchInTable}
             visibleFields={visibleFields1}
             Responsive={"test"}
-
             additional={
               <>
                 <td className="fw-bold">Total</td>
