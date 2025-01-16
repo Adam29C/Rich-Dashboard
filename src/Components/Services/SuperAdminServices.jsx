@@ -393,7 +393,8 @@ export const UPDATE_HTP_API = async (data, token) => {
 export const GET_VERSION_API = async (token) => {
   try {
     const res = await axios.get(
-      `       http://localhost:6999/versionSetting
+      `
+      ${BASE_URL}${Api.GET_VERSION}
       `,
       {
         headers: header(token),
@@ -407,17 +408,11 @@ export const GET_VERSION_API = async (token) => {
 
 export const UPDATE_VERSION_API = async (formData, token) => {
   try {
-    // const res = await axios.post(`${BASE_URL}${Api.UPDATE_VERSION}`, formData, {
-    const res = await axios.post(
-      // `http://192.168.1.14:6999/versionSetting/updateAppSet`,
-      `http://localhost:6999/versionSetting/updateAppSet`,
-      formData,
-      {
-        // headers: header(token),
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "multipart/form-data",
-      }
-    );
+    const res = await axios.post(`${BASE_URL}${Api.UPDATE_VERSION}`, formData, {
+      // headers: header(token),
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "multipart/form-data",
+    });
     return res?.data;
   } catch (error) {
     return error;
