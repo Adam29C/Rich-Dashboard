@@ -388,8 +388,6 @@ const WinnerList = () => {
         );
       }
 
-      console.log("apidata1apidata1apidata1", res);
-
       if (res.status) {
         setGetResultStatus(res.data || res.data.dispData);
         setJackportData(res.data.dispData);
@@ -491,6 +489,7 @@ const WinnerList = () => {
       fullSangam: GetResultStatus?.fullSangam,
       resultId: GetResultStatus?.resultId,
       adminId: user_id,
+      reqType: gameType,
       page: 1,
       limit: 10,
     };
@@ -518,7 +517,6 @@ const WinnerList = () => {
             resultId: GetResultStatus?.resultId,
           };
         }
-
 
         res =
           await PagesIndex.game_service.STARLINE_GAME_DISTIBUTE_FUND_WINNERS_API(

@@ -139,7 +139,10 @@ const SplitForm = () => {
         );
 
         if (!response1.status) {
-          console.log("test");
+          setTableTwo([]);
+          setTotalSingle([]);
+          setGetTotal([]);
+          setTableThree([]);
           PagesIndex.toast.error(response1.message);
         }
 
@@ -154,6 +157,9 @@ const SplitForm = () => {
           let aaa = 0;
           let j = 1;
           let arr = [];
+          let aaaaaaa = [];
+          let id_array = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+
           response1.finalData.singleDigitArray.map((key, e) => {
             let amountToPay = key.biddingPoints * JodiPrice;
 
@@ -170,16 +176,8 @@ const SplitForm = () => {
               total = total + parseInt(FinalLoss);
             }
 
-            console.log("arr", {
-              id: e,
-              amountToPay: amountToPay,
-              loss: loss,
-              FinalLoss: FinalLoss,
-              total: total,
-            });
-
             arr.push({
-              id: e,
+              id: `${e} =`,
               amountToPay: amountToPay,
               loss: loss,
               FinalLoss: FinalLoss,
@@ -187,10 +185,33 @@ const SplitForm = () => {
             });
             aaa += parseInt(FinalLoss);
           });
-          console.log("arr", arr);
+
+          id_array.forEach((item) => {
+            let found = false;
+
+            arr.forEach((item1) => {
+              if (item1.id === parseInt(item)) {
+                aaaaaaa.push({ ...item1 });
+                found = true;
+              }
+            });
+
+            if (!found) {
+              aaaaaaa.push({
+                id: `${item} =`,
+                amountToPay: 0,
+                loss: 0,
+                FinalLoss: 0,
+                total: 0,
+              });
+            }
+          });
+
+          aaaaaaa.sort((a, b) => a.id - b.id);
+
           setTotalSingle(aaa);
 
-          setTableTwo(arr);
+          setTableTwo(aaaaaaa);
 
           let pana220 = response1.finalData.panaArray;
 
@@ -231,7 +252,7 @@ const SplitForm = () => {
             }
 
             pannaArr.push({
-              id: key,
+              id: `${key} =`,
               amountToPay: pl,
               loss: lossPana,
               FinalLoss: finalCal,
@@ -240,9 +261,11 @@ const SplitForm = () => {
             m += parseInt(finalCal);
           });
           setTotalPana(m);
-
           setTableThree(pannaArr);
         } else {
+          setTableTwo([]);
+          setTotalSingle([]);
+          setTableThree([]);
           PagesIndex.toast.error(response1.message);
         }
       } else {
@@ -278,7 +301,7 @@ const SplitForm = () => {
           }
 
           arr.push({
-            id: key,
+            id: `${key} =`,
             amountToPay: amountToPay,
             loss: loss,
             FinalLoss: FinalLoss,
@@ -328,7 +351,7 @@ const SplitForm = () => {
           }
 
           pannaArr.push({
-            id: key,
+            id: `${key} =`,
             amountToPay: pl,
             loss: lossPana,
             FinalLoss: finalCal,
@@ -494,7 +517,7 @@ const SplitForm = () => {
         <div>
           <PagesIndex.TableWithCustomPeginationNew123
             data={(TableThree && TableThree) || []}
-            initialRowsPerPage={25}
+            initialRowsPerPage={100}
             SearchInTable={SearchInTable}
             visibleFields={visibleFields1}
             Responsive={"test"}

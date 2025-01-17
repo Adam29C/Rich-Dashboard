@@ -169,7 +169,7 @@ const PaginatedTable = ({
 
 
 
-  console.log("Responsive && Responsive" ,Responsive && Responsive);
+  // console.log("Responsive && Responsive" ,Responsive && Responsive);
   
   return (
     <div className="container">

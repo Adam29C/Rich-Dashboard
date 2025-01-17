@@ -115,6 +115,10 @@ const SplitForm = () => {
         date: values.gameDate || today(new Date()),
         session: values.gameSession,
         providerId: values.providerId,
+
+        // date: "01/10/2025",
+        // session: "Open",
+        // providerId: "668d4228211a65d88600f6f0",
       };
 
       let pannaArr = [];
@@ -129,29 +133,38 @@ const SplitForm = () => {
 
         if (!response1.status) {
           PagesIndex.toast.success(response1.message);
+          setTableTwo([]);
+          setGetTotal([]);
           return;
-        } else {
         }
+
         if (response1.status == 1) {
           setGetTotal(response1.dataSum);
 
           let singleDigit = response1.dataSum.singleDigit;
           let pana = response1.dataSum.Pana;
-
+          let aaaaaaa = [];
           let JodiPrice = response1.price.jodiPrice;
-          response1.finalData.singleDigitArray.map((e) => {
-            const threshold = singleDigit;
 
-            const {
-              amountToPay = 0,
-              profit = 0,
-              loss = 0,
-            } = calculatePL(e.biddingPoints, JodiPrice, threshold);
+          let id_array = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+
+          response1.finalData.singleDigitArray.map((e) => {
+            let amountToPay = 10 * JodiPrice;
+            let loss = 0;
+            let profit = 0;
+            let pl = amountToPay;
+            if (pl > singleDigit) {
+              //loss
+              loss = pl - singleDigit;
+            } else {
+              //profit
+              profit = singleDigit - pl;
+            }
 
             singleArr.push({
               _id: e._id,
               countBid: e.countBid,
-              totalBidAmm: e.biddingPoints,
+              totalBidAmm: 10,
               session: formik.values.gameSession || "Null",
               Amounttopay: amountToPay,
               Profit: profit,
@@ -159,9 +172,32 @@ const SplitForm = () => {
             });
           });
 
-          console.log("singleArr", singleArr);
+          id_array.forEach((item) => {
+            let found = false;
 
-          setTableTwo(singleArr);
+            singleArr.forEach((item1) => {
+              if (item1._id === item) {
+                aaaaaaa.push({ ...item1 });
+                found = true;
+              }
+            });
+
+            if (!found) {
+              aaaaaaa.push({
+                _id: item,
+                countBid: 0,
+                totalBidAmm: 0,
+                session: "Nill",
+                Amounttopay: 0,
+                Profit: 0,
+                Loss: singleDigit,
+              });
+            }
+          });
+
+          // Sort the array by `_id` if needed
+          aaaaaaa.sort((a, b) => a._id - b._id);
+          setTableTwo(aaaaaaa);
 
           let pana220 = response1.finalData.panaArray;
 
@@ -418,12 +454,13 @@ const SplitForm = () => {
       size: 12,
       body: (
         <div>
+          <h4>Single Digits</h4>
           <PagesIndex.TableWithCustomPeginationNew123
             data={TableTwo && TableTwo}
             initialRowsPerPage={25}
             SearchInTable={SearchInTable}
             visibleFields={visibleFields}
-          //  Responsive={"test"}
+            //  Responsive={"test"}
 
             // UserFullButtonList={UserFullButtonList}
             // searchInput={
@@ -451,11 +488,10 @@ const SplitForm = () => {
         <div>
           <PagesIndex.TableWithCustomPeginationNew123
             data={(TableThree && TableThree) || []}
-            initialRowsPerPage={25}
+            initialRowsPerPage={100}
             SearchInTable={SearchInTable}
             visibleFields={visibleFields1}
             // Responsive={"test"}
-
           />
         </div>
       ),

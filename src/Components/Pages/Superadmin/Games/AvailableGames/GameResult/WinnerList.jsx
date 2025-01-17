@@ -31,7 +31,7 @@ const WinnerList = () => {
     setModalState(true);
   };
   const fetchData = async (page, rowsPerPage, searchQuery) => {
-    return
+    return;
     const apidata = {
       providerId: data.providerId,
       date: data.resultDate,
@@ -95,8 +95,6 @@ const WinnerList = () => {
         token
       );
 
-
-      
       if (res.status) {
         setGetResultStatus(res.data);
         const nonEmptyCategories = [];
@@ -107,7 +105,7 @@ const WinnerList = () => {
           }
         });
 
-      console.log("nonEmptyCategories" ,nonEmptyCategories);
+        console.log("nonEmptyCategories", nonEmptyCategories);
 
         const totalRows = res.data.pagination.totalItems || 5;
         let mainRes = nonEmptyCategories;
@@ -190,15 +188,18 @@ const WinnerList = () => {
       halfSangam2: GetResultStatus.halfSangam1,
       fullSangam: GetResultStatus.fullSangam,
       resultId: GetResultStatus.resultId,
+      reqType: "main",
       adminId: user_id,
       page: 1,
       limit: 10,
     };
 
+    console.log("dsfsdfdsf", payload);
+
+    // return;
+
     let res = "";
     if (getStatus && getStatus === "0") {
-      // console.log("main");
-
       res =
         await PagesIndex.game_service.STARLINE_GAME_DISTIBUTE_FUND_WINNERS_API(
           Api.CONFIRM_PAYMENT_API,
