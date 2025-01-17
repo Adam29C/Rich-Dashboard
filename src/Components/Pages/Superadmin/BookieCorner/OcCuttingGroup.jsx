@@ -485,7 +485,11 @@ const SplitForm = () => {
       body: (
         // formik.values.gameSession === "Open" ||
         // formik.values.gameSession === "Close" ? (
+
+
         <div>
+          <h4>Pana Digits</h4>
+
           <PagesIndex.TableWithCustomPeginationNew123
             data={(TableThree && TableThree) || []}
             initialRowsPerPage={100}

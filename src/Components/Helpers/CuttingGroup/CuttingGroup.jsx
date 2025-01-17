@@ -581,6 +581,8 @@ const SplitForm = () => {
       size: 12,
       body: (
         <div>
+          <h4>Single Digits</h4>
+
           <PagesIndex.TableWithCustomPeginationNew123
             data={TableTwo && TableTwo}
             initialRowsPerPage={25}
@@ -600,6 +602,7 @@ const SplitForm = () => {
         formik.values.gameSession === "Open" ||
         formik.values.gameSession === "Close" ? (
           <div>
+            <h4>Panna Bids</h4>
             <PagesIndex.TableWithCustomPeginationNew123
               data={(TableThree && TableThree) || []}
               initialRowsPerPage={100}

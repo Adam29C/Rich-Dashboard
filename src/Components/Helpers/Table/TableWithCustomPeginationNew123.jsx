@@ -8,6 +8,7 @@ const PaginatedTable = ({
   showIndex,
   additional,
   Responsive,
+  additionalnew,
   showSingleSearch,
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -19,6 +20,9 @@ const PaginatedTable = ({
   const [isResponsive123, setIsResponsive123] = useState(
     Responsive && Responsive
   );
+
+  console.log("additionalnew", additionalnew);
+
   const [showCounting, setShowCounting] = useState(
     "Showing 0 to 0 of 0 entries"
   );
@@ -154,7 +158,7 @@ const PaginatedTable = ({
   };
 
   const handleResize = () => {
-  //  setIsResponsive123(false);
+    //  setIsResponsive123(false);
     setIsResponsive(window.innerWidth < 768);
   };
 
@@ -167,10 +171,8 @@ const PaginatedTable = ({
     };
   }, []);
 
-
-
   // console.log("Responsive && Responsive" ,Responsive && Responsive);
-  
+
   return (
     <div className="container">
       {/* Controls */}
@@ -206,7 +208,11 @@ const PaginatedTable = ({
       {/* Table */}
       <table
         className={`table table-striped table-bordered  ${
-          Responsive && Responsive === "test" ? "" : isResponsive ? "table-responsive" : ""
+          Responsive && Responsive === "test"
+            ? ""
+            : isResponsive
+            ? "table-responsive"
+            : ""
         }`}
       >
         <thead className="primary-color text-center">
@@ -240,6 +246,16 @@ const PaginatedTable = ({
         <tbody className="text-center">
           {currentData?.length ? (
             <>
+              {additionalnew && (
+                <tr>
+                  <td
+                    className="primary-color text-center"
+                    colSpan={visibleFields.length + (showIndex ? 1 : 0)}
+                  >
+                    {additionalnew}
+                  </td>
+                </tr>
+              )}
               {currentData.map((row, index) => (
                 <tr key={index}>
                   {showIndex && (
@@ -266,7 +282,6 @@ const PaginatedTable = ({
                   ))}
                 </tr>
               ))}
-
               <tr> {additional}</tr>
             </>
           ) : (

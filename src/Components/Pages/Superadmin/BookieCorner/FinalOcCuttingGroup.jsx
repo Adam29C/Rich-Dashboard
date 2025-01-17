@@ -19,6 +19,10 @@ const SplitForm = () => {
   const [TotalPana, setTotalPana] = PagesIndex.useState(0);
   const [SearchInTable, setSearchInTable] = PagesIndex.useState("");
 
+  const [showProvider, setshowProvider] = PagesIndex.useState([]);
+
+  console.log("showProvider", showProvider);
+
   const { gameProviders } = PagesIndex.useSelector(
     (state) => state.CommonSlice
   );
@@ -35,61 +39,6 @@ const SplitForm = () => {
     return { amountToPay: pl, profit, loss };
   };
 
-  const forPanaCalulation = (
-    panaArrayMain,
-    singlePanaPrice,
-    doublePanaPrice,
-    triplePanaPrice,
-    pana
-  ) => {
-    let pannaArr = [];
-    let checktotal = 0;
-    Object.entries(panaArrayMain).map(([key, value]) => {
-      var spdptpCheck = spArray[key];
-      var amountToPay = 0;
-      var bidPoints = value.biddingPoints;
-
-      checktotal += bidPoints;
-
-      if (spdptpCheck === 1) {
-        amountToPay = bidPoints * singlePanaPrice;
-      } else if (spdptpCheck === 2) {
-        amountToPay = bidPoints * doublePanaPrice;
-      } else {
-        amountToPay = bidPoints * triplePanaPrice;
-      }
-
-      var loss = 0;
-      var profit = 0;
-      var pl = amountToPay;
-
-      if (pl > pana) {
-        // loss
-        loss = pl - pana;
-      } else {
-        // profit
-        profit = pana - pl;
-      }
-
-      pannaArr.push({
-        _id: value.digit + "-" + value.digitFamily,
-
-        totalBidAmm: value.biddingPoints,
-        session: formik.values.gameSession || "Null",
-        Amounttopay: amountToPay,
-        Profit: profit,
-        Loss: loss,
-      });
-    });
-
-    pannaArr.sort((a, b) => {
-      const idA = a._id.split("-")[0];
-      const idB = b._id.split("-")[0];
-      return idA - idB;
-    });
-
-    return pannaArr;
-  };
   const formik = useFormik({
     initialValues: {
       gameDate: "",
@@ -446,6 +395,20 @@ const SplitForm = () => {
     },
   ];
 
+  const test = () => {
+    let abc = gameProviders.filter((items) => {
+      return items._id === formik.values.providerId;
+    });
+
+    setshowProvider(
+      `${abc[0] && abc[0].providerName} ( ${formik.values.gameSession}`
+    );
+  };
+
+  PagesIndex.useEffect(() => {
+    test();
+  }, [formik.values.providerId]);
+
   const cardLayouts = [
     {
       size: 8,
@@ -494,7 +457,7 @@ const SplitForm = () => {
       size: 7,
       body: (
         <div>
-          <h4>{formik.values.gameSession}</h4>
+          <h4>Single Digits</h4>
           <PagesIndex.TableWithCustomPeginationNew123
             data={TableTwo && TableTwo}
             initialRowsPerPage={25}
@@ -507,6 +470,7 @@ const SplitForm = () => {
                 <td className="fw-bold">{TotalSingle}</td>
               </>
             }
+            additionalnew={showProvider && showProvider + ")"}
           />
         </div>
       ),
@@ -515,6 +479,7 @@ const SplitForm = () => {
       size: 7,
       body: (
         <div>
+          <h4>Panna Bids</h4>
           <PagesIndex.TableWithCustomPeginationNew123
             data={(TableThree && TableThree) || []}
             initialRowsPerPage={100}
@@ -527,6 +492,7 @@ const SplitForm = () => {
                 <td className="fw-bold">{TotalPana}</td>
               </>
             }
+            additionalnew={showProvider && showProvider + "-Pana )"}
           />
         </div>
       ),
