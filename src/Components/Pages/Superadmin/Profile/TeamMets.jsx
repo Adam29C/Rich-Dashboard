@@ -4,6 +4,11 @@ import PagesIndex from "../../PagesIndex";
 const TeamMets = () => {
   //get token in localstorage
   const token = localStorage.getItem("token");
+  const userdetails = JSON.parse(localStorage.getItem("userdetails"));
+
+  console.log("====================================");
+  console.log("userdetails", userdetails.role);
+  console.log("====================================");
 
   //all state
   const [data, setData] = useState([]);
@@ -43,46 +48,48 @@ const TeamMets = () => {
 
   return (
     <div className="card">
-      <div className="card-body">
-        <h3 className="card-title-text text-center fw-bold">
-          Rich143 Games Team Members
-        </h3>
-        {data &&
-          data?.map((row) => (
-            <div>
-              <div className="main-user-profile-list">
-                <div className="user-profile-list-first">
-                  {" "}
-                  <img
-                    className="circle-rounded"
-                    src={PagesIndex.empLogo}
-                    width={90}
-                    height={50}
-                    alt="Logo"
-                  />
-                  <div className="">
-                    <h5 className="fw-bold">{row?.name}</h5>
-                    <p>{row?.username}</p>
+      { userdetails.role === 0 && (
+        <div className="card-body">
+          <h3 className="card-title-text text-center fw-bold">
+            Rich143 Games Team Members
+          </h3>
+          {data &&
+            data?.map((row) => (
+              <div>
+                <div className="main-user-profile-list">
+                  <div className="user-profile-list-first">
+                    {" "}
+                    <img
+                      className="circle-rounded"
+                      src={PagesIndex.empLogo}
+                      width={90}
+                      height={50}
+                      alt="Logo"
+                    />
+                    <div className="">
+                      <h5 className="fw-bold">{row?.name}</h5>
+                      <p>{row?.username}</p>
+                    </div>
+                  </div>
+
+                  <div>
+                    {" "}
+                    <button
+                      type="button"
+                      onClick={() => handleBlockEmployee(row?._id, row?.banned)}
+                      class={`btn ${
+                        row?.banned === 1 ? "btn-success" : "btn-danger"
+                      } `}
+                    >
+                      {row?.banned === 1 ? "Unblock" : "Block"}
+                    </button>
                   </div>
                 </div>
-
-                <div>
-                  {" "}
-                  <button
-                    type="button"
-                    onClick={() => handleBlockEmployee(row?._id, row?.banned)}
-                    class={`btn ${
-                      row?.banned === 1 ? "btn-success" : "btn-danger"
-                    } `}
-                  >
-                    {row?.banned === 1 ? "Unblock" : "Block"}
-                  </button>
-                </div>
+                <hr />
               </div>
-              <hr />
-            </div>
-          ))}
-      </div>
+            ))}
+        </div>
+      )}
     </div>
   );
 };
