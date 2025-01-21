@@ -149,10 +149,11 @@ const SplitForm = () => {
           let id_array = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
           response1.finalData.singleDigitArray.map((e) => {
-            let amountToPay = 10 * JodiPrice;
+            let amountToPay = JodiPrice * e.biddingPoints || 0;
             let loss = 0;
             let profit = 0;
             let pl = amountToPay;
+
             if (pl > singleDigit) {
               //loss
               loss = pl - singleDigit;
@@ -161,10 +162,13 @@ const SplitForm = () => {
               profit = singleDigit - pl;
             }
 
+            console.log("profit", profit);
+            console.log("loss", loss);
+
             singleArr.push({
               _id: e._id,
               countBid: e.countBid,
-              totalBidAmm: 10,
+              totalBidAmm: e.biddingPoints || 0,
               session: formik.values.gameSession || "Null",
               Amounttopay: amountToPay,
               Profit: profit,
@@ -194,6 +198,8 @@ const SplitForm = () => {
               });
             }
           });
+
+          console.log("aaaaaaa ", aaaaaaa);
 
           // Sort the array by `_id` if needed
           aaaaaaa.sort((a, b) => a._id - b._id);
@@ -225,7 +231,7 @@ const SplitForm = () => {
         );
 
         if (!response.status) {
-          PagesIndex.toast.error(response?.response?.data?.message);
+          PagesIndex.toast.error(response?.response?.data?.message || response?.message);
           return;
         } else {
           setGetTotal(response.dataSum);
@@ -485,7 +491,6 @@ const SplitForm = () => {
       body: (
         // formik.values.gameSession === "Open" ||
         // formik.values.gameSession === "Close" ? (
-
 
         <div>
           <h4>Pana Digits</h4>

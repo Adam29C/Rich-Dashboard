@@ -285,11 +285,6 @@ const SplitForm = () => {
 
         let aaaaaaa = [];
 
-        // let OneToHundred = [];
-        // for (var i = 0; i < 100; i++) {
-        //   OneToHundred.push(i < 10 ? "0" + i : "" + i);
-        // }
-        // console.log("OneToHundred", OneToHundred);
         let OneToHundred = Array.from({ length: 100 }, (_, i) =>
           i.toString().padStart(2, "0")
         );
@@ -317,6 +312,8 @@ const SplitForm = () => {
           }
         });
 
+        console.log("jodiArray" ,jodiArray);
+        
         if (
           !values.gameSession === "Half Sangam Digits" ||
           !values.gameSession === "Full Sangam Digits"
