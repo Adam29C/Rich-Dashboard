@@ -235,7 +235,6 @@ const SplitForm = () => {
           return;
         }
 
-
         const total = response.data.data1.reduce(
           (acc, { sumdigit, countBid }) => {
             acc.totalSumDigit += sumdigit;
@@ -285,6 +284,12 @@ const SplitForm = () => {
         });
 
         let aaaaaaa = [];
+
+        // let OneToHundred = [];
+        // for (var i = 0; i < 100; i++) {
+        //   OneToHundred.push(i < 10 ? "0" + i : "" + i);
+        // }
+        // console.log("OneToHundred", OneToHundred);
         let OneToHundred = Array.from({ length: 100 }, (_, i) =>
           i.toString().padStart(2, "0")
         );
@@ -293,7 +298,7 @@ const SplitForm = () => {
           let found = false;
 
           jodiArray.forEach((item1) => {
-            if (item1._id === item) {
+            if (parseInt(item1._id) === parseInt(item)) {
               aaaaaaa.push({ ...item1 });
               found = true;
             }
@@ -312,11 +317,14 @@ const SplitForm = () => {
           }
         });
 
-
-        
-        if(!values.gameSession === "Half Sangam Digits" || !values.gameSession === "Full Sangam Digits"){
+        if (
+          !values.gameSession === "Half Sangam Digits" ||
+          !values.gameSession === "Full Sangam Digits"
+        ) {
           setTableTwo(aaaaaaa);
-        }else{
+        } else if (values.gameSession === "Jodi Digit") {
+          setTableTwo(aaaaaaa);
+        } else {
           setTableTwo(jodiArray);
         }
       }
