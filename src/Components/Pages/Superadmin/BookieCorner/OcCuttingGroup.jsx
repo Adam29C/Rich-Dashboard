@@ -57,8 +57,8 @@ const SplitForm = () => {
 
       if (spdptpCheck === 1) {
         amountToPay = bidPoints * singlePanaPrice;
-      // console.log("bidPoints" ,bidPoints);
-      // console.log("singlePanaPrice" ,singlePanaPrice);
+      console.log("bidPoints" ,bidPoints);
+      console.log("singlePanaPrice" ,singlePanaPrice);
 
       } else if (spdptpCheck === 2) {
         amountToPay = bidPoints * doublePanaPrice;
