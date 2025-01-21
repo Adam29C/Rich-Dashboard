@@ -21,7 +21,6 @@ const PaginatedTable = ({
     Responsive && Responsive
   );
 
-  console.log("additionalnew", additionalnew);
 
   const [showCounting, setShowCounting] = useState(
     "Showing 0 to 0 of 0 entries"

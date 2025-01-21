@@ -28,8 +28,6 @@ const SplitForm = () => {
     (state) => state.CommonSlice
   );
 
-  console.log("SearchInTableSearchInTable", SearchInTable);
-
   PagesIndex.useEffect(() => {
     dispatch(Games_Provider_List(token));
   }, []);
@@ -204,7 +202,6 @@ const SplitForm = () => {
               index: index + 1,
             });
           } else {
-            // If no match is found, push a default object to array3
             array3.push({
               index: index + 1,
               digit_id: panaItem.Digit + "-" + panaItem.DigitFamily,
@@ -233,7 +230,11 @@ const SplitForm = () => {
           token
         );
 
-        setTableTwo(response.data.data2);
+        if (!response.satus) {
+          PagesIndex.toast.error(response.message);
+          return;
+        }
+
 
         const total = response.data.data1.reduce(
           (acc, { sumdigit, countBid }) => {
@@ -283,7 +284,41 @@ const SplitForm = () => {
           jodiArray.sort((a, b) => a._id.localeCompare(b._id));
         });
 
-        setTableTwo(jodiArray);
+        let aaaaaaa = [];
+        let OneToHundred = Array.from({ length: 100 }, (_, i) =>
+          i.toString().padStart(2, "0")
+        );
+
+        OneToHundred.forEach((item) => {
+          let found = false;
+
+          jodiArray.forEach((item1) => {
+            if (item1._id === item) {
+              aaaaaaa.push({ ...item1 });
+              found = true;
+            }
+          });
+
+          if (!found) {
+            aaaaaaa.push({
+              _id: item,
+              countBid: 0,
+              totalBidAmm: 0,
+              session: "Nill",
+              Amounttopay: 0,
+              Profit: result.totals.totalSumDigit,
+              Loss: 0,
+            });
+          }
+        });
+
+
+        
+        if(!values.gameSession === "Half Sangam Digits" || !values.gameSession === "Full Sangam Digits"){
+          setTableTwo(aaaaaaa);
+        }else{
+          setTableTwo(jodiArray);
+        }
       }
     },
   });
@@ -491,11 +526,16 @@ const SplitForm = () => {
   const showBidInfor = async (rowdata) => {
     setShowBidInfoModal(!ShowBidInfoModal);
 
+    let session =
+      formik.values.gameSession === "Open" ||
+      formik.values.gameSession === "Close"
+        ? rowdata.session
+        : "Close";
     const payload = {
       date: formik.values.gameDate || today(new Date()),
       id: formik.values.providerId,
       bidDigit: rowdata._id,
-      gameSession: rowdata?.session,
+      gameSession: session,
       page: UserPagenateData.pageno,
       limit: UserPagenateData.limit,
     };
@@ -581,11 +621,15 @@ const SplitForm = () => {
       size: 12,
       body: (
         <div>
-          <h4>Single Digits</h4>
-
+          {formik.values.gameSession === "Open" ||
+          formik.values.gameSession === "Close" ? (
+            <h4>Single Digits</h4>
+          ) : (
+            ""
+          )}
           <PagesIndex.TableWithCustomPeginationNew123
             data={TableTwo && TableTwo}
-            initialRowsPerPage={25}
+            initialRowsPerPage={100}
             SearchInTable={SearchInTable}
             visibleFields={visibleFields}
           />
