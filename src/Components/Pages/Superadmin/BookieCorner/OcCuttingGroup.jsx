@@ -47,31 +47,19 @@ const SplitForm = () => {
       var amountToPay = 0;
       var bidPoints = value.biddingPoints;
 
-
-
       checktotal += bidPoints;
 
 
-      // console.log("spdptpCheck" ,spdptpCheck);
-      
-
       if (spdptpCheck === 1) {
         amountToPay = bidPoints * singlePanaPrice;
-      console.log("bidPoints" ,bidPoints);
-      console.log("singlePanaPrice" ,singlePanaPrice);
+   
 
       } else if (spdptpCheck === 2) {
         amountToPay = bidPoints * doublePanaPrice;
-      // console.log("doublePanaPrice" ,amountToPay);
-
       } else {
         amountToPay = bidPoints * triplePanaPrice;
-      // console.log("triplePanaPrice" ,amountToPay);
-
       }
 
-
-      // console.log("amountToPay" ,amountToPay);
 
       var loss = 0;
       var profit = 0;
@@ -178,8 +166,7 @@ const SplitForm = () => {
               profit = singleDigit - pl;
             }
 
-            console.log("profit", profit);
-            console.log("loss", loss);
+
 
             singleArr.push({
               _id: e._id,
@@ -271,7 +258,7 @@ const SplitForm = () => {
 
             singleArr.push({
               _id: key,
-              totalBidAmm: value.biddingPoints,
+              totalBidAmm: Math.abs(value.biddingPoints),
               session: formik.values.gameSession || "Null",
               Amounttopay: amountToPay,
               Profit: profit,
@@ -289,7 +276,7 @@ const SplitForm = () => {
             pana
           );
 
-          console.log("getPanaArray", getPanaArray);
+
 
           setTableThree(getPanaArray);
         }

@@ -326,10 +326,10 @@ const Dashboard_Component = () => {
                             </>
                           );
                         })}
-                      <tr>
+                      {/* <tr>
                         <td>MANUAL ADD AMOUNT</td>
                         <td>{totalManualAmount} /-</td>
-                      </tr>
+                      </tr> */}
                       <tr>
                         <td>GRAND TOTAL</td>
                         <td>{data?.total_deposit_amount} /-</td>
