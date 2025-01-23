@@ -296,7 +296,7 @@ const PaginatedTable = ({
       {/* Pagination */}
 
       <div className="row d-flex align-items-center">
-        <div className="col-md-6">
+        <div className="col-md-12">
           <span className="fw-bold">{showCounting}</span>
         </div>
         <div className="col-md-6">
@@ -327,7 +327,7 @@ const PaginatedTable = ({
 
               {/* Range of Pages */}
               {startPage > 1 && <li className="page-item disabled"></li>}
-              {[...Array(endPage - startPage + 1)].map((_, i) => {
+              {/* {[...Array(endPage - startPage + 1)].map((_, i) => {
                 const pageNum = startPage + i;
                 return (
                   <li
@@ -344,7 +344,7 @@ const PaginatedTable = ({
                     </button>
                   </li>
                 );
-              })}
+              })} */}
               {endPage < totalPages && <li className="page-item disabled"></li>}
 
               {/* "Next" Button */}

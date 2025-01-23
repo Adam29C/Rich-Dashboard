@@ -110,10 +110,9 @@ const SplitForm = () => {
           let id_array = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
           response1.finalData.singleDigitArray.map((key, e) => {
-
             // console.log("key" ,key);
             // console.log("JodiPrice" ,JodiPrice);
-            
+
             let amountToPay = key.biddingPoints * JodiPrice;
 
             let loss = 0;
@@ -160,13 +159,10 @@ const SplitForm = () => {
             }
           });
 
-          
-
           aaaaaaa.sort((a, b) => parseInt(b.loss) - parseInt(a.loss));
 
+          console.log("aaaaaaa", aaaaaaa);
 
-          console.log('aaaaaaa' ,aaaaaaa);
-          
           setTotalSingle(aaa);
 
           setTableTwo(aaaaaaa);
@@ -219,10 +215,9 @@ const SplitForm = () => {
             m += parseInt(finalCal);
           });
 
-          pannaArr.sort((a, b) => parseInt(b.FinalLoss) - parseInt(a.FinalLoss));
-
-
-          
+          pannaArr.sort(
+            (a, b) => parseInt(b.FinalLoss) - parseInt(a.FinalLoss)
+          );
 
           setTotalPana(m);
           setTableThree(pannaArr);
@@ -473,8 +468,8 @@ const SplitForm = () => {
     {
       size: 7,
       body: (
-        <div>
-          <h4>Single Digits</h4>
+        <div className="text-center">
+          {/* <h4>Single Digits</h4> */}
           <PagesIndex.TableWithCustomPeginationNew123
             data={TableTwo && TableTwo}
             initialRowsPerPage={25}
@@ -496,7 +491,7 @@ const SplitForm = () => {
       size: 7,
       body: (
         <div>
-          <h4>Panna Bids</h4>
+          {/* <h4>Panna Bids</h4> */}
           <PagesIndex.TableWithCustomPeginationNew123
             data={(TableThree && TableThree) || []}
             initialRowsPerPage={25}
@@ -518,14 +513,55 @@ const SplitForm = () => {
 
   return (
     <div>
-      <Split_Main_Containt
-        title="Final OC Cutting Group"
-        add_button={false}
-        btnTitle="Add"
-        route="/add"
-        cardLayouts={cardLayouts}
-      />
-      <PagesIndex.Toast />
+      <div className="content-body">
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-12">
+              <div className="card">
+                <div className="card-body">
+                  <h4>Final OC Cutting Group</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col-xl-8 col-sm-12">
+              <div className="card">
+                <div className="card-body">{cardLayouts[0].body}</div>
+              </div>
+            </div>
+            <div className="col-xl-4 col-sm-12">
+              <div className="card">
+                <div className="card-body">{cardLayouts[1].body}</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col-xl-5 col-sm-12">
+              <div className="card">
+                <h3 className="m-0 p-3">Single Digit</h3>
+                <div className="card-body d-flex justify-content-center">
+
+                  <div className="col-xl-7">{cardLayouts[2].body}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-xl-5 col-sm-12">
+              <div className="card">
+              <h3 className="m-0 p-3">Pana Digit</h3>
+                <div className="card-body  d-flex justify-content-center">
+                <div className="col-xl-7">{cardLayouts[3].body}</div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
