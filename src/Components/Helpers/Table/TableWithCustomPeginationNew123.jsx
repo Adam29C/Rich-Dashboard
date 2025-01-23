@@ -299,7 +299,7 @@ const PaginatedTable = ({
         <div className="col-md-12">
           <span className="fw-bold">{showCounting}</span>
         </div>
-        <div className="col-md-6">
+        <div className="col-md-12">
           <nav>
             <ul className="pagination justify-content-end">
               {/* "First" Button */}

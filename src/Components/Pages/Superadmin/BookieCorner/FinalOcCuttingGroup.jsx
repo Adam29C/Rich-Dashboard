@@ -478,7 +478,7 @@ const SplitForm = () => {
             Responsive={"test"}
             additional={
               <>
-                <td className="fw-bold">Total</td>
+                <td className="fw-bold"> Page Total</td>
                 <td className="fw-bold">{TotalSingle}</td>
               </>
             }
@@ -500,7 +500,7 @@ const SplitForm = () => {
             Responsive={"test"}
             additional={
               <>
-                <td className="fw-bold">Total</td>
+                <td className="fw-bold"> Page Total</td>
                 <td className="fw-bold">{TotalPana}</td>
               </>
             }
