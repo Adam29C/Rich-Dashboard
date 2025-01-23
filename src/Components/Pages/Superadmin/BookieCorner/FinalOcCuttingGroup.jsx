@@ -162,8 +162,11 @@ const SplitForm = () => {
 
           
 
-          aaaaaaa.sort((a, b) => a.id - b.id);
+          aaaaaaa.sort((a, b) => parseInt(b.loss) - parseInt(a.loss));
 
+
+          console.log('aaaaaaa' ,aaaaaaa);
+          
           setTotalSingle(aaa);
 
           setTableTwo(aaaaaaa);
@@ -215,6 +218,12 @@ const SplitForm = () => {
             });
             m += parseInt(finalCal);
           });
+
+          pannaArr.sort((a, b) => parseInt(b.FinalLoss) - parseInt(a.FinalLoss));
+
+
+          
+
           setTotalPana(m);
           setTableThree(pannaArr);
         } else {
@@ -314,6 +323,8 @@ const SplitForm = () => {
           });
           m += totalSum;
         });
+
+        pannaArr.sort((a, b) => parseInt(b.FinalLoss) - parseInt(a.FinalLoss));
 
         setTotalPana(m);
 
