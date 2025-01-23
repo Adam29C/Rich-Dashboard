@@ -21,7 +21,7 @@ const SplitForm = () => {
 
   const [showProvider, setshowProvider] = PagesIndex.useState([]);
 
-  console.log("showProvider", showProvider);
+  // console.log("showProvider", showProvider);
 
   const { gameProviders } = PagesIndex.useSelector(
     (state) => state.CommonSlice
@@ -110,6 +110,10 @@ const SplitForm = () => {
           let id_array = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
           response1.finalData.singleDigitArray.map((key, e) => {
+
+            // console.log("key" ,key);
+            // console.log("JodiPrice" ,JodiPrice);
+            
             let amountToPay = key.biddingPoints * JodiPrice;
 
             let loss = 0;
@@ -139,7 +143,7 @@ const SplitForm = () => {
             let found = false;
 
             arr.forEach((item1) => {
-              if (item1.id === parseInt(item)) {
+              if (parseInt(item1.id) === parseInt(item)) {
                 aaaaaaa.push({ ...item1 });
                 found = true;
               }
@@ -155,6 +159,8 @@ const SplitForm = () => {
               });
             }
           });
+
+          
 
           aaaaaaa.sort((a, b) => a.id - b.id);
 
@@ -482,7 +488,7 @@ const SplitForm = () => {
           <h4>Panna Bids</h4>
           <PagesIndex.TableWithCustomPeginationNew123
             data={(TableThree && TableThree) || []}
-            initialRowsPerPage={100}
+            initialRowsPerPage={25}
             SearchInTable={SearchInTable}
             visibleFields={visibleFields1}
             Responsive={"test"}
