@@ -2,10 +2,8 @@ import React from "react";
 import PagesIndex from "../../PagesIndex";
 import Cards from "../../../Layout/Cards/Cards";
 import ReusableModal from "../../../Helpers/Modal/ReusableModal";
-import TableWitCustomPegination from "../../../Helpers/Table/TableWithCustomPegination";
 
 const Dashboard_Component = () => {
-  console.log(typeof jQuery);
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
   const [DashboardData, setDashboardData] = PagesIndex.useState([]);
@@ -14,6 +12,16 @@ const Dashboard_Component = () => {
   const [SearchInTable, setSearchInTable] = PagesIndex.useState("");
   const [userFundArr, setuserFundArr] = PagesIndex.useState({});
   const [Request, setRequest] = PagesIndex.useState("");
+  const [AppUpdateCounts, setAppUpdateCounts] = PagesIndex.useState([]);
+  const [Refresh, setRefresh] = PagesIndex.useState(false);
+  const [IsSUbmitted, setIsSUbmitted] = PagesIndex.useState(false);
+  const [getstatus1, setgetstatus1] = PagesIndex.useState(0);
+  const [UserPagenateData, setUserPagenateData] = PagesIndex.useState({
+    pageno: 1,
+    limit: 2,
+  });
+
+  const [TotalPages, setTotalPages] = PagesIndex.useState(1);
 
   const [TableData, setTableData] = PagesIndex.useState([]);
 
@@ -30,8 +38,10 @@ const Dashboard_Component = () => {
         token
       );
 
-    console.log("fasafa", res1);
+    const res2 =
+      await PagesIndex.admin_services.APPLICATION_UPDATE_COUNT_USERS_API(token);
 
+    setAppUpdateCounts(res2.counts);
     setTodayDesposite(res1.data);
     setDashboardData(res.data);
   };
@@ -42,45 +52,49 @@ const Dashboard_Component = () => {
 
   var totalManualAmount = 0;
   const getMnaualTotal = (items) => {
-    // console.log("items", items);
-    // console.log("data.total_deposit_amount", data.total_deposit_amount);
-
-    totalManualAmount +=data?.total_deposit_amount - items.totalAmount ;
-    // console.log("totalManualAmount", totalManualAmount);
+    totalManualAmount += data?.total_deposit_amount - items.totalAmount;
   };
 
   const GetTableData = async (request) => {
-    const payload = {
-      reqType: request,
-      page: 1,
-      limit: 10,
-      search: SearchInTable,
-    };
+    if (request === 3 || request === 4 || request === 5) {
+      setIsSUbmitted(true);
+      setgetstatus1(request);
+      test();
+    } else {
+      setgetstatus1(request);
+      const payload = {
+        reqType: request,
+        page: 1,
+        limit: 10,
+        search: SearchInTable,
+      };
 
-    try {
-      const res1 =
-        await PagesIndex.common_services.GET_DASHBOARD_REGISTRED_USERS(
-          payload,
-          token
-        );
+      try {
+        const res1 =
+          await PagesIndex.common_services.GET_DASHBOARD_REGISTRED_USERS(
+            payload,
+            token
+          );
 
-      setRequest(request);
+        setRequest(request);
 
-      if (request === 1) {
+        if (request === 1) {
+          setTableData(res1.data.todayRegistered || []);
+          setTotalPages(totalRows);
+        } else if (request === 2) {
+          setuserFundArr(res1.data.userFundArr || []);
+        }
         setTableData(res1.data.todayRegistered || []);
-      } else if (request === 2) {
-        setuserFundArr(res1.data.userFundArr || []);
+      } catch (error) {
+        console.error("Error fetching table data:", error);
       }
-      setTableData(res1.data.todayRegistered || []);
-    } catch (error) {
-      console.error("Error fetching table data:", error);
     }
   };
 
   const TodayRegistedUserBalancefun = () => {
     let totalBalance = 0;
 
-    if (Request === 1 && userFundArr) {
+    if (AppUpdateCounts === 1 && userFundArr) {
       totalBalance = Object.values(userFundArr).reduce(
         (sum, item) => sum + item.wallet_balance,
         // (sum, value) => sum + (value || 0),
@@ -96,27 +110,62 @@ const Dashboard_Component = () => {
     return totalBalance;
   };
 
-  console.log("TodayDesposite", TodayDesposite);
+  // const visibleFields = ["Sr.", "name", "mobile", "wallet_balance"];
 
-  const visibleFields = ["Sr.", "name", "mobile", "wallet_balance"];
+  const test = async (page, rowsPerPage, searchQuery) => {
+    if (IsSUbmitted) {
+      setModalState(true);
 
-  // const visibleFields = [
-  //   {
-  //     name: "Name",
-  //     value: "name",
-  //     sortable: true,
-  //   },
-  //   {
-  //     name: "Mobile",
-  //     value: "mobile",
-  //     sortable: false,
-  //   },
-  //   {
-  //     name: "wallet_balance",
-  //     value: "wallet_balance",
-  //     sortable: false,
-  //   },
-  // ]
+      try {
+        const type =
+          getstatus1 === 3
+            ? "all"
+            : getstatus1 === 4
+            ? "pending"
+            : getstatus1 === 5
+            ? "complete"
+            : "";
+
+        const response =
+          await PagesIndex.admin_services.GET_APPLICATION_UPDATE_COUNT_USERS_API(
+            `?type=${type}&page=${UserPagenateData.pageno}&limit=${UserPagenateData.limit}`,
+            token
+          );
+
+        const totalRows = response?.pagination?.totalRecords;
+        let mainRes = response.data;
+        if (response.status) {
+          setTableData(mainRes);
+          setTotalPages(totalRows);
+        } else {
+          setTableData([]);
+        }
+      } catch {}
+    }
+  };
+
+  PagesIndex.useEffect(() => {
+    test();
+  }, [
+    UserPagenateData.pageno,
+    UserPagenateData.limit,
+    IsSUbmitted,
+    getstatus1,
+    TotalPages,
+  ]);
+
+  const visibleFields1 = [
+    { name: "User Name", value: "username", sortable: true },
+    { name: "Mobile", value: "mobile", sortable: false },
+    { name: "Device-Id", value: "deviceId", sortable: true },
+    { name: "CreatedAt", value: "CreatedAt", sortable: true },
+  ];
+  const visibleFields = [
+    { name: "Name", value: "name", sortable: true },
+    { name: "Mobile", value: "mobile", sortable: false },
+    { name: "Balence", value: "wallet_balance", sortable: true },
+    { name: "CreatedAt", value: "CreatedAt", sortable: true },
+  ];
   return (
     <div>
       <div className="content-body">
@@ -218,9 +267,33 @@ const Dashboard_Component = () => {
               IconBGcolor="#71b6f9"
               ResponsiveClass="col-xl-3 col-md-6"
             />
-          </div>
+            <Cards
+              icon="mdi mdi-trending-up"
+              tillnow={<span onClick={() => GetTableData(3)}>View Users</span>}
+              counts={AppUpdateCounts.total}
+              Title="All Users"
+              IconBGcolor="#71b6f9"
+              ResponsiveClass="col-xl-3 col-md-6"
+            />
+            <Cards
+              icon="mdi mdi-trending-up"
+              tillnow={<span onClick={() => GetTableData(4)}>View Users</span>}
+              counts={AppUpdateCounts.pending}
+              Title="App Update Pending Users"
+              IconBGcolor="#71b6f9"
+              ResponsiveClass="col-xl-3 col-md-6"
+            />
+            <Cards
+              icon="mdi mdi-trending-up"
+              tillnow={<span onClick={() => GetTableData(5)}>View Users</span>}
+              counts={AppUpdateCounts.complete}
+              Title="App Update Complete Users"
+              IconBGcolor="#71b6f9"
+              ResponsiveClass="col-xl-3 col-md-6"
+            />
+          {/* </div>
 
-          <div className="row">
+          <div className="row"> */}
             <div className="col-xl-3 col-md-6">
               <div className="card-box">
                 <button
@@ -260,9 +333,7 @@ const Dashboard_Component = () => {
                   <table className="table mb-0 text-center">
                     <thead>
                       <tr>
-                        <th colSpan={2} className="primary-color">
-                          Registered User Log{" "}
-                        </th>
+                        <th colSpan={2} className="primary-color"></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -344,36 +415,23 @@ const Dashboard_Component = () => {
               ModalTitle={"User Registered Today"}
               ModalBody={
                 <div>
-                  {/* <PagesIndex.TableWithCustomPeginationNew123
-              data={viewHistory}
-              initialRowsPerPage={5}
-              SearchInTable={SearchInTable}
-              visibleFields={visibleFields}
-              searchInput={
-                <input
-                  type="text"
-                  placeholder="Search..."
-                  value={SearchInTable}
-                  onChange={(e) => setSearchInTable(e.target.value)}
-                  className="form-control ms-auto"
-                />
-              } */}
-                  <TableWitCustomPegination
-                    data={TableData}
-                    // columns={columns}
+                 
+                  <PagesIndex.TableWithCustomPeginationNew
+                    tableData={TableData && TableData}
+                    TotalPagesCount={(TotalPages && TotalPages) || []}
+                    columns={
+                      getstatus1 === 1 || getstatus1 === 2
+                        ? visibleFields1
+                        : visibleFields1
+                    }
                     showIndex={true}
-                    initialRowsPerPage={5}
-                    SearchInTable={SearchInTable}
-                    visibleFields={visibleFields}
-                    additional={`Total Registered Balance : ${TodayRegistedUserBalancefun()}`}
-                    searchInput={
-                      <input
-                        type="text"
-                        placeholder="Search..."
-                        value={SearchInTable}
-                        onChange={(e) => setSearchInTable(e.target.value)}
-                        className="form-control ms-auto"
-                      />
+                    Refresh={Refresh}
+                    setUserPagenateData={setUserPagenateData}
+                    UserPagenateData={UserPagenateData}
+                    additional={
+                      getstatus1 === 1 ||
+                      (getstatus1 === 2 &&
+                        `Total Registered Balance : ${TodayRegistedUserBalancefun()}`)
                     }
                   />
                 </div>

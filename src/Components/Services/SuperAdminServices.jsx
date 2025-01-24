@@ -43,6 +43,33 @@ export const GET_DASHBOARD_COUNT_UPI_PAYMENT_API = async (token) => {
   }
 };
 
+export const APPLICATION_UPDATE_COUNT_USERS_API = async (token) => {
+  try {
+    const res = await axios.get(
+      `${BASE_URL}${Api.APPLICATION_UPDATE_COUNT_USERS}`,
+      {
+        headers: header(token),
+      }
+    );
+    return res?.data;
+  } catch (error) {
+    return error;
+  }
+};
+export const GET_APPLICATION_UPDATE_COUNT_USERS_API = async (data, token) => {
+  try {
+    const res = await axios.get(
+      `${BASE_URL}${Api.APPLICATION_UPDATE_COUNT_USERS}${data}`,
+      {
+        headers: header(token),
+      }
+    );
+    return res?.data;
+  } catch (error) {
+    return error;
+  }
+};
+
 // -------------------------- DASHBOARD_COUNT ------------------------
 
 // --------------------------   USERS CRUD ------------------------

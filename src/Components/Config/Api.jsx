@@ -11,6 +11,7 @@ const Api = {
   GET_DASHBOARD_COUNT: "dashboard/dashboardCount",
   GET_DASHBOARD_COUNT_UPI_PAYMENT: "dashboard/getBriefDeposit",
   GET_DASHBOARD_REGISTRED_USERS: "dashboard/getRegisteredUser",
+  APPLICATION_UPDATE_COUNT_USERS: "allUser/checkUpdateCount",
 
   //USERS
   USERS_LIST: "allUser/getAllUsers",
