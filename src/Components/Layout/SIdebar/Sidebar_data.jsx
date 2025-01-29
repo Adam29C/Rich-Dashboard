@@ -204,7 +204,6 @@ export const admin_Sidebar = [
         route: "finalOCGroup",
         permission: "fcg",
       },
-      
     ],
   },
   {
@@ -215,12 +214,12 @@ export const admin_Sidebar = [
     title: "Wallet",
     Icon: "fa-solid fa-wallet",
     NestedElement: [
-      // {
-      //   id: 1,
-      //   title: "Fund Request",
-      //   permission: "fundRequest",
-      //   route: "wallet/manualrequest",
-      // },
+      {
+        id: 1,
+        title: "Fund Request",
+        permission: "fundRequest",
+        route: "wallet/manualrequest",
+      },
       // {
       //   id: 1,
       //   title: "Manual Request",
@@ -550,12 +549,12 @@ export const admin_Sidebar = [
         route: "masters/UPI",
         permission: "upiId",
       },
-      // {
-      //   id: 2,
-      //   title: "Add Fund Mode",
-      //   permission: "addFoundMode",
-      //   route: "masters/fundMode",
-      // },
+      {
+        id: 2,
+        title: "Add Fund Mode",
+        permission: "addFoundMode",
+        route: "masters/fundMode",
+      },
       {
         id: 3,
         title: "Manage Employee",
