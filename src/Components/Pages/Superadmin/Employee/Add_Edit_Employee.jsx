@@ -6,6 +6,8 @@ import { Get_permissions } from "../../../Redux/slice/CommonSlice";
 import { admin_Sidebar } from "../../../Layout/SIdebar/Sidebar_data";
 import { keyMapping } from "./permissions";
 
+console.log("admin_Sidebar", admin_Sidebar);
+
 function AddEmployee() {
   //get token in localstorage
   const token = localStorage.getItem("token");

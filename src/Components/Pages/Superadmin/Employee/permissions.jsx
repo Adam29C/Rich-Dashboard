@@ -427,7 +427,6 @@ export const makePermissions = [
   },
 ];
 
-
 export const InitialValues = {
   Dashboard: false,
   Users: false,
@@ -585,6 +584,7 @@ export const keyMapping = {
   upiId: "UPI Id",
   addFoundMode: "",
   deleteUser: "Deleted Users",
+  gatwaypaymenthistory: "Gatway Payment History",
 };
 
 // [

@@ -93,6 +93,7 @@ import JackpotRefundList from "../../Pages/Superadmin/Games/Jackpot/RefundList/R
 
 import RequestOnOff from "../../Pages/Superadmin/Wallet/RequestOnOff";
 import ManualRequest from "../../Pages/Superadmin/Wallet/ManualRequest";
+import GatwayHistory from "../../Pages/Superadmin/Wallet/GatwayPaymentList";
 import ExportDebitReport from "../../Pages/Superadmin/Wallet/ExportDebitReport";
 import DownloadDebitReport from "../../Pages/Superadmin/Wallet/DownloadDebitReport";
 import SearchAccount from "../../Pages/Superadmin/Wallet/SearchAccount";
@@ -369,6 +370,10 @@ const adminRoutes = [
         element: <PrivateRoute element={RequestOnOff} />,
       },
       {
+        path: "wallet/gatwaypaymenthistory",
+        element: <PrivateRoute element={GatwayHistory} />,
+      },
+      {
         path: "report/salesreport",
         element: <PrivateRoute element={SalesReports} />,
       },
@@ -476,6 +481,7 @@ const adminRoutes = [
         path: "masters/fundMode",
         element: <PrivateRoute element={FundMode} />,
       },
+    
       {
         path: "notification",
         element: <PrivateRoute element={Notification} />,

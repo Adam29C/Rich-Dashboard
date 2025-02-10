@@ -132,16 +132,7 @@ const ReusableForm = ({
                           className={`mb-3 col-md-4 col-sm-6 col-6 col-lg-${field.col_size}`}
                           key={option.id}
                         >
-                          {/* {option.labelName && (
-                            <label
-                              className={`custom-label col-lg-12`}
-                              htmlFor={option.labelName}
-                            > */}
-                          {/* {field.label} */}
-                          {/* {option.labelName}
-                              <span className="text-danger">*</span>
-                            </label>
-                          )} */}
+                          
                           <div className="form-check custom-checkbox mb-2 ">
                             <input
                               type={field.type}
@@ -158,8 +149,7 @@ const ReusableForm = ({
                                   ? option.checked
                                   : formik.values[option.name] || false
                               }
-                              // checked=
-                              // checked={option.checked}
+                        
                             />
                             <label
                               className="form-check-label fw-bolder "
@@ -410,14 +400,7 @@ const ReusableForm = ({
                               </span>
                             )}
                           </div>
-                          {/*                           
-                          <label htmlFor="file" className="custom-file-label">
-                             { formik.getFieldProps(field?.name).value &&
-                              formik.getFieldProps(field?.name).value.name ? (
-                              <span>{formik.getFieldProps(field?.name).value.name}</span>
-                              ) : formik.getFieldProps(field?.name).value
-                            }
-                            </label> */}
+                       
                         </div>
 
                         {formik.errors[field.name] && (
@@ -587,13 +570,7 @@ const ReusableForm = ({
                     } ${btn_design && "btn_design"}`}
                     type="submit"
                     disabled={formik.isSubmitting || disabledSubmit}
-                    // disabled={
-                    //   disabledSubmit
-                    //     ? disabledSubmit
-                    //     : isLoading
-                    //     ? isLoading
-                    //     : ""
-                    // }
+                  
                   >
                     {/* <Loader/> */}
                     {btn_name}
@@ -602,30 +579,7 @@ const ReusableForm = ({
               ) : (
                 ""
               )}
-              {/* {show_clear ? (
-                <>
-                  <span
-                    // style={{ background: "#4e3897" }}
-                    className={`btn submitBtn  mx-2 mt-2 ${button_Size} ${
-                      location.pathname === "resetpassword" ? "col-md-11" : ""
-                    } ${btn_design && "btn_design"}`}
-                    type="submit"
-                    // disabled={
-                    //   disabledSubmit
-                    //     ? disabledSubmit
-                    //     : isLoading
-                    //     ? isLoading
-                    //     : ""
-                    // }
-
-                    onClick={setUnable}
-                  >
-                    Clear
-                  </span>
-                </>
-              ) : (
-                ""
-              )} */}
+             
               {after_submit_button1}
             </div>
           </div>

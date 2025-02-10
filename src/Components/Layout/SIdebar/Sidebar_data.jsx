@@ -220,6 +220,12 @@ export const admin_Sidebar = [
         permission: "fundRequest",
         route: "wallet/manualrequest",
       },
+      {
+        id: 8,
+        title: "Gatway Payment History",
+        permission: "gatwaypaymenthistory",
+        route: "wallet/gatwaypaymenthistory",
+      },
       // {
       //   id: 1,
       //   title: "Manual Request",

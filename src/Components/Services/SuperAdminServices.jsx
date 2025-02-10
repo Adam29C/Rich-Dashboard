@@ -1321,3 +1321,18 @@ export const USER_PROFILE_BLOCK_API = async (data, token) => {
 };
 
 // --------------------------USER PROFILE APIS------------------------
+
+export const SHOW_PAYMENT_HISTORY_API = async (data, token) => {
+  try {
+    const res = await dataservice.get(
+      `${BASE_URL}${Api.SHOW_PAYMENT_HISTORY}?status=${data}`,
+      data,
+      {
+        headers: header(token),
+      }
+    );
+    return res?.data;
+  } catch (error) {
+    return error;
+  }
+};

@@ -300,6 +300,9 @@ const Api = {
   USER_PROFILE_UPDATE_PASSWORD: "master/employees/updatePassword",
   USER_PROFILE_GET_LIST: "master/employees/profileAdmin",
   USER_PROFILE_BLOCK: "master/employees/blockEmployee",
+
+  SHOW_PAYMENT_HISTORY: "nnData/api/history",
+
 };
 
 export { Api };

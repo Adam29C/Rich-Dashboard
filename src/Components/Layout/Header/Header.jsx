@@ -15,18 +15,16 @@ const Header = () => {
 
   const [Toggle, setsetToggle] = PagesIndex.useState(false);
 
-  
   //get userdetails in localstorage
   let userdetails = JSON.parse(localStorage.getItem("userdetails"));
 
-  
   const handleLogout = () => {
+    setTimeout(() => {
+      navigate("/");
+    }, 100);
     localStorage.removeItem("token");
     localStorage.removeItem("userdetails");
     PagesIndex.toast.success("Logged Out Successfully");
-    setTimeout(() => {
-      navigate("/");
-    }, 2000);
   };
 
   const abcd = () => {
@@ -68,7 +66,11 @@ const Header = () => {
                   {userdetails?.name} <i className="mdi mdi-chevron-down" />
                 </span>
               </div>
-              <div className={`drop-down dropdown-profile animated fadeIn dropdown-menu ${Toggle ? "show" : ""}`}>
+              <div
+                className={`drop-down dropdown-profile animated fadeIn dropdown-menu ${
+                  Toggle ? "show" : ""
+                }`}
+              >
                 <div className="dropdown-content-body">
                   <ul>
                     <li>
