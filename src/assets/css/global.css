@@ -583,3 +583,9 @@ input:checked + .slider:before {
   border-color:#1c3e35;
 }
 
+
+.rdt_TableHeadRow {
+  color:  white !important;
+ background: linear-gradient(97.51deg, #1C3E35 -39.91%, #4AA48C 117.67%) !important;
+
+}

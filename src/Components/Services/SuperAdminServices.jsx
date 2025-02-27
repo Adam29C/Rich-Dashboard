@@ -656,11 +656,28 @@ export const DELETE_UPI_LIST_API = async (apidata, token) => {
 //UPI LIST END
 
 // FUND MODE START
-export const GET_FUND_MODE_API = async (token) => {
+export const GET_MANUALFUND_MODE_API = async (token) => {
   try {
-    const res = await axios.get(`${BASE_URL}${Api.GET_FUND_MODE}`, {
-      headers: header(token),
-    });
+    const res = await axios.get(
+      `${BASE_URL}${Api.GET_FUND_MODE}?transactionType=manual`,
+      {
+        headers: header(token),
+      }
+    );
+    return res?.data;
+  } catch (error) {
+    return error;
+  }
+};
+// FUND MODE START
+export const GET_GATWAYFUND_MODE_API = async (token) => {
+  try {
+    const res = await axios.get(
+      `${BASE_URL}${Api.GET_FUND_MODE}?transactionType=gatway`,
+      {
+        headers: header(token),
+      }
+    );
     return res?.data;
   } catch (error) {
     return error;

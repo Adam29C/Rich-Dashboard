@@ -18,8 +18,8 @@
       },
       headCells: {
         style: {
-          background: "linear-gradient(97.51deg, #1C3E35 -39.91%, #4AA48C 117.67%);",
-          color:"#fff",
+      //  /   background: "linear-gradient(97.51deg, #1C3E35 -39.91%, #4AA48C 117.67%);",
+          // color:"black",
           fontSize:"14px",
           fontWeight:"bold",
         // border:"1px solid #dee2e6",
@@ -107,7 +107,7 @@
             pagination={false} 
             highlightOnHover
             customStyles={customStyles}
-       
+            subHeaderComponent ={false}
        
             noDataComponent={
               isLoading ? (

@@ -265,9 +265,10 @@ const Api = {
   ADD_FUND_MODE: "upiId/modeAdd",
 
   //FUND MODE
-  GET_FUND_MODE: "upiId/fundMode",
+  GET_FUND_MODE: "masters/getPaymentModeStatus",
   DELETE_FUND_MODE: "upiId/dlt_mode",
   CHANGE_STATUS_FUND_MODE: "upiId/disable_mode",
+
 
   //notification apis
   GET_NOTIFICATION: "notification",

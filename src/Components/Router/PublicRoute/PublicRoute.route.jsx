@@ -6,13 +6,15 @@ import ErrorPage from "../../Pages/Auth/NotFound";
 import BlockedUser from "../../Pages/Auth/BlockedUser";
 import ExpiredUser from "../../Pages/Auth/ExpiredUser";
 
+import Wraper from "../../Layout/Wraper/Wraper";
+
 
 const isAuthenticated = "";
 
 const publicRoutes = [
   {
     path: "/",
-    // element: <PublicRoute element={Login} isAuthenticated={isAuthenticated} />,
+    element: <PublicRoute element={Wraper} isAuthenticated={isAuthenticated} />,
     errorElement: <ErrorPage />,
     children: [{
       path: "/",

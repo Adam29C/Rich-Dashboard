@@ -8,14 +8,21 @@ const FundMode = () => {
 
   //all state
   const [loading, setLoading] = PagesIndex.useState(false);
-  const [data, setData] = PagesIndex.useState([]);
+  const [manualDataList, setmanualDataList] = PagesIndex.useState([]);
+  const [gatwayDataList, setgatwayDataList] = PagesIndex.useState([]);
   const [visible, setVisible] = PagesIndex.useState(false);
 
   const getList = async () => {
     setLoading(true);
     try {
-      const res = await PagesIndex.admin_services.GET_FUND_MODE_API(token);
-      setData(res?.data);
+      const res = await PagesIndex.admin_services.GET_MANUALFUND_MODE_API(
+        token
+      );
+      const res1 = await PagesIndex.admin_services.GET_GATWAYFUND_MODE_API(
+        token
+      );
+      setmanualDataList(res?.data);
+      setgatwayDataList(res1?.data);
     } catch (error) {
     } finally {
       setLoading(false);
@@ -31,7 +38,7 @@ const FundMode = () => {
     try {
       let apidata = {
         id: row._id,
-        status: !row.disabled,
+        status: !row.visible,
       };
 
       const response =
@@ -50,33 +57,33 @@ const FundMode = () => {
   };
 
   //delete fund mode list start
-  const handleDelete = async (row) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this Fund Mode?"
-    );
-    if (!confirmDelete) return;
+  // const handleDelete = async (row) => {
+  //   const confirmDelete = window.confirm(
+  //     "Are you sure you want to delete this Fund Mode?"
+  //   );
+  //   if (!confirmDelete) return;
 
-    try {
-      const apidata = {
-        id: row?._id,
-      };
+  //   try {
+  //     const apidata = {
+  //       id: row?._id,
+  //     };
 
-      const res = await PagesIndex.admin_services.DELETE_FUND_MODE_API(
-        apidata,
-        token
-      );
+  //     const res = await PagesIndex.admin_services.DELETE_FUND_MODE_API(
+  //       apidata,
+  //       token
+  //     );
 
-      if (res.status) {
-        getList();
-        alert(res?.message);
-      }
-    } catch (error) {}
-  };
+  //     if (res.status) {
+  //       getList();
+  //       alert(res?.message);
+  //     }
+  //   } catch (error) {}
+  // };
 
   const columns = [
     {
       name: "Mode",
-      selector: (row) => row?.mode,
+      selector: (row) => row?.name,
     },
     {
       name: "Redirect Url",
@@ -84,46 +91,54 @@ const FundMode = () => {
     },
     {
       name: "Status",
-      selector: (row) => (row?.disabled ? "Disabled" : "Active"),
+      selector: (row) => (row?.visible ? "Active" : "Disabled"),
     },
     {
-      name: "Edit",
+      name: "Block/Unblock",
       selector: (row) => (
         <span>
           <button
             onClick={() => handleStatusUpdate(row)}
             class={`btn ${
-              row.disabled ? "btn-success" : "btn-danger"
+              row.visible ? "btn-success" : "btn-danger"
             } btn-sm me-2`}
           >
-         {/* <i className="fa-solid fa-user-slash mr-1 icon-fs"></i>
+            {/* <i className="fa-solid fa-user-slash mr-1 icon-fs"></i>
          <i className="fa-solid fa-user mr-1 icon-fs"></i>
             {row.disabled ? "Unblock" : "Block"} */}
-            {
-              row?.disabled ? (<><i className="fa-solid fa-user mr-1 icon-fs"></i>Unblock</>):(<> <i className="fa-solid fa-user-slash mr-1 icon-fs"></i>Block</>)
-            }
+            {row?.visible ? (
+              <>
+                <i className="fa-solid fa-user mr-1 icon-fs"></i>Unblock
+              </>
+            ) : (
+              <>
+                <i className="fa-solid fa-user-slash mr-1 icon-fs"></i>Block
+              </>
+            )}
           </button>
         </span>
       ),
     },
 
-    {
-      name: "Actions",
-      selector: (cell, row) => (
-        <div style={{ width: "120px" }}>
-          <div>
-            <span>
-              <button
-                onClick={() => handleDelete(cell)}
-                class="btn btn-danger btn-sm me-2"
-              >  <i class="fa fa-trash mr-1 icon-fs" aria-hidden="true"></i>
-                Delete Mode
-              </button>
-            </span>
-          </div>
-        </div>
-      ),
-    },
+    // {
+    //   name: "Actions",
+    //   selector: (cell, row) => (
+    //     <div style={{ width: "120px" }}>
+    //       <div>
+    //         <span>
+    //           <button
+    //             onClick={() => handleDelete(cell)}
+    //             class="btn btn-danger btn-sm me-2"
+    //           >
+    //             {" "}
+    //             <i class="fa fa-trash mr-1 icon-fs" aria-hidden="true"></i>
+    //             Delete Mode
+    //           </button>
+    //         </span>
+    //       </div>
+    //     </div>
+    //   ),
+    // },
   ];
 
   //handle add formik form
@@ -224,11 +239,22 @@ const FundMode = () => {
       title="Payment Mode List"
       handleAdd={handleAdd}
     >
+      <h4>Manual Payment List </h4>
       <PagesIndex.Data_Table
         isLoading={loading}
         columns={columns}
-        data={data}
+        data={manualDataList}
+        showFilter={false}
       />
+
+      <h4 className=" mt-5">Gatway Payment List </h4>
+      <PagesIndex.Data_Table
+        isLoading={loading}
+        columns={columns}
+        data={gatwayDataList}
+        showFilter={false}
+      />
+
       <ModalComponent
         visible={visible}
         setVisible={setVisible}
