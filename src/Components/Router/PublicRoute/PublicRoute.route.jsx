@@ -15,7 +15,7 @@ const publicRoutes = [
   {
     path: "/",
     element: <PublicRoute element={Wraper} isAuthenticated={isAuthenticated} />,
-    errorElement: <ErrorPage />,
+    errorElement: <Login />,
     children: [{
       path: "/",
       element: (

@@ -1,5 +1,11 @@
 // CreateSidebarContext.js
-import React, { createContext, useContext, useState, useEffect, useRef } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useRef,
+} from "react";
 
 const Sidebar_Context = createContext();
 
@@ -8,7 +14,6 @@ export const useMyContext = () => {
 };
 
 export const SidebarProvider = ({ children }) => {
-  
   const [SidebarToggle, setSidebarToggle] = useState(false);
   const sidebarRef = useRef(null);
   // toggleSidebar
@@ -41,7 +46,6 @@ export const SidebarProvider = ({ children }) => {
   // };
 
   const handleClickOutside = (event) => {
-
     // Check if the viewport width is for mobile (e.g., 768px or smaller)
     if (window.innerWidth > 768) {
       return; // Exit if not mobile
@@ -51,21 +55,20 @@ export const SidebarProvider = ({ children }) => {
 
     // Check if the clicked element is part of the sidebar (e.g., a page link inside sidebar)
     if (sidebar && sidebar.contains(event.target)) {
-        return; // Allow the click if inside the sidebar (links inside sidebar)
+      return; // Allow the click if inside the sidebar (links inside sidebar)
     }
 
     // If sidebar is open, and the click is outside sidebar
-    if (sidebar && sidebar.classList.contains('menu-toggle')) {
-        // Sidebar is open, close it by removing the 'menu-toggle' class
-        $('#sidebar').removeClass('menu-toggle');
+    if (sidebar && sidebar.classList.contains("menu-toggle")) {
+      // Sidebar is open, close it by removing the 'menu-toggle' class
+      $("#sidebar").removeClass("menu-toggle");
     } else {
-        // Sidebar is closed, prevent click inside the main-wrapper
-        $('#main-wrapper').addClass('menu-toggle');
+      // Sidebar is closed, prevent click inside the main-wrapper
+      $("#main-wrapper").addClass("menu-toggle");
     }
   };
 
-
-  useEffect(() => {
+  const aaaaaaa = () => {
     handleResize();
     window.addEventListener("resize", handleResize);
     document.addEventListener("mousedown", handleClickOutside);
@@ -73,13 +76,15 @@ export const SidebarProvider = ({ children }) => {
     return () => {
       window.removeEventListener("resize", handleResize);
       document.removeEventListener("mousedown", handleClickOutside);
-
     };
+  };
+  useEffect(() => {
+    aaaaaaa();
   }, []);
 
   return (
     <Sidebar_Context.Provider
-      value={{ main_wrapper, toggleSidebar, SidebarToggle,sidebarRef  }}
+      value={{ main_wrapper, toggleSidebar, SidebarToggle, sidebarRef }}
     >
       {children}
     </Sidebar_Context.Provider>

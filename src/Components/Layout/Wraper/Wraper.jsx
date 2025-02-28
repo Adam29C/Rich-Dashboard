@@ -12,7 +12,9 @@ import {
 import { Outlet } from "react-router-dom";
 
 function MainContent() {
-  const { SidebarToggle,sidebarRef } = useMyContext();
+  const { SidebarToggle, sidebarRef } = useMyContext();
+
+  let userdetails = JSON.parse(localStorage.getItem("userdetails"));
 
   const [isResponsive, setIsResponsive] = useState(window.innerWidth > 550);
 
@@ -21,25 +23,28 @@ function MainContent() {
     // $('#main-wrapper').removeClass('menu-toggle');
   };
 
-  useEffect(() => {
+  const ffffff = () => {
     handleResize();
 
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
     };
+  };
+  useEffect(() => {
+    ffffff;
   }, [window.innerWidth]);
 
   return (
     <div
-    ref={sidebarRef}
+      ref={sidebarRef}
       id={`main-wrapper`}
       className={`show ${SidebarToggle ? "menu-toggle" : ""}`}
     >
+   
       <Logo />
       <Header />
       <SIdebar />
-
       <Outlet />
       <Footer />
     </div>

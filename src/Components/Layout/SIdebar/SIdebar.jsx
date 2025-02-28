@@ -26,6 +26,10 @@ const SIdebar = () => {
     dispatch(Get_permissions(user_id));
   };
 
+
+
+  
+
   PagesIndex.useEffect(() => {
     getPermissionApi();
   }, []);
@@ -45,6 +49,10 @@ const SIdebar = () => {
     role,
     getPermissions
   );
+
+
+
+
 
   PagesIndex.useEffect(() => {
     $("title").text(`
