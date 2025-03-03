@@ -269,7 +269,6 @@ const Api = {
   DELETE_FUND_MODE: "upiId/dlt_mode",
   CHANGE_STATUS_FUND_MODE: "upiId/disable_mode",
 
-
   //notification apis
   GET_NOTIFICATION: "notification",
   ADD_NOTIFICATION: "notification/inserNotification",
@@ -304,6 +303,7 @@ const Api = {
 
   SHOW_PAYMENT_HISTORY: "nnData/api/history",
 
+  GATWAYPAYMENTLIST: "fundreq/get-payout-requests",
 };
 
 export { Api };

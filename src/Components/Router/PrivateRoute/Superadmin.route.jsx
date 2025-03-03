@@ -75,6 +75,7 @@ import DeclinedRequest from "../../Pages/Superadmin/DeclinedRequest/DeclinedRequ
 import ApproveReportBank from "../../Pages/Superadmin/ApproveDebitRequest/ApproveReportBank";
 import ApproveReportBankManual from "../../Pages/Superadmin/ApproveDebitRequest/ApproveReportBankManual";
 import PendingBankRequests from "../../Pages/Superadmin/PendingBankRequests/PendingBankRequests";
+import ApproveGatwayPaymentList from "../../Pages/Superadmin/ApproveGatwayPaymentList/ApproveGatwayPaymentList";
 
 // jackpot
 
@@ -501,6 +502,10 @@ const adminRoutes = [
       {
         path: "fundRequest/pendingBank",
         element: <PrivateRoute element={PendingBankRequests} />,
+      },
+      {
+        path: "withdraw/gatwaypayement",
+        element: <PrivateRoute element={ApproveGatwayPaymentList} />,
       },
     ],
   },

@@ -313,6 +313,12 @@ export const admin_Sidebar = [
         permission: "decDebit",
         route: "approvedReports/declined",
       },
+      {
+        id: 5 ,
+        title: "Gatway Withdrawal List",
+        permission: "0",
+        route: "withdraw/gatwaypayement",
+      },
     ],
   },
   // {
