@@ -304,6 +304,7 @@ const Api = {
   SHOW_PAYMENT_HISTORY: "nnData/api/history",
 
   GATWAYPAYMENTLIST: "fundreq/get-payout-requests",
+  GATWAYPAYMENTAPPROVE: "fundreq/approve-payout",
 };
 
 export { Api };

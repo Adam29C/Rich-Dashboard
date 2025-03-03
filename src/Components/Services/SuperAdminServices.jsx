@@ -1362,8 +1362,8 @@ export const GATWAY_PAYMENT_LIST = async (data, token) => {
   try {
     const res = await axios.get(
       // `http://192.168.1.8:6999/fundreq/get-payout-requests?status=${data}`,
-      `https://connect.rich143.com/fundreq/get-payout-requests?status=${data}`,
-      // `${BASE_URL}${Api.GATWAYPAYMENTLIST}?status=${data}`,
+      // `https://connect.rich143.com/fundreq/get-payout-requests?status=${data}`,
+      `${BASE_URL}${Api.GATWAYPAYMENTLIST}?status=${data}`,
       {
         headers: header(token),
       }
@@ -1377,8 +1377,7 @@ export const GATWAY_PAYMENT_LIST = async (data, token) => {
 
 export const GATWAY_PAYMENT_DEPOSITE_OR_DECLINED= async (data, token) => {
   try {
-    const res = await axios.post(`https://connect.rich143.com/fundreq/approve-payout`,data,
-      // `${BASE_URL}${Api.GATWAYPAYMENTLIST}?status=${data}`,
+    const res = await axios.post(`${BASE_URL}${Api.GATWAYPAYMENTAPPROVE}`,data,
       {
         headers: header(token),
       }
