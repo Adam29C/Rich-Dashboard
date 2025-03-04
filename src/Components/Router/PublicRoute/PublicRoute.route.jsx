@@ -8,33 +8,38 @@ import ExpiredUser from "../../Pages/Auth/ExpiredUser";
 
 import Wraper from "../../Layout/Wraper/Wraper";
 
-
 const isAuthenticated = "";
 
 const publicRoutes = [
   {
     path: "/",
     element: <PublicRoute element={Wraper} isAuthenticated={isAuthenticated} />,
-    errorElement: <Login />,
-    children: [{
-      path: "/",
-      element: (
-        <PublicRoute element={Login} isAuthenticated={isAuthenticated} />
-      ),
-    },
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "/",
+        element: (
+          <PublicRoute element={Login} isAuthenticated={isAuthenticated} />
+        ),
+      },
       {
         path: "blocked",
         element: (
-          <PublicRoute element={BlockedUser} isAuthenticated={isAuthenticated} />
+          <PublicRoute
+            element={BlockedUser}
+            isAuthenticated={isAuthenticated}
+          />
         ),
       },
       {
         path: "tokenexpiry",
         element: (
-          <PublicRoute element={ExpiredUser} isAuthenticated={isAuthenticated} />
+          <PublicRoute
+            element={ExpiredUser}
+            isAuthenticated={isAuthenticated}
+          />
         ),
       },
-      
     ],
   },
 ];

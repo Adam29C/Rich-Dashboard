@@ -222,7 +222,7 @@ export const admin_Sidebar = [
       },
       {
         id: 8,
-        title: "Gatway Payment History",
+        title: "Gatway Deposite History",
         permission: "gatwaypaymenthistory",
         route: "wallet/gatwaypaymenthistory",
       },
@@ -454,6 +454,12 @@ export const admin_Sidebar = [
         title: "All User Bids",
         route: "report/alluserbids",
         permission: "allUserBIds",
+      },
+      {
+        id: 17,
+        title: "Gatway History",
+        route: "gatway/history",
+        permission: "0",
       },
     ],
   },

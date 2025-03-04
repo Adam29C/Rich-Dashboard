@@ -10,6 +10,7 @@ import {
   useMyContext,
 } from "../../Hooks/Context/CreateSidebarContext.jsx";
 import { Outlet } from "react-router-dom";
+import PagesIndex from "../../Pages/PagesIndex.jsx";
 
 function MainContent() {
   const { SidebarToggle, sidebarRef } = useMyContext();
@@ -17,6 +18,8 @@ function MainContent() {
   let userdetails = JSON.parse(localStorage.getItem("userdetails"));
 
   const [isResponsive, setIsResponsive] = useState(window.innerWidth > 550);
+
+  const [first, setfirst] = useState(false);
 
   const handleResize = () => {
     setIsResponsive(window.innerWidth > 550);
@@ -35,16 +38,32 @@ function MainContent() {
     ffffff;
   }, [window.innerWidth]);
 
+  const getPermissionApi121 = () => {
+    console.log("location.pathname", location.pathname);
+    console.log("userdetails", userdetails);
+
+    if (userdetails && location.pathname === "/") {
+      setfirst(true);
+      localStorage.setItem("token", "");
+      localStorage.setItem("userdetails", JSON.stringify({}));
+    }
+  };
+
+  PagesIndex.useEffect(() => {
+    getPermissionApi121();
+  }, [location, userdetails]);
+
   return (
     <div
       ref={sidebarRef}
       id={`main-wrapper`}
       className={`show ${SidebarToggle ? "menu-toggle" : ""}`}
     >
-   
-      <Logo />
-      <Header />
-      <SIdebar />
+      {!first && <Logo />}
+      {!first && <Header />}
+      {!first && <SIdebar />}
+      {/* <Header /> */}
+      {/* <SIdebar /> */}
       <Outlet />
       <Footer />
     </div>

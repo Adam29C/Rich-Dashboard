@@ -37,12 +37,47 @@ const ManualRequest = () => {
 
   //handle status change
 
+  // const handleStatusChange = async (id, value) => {
+  //   const apidata = {
+  //     request_id: id,
+  //     action: value,
+  //   };
+
+  //   value === "APPROVE";
+  //   if (window.confirm("Do you really want to proceed?")) {
+  //   } else {
+  //     console.log("User canceled the action.");
+  //   }
+
+  //   const res =
+  //     await PagesIndex.admin_services.GATWAY_PAYMENT_DEPOSITE_OR_DECLINED(
+  //       apidata,
+  //       token
+  //     );
+
+  //   if (res.status) {
+  //     PagesIndex.toast.success(res.message);
+  //     getFundRequestList();
+  //   }
+  //   console.log("dfdffsfsfds", res);
+  // };
+
   const handleStatusChange = async (id, value) => {
     const apidata = {
       request_id: id,
       action: value,
     };
 
+    // "APPROVE" hone par confirmation box dikhaye, "DECLINE" direct chale
+    if (value === "APPROVE") {
+      const userConfirmed = window.confirm("Do you really want to approve?");
+      if (!userConfirmed) {
+        console.log("User canceled the approval.");
+        return; // Agar user cancel kare to function yahi stop ho jaye
+      }
+    }
+
+    // API Call
     const res =
       await PagesIndex.admin_services.GATWAY_PAYMENT_DEPOSITE_OR_DECLINED(
         apidata,
@@ -53,14 +88,20 @@ const ManualRequest = () => {
       PagesIndex.toast.success(res.message);
       getFundRequestList();
     }
-    console.log("dfdffsfsfds", res);
+
+    console.log("API Response:", res);
   };
 
   const totalAmount = useMemo(
-    () => data.reduce((acc, item) => acc + (parseFloat(item?.amount) || 0), 0),
+    () => data.reduce((acc, item) => acc + (parseFloat(item?.transaction_amount) || 0), 0),
     [data]
   );
 
+
+
+  console.log("totalAmount" ,totalAmount);
+  console.log("data" ,data);
+  
   const columns = [
     {
       name: "User Name",
@@ -69,52 +110,78 @@ const ManualRequest = () => {
     {
       name: "Contact No",
       selector: (row) => row.mobile,
+       wrap: true, // Text wrap enable karega
+  width: "130px"
     },
 
     {
       name: "Account No.",
       selector: (row) => row.account_no,
+       wrap: true, // Text wrap enable karega
+  width: "130px"
     },
     {
       name: "IFSC",
       selector: (row) => row.ifsc_code,
+       wrap: true, // Text wrap enable karega
+  width: "130px"
     },
     {
       name: "Wallet Amount",
       selector: (row) => row.wallet_balance,
+       wrap: true, // Text wrap enable karega
+  width: "150px"
     },
     {
-      name: "Request Amount",
+      name: "Req. Amount",
       selector: (row) => row.amount,
-    },
-    {
-      name: "Type",
-      selector: (row) => (
-        <div>
-          {status === "pending" ? (
-          <select
-            className="p-1"
-            aria-label="Default select example"
-            // value={row.status}
-            onChange={(e) => {
-              handleStatusChange(row?.request_id, e.target.value);
-            }}
-          >
-            <option disabled selected value="">
-              please select 
-            </option>
-            <option value="APPROVE">Approve</option>
-            <option value="REJECT">Decline</option>
-          </select>
-           ) : (
-            row.status
-          )} 
-        </div>
-      ),
+       wrap: true, // Text wrap enable karega
+  width: "150px"
     },
     {
       name: "Date & Time",
-      selector: (row) => Get_Year_With_Time_With_Column_Saprate(row.created_at),
+      selector: (row) => {
+        let dateObj = new Date(row.created_at);
+        return dateObj.toLocaleString("en-IN", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: true, // 12-hour format with AM/PM
+        });
+      },
+      wrap: true, // Text wrap enable karega
+      width: "200px",
+    },
+
+    {
+      name: "Action",
+       wrap: true, // Text wrap enable karega
+  width: "120px",
+      selector: (row) => (
+        <div>
+          {status === "pending" ? (
+            <select
+              className="p-1"
+              aria-label="Default select example"
+              // value={row.status}
+              onChange={(e) => {
+                handleStatusChange(row?.request_id, e.target.value);
+              }}
+            >
+              <option disabled selected value="">
+                select
+              </option>
+              <option value="APPROVE">Approve</option>
+              <option value="REJECT">Decline</option>
+            </select>
+          ) : (
+            row.status
+          )}
+        </div>
+      ),
     },
   ];
 
@@ -154,9 +221,9 @@ const ManualRequest = () => {
       content: (
         <div className="mt-4">
           <PagesIndex.Data_Table columns={columns} data={data} />{" "}
-          {/* <h3 className="ml-3 mb-3 fw-bold responsive-total-amount">
+          <h3 className="ml-3 mb-3 fw-bold responsive-total-amount">
             Total Amount {totalAmount}/-
-          </h3> */}
+          </h3>
         </div>
       ),
     },
@@ -165,9 +232,9 @@ const ManualRequest = () => {
       content: (
         <div className="mt-4">
           <PagesIndex.Data_Table columns={columns} data={data} />{" "}
-          {/* <h3 className="ml-3 mb-3 fw-bold responsive-total-amount">
+          <h3 className="ml-3 mb-3 fw-bold responsive-total-amount">
             Total Amount {totalAmount}/-
-          </h3> */}
+          </h3>
         </div>
       ),
     },

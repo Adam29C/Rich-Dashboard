@@ -4,13 +4,10 @@ import { Link, useLocation } from "react-router-dom";
 import PagesIndex from "../../Pages/PagesIndex";
 import { Get_permissions } from "../../Redux/slice/CommonSlice";
 import { filterSidebarItems } from "./FilteredPermissions";
-import Logo from "../Logo/Logo_png";
 import { useMyContext } from "../../Hooks/Context/CreateSidebarContext";
 
 const SIdebar = () => {
   const location = useLocation();
-
-  // console.log("locationlocation" ,location.pathname.split('/')[3] || location.pathname.split('/')[2]);
 
   let { user_id, role } = JSON.parse(localStorage.getItem("userdetails"));
   const { main_wrapper } = useMyContext();
@@ -23,16 +20,14 @@ const SIdebar = () => {
   const [expandedItem, setExpandedItem] = useState(null);
 
   const getPermissionApi = () => {
-    dispatch(Get_permissions(user_id));
+    if (user_id) {
+      dispatch(Get_permissions(user_id));
+    }
   };
-
-
-
-  
 
   PagesIndex.useEffect(() => {
     getPermissionApi();
-  }, []);
+  }, [user_id]);
 
   const handleToggle = (index, hasNested, isActive) => {
     // setExpandedItem(expandedItem === index ? null : index);
@@ -50,15 +45,11 @@ const SIdebar = () => {
     getPermissions
   );
 
-
-
-
-
   PagesIndex.useEffect(() => {
     $("title").text(`
-      Rich143 Games : ${location?.pathname?.split("/")[3] || location.pathname.split("/")[2]
-      }`
-    );
+      Rich143 Games : ${
+        location?.pathname?.split("/")[3] || location.pathname.split("/")[2]
+      }`);
     // $("#SetTitle").attr(
     //   "title",
     //   location?.pathname?.split("/")[3] || location.pathname.split("/")[2]

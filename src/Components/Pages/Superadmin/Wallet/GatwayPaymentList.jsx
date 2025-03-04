@@ -62,7 +62,7 @@ const ManualRequest = () => {
   };
 
   const totalAmount = useMemo(
-    () => data.reduce((acc, item) => acc + (parseFloat(item?.amount) || 0), 0),
+    () => data.reduce((acc, item) => acc + (parseFloat(item?.transaction_amount) || 0), 0),
     [data]
   );
 

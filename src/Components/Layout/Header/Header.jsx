@@ -5,6 +5,7 @@ import PagesIndex from "../../Pages/PagesIndex";
 import { Remove_Space_Character } from "../../Utils/Valid_Rejex";
 import { GetExpired } from "../../Utils/UserExpired";
 import profileImage from "../../../assets/Images/profile-image.png";
+import { stringify } from "uuid";
 
 const Header = () => {
   const { toggleSidebar } = useMyContext();
@@ -24,6 +25,10 @@ const Header = () => {
     }, 100);
     localStorage.removeItem("token");
     localStorage.removeItem("userdetails");
+    localStorage.setItem("token", "");
+
+    localStorage.setItem("userdetails", JSON.stringify({}));
+
     PagesIndex.toast.success("Logged Out Successfully");
   };
 

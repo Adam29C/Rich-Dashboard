@@ -119,6 +119,8 @@ import BidingReport from "../../Pages/Superadmin/Reports/BidingReport";
 import UserAnalaysis from "../../Pages/Superadmin/Reports/UserAnalaysis";
 import CustomerBalence from "../../Pages/Superadmin/Reports/CustomerBalence";
 import AllUserBids from "../../Pages/Superadmin/Reports/AllUserBids";
+import GatwayHistory123 from "../../Pages/Superadmin/Reports/GatwayHistory";
+
 // import AddEmployee32 from "../../Pages/Superadmin/Employee/Add_Edit_Employee32";
 import AddEmployee from "../../Pages/Superadmin/Employee/Add_Edit_Employee";
 
@@ -506,6 +508,10 @@ const adminRoutes = [
       {
         path: "withdraw/gatwaypayement",
         element: <PrivateRoute element={ApproveGatwayPaymentList} />,
+      },
+      {
+        path: "gatway/history",
+        element: <PrivateRoute element={GatwayHistory123} />,
       },
     ],
   },
