@@ -17,7 +17,7 @@ const ManualRequest = () => {
   const [data, setData] = PagesIndex.useState([]);
 
   // Log the corresponding tab name
-  const tabTitles = ["pending", "approved", "rejected"];
+  const tabTitles = ["pending", "processing", "approved", "rejected"];
   const status = tabTitles[activeTabIndex];
   //get fund requestdata
   const getFundRequestList = async () => {
@@ -93,50 +93,61 @@ const ManualRequest = () => {
   };
 
   const totalAmount = useMemo(
-    () => data.reduce((acc, item) => acc + (parseFloat(item?.transaction_amount) || 0), 0),
+    () => data.reduce((acc, item) => acc + (parseFloat(item?.amount) || 0), 0),
     [data]
   );
 
-
-
-  console.log("totalAmount" ,totalAmount);
-  console.log("data" ,data);
-  
   const columns = [
     {
       name: "User Name",
       selector: (row) => row.username,
+      sortable: true,
     },
     {
       name: "Contact No",
       selector: (row) => row.mobile,
-       wrap: true, // Text wrap enable karega
-  width: "130px"
+      wrap: true, // Text wrap enable karega
+      width: "130px",
+      sortable: true,
     },
 
     {
       name: "Account No.",
       selector: (row) => row.account_no,
-       wrap: true, // Text wrap enable karega
-  width: "130px"
+      wrap: true, // Text wrap enable karega
+      width: "130px",
+      sortable: true,
     },
     {
       name: "IFSC",
       selector: (row) => row.ifsc_code,
-       wrap: true, // Text wrap enable karega
-  width: "130px"
+      wrap: true, // Text wrap enable karega
+      width: "130px",
+      sortable: true,
     },
     {
       name: "Wallet Amount",
       selector: (row) => row.wallet_balance,
-       wrap: true, // Text wrap enable karega
-  width: "150px"
+      wrap: true, // Text wrap enable karega
+      width: "150px",
+      sortable: true,
     },
     {
       name: "Req. Amount",
       selector: (row) => row.amount,
-       wrap: true, // Text wrap enable karega
-  width: "150px"
+      wrap: true, // Text wrap enable karega
+      width: "150px",
+      sortable: true,
+    },
+    {
+      name: "Transaction Id",
+      selector: (row) => {
+        return row.transaction_id || row.order_id || "null";
+      },
+      wrap: true, // Text wrap enable karega
+      width: "150px",
+      sortable: true,
+      omit: status === "pending" ? true : false,
     },
     {
       name: "Date & Time",
@@ -154,12 +165,13 @@ const ManualRequest = () => {
       },
       wrap: true, // Text wrap enable karega
       width: "200px",
+      sortable: true,
     },
 
     {
       name: "Action",
-       wrap: true, // Text wrap enable karega
-  width: "120px",
+      wrap: true, // Text wrap enable karega
+      width: "120px",
       selector: (row) => (
         <div>
           {status === "pending" ? (
@@ -217,10 +229,28 @@ const ManualRequest = () => {
       ),
     },
     {
+      title: "Processing Request",
+      content: (
+        <>
+          <div className="mt-4">
+            <PagesIndex.Data_Table
+              columns={columns}
+              data={data}
+              // selectableRows
+              // onSelectedRowsChange={handleChange}
+            />
+            <h3 className="ml-3 mb-3 fw-bold responsive-total-amount">
+              Total Amount {totalAmount}/-
+            </h3>
+          </div>
+        </>
+      ),
+    },
+    {
       title: "Approved Request",
       content: (
         <div className="mt-4">
-          <PagesIndex.Data_Table columns={columns} data={data} />{" "}
+          <PagesIndex.Data_Table columns={columns} data={data} />
           <h3 className="ml-3 mb-3 fw-bold responsive-total-amount">
             Total Amount {totalAmount}/-
           </h3>

@@ -214,12 +214,12 @@ export const admin_Sidebar = [
     title: "Wallet",
     Icon: "fa-solid fa-wallet",
     NestedElement: [
-      {
-        id: 1,
-        title: "Fund Request",
-        permission: "fundRequest",
-        route: "wallet/manualrequest",
-      },
+      // {
+      //   id: 1,
+      //   title: "Fund Request",
+      //   permission: "fundRequest",
+      //   route: "wallet/manualrequest",
+      // },
       {
         id: 8,
         title: "Gatway Deposite History",

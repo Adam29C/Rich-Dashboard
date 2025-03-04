@@ -41,8 +41,10 @@ const Dashboard_Component = () => {
     const res2 =
       await PagesIndex.admin_services.APPLICATION_UPDATE_COUNT_USERS_API(token);
 
+    console.log("res1", res1);
+
     setAppUpdateCounts(res2.counts);
-    setTodayDesposite(res1.data);
+    setTodayDesposite(res1);
     setDashboardData(res.data);
   };
 
@@ -166,6 +168,9 @@ const Dashboard_Component = () => {
     { name: "Balence", value: "wallet_balance", sortable: true },
     { name: "CreatedAt", value: "CreatedAt", sortable: true },
   ];
+
+  console.log("TodayDesposite", TodayDesposite);
+
   return (
     <div>
       <div className="content-body">
@@ -291,7 +296,7 @@ const Dashboard_Component = () => {
               IconBGcolor="#71b6f9"
               ResponsiveClass="col-xl-3 col-md-6"
             />
-          {/* </div>
+            {/* </div>
 
           <div className="row"> */}
             <div className="col-xl-3 col-md-6">
@@ -385,7 +390,7 @@ const Dashboard_Component = () => {
                           Today Deposit Log
                         </th>
                       </tr>
-                      {TodayDesposite &&
+                      {/* {TodayDesposite &&
                         TodayDesposite.map((items) => {
                           return (
                             <>
@@ -396,15 +401,27 @@ const Dashboard_Component = () => {
                               </tr>
                             </>
                           );
-                        })}
-                      {/* <tr>
+                        })} */}
+                      <tr>
+                        <td>GATWAY ADD AMOUNT</td>
+                        <td>{TodayDesposite.totalGatwayAmount} /-</td>
+                      </tr>
+                      <tr>
                         <td>MANUAL ADD AMOUNT</td>
-                        <td>{totalManualAmount} /-</td>
-                      </tr> */}
+                        <td>{TodayDesposite.totalManualPayment} /-</td>
+                      </tr>
+                      <tr>
+                        <td>UPI ADD AMOUNT</td>
+                        <td>{TodayDesposite.totalUpiAmount} /-</td>
+                      </tr>
                       <tr>
                         <td>GRAND TOTAL</td>
-                        <td>{data?.total_deposit_amount} /-</td>
+                        <td>{TodayDesposite.grandTotal} /-</td>
                       </tr>
+                      {/* <tr>
+                        <td>GRAND TOTAL</td>
+                        <td>{data?.total_deposit_amount} /-</td>
+                      </tr> */}
                     </tbody>
                   </table>
                 </div>
@@ -415,7 +432,6 @@ const Dashboard_Component = () => {
               ModalTitle={"User Registered Today"}
               ModalBody={
                 <div>
-                 
                   <PagesIndex.TableWithCustomPeginationNew
                     tableData={TableData && TableData}
                     TotalPagesCount={(TotalPages && TotalPages) || []}

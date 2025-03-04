@@ -19,7 +19,9 @@ const Data_Table = ({
   //datatable custom design
   const customStyles = {
     rows: {
-      style: {},
+      style: {
+        whiteSpace: "normal",
+      },
     },
     headCells: {
       style: {
@@ -30,6 +32,7 @@ const Data_Table = ({
         // border:"1px solid #dee2e6",
         justifyContent: "center",
         textAlign: "center",
+        whiteSpace: "normal",
       },
     },
     cells: {
@@ -37,6 +40,7 @@ const Data_Table = ({
         border: "1px solid #dee2e6",
         justifyContent: "center",
         textAlign: "center",
+        whiteSpace: "normal",
       },
     },
   };

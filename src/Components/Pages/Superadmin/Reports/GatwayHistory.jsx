@@ -26,73 +26,18 @@ const MainGameReports = ({
   const [SearchInTable, setSearchInTable] = PagesIndex.useState("");
   const [tableData, setTableData] = useState([]);
   const [ProviderList, setProviderList] = useState([]);
-
+  const [first, setfirst] = useState(0);
   const { gameProviders } = PagesIndex.useSelector(
     (state) => state.CommonSlice
   );
-
-  const visibleFields = [
-    {
-      name: "User Name",
-      value: "username",
-      sortable: true,
-    },
-    {
-      name: "Contact No.",
-      value: "mobile",
-      sortable: false,
-      //   transform: (value) =>
-      //     `${formik.values.startdate} To ${formik.values.enddate}`,
-    },
-    {
-      name: "Bank Name",
-      value: "bank_name",
-      sortable: true,
-    },
-    {
-      name: "IFSC Code",
-      value: "ifsc_code",
-      sortable: true,
-    },
-    {
-      name: "Wallet Balance",
-      value: "wallet_balance",
-      sortable: true,
-    },
-    {
-      name: "Request Amount",
-      value: "amount",
-      sortable: true,
-    },
-    {
-      name: "Type",
-      value: "status",
-      sortable: true,
-    },
-    {
-      name: "Date And Time",
-      value: "created_at",
-      sortable: true,
-      transform: (value) => {
-        let dateObj = new Date(value);
-        return dateObj.toLocaleString("en-IN", {
-          day: "2-digit",
-          month: "2-digit",
-          year: "numeric",
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit",
-          hour12: true, // 12-hour format with AM/PM
-        });
-      },
-    },
-  ];
 
   //get game provider data
   const getGameProvidersList = async () => {
     let ApiRoute = `${Api.WITHDRAWLIST}?status=All&start_date=${abc(
       new Date()
     )}&end_date=${abc(new Date())}`;
+
+    setfirst(1);
 
     const res = await PagesIndex.report_service.GET_REPORT_DETAILS_API(
       ApiRoute,
@@ -129,10 +74,13 @@ const MainGameReports = ({
         let ApiRoute;
 
         if (formik.values.HistoryType === "Deposite") {
+          setfirst(1);
           ApiRoute = `${Api.WITHDRAWLIST}?status=${status}&start_date=${startdate}&end_date=${enddate}`;
 
           console.log("ApiRoute", ApiRoute);
         } else if (formik.values.HistoryType === "Withdraw") {
+          setfirst(2);
+
           ApiRoute = `${Api.GATWAYPAYMENTLIST}?status=${status}&start_date=${startdate}&end_date=${enddate}`;
         }
 
@@ -234,13 +182,91 @@ const MainGameReports = ({
     },
   ];
 
+  const visibleFields = [
+    {
+      name: "User Name",
+      value: "username",
+      sortable: true,
+    },
+    {
+      name: "Contact No.",
+      value: "mobile",
+      sortable: false,
+    },
+    {
+      name: "Bank Name",
+      value: "bank_name",
+      sortable: true,
+      style: (row) => ({
+        display: first == 1 ? "none" : "",
+      }),
+    },
+    {
+      name: "IFSC Code",
+      value: "ifsc_code",
+      sortable: true,
+      style: (row) => ({
+        display: first == 1 ? "none" : "",
+        // display: "none",
+      }),
+    },
+    {
+      name: "Wallet Balance",
+      value: "wallet_balance",
+      sortable: true,
+      style: (row) => ({
+        display: first == 1 ? "none" : "",
+        // display: "none",
+      }),
+    },
+    {
+      name: "Request Amount",
+      value: "amount",
+      sortable: true,
+      notheader: true,
+    },
+    {
+      name: "Transaction Id",
+      value: "order_id",
+      sortable: true,
+      transform: (value, row) => {
+        // console.log("row", row);
+        return row.transaction_id || row.order_id || "null";
+      },
+    },
 
-   const totalAmount = useMemo(
-      () => tableData.reduce((acc, item) => acc + (parseFloat(item?.amount) || 0), 0),
-      [tableData]
-    );
-  
-  
+    {
+      name: "Date",
+      value: "created_at",
+      sortable: true,
+      transform: (value) => {
+        let dateObj = new Date(value);
+        return dateObj.toLocaleString("en-IN", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: true, // 12-hour format with AM/PM
+        });
+      },
+    },
+    {
+      name: "Type",
+      value: "status",
+      sortable: true,
+    },
+  ];
+
+  // console.log("formik.values.HistoryType", formik.values.HistoryType);
+
+  const totalAmount = useMemo(
+    () =>
+      tableData.reduce((acc, item) => acc + (parseFloat(item?.amount) || 0), 0),
+    [tableData]
+  );
+
   const cardLayouts = [
     {
       size: 12,
@@ -265,6 +291,7 @@ const MainGameReports = ({
             initialRowsPerPage={25}
             SearchInTable={SearchInTable}
             visibleFields={visibleFields}
+            showIndex={true}
             searchInput={
               <input
                 type="text"

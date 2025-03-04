@@ -62,7 +62,11 @@ const ManualRequest = () => {
   };
 
   const totalAmount = useMemo(
-    () => data.reduce((acc, item) => acc + (parseFloat(item?.transaction_amount) || 0), 0),
+    () =>
+      data.reduce(
+        (acc, item) => acc + (parseFloat(item?.transaction_amount) || 0),
+        0
+      ),
     [data]
   );
 
@@ -70,24 +74,31 @@ const ManualRequest = () => {
     {
       name: "User Name",
       selector: (row) => row.username,
+      sortable: true,
     },
 
     {
       name: "Contact No.",
       selector: (row) => row.mobile,
+      sortable: true,
     },
     {
       name: "Description",
       selector: (row) => <div>{row.description}</div>,
+      wrap: true,
+      sortable: true,
     },
-    // {
-    //   name: "UTR No.",
-    //   selector: (row) => row.utrNumber,
-    // },
-
+    {
+      name: "Transaction Id",
+      selector: (row) => row.transaction_id,
+      sortable: true,
+      wrap: true, // Text wrap enable karega
+      width: "200px",
+    },
     {
       name: "Amount",
       selector: (row) => row.transaction_amount,
+      sortable: true,
     },
     // {
     //   name: "Type",
@@ -117,6 +128,10 @@ const ManualRequest = () => {
     {
       name: "Date & Time",
       selector: (row) => Get_Year_With_Time_With_Column_Saprate(row.createTime),
+      sortable: true,
+      wrap: true, // Text wrap enable karega
+      width: "200px",
+
     },
   ];
 
@@ -136,7 +151,7 @@ const ManualRequest = () => {
       title: "Declined Request",
       content: (
         <div className="mt-4">
-          <PagesIndex.Data_Table columns={columns} data={data} />{" "}
+          <PagesIndex.Data_Table columns={columns} data={data} showFilter={true}/>
           <h3 className="ml-3 mb-3 fw-bold responsive-total-amount">
             Total Amount {totalAmount}/-
           </h3>

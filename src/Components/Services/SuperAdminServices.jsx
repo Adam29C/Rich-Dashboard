@@ -31,7 +31,7 @@ export const GET_DASHBOARD_COUNT_API = async (id, token) => {
 
 export const GET_DASHBOARD_COUNT_UPI_PAYMENT_API = async (token) => {
   try {
-    const res = await axios.get(
+    const res = await axios.post(
       `${BASE_URL}${Api.GET_DASHBOARD_COUNT_UPI_PAYMENT}`,
       {
         headers: header(token),
