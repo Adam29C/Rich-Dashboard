@@ -285,7 +285,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { today } from "../../../Utils/Common_Date";
 
 const WinnerList = () => {
-  console.log("today", today);
+  // console.log("today", today);
 
   //get token in localstorage
   const token = localStorage.getItem("token");

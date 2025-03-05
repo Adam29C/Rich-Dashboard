@@ -78,7 +78,7 @@ const ReusableForm = ({
   const now = moment().hour(0).minute(0);
 
   function onChange(value) {
-    console.log(value && value.format(format));
+    // console.log(value && value.format(format));
   }
 
   // const handleDateTimeChange = (date, name) => {

@@ -312,7 +312,7 @@ const SplitForm = () => {
           }
         });
 
-        console.log("jodiArray" ,jodiArray);
+        // console.log("jodiArray" ,jodiArray);
         
         if (
           !values.gameSession === "Half Sangam Digits" ||

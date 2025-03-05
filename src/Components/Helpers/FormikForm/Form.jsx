@@ -41,7 +41,7 @@ const ReusableForm = ({
   const handleFileChange = (event, index, name) => {
     const file = event.target.files[0];
 
-    console.log("file" ,file);
+    // console.log("file" ,file);
     formik.setFieldValue(name, file);
     
     // if (file) {

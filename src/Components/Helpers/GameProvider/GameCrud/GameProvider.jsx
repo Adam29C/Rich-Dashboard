@@ -25,7 +25,7 @@ const GameProvider = ({
   const [selectedRow, setSelectedRow] = useState(null);
   const [visible, setVisible] = useState(false);
   const dispatch = PagesIndex.useDispatch();
-console.log( selectedRow,10)
+// console.log( selectedRow,10)
   const { gameProviders } = PagesIndex.useSelector(
     (state) => state.CommonSlice
   );

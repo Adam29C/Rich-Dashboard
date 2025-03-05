@@ -13,7 +13,7 @@ const isAuthenticated = "";
 const publicRoutes = [
   {
     path: "/",
-    element: <PublicRoute element={Wraper} isAuthenticated={isAuthenticated} />,
+    element: <PublicRoute element={Wraper} />,
     errorElement: <ErrorPage />,
     children: [
       {

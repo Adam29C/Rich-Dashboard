@@ -9,7 +9,7 @@ import { useMyContext } from "../../Hooks/Context/CreateSidebarContext";
 const SIdebar = () => {
   const location = useLocation();
 
-  let { user_id, role } = JSON.parse(localStorage.getItem("userdetails"));
+  let { user_id, role } = JSON.parse(localStorage.getItem("userdetails")) ||{};
   const { main_wrapper } = useMyContext();
 
   const { getPermissions } = PagesIndex.useSelector(
@@ -17,10 +17,20 @@ const SIdebar = () => {
   );
   const dispatch = PagesIndex.useDispatch();
 
+
+
+  
   const [expandedItem, setExpandedItem] = useState(null);
 
   const getPermissionApi = () => {
+
+    console.log("user_id" ,user_id);
+    
     if (user_id) {
+    console.log("indside" ,user_id);
+
+      // console.log("sdfsdfsdf");
+      
       dispatch(Get_permissions(user_id));
     }
   };
@@ -55,6 +65,10 @@ const SIdebar = () => {
     //   location?.pathname?.split("/")[3] || location.pathname.split("/")[2]
     // );
   }, [location]);
+
+
+
+
 
   return (
     <div className="nk-sidebar">
