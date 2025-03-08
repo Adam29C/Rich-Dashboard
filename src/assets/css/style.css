@@ -11019,6 +11019,9 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 .nk-sidebar .metismenu > li > a {
   transition: none;
 }
+#menu{
+/* height: 100vh !important; */
+}
 .nk-sidebar .metismenu > li:hover i,
 .nk-sidebar .metismenu > li:focus i,
 .nk-sidebar .metismenu > li.active i {

@@ -281,7 +281,8 @@ input:checked + .slider:before {
 
 /* set background image favicon css start*/
 #dynamic-background {
-  background-image: url("../Images/back-image-2.jpg");
+  /* background-image: url("../Images/back-image-2.jpg"); */
+  background: #000
 }
 
 #company-logo {

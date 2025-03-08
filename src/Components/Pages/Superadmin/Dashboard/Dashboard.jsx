@@ -176,6 +176,14 @@ const Dashboard_Component = () => {
       <div className="content-body">
         <div className="container-fluid mt-3">
           <div className="row">
+          <Cards
+              icon="mdi mdi-trending-up"
+              tillnow={<span onClick={() => GetTableData(3)}>View Users</span>}
+              counts={AppUpdateCounts.total}
+              Title="All Users"
+              IconBGcolor="#71b6f9"
+              ResponsiveClass="col-xl-3 col-md-6"
+            />
             {/* <Cards
               icon="fas fa-user-clock"
               tillnow="Till Now"
@@ -184,20 +192,28 @@ const Dashboard_Component = () => {
               IconBGcolor="#71b6f9"
               ResponsiveClass="col-xl-3 col-md-6"
             /> */}
-            <Cards
+            {/* <Cards
               icon="fas fa-user-clock"
               tillnow="Till Now"
               counts={data?.total_user}
               Title="All Users"
               IconBGcolor="#71b6f9"
               ResponsiveClass="col-xl-3 col-md-6"
-            />
+            /> */}
             <Cards
               icon="mdi mdi-trending-up"
               tillnow="Till Now"
               counts={data?.totol_bids}
               Title="Total Bids Amount"
               IconBGcolor="#71b6f9"
+              ResponsiveClass="col-xl-3 col-md-6"
+            />
+             <Cards
+              icon="mdi mdi-trending-up"
+              tillnow="Till Now"
+              counts={data?.total_paid_today}
+              Title="Amount Paid"
+              IconBGcolor="#ff5b5b"
               ResponsiveClass="col-xl-3 col-md-6"
             />
             <Cards
@@ -209,11 +225,35 @@ const Dashboard_Component = () => {
               ResponsiveClass="col-xl-3 col-md-6"
             />
             <Cards
-              icon="mdi mdi-trending-up"
+              icon=" fas fa-user-alt-slash"
               tillnow="Till Now"
-              counts={data?.total_paid_today}
-              Title="Amount Paid"
-              IconBGcolor="#ff5b5b"
+              counts={data?.total_deposit_amount}
+              Title="Total Deposits"
+              IconBGcolor="#5b69bc"
+              ResponsiveClass="col-xl-3 col-md-6"
+            />
+              <Cards
+              icon=" fas fa-user-alt-slash"
+              tillnow="Till Now"
+              counts={data?.total_withdraw_amount}
+              Title="Total Withdraw"
+              IconBGcolor="#5b69bc"
+              ResponsiveClass="col-xl-3 col-md-6"
+            />
+             <Cards
+              icon="mdi mdi-trending-up"
+              tillnow={<span onClick={() => GetTableData(4)}>View Users</span>}
+              counts={AppUpdateCounts.pending}
+              Title="App Update Pending Users"
+              IconBGcolor="#71b6f9"
+              ResponsiveClass="col-xl-3 col-md-6"
+            />
+            <Cards
+              icon="mdi mdi-trending-up"
+              tillnow={<span onClick={() => GetTableData(5)}>View Users</span>}
+              counts={AppUpdateCounts.complete}
+              Title="App Update Complete Users"
+              IconBGcolor="#71b6f9"
               ResponsiveClass="col-xl-3 col-md-6"
             />
             <Cards
@@ -248,22 +288,8 @@ const Dashboard_Component = () => {
               IconBGcolor="#5b69bc"
               ResponsiveClass="col-xl-3 col-md-6"
             />
-            <Cards
-              icon=" fas fa-user-alt-slash"
-              tillnow="Till Now"
-              counts={data?.total_deposit_amount}
-              Title="Total Deposits"
-              IconBGcolor="#5b69bc"
-              ResponsiveClass="col-xl-3 col-md-6"
-            />
-            <Cards
-              icon=" fas fa-user-alt-slash"
-              tillnow="Till Now"
-              counts={data?.total_withdraw_amount}
-              Title="Total Withdraw"
-              IconBGcolor="#5b69bc"
-              ResponsiveClass="col-xl-3 col-md-6"
-            />
+           
+          
             <Cards
               icon="mdi mdi-trending-up"
               tillnow={yesTerday?.createdAt}
@@ -272,30 +298,8 @@ const Dashboard_Component = () => {
               IconBGcolor="#71b6f9"
               ResponsiveClass="col-xl-3 col-md-6"
             />
-            <Cards
-              icon="mdi mdi-trending-up"
-              tillnow={<span onClick={() => GetTableData(3)}>View Users</span>}
-              counts={AppUpdateCounts.total}
-              Title="All Users"
-              IconBGcolor="#71b6f9"
-              ResponsiveClass="col-xl-3 col-md-6"
-            />
-            <Cards
-              icon="mdi mdi-trending-up"
-              tillnow={<span onClick={() => GetTableData(4)}>View Users</span>}
-              counts={AppUpdateCounts.pending}
-              Title="App Update Pending Users"
-              IconBGcolor="#71b6f9"
-              ResponsiveClass="col-xl-3 col-md-6"
-            />
-            <Cards
-              icon="mdi mdi-trending-up"
-              tillnow={<span onClick={() => GetTableData(5)}>View Users</span>}
-              counts={AppUpdateCounts.complete}
-              Title="App Update Complete Users"
-              IconBGcolor="#71b6f9"
-              ResponsiveClass="col-xl-3 col-md-6"
-            />
+          
+           
             {/* </div>
 
           <div className="row"> */}

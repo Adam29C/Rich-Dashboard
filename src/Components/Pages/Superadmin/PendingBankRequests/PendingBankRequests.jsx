@@ -289,8 +289,6 @@ const PendingBankRequests = () => {
   const handlePendingRequestDecline = async (id) => {
     setRowDetails(id);
     setModalStateForRemoveAndBlock(!ModalStateForRemoveAndBlock);
-
- 
   };
 
   const cardLayouts = [

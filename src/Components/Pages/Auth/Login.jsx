@@ -92,7 +92,7 @@ const Users = () => {
   return (
     <>
       <PagesIndex.Auth_Containt title="" col_size={"col-md-6"}>
-        <PagesIndex.Logo />
+        {/* <PagesIndex.Logo /> */}
         <PagesIndex.Formikform
           fieldtype={fields.filter((field) => !field.showWhen)}
           formik={formik}
