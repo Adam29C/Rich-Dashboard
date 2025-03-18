@@ -161,7 +161,7 @@ const SplitForm = () => {
 
           aaaaaaa.sort((a, b) => parseInt(b.loss) - parseInt(a.loss));
 
-          console.log("aaaaaaa", aaaaaaa);
+          // console.log("aaaaaaa", aaaaaaa);
 
           setTotalSingle(aaa);
 
@@ -309,6 +309,9 @@ const SplitForm = () => {
             totalSum += parseInt(finalCal);
           }
 
+          // console.log("totalSum" ,finalCal);
+          
+
           pannaArr.push({
             id: `${key} =`,
             amountToPay: pl,
@@ -316,11 +319,14 @@ const SplitForm = () => {
             FinalLoss: finalCal,
             total: totalSum,
           });
-          m += totalSum;
+          m += parseInt(finalCal);
         });
 
         pannaArr.sort((a, b) => parseInt(b.FinalLoss) - parseInt(a.FinalLoss));
 
+
+        console.log("m" ,m);
+        
         setTotalPana(m);
 
         setTableThree(pannaArr);
@@ -500,7 +506,7 @@ const SplitForm = () => {
             Responsive={"test"}
             additional={
               <>
-                <td className="fw-bold"> Page Total</td>
+                <td className="fw-bold"> Page Total11</td>
                 <td className="fw-bold">{TotalPana}</td>
               </>
             }
@@ -543,7 +549,6 @@ const SplitForm = () => {
               <div className="card">
                 <h3 className="m-0 p-3">Single Digit</h3>
                 <div className="card-body d-flex justify-content-center">
-
                   <div className="col-xl-7">{cardLayouts[2].body}</div>
                 </div>
               </div>
@@ -552,10 +557,9 @@ const SplitForm = () => {
           <div className="row">
             <div className="col-xl-5 col-sm-12">
               <div className="card">
-              <h3 className="m-0 p-3">Pana Digit</h3>
+                <h3 className="m-0 p-3">Pana Digit</h3>
                 <div className="card-body  d-flex justify-content-center">
-                <div className="col-xl-7">{cardLayouts[3].body}</div>
-
+                  <div className="col-xl-7">{cardLayouts[3].body}</div>
                 </div>
               </div>
             </div>

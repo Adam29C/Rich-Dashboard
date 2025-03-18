@@ -46,8 +46,6 @@ const CustomTable = ({
       const firstElement = abc[0] || 0;
       const lastElement = abc[abc.length - 1] || 0;
 
-
-      
       setShowCounting(
         `Showing ${firstElement} to ${lastElement} of ${result.totalRows} entries`
       );
@@ -191,7 +189,7 @@ const CustomTable = ({
             value={rowsPerPage}
             onChange={(e) => setRowsPerPage(Number(e.target.value))}
           >
-            {[5, 10, 25, 50 , 100].map((value) => (
+            {[5, 10, 25, 50, 100].map((value) => (
               <option key={value} value={value}>
                 {value}
               </option>
@@ -232,7 +230,19 @@ const CustomTable = ({
               <th
                 key={col.key}
                 onClick={() => handleSort(col.value)}
-                style={{ cursor: col.sortable ? "pointer" : "default" }}
+                style={
+                  col.notheader
+                    ? {
+                        color: "white", // Default color when notheader
+                        cursor: "pointer",
+                        // display: "none"
+                        // ...(col.style ? col.style(col) : {}),
+                      }
+                    : {
+                        cursor: "pointer",
+                        ...(col.style ? col.style(col) : {}),
+                      }
+                }
               >
                 {col.name}
                 {sortConfig.key === col.value && (

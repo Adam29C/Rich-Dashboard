@@ -156,17 +156,27 @@ const Dashboard_Component = () => {
   ]);
 
   const visibleFields1 = [
-    { name: "User Name", value: "username", sortable: true },
+    { name: "User Name121", value: "username", sortable: true },
+    { name: "Mobile", value: "mobile", sortable: false },
+
+    { name: "Device-Id", value: "deviceId", sortable: true },
+    { name: "CreatedAt", value: "CreatedAt", sortable: true },
+    {
+      name: "Wallet Balance",
+      value: "wallet_balance",
+      sortable: false,
+      style: (row) => ({
+        fontWeight: "bold",
+      }),
+    },
+  ];
+  const visibleFields2 = [
+    { name: "User Name121", value: "username", sortable: true },
     { name: "Mobile", value: "mobile", sortable: false },
     { name: "Device-Id", value: "deviceId", sortable: true },
     { name: "CreatedAt", value: "CreatedAt", sortable: true },
   ];
-  const visibleFields = [
-    { name: "Name", value: "name", sortable: true },
-    { name: "Mobile", value: "mobile", sortable: false },
-    { name: "Balence", value: "wallet_balance", sortable: true },
-    { name: "CreatedAt", value: "CreatedAt", sortable: true },
-  ];
+
 
   return (
     <div>
@@ -437,11 +447,7 @@ const Dashboard_Component = () => {
                   <PagesIndex.TableWithCustomPeginationNew
                     tableData={TableData && TableData}
                     TotalPagesCount={(TotalPages && TotalPages) || []}
-                    columns={
-                      getstatus1 === 1 || getstatus1 === 2
-                        ? visibleFields1
-                        : visibleFields1
-                    }
+                    columns={getstatus1 === 2 ? visibleFields1 : visibleFields2}
                     showIndex={true}
                     Refresh={Refresh}
                     setUserPagenateData={setUserPagenateData}
