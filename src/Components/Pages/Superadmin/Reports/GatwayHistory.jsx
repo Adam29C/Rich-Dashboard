@@ -77,7 +77,7 @@ const MainGameReports = ({
           setfirst(1);
           ApiRoute = `${Api.WITHDRAWLIST}?status=${status}&start_date=${startdate}&end_date=${enddate}`;
 
-          console.log("ApiRoute", ApiRoute);
+          // console.log("ApiRoute", ApiRoute);
         } else if (formik.values.HistoryType === "Withdraw") {
           setfirst(2);
 

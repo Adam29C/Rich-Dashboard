@@ -309,8 +309,6 @@ const SplitForm = () => {
             totalSum += parseInt(finalCal);
           }
 
-       
-
           pannaArr.push({
             id: `${key} =`,
             amountToPay: pl,
@@ -323,9 +321,8 @@ const SplitForm = () => {
 
         pannaArr.sort((a, b) => parseInt(b.FinalLoss) - parseInt(a.FinalLoss));
 
+        console.log("m", m);
 
-        console.log("m" ,m);
-        
         setTotalPana(m);
 
         setTableThree(pannaArr);
@@ -417,14 +414,17 @@ const SplitForm = () => {
       return items._id === formik.values.providerId;
     });
 
+
+
     setshowProvider(
-      `${abc[0] && abc[0].providerName} ( ${formik.values.gameSession}`
+      `${abc[0] && abc[0].providerName} (${formik.values.gameSession}`
     );
   };
 
   PagesIndex.useEffect(() => {
     test();
-  }, [formik.values.providerId]);
+  }, [formik]);
+
 
   const cardLayouts = [
     {
@@ -483,7 +483,7 @@ const SplitForm = () => {
             Responsive={"test"}
             additional={
               <>
-                <td className="fw-bold"> Page Total</td>
+                <td className="fw-bold">Total</td>
                 <td className="fw-bold">{TotalSingle}</td>
               </>
             }
@@ -505,7 +505,7 @@ const SplitForm = () => {
             Responsive={"test"}
             additional={
               <>
-                <td className="fw-bold"> Page Total11</td>
+                <td className="fw-bold">Total</td>
                 <td className="fw-bold">{TotalPana}</td>
               </>
             }

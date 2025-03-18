@@ -15,7 +15,7 @@ const DownloadDebitReport = () => {
   const [totalAmount, setTotalAmount] = PagesIndex.useState(0);
   const [btnStatus, setBtnStatus] = PagesIndex.useState("");
 
-  console.log("TableData" ,TableData);
+  // console.log("TableData" ,TableData);
 
   // const visibleFields = [
   //   "id",

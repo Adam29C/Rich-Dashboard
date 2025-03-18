@@ -141,7 +141,7 @@ const ViewWallet = () => {
         admin_id: user_id,
       };
 
-      console.log("payload", payload);
+      // console.log("payload", payload);
 
       const res = await PagesIndex.admin_services.WALLET_LIST_UPDATE_WALLET_API(
         payload,

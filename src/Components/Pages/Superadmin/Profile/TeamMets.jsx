@@ -6,9 +6,6 @@ const TeamMets = () => {
   const token = localStorage.getItem("token");
   const userdetails = JSON.parse(localStorage.getItem("userdetails"));
 
-  console.log("====================================");
-  console.log("userdetails", userdetails.role);
-  console.log("====================================");
 
   //all state
   const [data, setData] = useState([]);

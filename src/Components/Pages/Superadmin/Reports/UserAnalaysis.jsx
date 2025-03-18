@@ -20,7 +20,7 @@ const AllReports = () => {
 
 
 
-  console.log("");
+  // console.log("");
   
   const [TotalPages, setTotalPages] = PagesIndex.useState(1);
 

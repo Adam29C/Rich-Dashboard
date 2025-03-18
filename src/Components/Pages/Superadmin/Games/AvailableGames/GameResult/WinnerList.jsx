@@ -217,7 +217,7 @@ const WinnerList = () => {
         );
     }
 
-    console.log("remain", res);
+    // console.log("remain", res);
 
     if (res.status) {
       setBtnVisiably(false);

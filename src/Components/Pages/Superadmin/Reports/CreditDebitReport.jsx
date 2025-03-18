@@ -136,7 +136,7 @@ const AllReports = () => {
           );
 
 
-          console.log("res.pagination.total" ,res.pagination.total);
+          // console.log("res.pagination.total" ,res.pagination.total);
           
 
           if (res.status) {
