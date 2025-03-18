@@ -309,8 +309,7 @@ const SplitForm = () => {
             totalSum += parseInt(finalCal);
           }
 
-          // console.log("totalSum" ,finalCal);
-          
+       
 
           pannaArr.push({
             id: `${key} =`,
