@@ -23,6 +23,8 @@ const Dashboard_Component = () => {
 
   const [TotalPages, setTotalPages] = PagesIndex.useState(1);
 
+  console.log("TotalPages", TotalPages);
+
   const [TableData, setTableData] = PagesIndex.useState([]);
 
   const { countDlt, data, yesTerday } = (DashboardData && DashboardData) || [];
@@ -59,17 +61,18 @@ const Dashboard_Component = () => {
 
   const GetTableData = async (request) => {
     if (request === 3 || request === 4 || request === 5) {
-      setIsSUbmitted(true);
       setgetstatus1(request);
       test();
+      setIsSUbmitted(true);
     } else {
       setgetstatus1(request);
       const payload = {
         reqType: request,
-        page: 1,
-        limit: 10,
+        page: UserPagenateData.pageno,
+        limit: UserPagenateData.limit,
         search: SearchInTable,
       };
+      setIsSUbmitted(true);
 
       try {
         const res1 =
@@ -80,9 +83,13 @@ const Dashboard_Component = () => {
 
         setRequest(request);
 
+        const totalRows = res1?.data?.pagination?.totalUsers;
+
+        setTotalPages(totalRows);
+
+
         if (request === 1) {
           setTableData(res1.data.todayRegistered || []);
-          setTotalPages(totalRows);
         } else if (request === 2) {
           setuserFundArr(res1.data.userFundArr || []);
         }
@@ -111,35 +118,107 @@ const Dashboard_Component = () => {
     return totalBalance;
   };
 
-  // const visibleFields = ["Sr.", "name", "mobile", "wallet_balance"];
+  const test12 = async (page, rowsPerPage, searchQuery) => {
+    console.log("ganpatttt");
+    if (IsSUbmitted) {
+      try {
+        const payload = {
+          reqType: getstatus1,
+          page: UserPagenateData.pageno,
+          limit: UserPagenateData.limit,
+          search: SearchInTable,
+        };
+
+        try {
+          const res1 =
+            await PagesIndex.common_services.GET_DASHBOARD_REGISTRED_USERS(
+              payload,
+              token
+            );
+
+          const totalRows = res1.data?.pagination?.totalUsers;
+
+          console.log("totalRows" ,totalRows);
+          
+          if (getstatus1 === 1) {
+            setTableData(res1.data.todayRegistered || []);
+            setTotalPages(totalRows);
+          } else if (getstatus1 === 2) {
+            setuserFundArr(res1.data.userFundArr || []);
+          }
+          setTableData(res1.data.todayRegistered || []);
+        } catch (error) {
+          console.error("Error fetching table data:", error);
+        }
+      } catch {}
+    }
+  };
+
+  PagesIndex.useEffect(() => {
+    test12();
+  }, [UserPagenateData.pageno, UserPagenateData.limit]);
 
   const test = async (page, rowsPerPage, searchQuery) => {
+    console.log("SAdasdasdad");
     if (IsSUbmitted) {
       setModalState(true);
 
       try {
-        const type =
-          getstatus1 === 3
-            ? "all"
-            : getstatus1 === 4
-            ? "pending"
-            : getstatus1 === 5
-            ? "complete"
-            : "";
+        if (getstatus1 === 1 || getstatus1 === 2) {
+          // console.log("getstatus1", getstatus1);
 
-        const response =
-          await PagesIndex.admin_services.GET_APPLICATION_UPDATE_COUNT_USERS_API(
-            `?type=${type}&page=${UserPagenateData.pageno}&limit=${UserPagenateData.limit}`,
-            token
-          );
+          // const payload = {
+          //   reqType: getstatus1,
+          //   page: UserPagenateData.pageno,
+          //   limit: UserPagenateData.limit,
+          //   search: SearchInTable,
+          // };
 
-        const totalRows = response?.pagination?.totalRecords;
-        let mainRes = response.data;
-        if (response.status) {
-          setTableData(mainRes);
-          setTotalPages(totalRows);
+          // try {
+          //   const res1 =
+          //     await PagesIndex.common_services.GET_DASHBOARD_REGISTRED_USERS(
+          //       payload,
+          //       token
+          //     );
+
+          //   const totalRows = res1.data?.pagination?.totalPages;
+
+          //   console.log("totalRowstotalRowstotalRowstotalRows", totalRows);
+
+          //   if (getstatus1 === 1) {
+          //     setTableData(res1.data.todayRegistered || []);
+          //     setTotalPages(totalRows);
+          //   } else if (getstatus1 === 2) {
+          //     setuserFundArr(res1.data.userFundArr || []);
+          //   }
+          //   setTableData(res1.data.todayRegistered || []);
+          // } catch (error) {
+          //   console.error("Error fetching table data:", error);
+          // }
         } else {
-          setTableData([]);
+          const type =
+            getstatus1 === 3
+              ? "all"
+              : getstatus1 === 4
+              ? "pending"
+              : getstatus1 === 5
+              ? "complete"
+              : "";
+
+          const response =
+            await PagesIndex.admin_services.GET_APPLICATION_UPDATE_COUNT_USERS_API(
+              `?type=${type}&page=${UserPagenateData.pageno}&limit=${UserPagenateData.limit}`,
+              token
+            );
+
+          const totalRows = response?.pagination?.totalRecords;
+          let mainRes = response.data;
+          if (response.status) {
+            setTableData(mainRes);
+            setTotalPages(totalRows);
+          } else {
+            setTableData([]);
+          }
         }
       } catch {}
     }
@@ -176,7 +255,6 @@ const Dashboard_Component = () => {
     { name: "Device-Id", value: "deviceId", sortable: true },
     { name: "CreatedAt", value: "CreatedAt", sortable: true },
   ];
-
 
   return (
     <div>
