@@ -100,7 +100,6 @@ const Dashboard_Component = () => {
       totalBalance = Object.values(userFundArr).reduce(
         (sum, item) => sum + item.wallet_balance,
         // (sum, value) => sum + (value || 0),
-
         0
       );
     } else if (Request === 2 && TableData) {
@@ -169,14 +168,12 @@ const Dashboard_Component = () => {
     { name: "CreatedAt", value: "CreatedAt", sortable: true },
   ];
 
-  console.log("TodayDesposite", TodayDesposite);
-
   return (
     <div>
       <div className="content-body">
         <div className="container-fluid mt-3">
           <div className="row">
-          <Cards
+            <Cards
               icon="mdi mdi-trending-up"
               tillnow={<span onClick={() => GetTableData(3)}>View Users</span>}
               counts={AppUpdateCounts.total}
@@ -208,7 +205,7 @@ const Dashboard_Component = () => {
               IconBGcolor="#71b6f9"
               ResponsiveClass="col-xl-3 col-md-6"
             />
-             <Cards
+            <Cards
               icon="mdi mdi-trending-up"
               tillnow="Till Now"
               counts={data?.total_paid_today}
@@ -227,20 +224,23 @@ const Dashboard_Component = () => {
             <Cards
               icon=" fas fa-user-alt-slash"
               tillnow="Till Now"
-              counts={data?.total_deposit_amount}
-              Title="Total Deposits"
+              // counts={data?.total_deposit_amount}
+              counts={TodayDesposite.grandTotal}
+              // Title="Total Deposits"
+              Title="Today Deposits"
               IconBGcolor="#5b69bc"
               ResponsiveClass="col-xl-3 col-md-6"
             />
-              <Cards
+            <Cards
               icon=" fas fa-user-alt-slash"
               tillnow="Till Now"
               counts={data?.total_withdraw_amount}
-              Title="Total Withdraw"
+              // Title="Total Withdraw"
+              Title="Today Withdraw"
               IconBGcolor="#5b69bc"
               ResponsiveClass="col-xl-3 col-md-6"
             />
-             <Cards
+            <Cards
               icon="mdi mdi-trending-up"
               tillnow={<span onClick={() => GetTableData(4)}>View Users</span>}
               counts={AppUpdateCounts.pending}
@@ -288,8 +288,7 @@ const Dashboard_Component = () => {
               IconBGcolor="#5b69bc"
               ResponsiveClass="col-xl-3 col-md-6"
             />
-           
-          
+
             <Cards
               icon="mdi mdi-trending-up"
               tillnow={yesTerday?.createdAt}
@@ -298,8 +297,7 @@ const Dashboard_Component = () => {
               IconBGcolor="#71b6f9"
               ResponsiveClass="col-xl-3 col-md-6"
             />
-          
-           
+
             {/* </div>
 
           <div className="row"> */}
@@ -449,9 +447,8 @@ const Dashboard_Component = () => {
                     setUserPagenateData={setUserPagenateData}
                     UserPagenateData={UserPagenateData}
                     additional={
-                      getstatus1 === 1 ||
-                      (getstatus1 === 2 &&
-                        `Total Registered Balance : ${TodayRegistedUserBalancefun()}`)
+                      (getstatus1 === 1 || getstatus1 === 2) &&
+                      `Total Registered Balance : ${TodayRegistedUserBalancefun()}`
                     }
                   />
                 </div>
