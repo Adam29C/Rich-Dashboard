@@ -85,7 +85,7 @@ const Dashboard_Component = () => {
 
         const totalRows = res1?.data?.pagination?.totalUsers;
 
-        setTotalPages(totalRows);
+          setTotalPages(totalRows);
 
 
         if (request === 1) {

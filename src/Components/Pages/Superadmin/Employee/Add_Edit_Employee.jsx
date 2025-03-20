@@ -278,6 +278,10 @@ function AddEmployee() {
       loginFor: 1,
     };
 
+
+    console.log("addreq" ,addreq);
+    console.log("updatereq" ,updatereq);
+    
     // return;
     const res = userData
       ? await PagesIndex.admin_services.UPDATE_EMPLOYEE(updatereq, token)

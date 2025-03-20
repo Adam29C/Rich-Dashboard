@@ -540,7 +540,7 @@ export const keyMapping = {
   reqONOFF: "Requests On/Off",
   appDebit: "",
   paytmReq: "",
-  bankReq: "",
+  bankReq: "Bank Account(Export)",
   decDebit: "Declined Request",
   notification: "Notification",
   news: "",
@@ -584,15 +584,8 @@ export const keyMapping = {
   upiId: "UPI Id",
   addFoundMode: "",
   deleteUser: "Deleted Users",
-  gatwaypaymenthistory: "Gatway Payment History",
+  gatwaypaymenthistory: "Gatway Deposite History",
+  gatwaypaymenthistorylist: "Gatway Withdrawal List",
+  withdrawrequest: "Withdrawal Requests",
 };
 
-// [
-
-//   "Withdrawal Requests",
-//   "Bank Account(Export)",
-//   "Bank Account(Manual)",
-
-//   "User Analysis",
-
-// ]

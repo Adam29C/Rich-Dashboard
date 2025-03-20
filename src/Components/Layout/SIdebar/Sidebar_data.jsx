@@ -286,7 +286,7 @@ export const admin_Sidebar = [
     headerTitle: "Withdrawal Requests",
     title: "Withdrawal Requests",
     route: "",
-    permission: "appDebit",
+    permission: "withdrawrequest",
     Icon: "fa-solid fa-check",
     NestedElement: [
       {
@@ -314,9 +314,9 @@ export const admin_Sidebar = [
         route: "approvedReports/declined",
       },
       {
-        id: 5 ,
+        id: 5,
         title: "Gatway Withdrawal List",
-        permission: "0",
+        permission: "gatwaypaymenthistorylist",
         route: "withdraw/gatwaypayement",
       },
     ],
