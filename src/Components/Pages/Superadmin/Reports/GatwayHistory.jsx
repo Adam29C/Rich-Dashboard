@@ -33,9 +33,15 @@ const MainGameReports = ({
 
   //get game provider data
   const getGameProvidersList = async () => {
-    let ApiRoute = `${Api.WITHDRAWLIST}?status=ALL&startDate=${abc(
+
+    let abcccc = `${Api.GATWAYPAYMENTLIST }?start_date=${abc(new Date())}&end_date=${abc(
       new Date()
-    )}&endDate=${abc(new Date())}`;
+    )}&status=${status}`;
+
+
+    let ApiRoute = `${Api.WITHDRAWLIST}?status=ALL&start_date=${abc(
+      new Date()
+    )}&end_date=${abc(new Date())}`;
 
     setfirst(1);
 
@@ -44,7 +50,7 @@ const MainGameReports = ({
       token
     );
 
-    
+
     setTableData(res.data);
   };
 
@@ -82,7 +88,8 @@ const MainGameReports = ({
         } else if (formik.values.HistoryType === "Withdraw") {
           setfirst(2);
 
-          ApiRoute = `${Api.GATWAYPAYMENTLIST}?status=${status}&startDate=${startdate}&endDate=${enddate}`;
+    
+          ApiRoute = `${Api.GATWAYPAYMENTLIST}?status=${status}&start_date=${startdate}&end_date=${enddate}`;
         }
 
         const res = await PagesIndex.report_service.GET_REPORT_DETAILS_API(
