@@ -25,9 +25,9 @@ const ManualRequest = () => {
   const getFundRequestList = async () => {
 
     
-    // let abcccc = `${Api.GATWAYPAYMENTLIST }?start_date=${abc(new Date())}&end_date=${abc(
-    //   new Date()
-    // )}&status=${status}`;
+    let abcccc = `${Api.GATWAYPAYMENTLIST }?start_date=${abc(new Date())}&end_date=${abc(
+      new Date()
+    )}&status=${status}`;
 
 
     // console.log('abcccc' ,abcccc);
@@ -35,6 +35,8 @@ const ManualRequest = () => {
       abcccc,
       token
     );
+    console.log('abcccc' ,res);
+
 
     if (res?.status) {
       setData(res?.data);

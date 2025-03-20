@@ -44,6 +44,7 @@ const MainGameReports = ({
       token
     );
 
+    
     setTableData(res.data);
   };
 
