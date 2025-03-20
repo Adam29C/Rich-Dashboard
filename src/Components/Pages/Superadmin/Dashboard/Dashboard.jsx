@@ -438,7 +438,7 @@ const Dashboard_Component = () => {
                       </tr>
                       <tr className="bg-dark text-white">
                         <td>Yesterday Registered</td>
-                        <th>{data?.yesterdayRegistered}</th>
+                        <th>{data?.yesterdayRegister}</th>
                       </tr>
                       <tr>
                         <td>This Week</td>
@@ -458,7 +458,7 @@ const Dashboard_Component = () => {
                       </tr>
                       <tr>
                         <td>Deleted Users</td>
-                        {/* <th>{countDlt && countDlt}</th> */}
+                        <th>{countDlt && countDlt}</th>
                       </tr>
                       <tr className="bg-warning text-white">
                         <td>Total Active Users</td>
