@@ -33,9 +33,9 @@ const MainGameReports = ({
 
   //get game provider data
   const getGameProvidersList = async () => {
-    let ApiRoute = `${Api.WITHDRAWLIST}?status=All&start_date=${abc(
+    let ApiRoute = `${Api.WITHDRAWLIST}?status=ALL&startDate=${abc(
       new Date()
-    )}&end_date=${abc(new Date())}`;
+    )}&endDate=${abc(new Date())}`;
 
     setfirst(1);
 
@@ -53,7 +53,7 @@ const MainGameReports = ({
 
   const formik = PagesIndex.useFormik({
     initialValues: {
-      status: "All",
+      status: "ALL",
       HistoryType: "Deposite",
       start_date: today(new Date()),
       end_date: today(new Date()),
@@ -75,13 +75,13 @@ const MainGameReports = ({
 
         if (formik.values.HistoryType === "Deposite") {
           setfirst(1);
-          ApiRoute = `${Api.WITHDRAWLIST}?status=${status}&start_date=${startdate}&end_date=${enddate}`;
+          ApiRoute = `${Api.WITHDRAWLIST}?status=${status}&startDate=${startdate}&endDate=${enddate}`;
 
           // console.log("ApiRoute", ApiRoute);
         } else if (formik.values.HistoryType === "Withdraw") {
           setfirst(2);
 
-          ApiRoute = `${Api.GATWAYPAYMENTLIST}?status=${status}&start_date=${startdate}&end_date=${enddate}`;
+          ApiRoute = `${Api.GATWAYPAYMENTLIST}?status=${status}&startDate=${startdate}&endDate=${enddate}`;
         }
 
         const res = await PagesIndex.report_service.GET_REPORT_DETAILS_API(
@@ -147,7 +147,7 @@ const MainGameReports = ({
           ? [
               {
                 label: "All",
-                value: "All",
+                value: "ALL",
               },
 
               {
@@ -162,7 +162,7 @@ const MainGameReports = ({
           : [
               {
                 label: "All",
-                value: "All",
+                value: "ALL",
               },
               {
                 label: "PENDING",

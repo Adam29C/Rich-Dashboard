@@ -1363,7 +1363,7 @@ export const GATWAY_PAYMENT_LIST = async (data, token) => {
     const res = await axios.get(
       // `http://192.168.1.8:6999/fundreq/get-payout-requests?status=${data}`,
       // `https://connect.rich143.com/fundreq/get-payout-requests?status=${data}`,
-      `${BASE_URL}${Api.GATWAYPAYMENTLIST}?status=${data}`,
+      `${BASE_URL}${data}`,
       {
         headers: header(token),
       }

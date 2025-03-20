@@ -1,10 +1,12 @@
 import React, { useEffect, useMemo } from "react";
 import PagesIndex from "../../PagesIndex";
 import {
+  abc,
   get_Time_From_Unix_Dete_string,
   Get_Year_With_Time_With_Column_Saprate,
   show,
 } from "../../../Utils/Common_Date";
+import { Api } from "../../../Config/Api";
 
 const ManualRequest = () => {
   //get token in localstorage
@@ -21,8 +23,16 @@ const ManualRequest = () => {
   const status = tabTitles[activeTabIndex];
   //get fund requestdata
   const getFundRequestList = async () => {
+
+    
+    // let abcccc = `${Api.GATWAYPAYMENTLIST }?start_date=${abc(new Date())}&end_date=${abc(
+    //   new Date()
+    // )}&status=${status}`;
+
+
+    // console.log('abcccc' ,abcccc);
     const res = await PagesIndex.admin_services.GATWAY_PAYMENT_LIST(
-      status,
+      abcccc,
       token
     );
 
