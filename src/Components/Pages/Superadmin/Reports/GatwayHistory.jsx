@@ -34,14 +34,10 @@ const MainGameReports = ({
   //get game provider data
   const getGameProvidersList = async () => {
 
-    let abcccc = `${Api.GATWAYPAYMENTLIST }?start_date=${abc(new Date())}&end_date=${abc(
+  
+    let ApiRoute = `${Api.WITHDRAWLIST}?status=ALL&startDate=${abc(
       new Date()
-    )}&status=${status}`;
-
-
-    let ApiRoute = `${Api.WITHDRAWLIST}?status=ALL&start_date=${abc(
-      new Date()
-    )}&end_date=${abc(new Date())}`;
+    )}&endDate=${abc(new Date())}`;
 
     setfirst(1);
 
