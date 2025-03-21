@@ -18,6 +18,9 @@ const ViewWallet = () => {
   const [ModalStateHistoryUserDetails, setModalStateHistoryUserDetails] =
     PagesIndex.useState("");
   const [rowStatus, setRowStatus] = PagesIndex.useState(0);
+  const [setID, setsetID] = PagesIndex.useState("");
+  const [IsSUbmitted, setIsSUbmitted] = PagesIndex.useState(0);
+
   const [UserDetails, setUserDetails] = PagesIndex.useState({
     userData1: {},
     userData2: {},
@@ -64,10 +67,12 @@ const ViewWallet = () => {
         setModalStateHistory(true);
         setModalStateHistoryTable(res.data);
         setTotalPages(res.recordsTotal);
+        setIsSUbmitted(1);
       } else {
         setModalStateHistoryTable([]);
       }
     } else if (number === 2) {
+      setsetID(row._id);
       const payload = {
         id: row._id,
         page: UserPagenateData.pageno,
@@ -82,8 +87,9 @@ const ViewWallet = () => {
 
       if (res) {
         setModalStateHistory(true);
-        setTotalPages(res.recordsTotal);
+        setTotalPages(res.recordsFiltered);
         setModalStateHistoryTable(res.data);
+        setIsSUbmitted(1);
       } else {
         setModalStateHistoryTable([]);
       }
@@ -109,7 +115,7 @@ const ViewWallet = () => {
       amount: "",
       type: 1,
 
-      particular:"manual",
+      particular: "manual",
     },
 
     validate: (values) => {
@@ -317,6 +323,54 @@ const ViewWallet = () => {
     },
   ];
 
+  const test = async (page, rowsPerPage, searchQuery) => {
+    if (IsSUbmitted == 1 && rowStatus === 2) {
+      const payload = {
+        id: setID,
+        page: UserPagenateData.pageno,
+        limit: UserPagenateData.limit,
+        search: SearchInTable,
+      };
+
+      const res = await PagesIndex.admin_services.WALLET_LIST_HISTORY_API(
+        payload,
+        token
+      );
+
+      if (res) {
+        setModalStateHistory(true);
+        setTotalPages(res.recordsFiltered);
+        setModalStateHistoryTable(res.data);
+        // setIsSUbmitted(true);
+      } else {
+        setModalStateHistoryTable([]);
+      }
+    } else if (IsSUbmitted == 1 && rowStatus === 1) {
+      const payload = {
+        id: row._id,
+        page: UserPagenateData.pageno,
+        limit: UserPagenateData.limit,
+        search: SearchInTable,
+      };
+      const res = await PagesIndex.admin_services.WALLET_LIST_CREDIT_API(
+        payload,
+        token
+      );
+      if (res) {
+        setModalStateHistory(true);
+        setModalStateHistoryTable(res.data);
+        setTotalPages(res.recordsTotal);
+        setIsSUbmitted(1);
+      } else {
+        setModalStateHistoryTable([]);
+      }
+    }
+  };
+
+  PagesIndex.useEffect(() => {
+    test();
+  }, [UserPagenateData.pageno, UserPagenateData.limit, rowStatus, TotalPages]);
+
   return (
     <PagesIndex.Main_Containt
       add_button={false}
@@ -407,7 +461,7 @@ const ViewWallet = () => {
                       <tbody>
                         <tr>
                           <td className="font-weight-bold">Bank Name</td>
-                          <td  id="bankName">{userData2.bank_name}</td>
+                          <td id="bankName">{userData2.bank_name}</td>
                         </tr>
                         <tr>
                           <td className="font-weight-bold">Account Number</td>
@@ -418,12 +472,14 @@ const ViewWallet = () => {
                           <td id="ifsc">{userData2.ifsc_code}</td>
                         </tr>
                         <tr>
-                          <td className="font-weight-bold">Account Holder Name</td>
+                          <td className="font-weight-bold">
+                            Account Holder Name
+                          </td>
                           <td id="accHolder">
                             {userData2.account_holder_name}
                           </td>
                         </tr>
-                     
+
                         <tr>
                           <td className="font-weight-bold">Personal Number</td>
                           <td id="regular">{userData1.mobile}</td>
