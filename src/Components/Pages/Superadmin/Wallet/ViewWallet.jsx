@@ -35,17 +35,112 @@ const ViewWallet = () => {
 
   const [TotalPages, setTotalPages] = PagesIndex.useState(1);
 
+  const rowData = (data) => {
+    const description = data?.Description?.toLowerCase() || "";
+
+    if (
+      [
+        "Amount Added To Wallet By",
+        "Amount Added To Wallet By superadmin143",
+        "Wallet Fund Credit via UPI_VIP",
+        "deposite",
+      ].some((word) => {
+        // console.log("description:--------------------", description);
+        // console.log("word:", word);
+        return description.includes(word.toLowerCase());
+      })
+    ) {
+      return "green";
+    } else if (description.includes("withdrawn")) {
+      return "red";
+    } else {
+      return "black"; 
+    }
+  };
+
   const visibleFields1 = [
-    { name: "Previous Amount", value: "Previous_Amount", sortable: true },
+    {
+      name: "Previous Amount",
+      value: "Previous_Amount",
+      sortable: true,
+      notheader: true,
+      style: (row) =>
+        // console.log("rowData(row)" ,rowData(row))
+
+        ({
+          fontWeight: "bold",
+          color: rowData(row),
+        }),
+    },
     {
       name: "Transaction Amount",
       value: "Transaction_Amount",
       sortable: false,
+      notheader: true,
+
+      style: (row) => ({
+        fontWeight: "bold",
+        color: rowData(row),
+      }),
     },
-    { name: "Current Amount", value: "Current_Amount", sortable: true },
-    { name: "Description ", value: "Description", sortable: true },
-    { name: "Transaction Date", value: "Transaction_Date", sortable: true },
-    { name: "Added by", value: "Added_by", sortable: true },
+    {
+      name: "Current Amount",
+      value: "Current_Amount",
+      sortable: true,
+      notheader: true,
+
+      style: (row) => ({
+        fontWeight: "bold",
+        color: rowData(row),
+      }),
+    },
+    {
+      name: "Description ",
+      value: "Description",
+      sortable: true,
+      notheader: true,
+
+      style: (row) => ({
+        fontWeight: "bold",
+        color: rowData(row),
+      }),
+    },
+    {
+      name: "Transaction Date",
+      value: "Transaction_Date",
+      sortable: true,
+      notheader: true,
+
+      style: (row) => ({
+        fontWeight: "bold",
+        color: rowData(row),
+      }),
+    },
+    {
+      name: "Transaction ID",
+      value: "order_id",
+      sortable: true,
+      notheader: true,
+
+      style: (row) => ({
+        fontWeight: "bold",
+        color: rowData(row),
+      }),
+      transform: (value, row) => {
+        return row.order_id || "null";
+      },
+    },
+    {
+      name: "Added by",
+      value: "Added_by",
+      notheader: true,
+
+      sortable: true,
+      style: (row) => ({
+        fontWeight: "bold",
+        color: rowData(row),
+      }),
+    },
   ];
 
   const getHistory = async (row, number) => {

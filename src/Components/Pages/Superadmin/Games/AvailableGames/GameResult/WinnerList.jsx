@@ -31,7 +31,7 @@ const WinnerList = () => {
     setModalState(true);
   };
   const fetchData = async (page, rowsPerPage, searchQuery) => {
-    return;
+   
     const apidata = {
       providerId: data.providerId,
       date: data.resultDate,
@@ -280,7 +280,7 @@ const WinnerList = () => {
     //   size: 12,
     //   body: (
     //     <div>
-    //       {remainingWinnerData === 0 ? (
+    //       {/* {remainingWinnerData === 0 ? ( */}
     //         <div class="d-flex justify-content-end mb-3">
     //           <button
     //             className={`btn btn-dark  mx-2 ${
@@ -293,9 +293,9 @@ const WinnerList = () => {
     //             Confirm Payment
     //           </button>
     //         </div>
-    //       ) : (
+    //       {/* ) : (
     //         ""
-    //       )}
+    //       )} */}
     //       <PagesIndex.TableWithCustomPeginationNew
     //         fetchData={fetchData}
     //         columns={visibleFields}
