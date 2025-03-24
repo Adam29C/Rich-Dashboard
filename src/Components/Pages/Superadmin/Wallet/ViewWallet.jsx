@@ -37,24 +37,18 @@ const ViewWallet = () => {
 
   const rowData = (data) => {
     const description = data?.Description?.toLowerCase() || "";
+    const Previous_Amount = data?.Previous_Amount;
+    const Current_Amount = data?.Current_Amount;
 
     if (
-      [
-        "Amount Added To Wallet By",
-        "Amount Added To Wallet By superadmin143",
-        "Wallet Fund Credit via UPI_VIP",
-        "deposite",
-      ].some((word) => {
-        // console.log("description:--------------------", description);
-        // console.log("word:", word);
-        return description.includes(word.toLowerCase());
-      })
+    
+      parseInt(Previous_Amount) < parseInt(Current_Amount)
     ) {
       return "green";
     } else if (description.includes("withdrawn")) {
       return "red";
     } else {
-      return "black"; 
+      return "black";
     }
   };
 
@@ -497,6 +491,7 @@ const ViewWallet = () => {
       <ReusableModal
         show={ModalStateHistory}
         onClose={setModalStateHistory}
+        dialogClassName="modal-90w"
         title={
           rowStatus === 1 || rowStatus === 2
             ? `Transaction History of : ${ModalStateHistoryUserDetails.username} `
