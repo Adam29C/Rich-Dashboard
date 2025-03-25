@@ -19,7 +19,7 @@ const ManualRequest = () => {
   const [data, setData] = PagesIndex.useState([]);
 
   // Log the corresponding tab name
-  const tabTitles = ["pending", "processing", "approved", "rejected"];
+  const tabTitles = ["pending",  "approved", "rejected"];
   const status = tabTitles[activeTabIndex];
   //get fund requestdata
   const getFundRequestList = async () => {
@@ -240,24 +240,24 @@ const ManualRequest = () => {
         </>
       ),
     },
-    {
-      title: "Processing Request",
-      content: (
-        <>
-          <div className="mt-4">
-            <PagesIndex.Data_Table
-              columns={columns}
-              data={data}
-              // selectableRows
-              // onSelectedRowsChange={handleChange}
-            />
-            <h3 className="ml-3 mb-3 fw-bold responsive-total-amount">
-              Total Amount {totalAmount}/-
-            </h3>
-          </div>
-        </>
-      ),
-    },
+    // {
+    //   title: "Processing Request",
+    //   content: (
+    //     <>
+    //       <div className="mt-4">
+    //         <PagesIndex.Data_Table
+    //           columns={columns}
+    //           data={data}
+    //           // selectableRows
+    //           // onSelectedRowsChange={handleChange}
+    //         />
+    //         <h3 className="ml-3 mb-3 fw-bold responsive-total-amount">
+    //           Total Amount {totalAmount}/-
+    //         </h3>
+    //       </div>
+    //     </>
+    //   ),
+    // },
     {
       title: "Approved Request",
       content: (

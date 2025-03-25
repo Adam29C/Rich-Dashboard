@@ -518,7 +518,7 @@ input:checked + .slider:before {
 
 #myTable {
   width: 100%; 
-  table-layout: fixed; 
+  table-layout: auto; 
   border-collapse: collapse; 
 }
 
@@ -526,7 +526,7 @@ input:checked + .slider:before {
   word-wrap: break-word; 
   padding: 8px; 
   text-align: center; 
-  max-width: 200px; 
+  /* max-width: 200px;  */
   overflow:hidden;
   text-overflow: ellipsis; 
 }

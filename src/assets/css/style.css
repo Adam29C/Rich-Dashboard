@@ -22132,3 +22132,18 @@ a:hover {
   text-overflow: ellipsis;
 }
 
+
+
+
+.dtr-title {
+  display: inline-block;
+  min-width: 75px;
+  font-weight: bold;
+}
+.dtr-details {
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+

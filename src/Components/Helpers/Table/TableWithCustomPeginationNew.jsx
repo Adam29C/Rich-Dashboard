@@ -300,47 +300,7 @@ const CustomTable = ({
               );
             })}
 
-          {/* {filteredData &&
-            filteredData.map((row, index , self) => {
-              let abc =    index === self.findIndex(obj => obj.gameTypeName === item.gameTypeName)
-
-            } 
-           return   <>
-                {showName && (
-                  <tr>
-                    <td
-                      colSpan={columns?.length + 1}
-                      className="h5 winner-list-text-main"
-                    >
-                      {row.gameTypeName}
-                    </td>
-                  </tr>
-                )}
-                <tr key={index}>
-                  {showIndex && <td>{(page - 1) * rowsPerPage + index + 1}</td>}
-                  {columns?.map((field) => (
-                    <td
-                      className={` ${field.className}`}
-                      key={field.value}
-                      style={field.style ? field.style(row) : {}}
-                      onClick={() => {
-                        if (field.onClick) {
-                          field.onClick(row);
-                        }
-                      }}
-                    >
-                      {field.render
-                        ? field.render(row)
-                        : field.transform
-                        ? field.transform(row[field.value], row)
-                        : field.isButton
-                        ? renderButton(field, row)
-                        : row[field.value]}
-                    </td>
-                  ))}
-                </tr>
-              </>
-            )} */}
+        
           {!show_additional && (
             <tr>
               <td colSpan={columns?.length + 1}>{additional}</td>
