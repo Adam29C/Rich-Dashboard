@@ -14868,6 +14868,8 @@ input[type="checkbox"]:checked:after {
 
 .table-bordered thead th {
   border-bottom-width: 1px;
+  width: 110px;
+
 }
 
 .table-primary {
@@ -22132,9 +22134,6 @@ a:hover {
   text-overflow: ellipsis;
 }
 
-
-
-
 .dtr-title {
   display: inline-block;
   min-width: 75px;
@@ -22144,6 +22143,8 @@ a:hover {
   display: flex;
   list-style-type: none;
   margin: 0;
+  text-align: justify;
+  justify-content: center;
   padding: 0;
 }
 
