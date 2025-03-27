@@ -52,12 +52,11 @@ const Users = () => {
 
         const res = await PagesIndex.LOGIN_API(req);
 
-        
+        localStorage.setItem("token", res?.token);
+        localStorage.setItem("userdetails", JSON.stringify(res?.user));
 
         if (res?.status) {
-          localStorage.setItem("token", res?.token);
           PagesIndex.toast.success(res?.message);
-          localStorage.setItem("userdetails", JSON.stringify(res?.user));
           setTimeout(() => {
             navigate("/admin/dashboard");
           }, 2000);

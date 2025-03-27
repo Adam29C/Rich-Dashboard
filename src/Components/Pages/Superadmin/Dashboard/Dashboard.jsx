@@ -85,8 +85,7 @@ const Dashboard_Component = () => {
 
         const totalRows = res1?.data?.pagination?.totalUsers;
 
-          setTotalPages(totalRows);
-
+        setTotalPages(totalRows);
 
         if (request === 1) {
           setTableData(res1.data.todayRegistered || []);
@@ -138,8 +137,8 @@ const Dashboard_Component = () => {
 
           const totalRows = res1.data?.pagination?.totalUsers;
 
-          console.log("totalRows" ,totalRows);
-          
+          console.log("totalRows", totalRows);
+
           if (getstatus1 === 1) {
             setTableData(res1.data.todayRegistered || []);
             setTotalPages(totalRows);
@@ -166,25 +165,20 @@ const Dashboard_Component = () => {
       try {
         if (getstatus1 === 1 || getstatus1 === 2) {
           // console.log("getstatus1", getstatus1);
-
           // const payload = {
           //   reqType: getstatus1,
           //   page: UserPagenateData.pageno,
           //   limit: UserPagenateData.limit,
           //   search: SearchInTable,
           // };
-
           // try {
           //   const res1 =
           //     await PagesIndex.common_services.GET_DASHBOARD_REGISTRED_USERS(
           //       payload,
           //       token
           //     );
-
           //   const totalRows = res1.data?.pagination?.totalPages;
-
           //   console.log("totalRowstotalRowstotalRowstotalRows", totalRows);
-
           //   if (getstatus1 === 1) {
           //     setTableData(res1.data.todayRegistered || []);
           //     setTotalPages(totalRows);
@@ -255,6 +249,8 @@ const Dashboard_Component = () => {
     { name: "Device-Id", value: "deviceId", sortable: true },
     { name: "CreatedAt", value: "CreatedAt", sortable: true },
   ];
+
+ 
 
   return (
     <div>

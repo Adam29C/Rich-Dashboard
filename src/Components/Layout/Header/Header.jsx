@@ -32,17 +32,49 @@ const Header = () => {
     PagesIndex.toast.success("Logged Out Successfully");
   };
 
+  // const abcd = () => {
+  //   const checkTokenExpiry = () => {
+  //     GetExpired(token, navigate);
+  //   };
+  //   const interval = setInterval(checkTokenExpiry, 5000);
+  //   return () => clearInterval(interval);
+  // };
+
+  // PagesIndex.useEffect(() => {
+  //   abcd();
+  // }, []);
+
   const abcd = () => {
+    let alertShown = false;
+
     const checkTokenExpiry = () => {
-      GetExpired(token, navigate);
+      let interval = setInterval(() => {
+        let now = new Date();
+
+        // console.log("now.getHours()", now.getHours());
+        // console.log("now.getMinutes()", now.getMinutes());
+
+        if (now.getHours() === 23 && now.getMinutes() === 59) {
+          if (!alertShown) {
+            alert("Your Session Expired. Please Login Again.");
+            alertShown = true;
+          }
+
+          localStorage.removeItem("token");
+          localStorage.removeItem("userdetails");
+          navigate("/", { replace: true });
+
+          clearInterval(interval);
+        }
+      }, 1000);
     };
-    const interval = setInterval(checkTokenExpiry, 5000);
-    return () => clearInterval(interval);
+
+    checkTokenExpiry();
   };
 
   PagesIndex.useEffect(() => {
-    abcd();
-  }, []);
+    abcd(navigate);
+  }, [navigate]);
 
   return (
     <div className="header">
