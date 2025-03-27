@@ -16,7 +16,7 @@ const ReusableModal = ({
   size,
 }) => {
   return (
-    <Modal show={show} onHide={() => onClose()} size={ size}  dialogClassName="custom-modal12" >
+    <Modal show={show}   onHide={() => onClose()} size={ size}  dialogClassName="custom-modal12" >
       <Modal.Header closeButton>
         <Modal.Title>{title}</Modal.Title>
       </Modal.Header>

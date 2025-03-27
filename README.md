@@ -396,7 +396,7 @@ const CustomTable = ({
         <div className="col-md-6">
           <span className="fw-bold">{showCounting}</span>
         </div>
-        <div className="col-md-6">
+        <div className="col-md-6"> 
           <nav className="">
             <ul className="pagination justify-content-end">
               <li className="page-item">
@@ -417,7 +417,7 @@ const CustomTable = ({
                   Previous
                 </button>
               </li>
-              <li className="page-item">
+              <li className="page-item">. 
                 <button
                   className="page-link"
                   onClick={() =>

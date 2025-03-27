@@ -40,10 +40,7 @@ const ViewWallet = () => {
     const Previous_Amount = data?.Previous_Amount;
     const Current_Amount = data?.Current_Amount;
 
-    if (
-    
-      parseInt(Previous_Amount) < parseInt(Current_Amount)
-    ) {
+    if (parseInt(Previous_Amount) < parseInt(Current_Amount)) {
       return "green";
     } else if (description.includes("withdrawn")) {
       return "red";
@@ -64,6 +61,7 @@ const ViewWallet = () => {
         ({
           fontWeight: "bold",
           color: rowData(row),
+          width : '20px !important',
         }),
     },
     {
@@ -97,6 +95,8 @@ const ViewWallet = () => {
       style: (row) => ({
         fontWeight: "bold",
         color: rowData(row),
+        fontSize: "11px",
+        width : '20px !important',
       }),
     },
     {
@@ -528,7 +528,7 @@ const ViewWallet = () => {
             ) : rowStatus === 3 ? (
               <div className="main">
                 <div className="profile-content">
-                  <div className="container">
+                  <div className="container-fluid">
                     <div className="row">
                       <div className="col-md-6 ml-auto mr-auto">
                         <div className="profile">
@@ -546,7 +546,7 @@ const ViewWallet = () => {
                   </div>
                 </div>
                 <div className="user-data">
-                  <div className="container">
+                  <div className="container-fluid">
                     <table className="table table-bordered profile-content-table">
                       <tbody>
                         <tr>

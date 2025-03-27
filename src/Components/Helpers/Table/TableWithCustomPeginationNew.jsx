@@ -182,7 +182,7 @@ const CustomTable = ({
   };
 
   return (
-    <div className="container">
+    <div className="container-fluid">
       <div className="main-table-fields">
         <div className="select-search-main">
           <label htmlFor="rowsPerPage" className="form-label me-2">
