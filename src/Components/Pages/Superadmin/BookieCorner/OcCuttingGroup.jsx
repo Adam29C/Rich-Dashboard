@@ -471,6 +471,7 @@ const SplitForm = () => {
             initialRowsPerPage={25}
             SearchInTable={SearchInTable}
             visibleFields={visibleFields}
+            showIndex={false}
             //  Responsive={"test"}
 
             // UserFullButtonList={UserFullButtonList}
@@ -505,6 +506,7 @@ const SplitForm = () => {
             initialRowsPerPage={100}
             SearchInTable={SearchInTable}
             visibleFields={visibleFields1}
+            showIndex={false}
             // Responsive={"test"}
           />
         </div>

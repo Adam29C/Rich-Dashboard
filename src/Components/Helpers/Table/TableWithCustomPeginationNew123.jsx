@@ -17,13 +17,10 @@ const PaginatedTable = ({
   const [searchQuery, setSearchQuery] = useState("");
   const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
   const [isResponsive, setIsResponsive] = useState(window.innerWidth < 768);
-  const [expandedRows, setExpandedRows] = useState({});
-
-  console.log("expandedRows", expandedRows);
-
   const [isResponsive123, setIsResponsive123] = useState(
     Responsive && Responsive
   );
+
 
   const [showCounting, setShowCounting] = useState(
     "Showing 0 to 0 of 0 entries"
@@ -175,11 +172,6 @@ const PaginatedTable = ({
 
   // console.log("Responsive && Responsive" ,Responsive && Responsive);
 
-  const toggleRow = (index) => {
-    setExpandedRows((prevIndex) => (prevIndex === index ? null : index));
-  };
-  
-
   return (
     <div className="container">
       {/* Controls */}
@@ -224,34 +216,30 @@ const PaginatedTable = ({
       >
         <thead className="primary-color text-center">
           <tr>
-            <th>Sr.</th>
-            {visibleFields.map((field, colIndex) =>
-              isResponsive && colIndex > 1 ? null : (
-                <th
-                  key={field.value}
-                  onClick={() => handleSort(field.value)}
-                  style={
-                    field.notheader
-                      ? {
-                          color: "white", // Default color when notheader
-                          cursor: "pointer",
-                          // ...(field.style ? field.style(field) : {}),
-                        }
-                      : {
-                          cursor: "pointer",
-                          ...(field.style ? field.style(field) : {}),
-                        }
-                  }
-                >
-                  {field.name}
-                  {sortConfig.key === field.value && (
-                    <span>
-                      {sortConfig.direction === "asc" ? " ↑ " : " ↓ "}
-                    </span>
-                  )}
-                </th>
-              )
-            )}
+            {showIndex && <th>Sr.</th>}
+            {visibleFields.map((field) => (
+              <th
+                key={field.value}
+                onClick={() => handleSort(field.value)}
+                style={
+                  field.notheader
+                    ? {
+                        color: "white", // Default color when notheader
+                        cursor: "pointer",
+                        // ...(field.style ? field.style(field) : {}),
+                      }
+                    : {
+                        cursor: "pointer",
+                        ...(field.style ? field.style(field) : {}),
+                      }
+                }
+              >
+                {field.name}
+                {sortConfig.key === field.value && (
+                  <span>{sortConfig.direction === "asc" ? " ↑ " : " ↓ "}</span>
+                )}
+              </th>
+            ))}
           </tr>
         </thead>
         <tbody className="text-center">
@@ -268,78 +256,6 @@ const PaginatedTable = ({
                 </tr>
               )}
               {currentData.map((row, index) => (
-                <React.Fragment key={index}>
-                  <tr>
-                    <td>
-                      <div className="d-flex ">
-                        <div>
-                          {isResponsive && (
-                            <span
-                              className="plus_btn"
-                              onClick={() => toggleRow(index)}
-                            >
-                              {expandedRows === index ? "-" : "+"}
-                            </span>
-                          )}
-                        </div>
-                        {(currentPage - 1) * rowsPerPage + index + 1}
-                      </div>
-                    </td>
-
-                    {visibleFields?.map((field, colIndex) =>
-                      isResponsive && colIndex > 1 ? null : (
-                        <td
-                          className={` ${field.className}`}
-                          key={field.value}
-                          style={field.style ? field.style(row) : {}}
-                          onClick={() => field.onClick && field.onClick(row)}
-                          // colSpan={8}
-                        >
-                          {field.render
-                            ? field.render(row)
-                            : field.transform
-                            ? field.transform(row[field.value], row)
-                            : field.isButton
-                            ? renderButton(field, row)
-                            : row[field.value]}
-                        </td>
-                      )
-                    )}
-                  </tr>
-                  {isResponsive && expandedRows === index && (
-                    <tr>
-                      <>
-                        <td colSpan={3}>
-                          {visibleFields.slice(2).map((field) => (
-                            <>
-                              <ul class="dtr-details">
-                                <li className="">
-                                  <span class="dtr-title my-2">
-                                    {field.name} : &nbsp;
-                                  </span>
-                                  <span
-                                    class="dtr-data"
-                                    style={field.style ? field.style(row) : {}}
-                                  >
-                                    {field.render
-                                      ? field.render(row)
-                                      : field.transform
-                                      ? field.transform(row[field.value], row)
-                                      : field.isButton
-                                      ? renderButton(field, row)
-                                      : row[field.value]}
-                                  </span>
-                                </li>
-                              </ul>
-                            </>
-                          ))}
-                        </td>
-                      </>
-                    </tr>
-                  )}
-                </React.Fragment>
-              ))}
-              {/* {currentData.map((row, index) => (
                 <tr key={index}>
                   {showIndex && (
                     <td>{(currentPage - 1) * rowsPerPage + index + 1}</td>
@@ -364,7 +280,7 @@ const PaginatedTable = ({
                     </td>
                   ))}
                 </tr>
-              ))} */}
+              ))}
               <tr> {additional}</tr>
             </>
           ) : (

@@ -27,7 +27,6 @@ import * as admin_services from "../Services/SuperAdminServices";
 import * as common_services from "../Services/CommonServices";
 import * as game_service from "../Services/GameSectionService";
 import * as report_service from "../Services/ReportService";
-
 import {
   ADD_SYSTEM_INFO_API,
   LIST_SYSTEM_INFO_API,

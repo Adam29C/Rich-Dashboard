@@ -27,8 +27,6 @@ const CustomTable = ({
     "Showing 0 to 0 of 0 entries"
   );
 
-  const [expandedRows, setExpandedRows] = useState({});
-
   const fetchTableData = async () => {
     setLoading(true);
     setError(null);
@@ -177,12 +175,8 @@ const CustomTable = ({
     };
   }, [window.innerWidth]);
 
-  const toggleRow = (index) => {
-    setExpandedRows((prevIndex) => (prevIndex === index ? null : index));
-  };
-
   return (
-    <div className="container-fluid">
+    <div className="container">
       <div className="main-table-fields">
         <div className="select-search-main">
           <label htmlFor="rowsPerPage" className="form-label me-2">
@@ -228,115 +222,85 @@ const CustomTable = ({
         className={`table table-striped table-bordered custom-table-container ${
           isResponsive ? "table-responsive" : ""
         }`}
-        style={{ width: "100%" }}
       >
         <thead className="primary-color text-center table-header-backeground">
           <tr>
             {showIndex && <th>Sr.</th>}
-            {columns?.map((col, colIndex) =>
-              isResponsive && colIndex > 1 ? null : (
-                <th
-                  key={col.key}
-                  onClick={() => handleSort(col.value)}
-                  style={
-                    col.notheader
-                      ? {
-                          color: "white", // Default color when notheader
-                          cursor: "pointer",
-                          // display: "none"
-                          // ...(col.style ? col.style(col) : {}),
-                        }
-                      : {
-                          cursor: "pointer",
-                          ...(col.style ? col.style(col) : {}),
-                        }
-                  }
-                >
-                  {col.name}
-                  {sortConfig.key === col.value && (
-                    <span>{sortConfig.direction === "asc" ? " ↑" : " ↓"}</span>
-                  )}
-                </th>
-              )
-            )}
+            {columns?.map((col) => (
+              <th
+                key={col.key}
+                onClick={() => handleSort(col.value)}
+                style={
+                  col.notheader
+                    ? {
+                        color: "white", // Default color when notheader
+                        cursor: "pointer",
+                        // display: "none"
+                        // ...(col.style ? col.style(col) : {}),
+                      }
+                    : {
+                        cursor: "pointer",
+                        ...(col.style ? col.style(col) : {}),
+                      }
+                }
+              >
+                {col.name}
+                {sortConfig.key === col.value && (
+                  <span>{sortConfig.direction === "asc" ? " ↑" : " ↓"}</span>
+                )}
+              </th>
+            ))}
           </tr>
         </thead>
         <tbody className="text-center">
-          {data.map((row, index) => (
-            <React.Fragment key={index}>
-              <tr>
-                {showIndex && (
-                  <td>
-                    <div className="d-flex ">
-                      <div>
-                        {isResponsive && (
-                          <span
-                            className="plus_btn"
-                            onClick={() => toggleRow(index)}
-                          >
-                            {expandedRows === index ? "-" : "+"}
-                          </span>
-                        )}
-                      </div>
-                      <div className="text-center">
-                        {(page - 1) * rowsPerPage + index + 1}
-                      </div>
-                    </div>
-                  </td>
-                )}
+          {filteredData &&
+            filteredData.map((row, index, self) => {
+              const isUnique =
+                index ===
+                self.findIndex((obj) => obj.gameTypeName === row.gameTypeName);
 
-                {columns?.map((field, colIndex) =>
-                  isResponsive && colIndex > 1 ? null : (
-                    <td
-                      className={` ${field.className}`}
-                      key={field.value}
-                      style={field.style ? field.style(row) : {}}
-                      onClick={() => field.onClick && field.onClick(row)}
-                      // colSpan={8}
-                    >
-                      {field.render
-                        ? field.render(row)
-                        : field.transform
-                        ? field.transform(row[field.value], row)
-                        : field.isButton
-                        ? renderButton(field, row)
-                        : row[field.value]}
-                    </td>
-                  )
-                )}
-              </tr>
-              {isResponsive && expandedRows === index && (
-                <tr>
-                  <td colSpan={3}>
-                    {columns.slice(2).map((field) => (
-                      <>
-                        <ul class="dtr-details">
-                          <li className="">
-                            <span class="dtr-title my-2">
-                              {field.name} : &nbsp;
-                            </span>
-                            <span
-                              class="dtr-data"
-                              style={field.style ? field.style(row) : {}}
-                            >
-                              {field.render
-                                ? field.render(row)
-                                : field.transform
-                                ? field.transform(row[field.value], row)
-                                : field.isButton
-                                ? renderButton(field, row)
-                                : row[field.value]}
-                            </span>
-                          </li>
-                        </ul>
-                      </>
+              return (
+                <React.Fragment key={index}>
+                  {isUnique && showName && (
+                    <tr>
+                      <td
+                        colSpan={columns?.length + 1}
+                        className="h5 winner-list-text-main"
+                      >
+                        {row.gameTypeName}
+                      </td>
+                    </tr>
+                  )}
+                  <tr>
+                    {showIndex && (
+                      <td>{(page - 1) * rowsPerPage + index + 1}</td>
+                    )}
+                    {columns?.map((field) => (
+                      <td
+                        className={` ${field.className}`}
+                        key={field.value}
+                        style={field.style ? field.style(row) : {}}
+                        onClick={() => {
+                          if (field.onClick) {
+                            field.onClick(row);
+                          }
+                        }}
+                      >
+                        {field.render
+                          ? field.render(row)
+                          : field.transform
+                          ? field.transform(row[field.value], row)
+                          : field.isButton
+                          ? renderButton(field, row)
+                          : row[field.value]}
+                      </td>
                     ))}
-                  </td>
-                </tr>
-              )}
-            </React.Fragment>
-          ))}
+                  </tr>
+                </React.Fragment>
+              );
+            })}
 
+        
           {!show_additional && (
             <tr>
               <td colSpan={columns?.length + 1}>{additional}</td>
