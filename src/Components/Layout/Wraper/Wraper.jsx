@@ -22,7 +22,6 @@ function MainContent() {
 
   const [first, setfirst] = useState(false);
 
-
   const handleResize = () => {
     setIsResponsive(window.innerWidth > 550);
     // $('#main-wrapper').removeClass('menu-toggle');

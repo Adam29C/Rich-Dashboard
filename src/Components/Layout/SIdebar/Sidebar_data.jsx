@@ -40,10 +40,9 @@ export const admin_Sidebar = [
       {
         id: 3,
         title: "Game Rates",
-        permission: "gamesRates",
         route: "game/rates",
+        permission: "gamesRates",
       },
-
       {
         id: 4,
         title: "Game Result",
@@ -53,13 +52,13 @@ export const admin_Sidebar = [
       {
         id: 5,
         title: "Revert Result Payment",
-        permission: "0",
+        permission: "mainrevertpayment",
         route: "game/revertpayment",
       },
       {
         id: 6,
         title: "Refund User Points",
-        permission: "0",
+        permission: "mainrefundpayment",
         route: "game/refundpayment",
       },
     ],
@@ -105,13 +104,13 @@ export const admin_Sidebar = [
         id: 6,
         title: "Star Revert Result Payment",
         route: "starline/revertpayment",
-        permission: "0",
+        permission: "starlinerevertpayment",
       },
       {
         id: 7,
         title: "Refund User Points",
         route: "starline/refundlist",
-        permission: "0",
+        permission: "starlinerefundpayment",
       },
     ],
   },
@@ -156,13 +155,13 @@ export const admin_Sidebar = [
       {
         id: 6,
         title: "Jackpot Revert Result Payment",
-        permission: "0",
+        permission: "jackpotrevertpayment",
         route: "jackpot/revertpayment",
       },
       {
         id: 7,
         title: "Refund User Points",
-        permission: "0",
+        permission: "jackpotrefundpayment",
         route: "jackpot/refundlist",
       },
     ],
@@ -459,7 +458,7 @@ export const admin_Sidebar = [
         id: 17,
         title: "Gatway History",
         route: "gatway/history",
-        permission: "0",
+        permission: "gatewayhistory",
       },
     ],
   },

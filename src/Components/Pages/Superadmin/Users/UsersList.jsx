@@ -56,7 +56,8 @@ const App = () => {
       sortable: false,
     },
     {
-      name: "Mobile",
+      name: "Mobile", 
+      
       value: "mobile",
       sortable: true,
     },

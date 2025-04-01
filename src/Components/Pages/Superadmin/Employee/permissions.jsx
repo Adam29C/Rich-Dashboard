@@ -518,18 +518,26 @@ export const keyMapping = {
   gamesSetting: "Games Setting",
   gamesRates: "Game Rates",
   gamesResult: "Game Result",
+  mainrevertpayment: "Revert Result Payment",
+  mainrefundpayment: "Refund User Points",
   starline: "Starline",
   starlineProvider: "Star Game Provider",
   starlineSetting: "Star Games Setting",
   starlineRates: "Star Game Rates",
   starlineProfit: "Star Profit/Loss",
   starlineResult: "Star Game Result",
+  starlinerevertpayment: "Star Revert Result Payment",
+  starlinerefundpayment: "Star Refund User Points",
+
   ab: "Jackpot",
   abProvider: "Jackpot Game Provider",
   abSetting: "Jackpot Games Setting",
   abRates: "Jackpot Game Rates",
   abProftLoss: "Jackpot Profit/Loss",
   abResult: "Jackpot Game Result",
+  jackpotrefundpayment: "Jackpot Refund User Points",
+  jackpotrevertpayment: "Jackpot Revert Result Payment ",
+
   cg: "Cutting Group",
   fcg: "Final OC Cutting Group",
   wallet: "Wallet",
@@ -587,5 +595,5 @@ export const keyMapping = {
   gatwaypaymenthistory: "Gatway Deposite History",
   gatwaypaymenthistorylist: "Gatway Withdrawal List",
   withdrawrequest: "Withdrawal Requests",
+  gatewayhistory: "Gatway History",
 };
-

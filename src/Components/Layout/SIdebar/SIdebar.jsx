@@ -9,7 +9,7 @@ import { useMyContext } from "../../Hooks/Context/CreateSidebarContext";
 const SIdebar = () => {
   const location = useLocation();
 
-  let { user_id, role } = JSON.parse(localStorage.getItem("userdetails")) ||{};
+  let { user_id, role } = JSON.parse(localStorage.getItem("userdetails")) || {};
   const { main_wrapper } = useMyContext();
 
   const { getPermissions } = PagesIndex.useSelector(
@@ -17,20 +17,12 @@ const SIdebar = () => {
   );
   const dispatch = PagesIndex.useDispatch();
 
-
-
-  
   const [expandedItem, setExpandedItem] = useState(null);
 
+  console.log("admin_Sidebar12121212", admin_Sidebar);
+
   const getPermissionApi = () => {
-
-    console.log("user_id" ,user_id);
-    
     if (user_id) {
-    console.log("indside" ,user_id);
-
-      // console.log("sdfsdfsdf");
-      
       dispatch(Get_permissions(user_id));
     }
   };
@@ -49,6 +41,11 @@ const SIdebar = () => {
       main_wrapper();
     }
   };
+
+  PagesIndex.useEffect(() => {
+    getPermissionApi();
+  }, [user_id]);
+
   const filteredSidebar = filterSidebarItems(
     admin_Sidebar,
     role,
@@ -66,9 +63,7 @@ const SIdebar = () => {
     // );
   }, [location]);
 
-
-
-
+  console.log("filteredSidebar1212121", filteredSidebar);
 
   return (
     <div className="nk-sidebar">
