@@ -1,11 +1,17 @@
 import PagesIndex from "../../../Pages/PagesIndex";
-import { Games_Provider_List } from "../../../Redux/slice/CommonSlice";
+import {
+  Games_Provider_List,
+  Games_Provider_List1,
+} from "../../../Redux/slice/CommonSlice";
 import { useState } from "react";
 import {
   convertTo12HourFormat,
   convertTo12HourFormat123,
 } from "../../../Utils/Common_Date";
-import { convertTo24HourFormat, isTimeFormat } from "../../../Utils/Valid_Rejex";
+import {
+  convertTo24HourFormat,
+  isTimeFormat,
+} from "../../../Utils/Valid_Rejex";
 
 const GameProvider = ({
   data,
@@ -25,8 +31,8 @@ const GameProvider = ({
   const [selectedRow, setSelectedRow] = useState(null);
   const [visible, setVisible] = useState(false);
   const dispatch = PagesIndex.useDispatch();
-// console.log( selectedRow,10)
-  const { gameProviders } = PagesIndex.useSelector(
+  // console.log( selectedRow,10)
+  const { gameProviders1, gameProviders } = PagesIndex.useSelector(
     (state) => state.CommonSlice
   );
 
@@ -37,7 +43,6 @@ const GameProvider = ({
           provider_list,
           token
         );
-
       if (res.status) {
         setGetProviderData(res.data);
       }
@@ -71,7 +76,6 @@ const GameProvider = ({
           token
         );
       }
-
       if (res.status) {
         PagesIndex.toast.success(res?.message);
         getGameProviderList();
@@ -118,24 +122,24 @@ const GameProvider = ({
     }
   };
 
-
-const providerNameSet = selectedRow
+  const providerNameSet = selectedRow;
   const formik = PagesIndex.useFormik({
     enableReinitialize: true,
     initialValues: {
       // gamename: selectedRow
       //   ? convertTo24HourFormat(selectedRow.providerName)
       //   : "",
-      gamename : selectedRow
-    ? isTimeFormat(selectedRow.providerName)
-        ? convertTo24HourFormat(selectedRow.providerName)
-        : selectedRow.providerName
-    : "",
+      gamename: selectedRow
+        ? isTimeFormat(selectedRow.providerName)
+          ? convertTo24HourFormat(selectedRow.providerName)
+          : selectedRow.providerName
+        : "",
       result: selectedRow ? selectedRow?.providerResult : "",
       // mobile: selectedRow ? selectedRow?.mobile : "",
-      activeStatus:  selectedRow?.activeStatus !== undefined
-      ? String(selectedRow?.activeStatus)
-      : "true",
+      activeStatus:
+        selectedRow?.activeStatus !== undefined
+          ? String(selectedRow?.activeStatus)
+          : "true",
     },
     validate: (values) => {
       const errors = {};
@@ -307,8 +311,11 @@ const providerNameSet = selectedRow
       },
     },
   ].filter((field) => {
-    if (field.value === "activeStatus" && (gametype === "StarLine" || gametype === "JackPot")) {
-      return false; 
+    if (
+      field.value === "activeStatus" &&
+      (gametype === "StarLine" || gametype === "JackPot")
+    ) {
+      return false;
     }
     return true;
   });

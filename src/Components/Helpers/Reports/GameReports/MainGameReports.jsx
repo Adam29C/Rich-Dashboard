@@ -3,7 +3,10 @@ import Split_Main_Containt from "../../../Layout/Main/Split_Main_Content";
 import PagesIndex from "../../../Pages/PagesIndex";
 import { getActualDateFormate, today } from "../../../Utils/Common_Date";
 import "react-datepicker/dist/react-datepicker.css";
-import { Games_Provider_List } from "../../../Redux/slice/CommonSlice";
+import {
+  Games_Provider_List,
+  Games_Provider_List1,
+} from "../../../Redux/slice/CommonSlice";
 
 const MainGameReports = ({
   gameType,
@@ -11,7 +14,6 @@ const MainGameReports = ({
   starandjackProvider,
   title,
 }) => {
-  
   //get token in local storage
   const token = localStorage.getItem("token");
   //set actual date
@@ -26,7 +28,7 @@ const MainGameReports = ({
   const [tableData, setTableData] = useState([]);
   const [ProviderList, setProviderList] = useState([]);
 
-  const { gameProviders } = PagesIndex.useSelector(
+  const { gameProviders1 } = PagesIndex.useSelector(
     (state) => state.CommonSlice
   );
 
@@ -82,7 +84,7 @@ const MainGameReports = ({
   //get game provider data
   const getGameProvidersList = async () => {
     if (gameType === "mainGame") {
-      dispatch(Games_Provider_List(token));
+      dispatch(Games_Provider_List1(token));
     } else {
       const res =
         await PagesIndex.game_service.FOR_STARLINE_AND_JACPOT_PROVIDER_LIST_API(
@@ -204,8 +206,8 @@ const MainGameReports = ({
         gameType === "mainGame"
           ? [
               { label: "All", value: "0" },
-              ...(gameProviders
-                ? gameProviders.map((item) => ({
+              ...(gameProviders1
+                ? gameProviders1.map((item) => ({
                     label: item.providerName,
                     value: item._id,
                   }))

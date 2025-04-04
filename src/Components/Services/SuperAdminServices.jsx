@@ -196,6 +196,17 @@ export const GAME_PROVIDER_GET_LIST_API = async (token) => {
     return error;
   }
 };
+export const GAME_PROVIDER_GET_LIST_API1 = async (token) => {
+  try {
+    const res = await axios.get(`${BASE_URL}${Api.MAIN_GAME121}`, {
+      headers: header(token),
+    });
+
+    return res?.data;
+  } catch (error) {
+    return error;
+  }
+};
 
 export const GAME_PROVIDER_ADD_API = async (data, token) => {
   try {
@@ -1374,10 +1385,11 @@ export const GATWAY_PAYMENT_LIST = async (data, token) => {
   }
 };
 
-
-export const GATWAY_PAYMENT_DEPOSITE_OR_DECLINED= async (data, token) => {
+export const GATWAY_PAYMENT_DEPOSITE_OR_DECLINED = async (data, token) => {
   try {
-    const res = await axios.post(`${BASE_URL}${Api.GATWAYPAYMENTAPPROVE}`,data,
+    const res = await axios.post(
+      `${BASE_URL}${Api.GATWAYPAYMENTAPPROVE}`,
+      data,
       {
         headers: header(token),
       }

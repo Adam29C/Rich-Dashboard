@@ -28,6 +28,8 @@ const Api = {
   //MAIN GAME API'S
   MAIN_GAME: "mainGames",
   MAIN_GAME_ADD: "mainGames/insertGame",
+  MAIN_GAME121: "api/web/games",
+
 
   // MAIN GAME RATE
 

@@ -96,7 +96,7 @@ const AllReports = () => {
           sortable: false,
         },
         {
-          name: "Time",
+          name: "Date & Time",
           value: "reqUpdatedAt",
           sortable: true,
           transform: (item) => {

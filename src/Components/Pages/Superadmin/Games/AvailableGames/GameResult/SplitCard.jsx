@@ -4,7 +4,7 @@ import PagesIndex from "../../../../PagesIndex";
 import { getActualDateFormate, today } from "../../../../../Utils/Common_Date";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { Games_Provider_List } from "../../../../../Redux/slice/CommonSlice";
+import { Games_Provider_List ,Games_Provider_List1 } from "../../../../../Redux/slice/CommonSlice";
 
 const ExamplePage = () => {
   //get token in local storage
@@ -25,9 +25,12 @@ const ExamplePage = () => {
 
   //get data in redux
   const data = PagesIndex.useSelector((state) => {
-    return state.CommonSlice.gameProviders;
+    return state.CommonSlice.gameProviders1;
   });
 
+
+  console.log("data1111111111" ,data);
+  
   //get game result function
   const getGameResultApi = async () => {
     const res = await PagesIndex.admin_services.GAME_RESULT(token);
@@ -39,7 +42,7 @@ const ExamplePage = () => {
 
   //get game provider data
   const getGameProvidersList = () => {
-    dispatch(Games_Provider_List(token));
+    dispatch(Games_Provider_List1(token));
   };
 
   //get apis functions call in useEffect
@@ -406,7 +409,7 @@ const ExamplePage = () => {
   return (
     <>
       <Split_Main_Containt
-        title="Game Results"
+        title="Game Results1111"
         add_button={false}
         btnTitle="Add"
         route="/add"

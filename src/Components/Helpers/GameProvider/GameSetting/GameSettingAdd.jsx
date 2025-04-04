@@ -15,15 +15,19 @@ const GameProviderAdd = () => {
   const dispatch = PagesIndex.useDispatch();
 
   const data = PagesIndex.useSelector((state) => {
-    return state.CommonSlice.gameProviders;
+  console.log("data" ,state.CommonSlice);
+
+    return state.CommonSlice.gameProviders1;
   });
+
+ 
 
   const getGameProviderList = () => {
     let providerapidata = {
       userId: userId,
       gameType: "MainGame",
     };
-    dispatch(PagesIndex.commonSlice.Games_Provider_List(token));
+    dispatch(PagesIndex.commonSlice.Games_Provider_List1(token));
   };
 
   PagesIndex.useEffect(() => {

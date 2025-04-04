@@ -1,4 +1,6 @@
 @import url("./style.css");
+/* @import url("rsuite/dist/rsuite.css"); */
+
 .page-not-found {
   height: 100vh;
   width: 100%;
@@ -611,4 +613,190 @@ input:checked + .slider:before {
   line-height: 14px;
   margin-right: 20px;
   /* content: "+"; */
+}
+
+
+
+/* ---------------------- */  
+
+.rs-picker-toggle-wrapper {
+  display: inline-block;
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+.rs-picker.rs-picker-focused, .rs-picker:not(.rs-picker-disabled):hover {
+  border-color: #3498ff;
+  /* border-color: var(--rs-input-focus-border); */
+}
+
+.rs-picker-toggle-wrapper {
+  display: inline-block;
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+.rs-input-group.rs-input-group-inside {
+  background-color: #fff;
+  /* background-color: var(--rs-input-bg); */
+  width: 100%;
+}
+
+.rs-input-group {
+  border: 1px solid #e5e5ea;
+  /* border: 1px solid var(--rs-border-primary); */
+  border-radius: 6px;
+  color: #343434;
+  /* color: var(--rs-text-primary); */
+  cursor: text;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex
+;
+  position: relative;
+  -webkit-transition: border-color .15s ease-in-out;
+  transition: border-color .15s ease-in-out;
+  width: 100%;
+}
+
+.rs-input {
+  background-color: #fff;
+  /* background-color: var(--rs-input-bg); */
+  background-image: none;
+  border: 1px solid #e5e5ea;
+  /* border: 1px solid var(--rs-border-primary); */
+  border-radius: 6px;
+  color: #343434;
+  /* color: var(--rs-text-primary); */
+  display: block;
+  font-size: 14px;
+  line-height: 1.42857143;
+  padding: 7px 11px;
+  -webkit-transition: border-color .15s ease-in-out;
+  transition: border-color .15s ease-in-out;
+  width: 100%;
+}
+
+
+.rs-picker-popup .rs-calendar {
+  height: 274px;
+  padding-bottom: 10px;
+}
+
+
+rs-calendar rs-calendar-time-view rs-calendar-only-time
+
+/* rs-calendar rs-calendar-time-view  */
+
+
+
+
+.rs-calendar-time-view .rs-calendar-time-dropdown-content {
+  -webkit-animation: i 0.3s linear;
+  animation: i 0.3s linear;
+}
+
+
+.rs-calendar-only-time {
+  display: block;
+  padding-top: 10px;
+}
+.rs-calendar-only-time .rs-calendar-time-dropdown {
+  position: relative;
+  top: 2px;
+}
+.rs-calendar-only-time .rs-calendar-time-dropdown-row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.rs-calendar-only-time .rs-calendar-time-dropdown-column {
+  min-width: 60px;
+}
+
+
+.rs-picker-popup .rs-calendar.rs-calendar-only-time {
+  min-width: auto;
+}
+.rs-picker-popup
+  .rs-calendar.rs-calendar-only-time
+  .rs-calendar-time-dropdown-column
+  > ul {
+  height: 240px;
+}
+
+
+.rs-calendar-time-view .rs-calendar-header-title-time {
+  background: transparent;
+  color: #1675e0;
+  color: var(--rs-text-active);
+}
+.rs-calendar-time-view .rs-calendar-header-title-time.rs-calendar-header-error {
+  color: #f44336;
+  color: var(--rs-text-error);
+}
+.rs-calendar-time-view
+  .rs-calendar-header-title-time.rs-calendar-header-error:hover:active {
+  color: #fff;
+}
+.rs-calendar-time-view .rs-calendar-time-dropdown {
+  display: block;
+}
+.rs-calendar-time-view .rs-calendar-time-dropdown-content {
+  -webkit-animation: i 0.3s linear;
+  animation: i 0.3s linear;
+}
+
+
+
+.rs-calendar-time-view .rs-calendar-time-dropdown {
+  display: block;
+}
+.rs-calendar-time-view .rs-calendar-time-dropdown-content {
+  -webkit-animation: i 0.3s linear;
+  animation: i 0.3s linear;
+}
+.rs-calendar-time-dropdown-row {
+  display: table;
+  width: 100%;
+}
+.rs-calendar-time-dropdown-column {
+  display: table-cell;
+  width: 1%;
+}
+.rs-calendar-time-dropdown-column :after {
+  content: "";
+  display: block;
+  height: calc(100% - 30px);
+}
+.rs-calendar-time-dropdown-column > ul,
+.rs-calendar-time-dropdown-column > ul > li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.rs-calendar-time-dropdown-column > ul {
+  height: 230px;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+.rs-calendar-time-dropdown-column-title {
+  background-color: #f7f7fa;
+  background-color: var(--rs-calendar-time-unit-bg);
+  color: #717273;
+  color: var(--rs-text-secondary);
+  font-size: 12px;
+  line-height: 1.66666667;
+  margin-bottom: 2px;
+  padding-bottom: 2px;
+  padding-top: 2px;
+  text-align: center;
+  width: 100%;
+}
+
+
+
+.testing{
+  border: none;
+  outline: none;
 }

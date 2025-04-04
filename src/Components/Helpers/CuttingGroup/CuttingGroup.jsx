@@ -2,7 +2,7 @@ import React from "react";
 import Split_Main_Containt from "../../Layout/Main/Split_Main_Content";
 import { useFormik } from "formik";
 import PagesIndex from "../../Pages/PagesIndex";
-import { Games_Provider_List } from "../../Redux/slice/CommonSlice";
+import { Games_Provider_List  ,Games_Provider_List1} from "../../Redux/slice/CommonSlice";
 import { Api } from "../../Config/Api";
 import { today } from "../../Utils/Common_Date";
 import ReusableModal from "../Modal/ModalComponent_main";
@@ -24,12 +24,12 @@ const SplitForm = () => {
   const [ShowBidInfoModal, setShowBidInfoModal] = PagesIndex.useState(false);
   const [ShowBidInfoList, setShowBidInfoList] = PagesIndex.useState([]);
   const [Refresh, setRefresh] = PagesIndex.useState(false);
-  const { gameProviders } = PagesIndex.useSelector(
+  const { gameProviders1 } = PagesIndex.useSelector(
     (state) => state.CommonSlice
   );
 
   PagesIndex.useEffect(() => {
-    dispatch(Games_Provider_List(token));
+    dispatch(Games_Provider_List1(token));
   }, []);
 
   const calculatePL = (sumDigit, gamePrice, threshold) => {
@@ -44,7 +44,7 @@ const SplitForm = () => {
     initialValues: {
       gameDate: "",
       gameSession: "Open",
-      providerId: "668d41ca211a65d88600f673",
+      providerId: "67eebd2fa361832d96e37e7d",
     },
 
     validate: (values) => {
@@ -344,8 +344,8 @@ const SplitForm = () => {
 
       col_size: 4,
       options:
-        (gameProviders &&
-          gameProviders.map((item) => ({
+        (gameProviders1 &&
+          gameProviders1.map((item) => ({
             label: item.providerName,
             value: item._id,
           }))) ||

@@ -7,7 +7,6 @@ export const Games_Provider_List = createAsyncThunk(
   async (data) => {
     try {
       const res = await admin_service.GAME_PROVIDER_GET_LIST_API(data);
-
       return await res;
     } catch (err) {
       return err;
@@ -15,12 +14,28 @@ export const Games_Provider_List = createAsyncThunk(
   }
 );
 
+export const Games_Provider_List1 = createAsyncThunk(
+  "common/Games_Provider_List1",
+  async (data) => {
+    try {
+      const res = await admin_service.GAME_PROVIDER_GET_LIST_API1(data);
+
+      return await res;
+    } catch (err) {
+      return err;
+    }
+  }
+);
 // GAME_RATES_GET_LIST_API
 
-export const Games_Settings_List = createAsyncThunk("common/Games_Settings_List",async (data, token) => {
-    
+export const Games_Settings_List = createAsyncThunk(
+  "common/Games_Settings_List",
+  async (data, token) => {
     try {
-      const res = await admin_service.GAME_SEETING_LIST_API(data.data, data.token);
+      const res = await admin_service.GAME_SEETING_LIST_API(
+        data.data,
+        data.token
+      );
 
       return await res;
     } catch (err) {
@@ -29,26 +44,23 @@ export const Games_Settings_List = createAsyncThunk("common/Games_Settings_List"
   }
 );
 
+// ------------------   for starline and jackpot --------------
 
-// ------------------   for starline and jackpot --------------   
+export const forStarlineAndJackpot = createAsyncThunk(
+  "common/forStarlineAndJackpot",
+  async (data, token) => {
+    try {
+      const res = await admin_service.GAME_SEETING_LIST_API(
+        data.data,
+        data.token
+      );
 
-
-
-export const forStarlineAndJackpot = createAsyncThunk("common/forStarlineAndJackpot",async (data, token) => {
-    
-  try {
-    const res = await admin_service.GAME_SEETING_LIST_API(data.data, data.token);
-
-    return await res;
-  } catch (err) {
-    return err;
+      return await res;
+    } catch (err) {
+      return err;
+    }
   }
-}
 );
-
-
-
-
 
 //PERMISSION_GET_API
 
@@ -69,6 +81,8 @@ const CommonSlice = createSlice({
   initialState: {
     getGenrateTokenState: "",
     gameProviders: [],
+    gameProviders1: [],
+
     gameSettings: [],
     getPermissions: {},
     isLoading: false,
@@ -94,6 +108,27 @@ const CommonSlice = createSlice({
         return {
           ...state,
           gameProviders: [],
+          isLoading: false,
+        };
+      })
+      .addCase(Games_Provider_List1.pending, (state, action) => {
+        return {
+          ...state,
+          gameProviders1: [],
+          isLoading: true,
+        };
+      })
+      .addCase(Games_Provider_List1.fulfilled, (state, action) => {
+        return {
+          ...state,
+          gameProviders1: action.payload.data,
+          isLoading: false,
+        };
+      })
+      .addCase(Games_Provider_List1.rejected, (state, action) => {
+        return {
+          ...state,
+          gameProviders1: [],
           isLoading: false,
         };
       })

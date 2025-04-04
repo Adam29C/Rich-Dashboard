@@ -2,7 +2,7 @@ import React from "react";
 import Split_Main_Containt from "../../../Layout/Main/Split_Main_Content";
 import { useFormik } from "formik";
 import PagesIndex from "../../../Pages/PagesIndex";
-import { Games_Provider_List } from "../../../Redux/slice/CommonSlice";
+import { Games_Provider_List ,Games_Provider_List1 } from "../../../Redux/slice/CommonSlice";
 import { Api } from "../../../Config/Api";
 import { today } from "../../../Utils/Common_Date";
 import { spArray } from "./data";
@@ -17,12 +17,12 @@ const SplitForm = () => {
   const [TableThree, setTableThree] = PagesIndex.useState([]);
   const [SearchInTable, setSearchInTable] = PagesIndex.useState("");
 
-  const { gameProviders } = PagesIndex.useSelector(
+  const { gameProviders1 } = PagesIndex.useSelector(
     (state) => state.CommonSlice
   );
 
   PagesIndex.useEffect(() => {
-    dispatch(Games_Provider_List(token));
+    dispatch(Games_Provider_List1(token));
   }, []);
 
   const calculatePL = (sumDigit, gamePrice, threshold) => {
@@ -97,7 +97,7 @@ const SplitForm = () => {
     initialValues: {
       gameDate: "",
       gameSession: "Open",
-      providerId: "668d41ca211a65d88600f673",
+      providerId: "67eebd2fa361832d96e37e7d",
       // providerId: gameProviders[0] && gameProviders[0]?._id,
     },
 
@@ -297,12 +297,12 @@ const SplitForm = () => {
       label: "Provider",
       type: "select",
       label_size: 12,
-      default: gameProviders[0] && gameProviders[0]?._id,
+      default: gameProviders1[0] && gameProviders1[0]?._id,
       default: "668d41ca211a65d88600f673",
       col_size: 4,
       options:
-        (gameProviders &&
-          gameProviders.map((item) => ({
+        (gameProviders1 &&
+          gameProviders1.map((item) => ({
             label: item.providerName,
             value: item._id,
           }))) ||

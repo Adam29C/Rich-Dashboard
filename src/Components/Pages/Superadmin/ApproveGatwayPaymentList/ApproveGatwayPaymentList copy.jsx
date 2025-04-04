@@ -27,12 +27,10 @@ const ManualRequest = () => {
       new Date()
     )}&end_date=${abc(new Date())}&status=${status}`;
 
-    // console.log('abcccc' ,abcccc);
     const res = await PagesIndex.admin_services.GATWAY_PAYMENT_LIST(
       abcccc,
       token
     );
-    console.log("abcccc", res);
 
     if (res?.status) {
       setData(res?.data);
@@ -76,7 +74,6 @@ const ManualRequest = () => {
       action: value,
     };
 
-    // "APPROVE" hone par confirmation box dikhaye, "DECLINE" direct chale
     if (value === "APPROVE") {
       const userConfirmed = window.confirm("Do you really want to approve?");
       if (!userConfirmed) {
@@ -159,7 +156,7 @@ const ManualRequest = () => {
     },
     {
       name: "Date & Time",
-      selector: (row) => row.created_at,
+      // selector: (row) => row.created_at,
 
       selector: (row) => {
         let dateObj = new Date(row.created_at);
@@ -216,8 +213,6 @@ const ManualRequest = () => {
   };
 
   const ApprovedAll = () => {};
-
-  // console.log("GetIds", GetIds);
 
   const tabs = [
     {

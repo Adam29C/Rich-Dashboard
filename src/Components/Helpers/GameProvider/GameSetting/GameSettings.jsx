@@ -19,9 +19,6 @@ const GameProvider = ({ path, title, gameType, api_Route }) => {
 
   const [GameSettingList, setGameSettingList] = PagesIndex.useState([]);
 
-
-  
-
   // const getStarLineSettingList = async () => {
   //   if (gameType === "StarLine" || gameType === "JackPot") {
   //     const res =
@@ -61,7 +58,6 @@ const GameProvider = ({ path, title, gameType, api_Route }) => {
         gameType: gameType,
       };
 
-      // Agar gameType "StarLine" ya "JackPot" nahi hai, to gameSettings ko set karna
       dispatch(Games_Settings_List({ data: apiData, token: token }));
 
       // UseEffect ke baad update karna
@@ -73,10 +69,12 @@ const GameProvider = ({ path, title, gameType, api_Route }) => {
     getStarLineSettingList();
   }, []);
 
+  let amc =
+    gameType === "StarLine" || gameType === "JackPot"
+      ? GameSettingList
+      : gameSettings;
 
-  let amc  =  gameType === "StarLine" || gameType === "JackPot" ? GameSettingList : gameSettings
-
-console.log(gameSettings)
+  console.log(gameSettings);
 
   const columns = [
     {
@@ -129,7 +127,11 @@ console.log(gameSettings)
                 <p className="game-setting-font">
                   <span className="fw-bold">
                     IsClosed :
-                    {rowData ? (rowData.isClosed === "1" ? "Open" : "Closed") : "N/A"}
+                    {rowData
+                      ? rowData.isClosed === "1"
+                        ? "Open"
+                        : "Closed"
+                      : "N/A"}
                   </span>
                 </p>
 
@@ -181,7 +183,11 @@ console.log(gameSettings)
                   <p className="game-setting-font">
                     <span className="fw-bold">
                       IsClosed :
-                      {rowData ? (rowData.isClosed === "1" ? "Open" : "Closed") : "N/A"}
+                      {rowData
+                        ? rowData.isClosed === "1"
+                          ? "Open"
+                          : "Closed"
+                        : "N/A"}
                     </span>
                   </p>
 
@@ -235,7 +241,11 @@ console.log(gameSettings)
                   <p className="game-setting-font">
                     <span className="fw-bold">
                       IsClosed :
-                      {rowData ? (rowData.isClosed === "1" ? "Open" : "Closed") : "N/A"}
+                      {rowData
+                        ? rowData.isClosed === "1"
+                          ? "Open"
+                          : "Closed"
+                        : "N/A"}
                     </span>
                   </p>
 
@@ -289,7 +299,11 @@ console.log(gameSettings)
                   <p className="game-setting-font">
                     <span className="fw-bold">
                       IsClosed :
-                      {rowData ? (rowData.isClosed === "1" ? "Open" : "Closed") : "N/A"}
+                      {rowData
+                        ? rowData.isClosed === "1"
+                          ? "Open"
+                          : "Closed"
+                        : "N/A"}
                     </span>
                   </p>
 
@@ -342,7 +356,11 @@ console.log(gameSettings)
                   <p className="game-setting-font">
                     <span className="fw-bold">
                       IsClosed :
-                      {rowData ? (rowData.isClosed === "1" ? "Open" : "Closed") : "N/A"}
+                      {rowData
+                        ? rowData.isClosed === "1"
+                          ? "Open"
+                          : "Closed"
+                        : "N/A"}
                     </span>
                   </p>
 
@@ -395,7 +413,11 @@ console.log(gameSettings)
                   <p className="game-setting-font">
                     <span className="fw-bold">
                       IsClosed :
-                      {rowData ? (rowData.isClosed === "1" ? "Open" : "Closed") : "N/A"}
+                      {rowData
+                        ? rowData.isClosed === "1"
+                          ? "Open"
+                          : "Closed"
+                        : "N/A"}
                     </span>
                   </p>
 
@@ -448,7 +470,11 @@ console.log(gameSettings)
                   <p className="game-setting-font">
                     <span className="fw-bold">
                       IsClosed :
-                      {rowData ? (rowData.isClosed === "1" ? "Open" : "Closed") : "N/A"}
+                      {rowData
+                        ? rowData.isClosed === "1"
+                          ? "Open"
+                          : "Closed"
+                        : "N/A"}
                     </span>
                   </p>
 

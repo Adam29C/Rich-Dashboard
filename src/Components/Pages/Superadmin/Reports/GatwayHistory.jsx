@@ -130,7 +130,7 @@ const MainGameReports = ({
       default: "0",
       options: [
         {
-          label: "Deposite",
+          label: "Deposit",
           value: "Deposite",
         },
         {
@@ -240,7 +240,7 @@ const MainGameReports = ({
     },
 
     {
-      name: "Date",
+      name: "Date & Time",
       value: "created_at",
       sortable: true,
       transform: (value) => {

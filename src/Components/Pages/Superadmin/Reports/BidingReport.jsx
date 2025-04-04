@@ -44,7 +44,7 @@ const AllReports = () => {
           label: "Select Provider",
           type: "select",
           // default: GetBankDetails && GetBankDetails[0]?._id,
-          default: '668d41ca211a65d88600f673',
+          default: '67eebd2fa361832d96e37e7d',
           isRequired: true,
           validation: (value) => value !== "",
           options:
