@@ -409,7 +409,7 @@ const ExamplePage = () => {
   return (
     <>
       <Split_Main_Containt
-        title="Game Results1111"
+        title="Game Results"
         add_button={false}
         btnTitle="Add"
         route="/add"
