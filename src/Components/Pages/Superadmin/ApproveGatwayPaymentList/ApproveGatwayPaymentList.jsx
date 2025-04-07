@@ -7,6 +7,7 @@ import {
   show,
 } from "../../../Utils/Common_Date";
 import { Api } from "../../../Config/Api";
+import { parseDate } from "../../../Utils/ManageSorting";
 
 const ManualRequest = () => {
   //get token in localstorage
@@ -34,6 +35,29 @@ const ManualRequest = () => {
     );
     console.log("abcccc", res);
 
+    let aarrrr = [];
+    res.data.forEach((item) => {
+      let dateObj = new Date(item.created_at);
+
+      let formattedDate = dateObj.toLocaleString("en-IN", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true,
+      });
+
+      aarrrr.push({ ...item, created_at: formattedDate });
+      return;
+    });
+
+    aarrrr.sort((a, b) => parseDate(b.created_at) - parseDate(a.created_at));
+
+
+    console.log("aarrrr" ,aarrrr);
+    
     if (res?.status) {
       setData(res?.data);
     }
@@ -96,8 +120,6 @@ const ManualRequest = () => {
       PagesIndex.toast.success(res.message);
       getFundRequestList();
     }
-
-    console.log("API Response:", res);
   };
 
   const totalAmount = useMemo(

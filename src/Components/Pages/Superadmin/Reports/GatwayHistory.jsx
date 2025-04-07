@@ -31,10 +31,14 @@ const MainGameReports = ({
     (state) => state.CommonSlice
   );
 
+  function parseDate(dateString) {
+    const [datePart, timePart] = dateString.split(", ");
+    const [day, month, year] = datePart.split("/");
+    return new Date(`${year}-${month}-${day} ${timePart}`);
+  }
+
   //get game provider data
   const getGameProvidersList = async () => {
-
-  
     let ApiRoute = `${Api.WITHDRAWLIST}?status=ALL&startDate=${abc(
       new Date()
     )}&endDate=${abc(new Date())}`;
@@ -46,8 +50,26 @@ const MainGameReports = ({
       token
     );
 
+    let aarrrr = [];
+    res.data.forEach((item) => {
+      let dateObj = new Date(item.created_at);
 
-    setTableData(res.data);
+      let formattedDate = dateObj.toLocaleString("en-IN", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true,
+      });
+
+      aarrrr.push({ ...item, created_at: formattedDate });
+      return;
+    });
+
+    aarrrr.sort((a, b) => parseDate(b.created_at) - parseDate(a.created_at));
+    setTableData(aarrrr);
   };
 
   PagesIndex.useEffect(() => {
@@ -84,7 +106,6 @@ const MainGameReports = ({
         } else if (formik.values.HistoryType === "Withdraw") {
           setfirst(2);
 
-    
           ApiRoute = `${Api.GATWAYPAYMENTLIST}?status=${status}&start_date=${startdate}&end_date=${enddate}`;
         }
 

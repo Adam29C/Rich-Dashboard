@@ -4,6 +4,7 @@ import PagesIndex from "../../PagesIndex";
 import { Api } from "../../../Config/Api";
 import { abc, today } from "../../../Utils/Common_Date";
 import { toast, ToastContainer } from "react-toastify";
+import { parseDate } from "../../../Utils/ManageSorting";
 
 const AllReports = () => {
   const token = localStorage.getItem("token");
@@ -26,6 +27,7 @@ const AllReports = () => {
       Api.GET_FUND_REPORT_DETAILS,
       token
     );
+
     setGetBankDetails(res.data);
     setGetAdminsDetails(res.adminName);
   };
@@ -174,14 +176,34 @@ const AllReports = () => {
             token
           );
 
-          // console.log("res", res);
-
           if (res.status) {
             setTotalPages(res.totalRecords);
-            setfirst(res.data);
+
+            let aarrrr = [];
+            res.data.forEach((item) => {
+              let dateObj = new Date(item.reqUpdatedAt);
+
+              let formattedDate = dateObj.toLocaleString("en-IN", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+                hour12: true,
+              });
+
+              aarrrr.push({ ...item, reqUpdatedAt: formattedDate });
+              return;
+            });
+
+            aarrrr.sort(
+              (a, b) => parseDate(b.reqUpdatedAt) - parseDate(a.reqUpdatedAt)
+            );
+
+            setfirst(aarrrr);
 
             setRefresh(!Refresh);
-            // toast.success(res.message);
           } else {
             toast.error(res.response.data.message);
           }
