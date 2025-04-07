@@ -32,8 +32,8 @@ const CustomTable = ({
     setError(null);
 
     try {
-      const result = await fetchData(page, rowsPerPage, searchQuery);
-
+      // const result = await fetchData(page, rowsPerPage, searchQuery);
+      const result = await fetchData(page, rowsPerPage, );
       setRefresh1(!Refresh1);
       setData(result.mainRes || []);
       setFilteredData(result.mainRes || []);
