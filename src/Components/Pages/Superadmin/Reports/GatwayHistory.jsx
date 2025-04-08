@@ -83,6 +83,7 @@ const MainGameReports = ({
       start_date: today(new Date()),
       end_date: today(new Date()),
     },
+    enableReinitialize: true,
 
     validate: (values) => {
       const errors = {};
@@ -231,6 +232,10 @@ const MainGameReports = ({
     },
   ];
 
+  useEffect(() => {
+    formik.setFieldValue("status", "ALL");
+  }, [formik.values.HistoryType]);
+
   const visibleFields = [
     {
       name: "User Name",
@@ -308,7 +313,7 @@ const MainGameReports = ({
     },
   ];
 
-  // console.log("formik.values.HistoryType", formik.values.HistoryType);
+  console.log("formik.values.HistoryType", formik.values);
 
   const totalAmount = useMemo(
     () =>
