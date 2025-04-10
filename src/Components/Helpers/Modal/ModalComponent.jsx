@@ -10,7 +10,8 @@ const ModalComponent = ({
   formik,
   setSelectedRow,
   showBal,
-  DisableSubmit
+  DisableSubmit,
+  size
 }) => {
 
   const closeModal = () => {
@@ -23,7 +24,7 @@ const ModalComponent = ({
   <Modal
   className="custom-model"
         visible={visible}
-        width="350"
+        width={size ? size :"350"}
         effect="fadeInDown"
         onClickAway={closeModal}
       >

@@ -77,3 +77,9 @@ export const PROVIDER_NAME_REQUIRED = "Provider Name is required";
   export const REQUIRE_AMOUNT = "Please Enter Request Amount";
   export const REQUIRE_AMOUNT_VALID = "Please Enter Valid Request Amount";
 
+  
+export const REQUIRE_API_KEY = "please enter api key";
+export const REQUIRE_GATWAY_NAME = "please enter Gatway Name";
+export const REQUIRE_MERCHENT_ID = "Please Enter Merchant ID";
+// export const REQUIRE_MIN_AMOUNT_VALID = "Please Enter Valid Min Amount";
+

@@ -1,6 +1,8 @@
 import PagesIndex from "../../../Pages/PagesIndex";
 import { Confirm_box } from "../../Confirm_Box";
 import ReusableModal from "../../../Helpers/Modal/ReusableModal";
+import { getActualDateFormate, today } from "../../../Utils/Common_Date";
+import { Api } from "../../../Config/Api";
 
 const RevertPayment = ({
   main_result,
@@ -19,6 +21,8 @@ const RevertPayment = ({
   const [ModalState, setModalState] = PagesIndex.useState(false);
   const [BtnVisiably, setBtnVisiably] = PagesIndex.useState(false);
   const [RowData, setRowData] = PagesIndex.useState("");
+
+  const actual_date_formet = getActualDateFormate(new Date());
 
   const visibleFields = [
     {
@@ -125,6 +129,62 @@ const RevertPayment = ({
       }
     } catch (error) {}
   };
+
+  const formik1 = PagesIndex.useFormik({
+    initialValues: {
+      date: today(),
+    },
+
+    validate: (values) => {
+      const errors = {};
+      return errors;
+    },
+    onSubmit: async (values) => {
+      const apidata = values.date;
+
+      try {
+        let payload = `${Api.MAIN_GAME_REVERT_PAYMENT}?date=${apidata}`;
+
+        const res =
+          await PagesIndex.game_service.ALL_GAME_REVERT_PAYMENT_BACKDATE_API(
+            payload,
+
+            token
+          );
+
+        console.log("res", res);
+
+        if (res.status) {
+          setTableData(res?.data || res?.result);
+
+          //   setPastResultCount({
+          //     countResults: res.data.countResults,
+          //     pendingCount: res.data.pendingCount,
+          //     providerCount: res.data.providerCount,
+        }
+
+        //   PagesIndex.toast.success(res.message);
+        //   setTableData(res.data.results || res.data.result);
+        // } else {
+        //   PagesIndex.toast.error(res.message);
+        // }
+      } catch (error) {
+        PagesIndex.toast.error(error.response.data.message);
+      }
+    },
+  });
+
+  const fields1 = [
+    {
+      name: "date",
+      label: "Result Date",
+      type: "date",
+      label_size: 12,
+      col_size: 12,
+      max: { actual_date_formet },
+    },
+  ];
+
   return (
     <div>
       <PagesIndex.Main_Containt
@@ -132,6 +192,14 @@ const RevertPayment = ({
         route="/admin/user/add"
         title={title}
       >
+        <div className="col-6 d-flex justify-content-start align-items-center mb-3 ">
+          <PagesIndex.Formikform
+            fieldtype={fields1.filter((field) => !field.showWhen)}
+            formik={formik1}
+            show_submit={true}
+            btn_name="Search Result"
+          />
+        </div>
         <PagesIndex.TableWithCustomPeginationNew123
           data={TableData}
           initialRowsPerPage={25}

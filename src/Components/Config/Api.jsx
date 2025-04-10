@@ -30,7 +30,6 @@ const Api = {
   MAIN_GAME_ADD: "mainGames/insertGame",
   MAIN_GAME121: "api/web/games",
 
-
   // MAIN GAME RATE
 
   MAIN_GAME_RATE_LIST: "mainGameRate",
@@ -308,6 +307,10 @@ const Api = {
   GATWAYPAYMENTLIST: "fundreq/get-payout-requests",
   WITHDRAWLIST: "nnData/get-payin-requests",
   GATWAYPAYMENTAPPROVE: "fundreq/approve-payout",
+
+  ALLPAYMENTGATWAYLIST: "nnData/api/admin/payment-gateways",
+  CREATEPAYMENTGATWAY: "nnData/api/admin/payment-gateway",
+  ACTIViACTIVE: "nnData/api/admin/activate-gateway",
 };
 
 export { Api };

@@ -413,6 +413,16 @@ export const ALL_GAME_REVERT_PAYMENT_API = async (api_Route, token) => {
     return error;
   }
 };
+export const ALL_GAME_REVERT_PAYMENT_BACKDATE_API = async (api_Route, token) => {
+  try {
+    const res = await axios.get(`${BASE_URL}${api_Route}`, {
+      headers: header(token),
+    });
+    return res?.data;
+  } catch (error) {
+    return error;
+  }
+};
 
 export const STARLINE_GAME_CONFIRM_REVERT_PAYMENT_API = async (
   api_Route,

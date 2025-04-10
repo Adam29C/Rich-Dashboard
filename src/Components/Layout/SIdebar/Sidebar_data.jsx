@@ -560,6 +560,12 @@ export const admin_Sidebar = [
     title: "Masters",
     Icon: "ti-money",
     NestedElement: [
+      // {
+      //   id: 0,
+      //   title: "Manage Gatways",
+      //   permission: "addFoundMode",
+      //   route: "masters/gatways",
+      // },
       {
         id: 1,
         title: "UPI Id",
@@ -572,6 +578,7 @@ export const admin_Sidebar = [
         permission: "addFoundMode",
         route: "masters/fundMode",
       },
+     
       {
         id: 3,
         title: "Manage Employee",

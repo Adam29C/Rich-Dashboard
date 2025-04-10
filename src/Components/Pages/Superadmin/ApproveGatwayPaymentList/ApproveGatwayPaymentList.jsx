@@ -32,7 +32,7 @@ const ManualRequest = () => {
       abcccc,
       token
     );
-   
+
     let aarrrr = [];
     res.data.forEach((item) => {
       let dateObj = new Date(item.created_at);
@@ -53,9 +53,8 @@ const ManualRequest = () => {
 
     aarrrr.sort((a, b) => parseDate(b.created_at) - parseDate(a.created_at));
 
+    console.log("aarrrr", aarrrr);
 
-    console.log("aarrrr" ,aarrrr);
-    
     if (res?.status) {
       setData(res?.data);
     }
@@ -98,12 +97,10 @@ const ManualRequest = () => {
       action: value,
     };
 
-    // "APPROVE" hone par confirmation box dikhaye, "DECLINE" direct chale
     if (value === "APPROVE") {
       const userConfirmed = window.confirm("Do you really want to approve?");
       if (!userConfirmed) {
-        console.log("User canceled the approval.");
-        return; // Agar user cancel kare to function yahi stop ho jaye
+        return;
       }
     }
 
@@ -115,6 +112,7 @@ const ManualRequest = () => {
       );
 
     if (res.status) {
+      value = "";
       PagesIndex.toast.success(res.message);
       getFundRequestList();
     }

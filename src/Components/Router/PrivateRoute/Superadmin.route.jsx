@@ -69,6 +69,7 @@ import UpiIdList from "../../Pages/Superadmin/Masters/UpiIdList";
 import WinnerList from "../../Pages/Superadmin/Games/AvailableGames/GameResult/WinnerList";
 import ProfileNote from "../../Pages/Superadmin/AppSettings/ProfileNote";
 import FundMode from "../../Pages/Superadmin/Masters/FundMode";
+import ManageGatways from "../../Pages/Superadmin/Masters/ManageGatways";
 import Notification from "../../Pages/Superadmin/Notification/Notification";
 import News from "../../Pages/Superadmin/News/News";
 import DeclinedRequest from "../../Pages/Superadmin/DeclinedRequest/DeclinedRequest";
@@ -484,7 +485,10 @@ const adminRoutes = [
         path: "masters/fundMode",
         element: <PrivateRoute element={FundMode} />,
       },
-    
+      {
+        path: "masters/gatways",
+        element: <PrivateRoute element={ManageGatways} />,
+      },
       {
         path: "notification",
         element: <PrivateRoute element={Notification} />,

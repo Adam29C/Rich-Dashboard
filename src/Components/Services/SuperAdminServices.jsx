@@ -1399,3 +1399,72 @@ export const GATWAY_PAYMENT_DEPOSITE_OR_DECLINED = async (data, token) => {
     return error;
   }
 };
+
+// manage gatyways
+
+// FUND MODE START
+export const GET_GATWAYSLIST_API = async (token) => {
+  try {
+    const res = await axios.get(`${BASE_URL}${Api.ALLPAYMENTGATWAYLIST}`, {
+      headers: header(token),
+    });
+    return res?.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const ADD_GATWAY_API = async (data, token) => {
+  try {
+    const res = await axios.post(
+      `${BASE_URL}${Api.CREATEPAYMENTGATWAY}`,
+      data,
+      {
+        headers: header(token),
+      }
+    );
+    return res?.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const UPDATE_GATWAY_API = async (data, token) => {
+  try {
+    const res = await axios.put(
+      `${BASE_URL}${Api.CREATEPAYMENTGATWAY}/${data}`,
+      {
+        headers: header(token),
+      }
+    );
+    return res?.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const DELETE_GATWAY_API = async (apidata, token) => {
+  try {
+    const res = await axios.post(
+      `${BASE_URL}${Api.DELETE_FUND_MODE}`,
+      apidata,
+      {
+        headers: header(token),
+      }
+    );
+    return res?.data;
+  } catch (error) {
+    return error;
+  }
+};
+// CHANGE_STATUS_FUND_MODE
+export const CHANGE_STATUS_GATWAY_API = async (data, token) => {
+  try {
+    const res = await axios.put(`${BASE_URL}${Api.ACTIViACTIVE}/${data}`, {
+      headers: header(token),
+    });
+    return res?.data;
+  } catch (error) {
+    return error;
+  }
+};
