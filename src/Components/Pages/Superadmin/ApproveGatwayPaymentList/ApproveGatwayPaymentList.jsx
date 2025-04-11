@@ -56,7 +56,7 @@ const ManualRequest = () => {
     console.log("aarrrr", aarrrr);
 
     if (res?.status) {
-      setData(res?.data);
+      setData(aarrrr);
     }
   };
 

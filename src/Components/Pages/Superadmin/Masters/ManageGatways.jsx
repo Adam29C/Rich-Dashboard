@@ -271,8 +271,8 @@ const FundMode = () => {
     <Main_Containt
       setVisible={setVisible}
       add_button={false}
-      btn_modal={true}
-      title="Gataway List"
+      btn_modal={false}
+      title="Gateway List"
       handleAdd={handleAdd}
     >
       <PagesIndex.Data_Table

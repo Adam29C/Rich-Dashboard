@@ -127,11 +127,22 @@ const ManualRequest = () => {
     // },
     {
       name: "Date & Time",
-      selector: (row) => Get_Year_With_Time_With_Column_Saprate(row.createTime),
+      // selector: (row) => Get_Year_With_Time_With_Column_Saprate(row.createTime),
       sortable: true,
       wrap: true, // Text wrap enable karega
       width: "200px",
-
+      selector: (row) => {
+        let dateObj = new Date(row.createTime);
+        return dateObj.toLocaleString("en-IN", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: true, // 12-hour format with AM/PM
+        });
+      },
     },
   ];
 
@@ -151,7 +162,11 @@ const ManualRequest = () => {
       title: "Declined Request",
       content: (
         <div className="mt-4">
-          <PagesIndex.Data_Table columns={columns} data={data} showFilter={true}/>
+          <PagesIndex.Data_Table
+            columns={columns}
+            data={data}
+            showFilter={true}
+          />
           <h3 className="ml-3 mb-3 fw-bold responsive-total-amount">
             Total Amount {totalAmount}/-
           </h3>
