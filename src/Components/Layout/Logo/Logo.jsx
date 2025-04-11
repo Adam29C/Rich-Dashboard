@@ -1,5 +1,5 @@
 import React from "react";
-
+import logo from "../../../assets/Images/headerlogo.svg"
 const Logo = () => {
   return (
     <div className="nav-header">
@@ -16,7 +16,7 @@ const Logo = () => {
           <span id="sidebar-logo-short"></span>
           {/* </span> */}
           <span className="brand-title">
-            <img className="sidebar-logo" id="sidebar-logo" src="" alt="logo"/>
+            <img className="sidebar-logo"  src={logo} alt="logo"/>
           </span>
         </a>
       </div>

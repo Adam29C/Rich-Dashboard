@@ -294,8 +294,9 @@ input:checked + .slider:before {
 
 #sidebar-logo {
  
-  content: url("../Images/123.svg");
+  content: url("../Images/headerlogo.svg");
 }
+
 /* #sidebar-logo-short {
   content: url("../Images/favicon.png");
 } */
@@ -495,7 +496,14 @@ input:checked + .slider:before {
   color: whitesmoke;
 }
 /* step form css end */
-
+ul#menu {
+  overflow: auto;
+  height: 100vh;
+  /* margin-bottom: 100px; */
+}
+/* .metismenuin.a{
+  margin: 10px;
+} */
 
 .nk-sidebar {
   width: 15.1875rem;
@@ -508,7 +516,9 @@ input:checked + .slider:before {
   background: #fff;
   transition: all 0.2s ease;
 }
-
+.nav-text {
+  font-weight: 600;
+}
 .custom-table-container {
   width: 100%; 
   overflow-x: auto; 

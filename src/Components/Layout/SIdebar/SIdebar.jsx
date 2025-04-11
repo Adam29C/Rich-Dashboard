@@ -58,22 +58,22 @@ const SIdebar = () => {
   }, [location]);
 
   return (
-    <div className="nk-sidebar">
+    <div className="nk-sidebar" style={{overflow:'auto',scrollbarWidth:'thin'}}>
       <div
         className="slimScrollDiv"
         style={{
           position: "relative",
-          overflow: "hidden",
+          overflow: "auto",
           width: "auto",
-          height: "100%",
+          height: "auto",
         }}
       >
         <div
           className="nk-nav-scroll active"
-          style={{ overflowY: "auto", width: "auto", height: "100%" }}
+          // style={{ overflow: "auto", width: "auto", height: "auto" }}
         >
           {/* <Logo/> */}
-          <ul className="metismenu in" id="menu">
+          <ul className="metismenu in" id="menu" >
             {filteredSidebar &&
               filteredSidebar.map((item, index) => {
                 const isActive = expandedItem === index;
@@ -84,6 +84,7 @@ const SIdebar = () => {
                     <li
                       className={`${isActive ? "active" : ""}`}
                       key={`${item.headerTitle}_${index}`}
+                      style={{margin:'2px'}}
                     >
                       {(item.permission != null || "null") && (
                         <Link
@@ -97,7 +98,7 @@ const SIdebar = () => {
                           }
                         >
                           <i className={`${item.Icon} menu-icon me-2`} />
-                          <span className="nav-text">{item.title}</span>
+                          <span className="nav-text" >{item.title}</span>
                         </Link>
                       )}
 

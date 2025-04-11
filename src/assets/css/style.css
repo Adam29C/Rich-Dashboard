@@ -22,7 +22,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
 
 :root {
-  --primary-color: linear-gradient(97.51deg, #1c3e35 -39.91%, #4aa48c 117.67%);
+  --primary-color: linear-gradient(97.51deg, #237f8aff -39.91%, #4aa48c 117.67%);
   --secondary-color: #fff;
 }
 
