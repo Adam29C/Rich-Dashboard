@@ -5,6 +5,7 @@ import {
   Get_Year_With_Time_With_Column_Saprate,
   show,
 } from "../../../Utils/Common_Date";
+import { parseDate } from "../../../Utils/ManageSorting";
 
 const ManualRequest = () => {
   //get token in localstorage
@@ -23,8 +24,31 @@ const ManualRequest = () => {
       status,
       token
     );
+
+    let aarrrr = [];
+    res.data.forEach((item) => {
+      let dateObj = new Date(item.createTime);
+
+      let formattedDate = dateObj.toLocaleString("en-IN", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false,
+      });
+
+      aarrrr.push({ ...item, created_at: formattedDate });
+      return;
+    });
+
+    aarrrr.sort((a, b) => parseDate(b.created_at) - parseDate(a.created_at));
+
+    console.log("aarrrr", aarrrr);
+ 
     if (res?.status) {
-      setData(res?.data);
+      setData(aarrrr);
     }
   };
 

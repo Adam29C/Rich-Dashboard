@@ -1,6 +1,9 @@
 import React from "react";
 import PagesIndex from "../../../Pages/PagesIndex";
-import { convertTo12HourFormat } from "../../../Utils/Common_Date";
+import {
+  convertTo12HourFormat,
+  convertTo12HourFormat123,
+} from "../../../Utils/Common_Date";
 
 const ForStarlineJackpotAdd = ({
   gameType,
@@ -87,15 +90,15 @@ const ForStarlineJackpotAdd = ({
 
     onSubmit: async (values) => {
       setDisableSubmit(true); // Disable the submit button initially
-    
+
       try {
         let data = {
-          game1: convertTo12HourFormat(values.OBT),
-          game2: convertTo12HourFormat(values.CBT),
-          game3: convertTo12HourFormat(values.OBRT),
+          game1: convertTo12HourFormat123(values.OBT),
+          game2: convertTo12HourFormat123(values.CBT),
+          game3: convertTo12HourFormat123(values.OBRT),
           status: values.isClosed.toString(),
         };
-    
+
         if (location?.state?.edit === "single") {
           data.gameid = location?.state?.rowData?._id;
         } else if (location?.state?.edit === "multiple") {
@@ -104,7 +107,7 @@ const ForStarlineJackpotAdd = ({
           data.gameDay = values.gameDay;
           data.gameid = values.providerId;
         }
-    
+
         const res =
           location?.state?.edit === "single"
             ? await PagesIndex.game_service.FOR_STARLINE_AND_JACPOT_UPDATE_ONE_GAME_SETTING_API(
@@ -123,7 +126,7 @@ const ForStarlineJackpotAdd = ({
                 data,
                 token
               );
-    
+
         if (res?.success || res?.status) {
           PagesIndex.toast.success(res?.message);
           setTimeout(() => {
@@ -137,12 +140,13 @@ const ForStarlineJackpotAdd = ({
         }
       } catch (error) {
         // Log the error or display an error message
-        PagesIndex.toast.error(error?.message || "An unexpected error occurred");
+        PagesIndex.toast.error(
+          error?.message || "An unexpected error occurred"
+        );
       } finally {
         setDisableSubmit(false); // Re-enable the submit button in all cases
       }
     },
-    
   });
 
   const fields = [
@@ -160,7 +164,6 @@ const ForStarlineJackpotAdd = ({
         [],
       label_size: 12,
       col_size: 6,
-     
     },
     {
       name: "gameDay",

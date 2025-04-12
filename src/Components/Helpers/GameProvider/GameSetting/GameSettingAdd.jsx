@@ -88,6 +88,9 @@ const GameProviderAdd = () => {
         status: values.isClosed.toString(),
       };
 
+
+
+
       if (location?.state?.edit === "single") {
         data.gameid = location?.state?.rowData?._id;
       } else if (location?.state?.edit === "multiple") {
