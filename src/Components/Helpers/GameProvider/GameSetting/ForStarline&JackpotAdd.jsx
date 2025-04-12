@@ -52,6 +52,8 @@ const ForStarlineJackpotAdd = ({
     getGameProviderList();
   }, []);
 
+  console.log("location?.state?.rowData.OBT", location?.state?.rowData.OBRT);
+
   const formik = PagesIndex.useFormik({
     initialValues: {
       providerId: location?.state?.row
@@ -61,9 +63,15 @@ const ForStarlineJackpotAdd = ({
         location?.state?.edit === "single"
           ? location?.state?.rowData.gameDay
           : "all",
-      OBT: location?.state?.rowData ? location?.state?.rowData.OBT : "",
-      CBT: location?.state?.rowData ? location?.state?.rowData.CBT : "",
-      OBRT: location?.state?.rowData ? location?.state?.rowData.OBRT : "",
+      OBT: location?.state?.rowData
+        ? convertTo12HourFormat(location?.state?.rowData.OBT)
+        : "",
+      CBT: location?.state?.rowData
+        ? convertTo12HourFormat(location?.state?.rowData.CBT)
+        : "",
+      OBRT: location?.state?.rowData
+        ? convertTo12HourFormat(location?.state?.rowData.OBRT)
+        : "",
       // CBRT: location?.state?.rowData ? location?.state?.rowData.CBRT : "",
       CBRT: "null",
       isClosed: location?.state?.rowData
@@ -224,7 +232,7 @@ const ForStarlineJackpotAdd = ({
       route={path}
       title={
         location?.state
-          ? `${gameType} Game Setting Update111`
+          ? `${gameType} Game Setting Update`
           : `${gameType} Game Setting Add`
       }
     >

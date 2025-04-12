@@ -172,17 +172,28 @@ export const dateFormate = (date) => {
   return ccdate;
 };
 
-export const convertTo12HourFormat = (time) => {
-  const timeParts = time.split(" ");
-  // Return the first part, which is the time
-  return timeParts[0] || null;
+export const convertTo12HourFormat = (time123) => {
+  let [time, modifier] = time123.split(" ");
+  let [hours, minutes] = time.split(":");
+
+  hours = parseInt(hours);
+
+  if (modifier === "PM" && hours !== 12) {
+    hours += 12;
+  } else if (modifier === "AM" && hours === 12) {
+    hours = 0;
+  }
+
+  // Add leading zero if needed
+  let formattedHours = hours.toString().padStart(2, "0");
+  return `${formattedHours}:${minutes}`;
 };
 
 export const convertTo12HourFormat123 = (timeStr) => {
   let [hours, minutes] = timeStr.split(":");
   hours = parseInt(hours); // Convert hours to integer
   let period = hours >= 12 ? "PM" : "AM";
-  
+
   // Convert to 12-hour format
   if (hours > 12) {
     hours -= 12;
@@ -194,6 +205,4 @@ export const convertTo12HourFormat123 = (timeStr) => {
   hours = hours < 10 ? `0${hours}` : hours;
 
   return `${hours}:${minutes} ${period}`;
-}
-
-
+};
