@@ -508,6 +508,7 @@ export const InitialValues = {
   "Deleted Users": false,
   "Upi Fund Report": false,
   Invoices: false,
+  "Manage Gatways": false,
 };
 
 export const keyMapping = {
@@ -596,4 +597,5 @@ export const keyMapping = {
   gatwaypaymenthistorylist: "Gatway Withdrawal List",
   withdrawrequest: "Withdrawal Requests",
   gatewayhistory: "Gatway History",
+  managegatways: "Manage Gatways",
 };

@@ -563,7 +563,7 @@ export const admin_Sidebar = [
       {
         id: 0,
         title: "Manage Gatways",
-        permission: "addFoundMode",
+        permission: "managegatways",
         route: "masters/gatways",
       },
       {
@@ -578,7 +578,7 @@ export const admin_Sidebar = [
         permission: "addFoundMode",
         route: "masters/fundMode",
       },
-     
+
       {
         id: 3,
         title: "Manage Employee",
