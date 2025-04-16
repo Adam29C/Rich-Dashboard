@@ -54,6 +54,10 @@ const MainGameReports = ({
     res.data.forEach((item) => {
       let dateObj = new Date(item.created_at);
 
+      console.log("====================================");
+      console.log("dateObj", dateObj);
+      console.log("====================================");
+
       let formattedDate = dateObj.toLocaleString("en-IN", {
         day: "2-digit",
         month: "2-digit",
@@ -294,7 +298,8 @@ const MainGameReports = ({
       value: "created_at",
       sortable: true,
       transform: (value) => {
-        let dateObj = new Date(value);
+        let dateObj = value;
+
         return dateObj.toLocaleString("en-IN", {
           day: "2-digit",
           month: "2-digit",
@@ -302,7 +307,7 @@ const MainGameReports = ({
           hour: "2-digit",
           minute: "2-digit",
           second: "2-digit",
-          hour12: true, // 12-hour format with AM/PM
+          hour12: false, // 12-hour format with AM/PM
         });
       },
     },

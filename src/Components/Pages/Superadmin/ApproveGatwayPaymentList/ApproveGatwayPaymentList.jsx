@@ -180,7 +180,7 @@ const ManualRequest = () => {
       selector: (row) => row.created_at,
 
       selector: (row) => {
-        let dateObj = new Date(row.created_at);
+        let dateObj = row.created_at
         return dateObj.toLocaleString("en-IN", {
           day: "2-digit",
           month: "2-digit",
