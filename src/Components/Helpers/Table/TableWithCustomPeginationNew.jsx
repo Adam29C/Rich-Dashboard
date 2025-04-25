@@ -163,7 +163,7 @@ const CustomTable = ({
   };
 
   const handleResize = () => {
-    setIsResponsive(window.innerWidth <= 768);
+    setIsResponsive(window.innerWidth <= 1024);
   };
 
   useEffect(() => {
