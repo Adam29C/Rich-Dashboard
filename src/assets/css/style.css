@@ -20,8 +20,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
 
 :root {
-  --primary-color: linear-gradient(97.51deg, #1c3e35 -39.91%, #4aa48c 117.67%);
+  /* --primary-color: linear-gradient(97.51deg, #1c3e35 -39.91%, #4aa48c 117.67%); */
   --secondary-color: #fff;
+  --primary-color: #5ebdc4;
+
 }
 
 .gradient-1,
@@ -21772,8 +21774,8 @@ a:hover {
 }
 
 .brand-title .sidebar-logo {
-  width: 150px;
-  height: 40px;
+  width: 190px;
+  height: 60px;
   object-fit: contain;
 }
 
@@ -21811,16 +21813,16 @@ a:hover {
 
 .submitBtn {
   /* background: #4e3897; */
-  background: var(--khatri-color);
+  background: var(--primary-color);
   border: none;
   color: var(--light);
 }
 .submitBtn:hover {
-  background: var(--khatri-color);
+  background: var(--primary-color);
   color: var(--light);
 }
 .submitBtn:active {
-  background: var(--khatri-color);
+  background: var(--primary-color);
   color: var(--light);
 }
 .border-bottom-text {

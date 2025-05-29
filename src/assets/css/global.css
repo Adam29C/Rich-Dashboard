@@ -292,11 +292,11 @@ input:checked + .slider:before {
 }
 
 #favicon {
-  content: url("../Images/favicon.png");
+  content: url("../Images/newfavicon.png");
 }
 
 #sidebar-logo {
-  content: url("../Images/123.svg");
+  /* content: url("../Images/123.svg"); */
 }
 /* #sidebar-logo-short {
   content: url("../Images/favicon.png");
@@ -462,19 +462,11 @@ input:checked + .slider:before {
 /* step form css start */
 
 .react-form-wizard .wizard-progress-bar {
-  background: linear-gradient(
-    97.51deg,
-    #1c3e35 -39.91%,
-    #4aa48c 117.67%
-  ) !important;
+  background: #5ebdc4 !important;
 }
 
 .react-form-wizard .active .wizard-icon-container {
-  background: linear-gradient(
-    97.51deg,
-    #1c3e35 -39.91%,
-    #4aa48c 117.67%
-  ) !important;
+  background: #5ebdc4 !important;
   color: #ffff;
 }
 
@@ -483,12 +475,8 @@ input:checked + .slider:before {
 }
 
 .react-form-wizard .wizard-btn {
-  background: linear-gradient(
-    97.51deg,
-    #1c3e35 -39.91%,
-    #4aa48c 117.67%
-  ) !important;
-  border-color: #1c3e35;
+  background: #5ebdc4 !important;
+  border-color: #5ebdc4;
 }
 
 .react-form-wizard .wizard-icon-circle .wizard-icon-container {
@@ -497,7 +485,7 @@ input:checked + .slider:before {
   flex: 1;
   border-radius: 50%;
   margin: -3px;
-  background: #267157;
+  background: #5ebdc4;
   color: whitesmoke;
 }
 /* step form css end */
@@ -589,11 +577,7 @@ input:checked + .slider:before {
 
 .rdt_TableHeadRow {
   color: white !important;
-  background: linear-gradient(
-    97.51deg,
-    #1c3e35 -39.91%,
-    #4aa48c 117.67%
-  ) !important;
+  background: #5ebdc4 !important;
 }
 
 .plus_btn {
@@ -615,9 +599,7 @@ input:checked + .slider:before {
   /* content: "+"; */
 }
 
-
-
-/* ---------------------- */  
+/* ---------------------- */
 
 .rs-picker-toggle-wrapper {
   display: inline-block;
@@ -625,7 +607,8 @@ input:checked + .slider:before {
   vertical-align: middle;
 }
 
-.rs-picker.rs-picker-focused, .rs-picker:not(.rs-picker-disabled):hover {
+.rs-picker.rs-picker-focused,
+.rs-picker:not(.rs-picker-disabled):hover {
   border-color: #3498ff;
   /* border-color: var(--rs-input-focus-border); */
 }
@@ -651,11 +634,10 @@ input:checked + .slider:before {
   cursor: text;
   display: -webkit-box;
   display: -ms-flexbox;
-  display: flex
-;
+  display: flex;
   position: relative;
-  -webkit-transition: border-color .15s ease-in-out;
-  transition: border-color .15s ease-in-out;
+  -webkit-transition: border-color 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out;
   width: 100%;
 }
 
@@ -672,17 +654,15 @@ input:checked + .slider:before {
   font-size: 14px;
   line-height: 1.42857143;
   padding: 7px 11px;
-  -webkit-transition: border-color .15s ease-in-out;
-  transition: border-color .15s ease-in-out;
+  -webkit-transition: border-color 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out;
   width: 100%;
 }
-
 
 .rs-picker-popup .rs-calendar {
   height: 274px;
   padding-bottom: 10px;
 }
-
 
 rs-calendar rs-calendar-time-view rs-calendar-only-time
 
@@ -695,7 +675,6 @@ rs-calendar rs-calendar-time-view rs-calendar-only-time
   -webkit-animation: i 0.3s linear;
   animation: i 0.3s linear;
 }
-
 
 .rs-calendar-only-time {
   display: block;
@@ -714,7 +693,6 @@ rs-calendar rs-calendar-time-view rs-calendar-only-time
   min-width: 60px;
 }
 
-
 .rs-picker-popup .rs-calendar.rs-calendar-only-time {
   min-width: auto;
 }
@@ -724,7 +702,6 @@ rs-calendar rs-calendar-time-view rs-calendar-only-time
   > ul {
   height: 240px;
 }
-
 
 .rs-calendar-time-view .rs-calendar-header-title-time {
   background: transparent;
@@ -746,8 +723,6 @@ rs-calendar rs-calendar-time-view rs-calendar-only-time
   -webkit-animation: i 0.3s linear;
   animation: i 0.3s linear;
 }
-
-
 
 .rs-calendar-time-view .rs-calendar-time-dropdown {
   display: block;
@@ -794,9 +769,7 @@ rs-calendar rs-calendar-time-view rs-calendar-only-time
   width: 100%;
 }
 
-
-
-.testing{
+.testing {
   border: none;
   outline: none;
 }

@@ -16,7 +16,7 @@ const Logo = () => {
           <span id="sidebar-logo-short"></span>
           {/* </span> */}
           <span className="brand-title">
-            <img className="sidebar-logo" id="sidebar-logo" src="" alt="logo"/>
+            <img className="sidebar-logo" id="sidebar-logo" src="https://rich143.com/static/media/updatedlogo.778bb66b8ac72949874f0c8180098037.svg" alt="logo"/>
           </span>
         </a>
       </div>
