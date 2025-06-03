@@ -386,6 +386,8 @@ const WinnerList = () => {
           apidata1,
           token
         );
+
+        console.log("sdassssssssssssssssssssss", res);
       }
 
       if (res.status) {
@@ -562,7 +564,7 @@ const WinnerList = () => {
       body: (
         <div>
           <h4 className="winner-list-text-main">
-            Game Winners Of Date : {data?.resultDate}, Provider :{" "}
+            Game Winners Of Date 111: {data?.resultDate}, Provider :{" "}
             {data?.providerName}, Session : {data?.session}, Digit :{" "}
             {data?.winningDigit}-{data?.winningDigitFamily}
           </h4>

@@ -31,7 +31,6 @@ const WinnerList = () => {
     setModalState(true);
   };
   const fetchData = async (page, rowsPerPage, searchQuery) => {
-   
     const apidata = {
       providerId: data.providerId,
       date: data.resultDate,
@@ -105,10 +104,11 @@ const WinnerList = () => {
           }
         });
 
-        console.log("nonEmptyCategories", nonEmptyCategories);
+        const totalRows = 5;
 
-        const totalRows = res.data.pagination.totalItems || 5;
         let mainRes = nonEmptyCategories;
+
+        console.log("res11111111111111111", mainRes);
 
         let total = 0;
         mainRes.forEach((item) => {
@@ -116,6 +116,8 @@ const WinnerList = () => {
         });
 
         setShowTotal(total);
+
+        console.log("sdddddddddddd", mainRes);
 
         return { mainRes, totalRows };
       }
