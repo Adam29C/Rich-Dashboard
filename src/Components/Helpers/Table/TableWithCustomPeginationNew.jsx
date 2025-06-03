@@ -311,7 +311,7 @@ const CustomTable = ({
 
       <div className="row d-flex align-items-center">
         <div className="col-md-6">
-          <span className="fw-bold">{showCounting}</span>
+          {/* <span className="fw-bold">{showCounting}</span> */}
         </div>
         <div className="col-md-6">
           <nav className="">

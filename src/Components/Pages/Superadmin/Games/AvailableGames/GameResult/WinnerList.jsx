@@ -15,6 +15,8 @@ const WinnerList = () => {
   //data destructure
   const data = location.state?.rowdata;
 
+  console.log("ffffffffffffffffffffffffffffffff", data);
+
   //all state
   const [remainingWinnerData, setRemainingWinnerData] = PagesIndex.useState([]);
   const [SearchInTable, setSearchInTable] = PagesIndex.useState("");
@@ -108,7 +110,7 @@ const WinnerList = () => {
 
         let mainRes = nonEmptyCategories;
 
-        console.log("res11111111111111111", mainRes);
+        // console.log("res11111111111111111", mainRes);
 
         let total = 0;
         mainRes.forEach((item) => {
