@@ -16,17 +16,27 @@ const ManualRequest = () => {
   //all state
   const [activeTabIndex, setActiveTabIndex] = PagesIndex.useState(0);
   const [GetIds, setGetIds] = PagesIndex.useState([]);
+  const [getTotals, setgetTotals] = PagesIndex.useState({
+    admin_profit: 0,
+    user_profit: 0,
+  });
+
+  console.log("getTotals", getTotals);
 
   const [data, setData] = PagesIndex.useState([]);
 
   // Log the corresponding tab name
-  const tabTitles = ["pending", "approved", "rejected"];
+  const tabTitles = ["pending", "processing", "approved", "rejected", "failed"];
   const status = tabTitles[activeTabIndex];
+
   //get fund requestdata
+
   const getFundRequestList = async () => {
-    let abcccc = `${Api.GATWAYPAYMENTLIST}?start_date=${abc(
+    let abcccc = `${
+      status == "pending" ? Api.PENDINGGATWAYPAYMENTLIST : Api.GATWAYPAYMENTLIST
+    }?start_date=${abc(new Date())}&end_date=${abc(
       new Date()
-    )}&end_date=${abc(new Date())}&status=${status}`;
+    )}&status=${status.toUpperCase()}`;
 
     const res = await PagesIndex.admin_services.GATWAY_PAYMENT_LIST(
       abcccc,
@@ -34,8 +44,13 @@ const ManualRequest = () => {
     );
 
     let aarrrr = [];
+    let admin_profit = 0;
+    let user_profit = 0;
     res.data.forEach((item) => {
       let dateObj = new Date(item.created_at);
+
+      admin_profit += parseFloat(item.admin_profit_loss || 0);
+      user_profit += parseFloat(item.user_profit_loss || 0);
 
       let formattedDate = dateObj.toLocaleString("en-IN", {
         day: "2-digit",
@@ -53,10 +68,12 @@ const ManualRequest = () => {
 
     aarrrr.sort((a, b) => parseDate(b.created_at) - parseDate(a.created_at));
 
-    console.log("aarrrr", aarrrr);
-
     if (res?.status) {
       setData(aarrrr);
+      setgetTotals({
+        admin_profit: admin_profit,
+        user_profit: user_profit,
+      });
     }
   };
 
@@ -92,29 +109,49 @@ const ManualRequest = () => {
   // };
 
   const handleStatusChange = async (id, value) => {
-    const apidata = {
-      request_id: id,
-      action: value,
-    };
+    try {
+      const apidata = {
+        request_id: id,
+        action: value,
+      };
 
-    if (value === "APPROVE") {
-      const userConfirmed = window.confirm("Do you really want to approve?");
-      if (!userConfirmed) {
-        return;
+      if (value === "APPROVE" || value === "REJECT") {
+        const userConfirmed = window.confirm("Do you really want to approve?");
+        if (!userConfirmed) {
+          return;
+        }
       }
-    }
 
-    // API Call
-    const res =
-      await PagesIndex.admin_services.GATWAY_PAYMENT_DEPOSITE_OR_DECLINED(
-        apidata,
-        token
-      );
+      // API Call
 
-    if (res.status) {
-      value = "";
-      PagesIndex.toast.success(res.message);
-      getFundRequestList();
+      let response = "";
+
+      status === "pending"
+        ? (response =
+            await PagesIndex.admin_services.GATWAY_PAYMENT_DEPOSITE_OR_DECLINED(
+              apidata,
+              token
+            ))
+        : status === "processing" || status === "failed"
+        ? (response =
+            await PagesIndex.admin_services.GATWAY_PAYMENT_DEPOSITE_OR_DECLINED123(
+              apidata,
+              token
+            ))
+        : "";
+
+      console.log("response", response);
+
+      if (response.status) {
+        value = "";
+        PagesIndex.toast.success(response.message);
+        getFundRequestList();
+      } else {
+        PagesIndex.toast.error(response.error);
+        PagesIndex.toast.error(response.response.data.error);
+      }
+    } catch (error) {
+      PagesIndex.toast.error(response.response.data.error);
     }
   };
 
@@ -127,12 +164,13 @@ const ManualRequest = () => {
     {
       name: "User Name",
       selector: (row) => row.username,
+      width: "130px",
       sortable: true,
     },
     {
       name: "Contact No",
       selector: (row) => row.mobile,
-      wrap: true, // Text wrap enable karega
+      wrap: true,
       width: "130px",
       sortable: true,
     },
@@ -140,47 +178,69 @@ const ManualRequest = () => {
     {
       name: "Account No.",
       selector: (row) => row.account_no,
-      wrap: true, // Text wrap enable karega
-      width: "130px",
+      wrap: true,
+      width: "140px",
       sortable: true,
+      color: "red",
     },
     {
       name: "IFSC",
       selector: (row) => row.ifsc_code,
-      wrap: true, // Text wrap enable karega
+      wrap: true,
       width: "130px",
       sortable: true,
     },
     {
       name: "Wallet Amount",
       selector: (row) => row.wallet_balance,
-      wrap: true, // Text wrap enable karega
+      wrap: true,
       width: "150px",
       sortable: true,
     },
     {
       name: "Req. Amount",
       selector: (row) => row.amount,
-      wrap: true, // Text wrap enable karega
+      wrap: true,
       width: "150px",
       sortable: true,
     },
+    {
+      name: "Profit/Loss",
+      wrap: true,
+      width: "130px",
+      sortable: true,
+      omit: status === "pending" ? false : true,
+
+      cell: (row) => {
+        const diff = parseInt(row.admin_profit_loss) - parseInt(row.amount);
+        return (
+          <span
+            style={{
+              color: diff > 0 ? "green" : "red",
+              fontWeight: "900",
+            }}
+          >
+            {diff > 0 ? `+ ${diff}` : `- ${Math.abs(diff)}`}
+          </span>
+        );
+      },
+    },
+
     {
       name: "Transaction Id",
       selector: (row) => {
         return row.transaction_id || row.order_id || "null";
       },
-      wrap: true, // Text wrap enable karega
-      width: "150px",
+      wrap: true,
+      width: "10px",
       sortable: true,
-      omit: status === "pending" ? true : false,
+      omit: status === "pending" ? true : true,
     },
     {
       name: "Date & Time",
-      selector: (row) => row.created_at,
-
+      // selector: (row) => row.created_at,
       selector: (row) => {
-        let dateObj = row.created_at
+        let dateObj = row.created_at;
         return dateObj.toLocaleString("en-IN", {
           day: "2-digit",
           month: "2-digit",
@@ -192,34 +252,78 @@ const ManualRequest = () => {
         });
       },
       wrap: true, // Text wrap enable karega
-      width: "200px",
+      width: "150px",
       sortable: true,
     },
-
     {
       name: "Action",
-      wrap: true, // Text wrap enable karega
-      width: "120px",
+      wrap: false, // Text wrap enable karega
+      omit: status === "rejected" || status === "approved" ? true : false,
+      width: "220px",
       selector: (row) => (
         <div>
-          {status === "pending" ? (
+          <div className="d-flex">
+            {status === "processing" ||
+            status === "pending" ||
+            status === "failed" ? (
+              <>
+                <button
+                  type="button"
+                  className="btn  btn-primary px-2 py-1 mx-1"
+                  onClick={(e) => {
+                    handleStatusChange(row?.request_id, "APPROVE");
+                  }}
+                >
+                  {status === "failed" ? "RETRY" : "APPROVE"}
+                </button>
+                {status !== "failed" && (
+                  <button
+                    type="button"
+                    className="btn  btn-danger px-2 py-1 w-50"
+                    onClick={(e) => {
+                      handleStatusChange(
+                        row?.request_id,
+
+                        "REJECT"
+                      );
+                    }}
+                  >
+                    Decline
+                  </button>
+                )}
+              </>
+            ) : (
+              ""
+            )}
+          </div>
+
+          {/* {status === "pending" ||
+          status === "processing" ||
+          status === "failed" ? (
             <select
               className="p-1"
               aria-label="Default select example"
               // value={row.status}
               onChange={(e) => {
-                handleStatusChange(row?.request_id, e.target.value);
+                handleStatusChange(row?.request_id, e.target.value, status);
               }}
             >
               <option disabled selected value="">
                 select
               </option>
-              <option value="APPROVE">Approve</option>
-              <option value="REJECT">Decline</option>
+
+              {status === "failed" ? (
+                <option value="APPROVE">Retry</option>
+              ) : (
+                <>
+                  <option value="APPROVE">Approve</option>
+                  <option value="REJECT">Decline</option>
+                </>
+              )}
             </select>
           ) : (
             row.status
-          )}
+          )} */}
         </div>
       ),
     },
@@ -235,8 +339,6 @@ const ManualRequest = () => {
 
   const ApprovedAll = () => {};
 
-  // console.log("GetIds", GetIds);
-
   const tabs = [
     {
       title: "Pending Request",
@@ -250,37 +352,37 @@ const ManualRequest = () => {
               onSelectedRowsChange={handleChange}
             />
             <h3 className="ml-3 mb-3 fw-bold responsive-total-amount">
-              Total Amount {totalAmount}/-
+              Total Amount - {totalAmount}/-
             </h3>
           </div>
         </>
       ),
     },
-    // {
-    //   title: "Processing Request",
-    //   content: (
-    //     <>
-    //       <div className="mt-4">
-    //         <PagesIndex.Data_Table
-    //           columns={columns}
-    //           data={data}
-    //           // selectableRows
-    //           // onSelectedRowsChange={handleChange}
-    //         />
-    //         <h3 className="ml-3 mb-3 fw-bold responsive-total-amount">
-    //           Total Amount {totalAmount}/-
-    //         </h3>
-    //       </div>
-    //     </>
-    //   ),
-    // },
+    {
+      title: "Processing Request",
+      content: (
+        <>
+          <div className="mt-4">
+            <PagesIndex.Data_Table
+              columns={columns}
+              data={data}
+              // selectableRows
+              // onSelectedRowsChange={handleChange}
+            />
+            <h3 className="ml-3 mb-3 fw-bold responsive-total-amount">
+              Total Amount -{totalAmount}/-
+            </h3>
+          </div>
+        </>
+      ),
+    },
     {
       title: "Approved Request",
       content: (
         <div className="mt-4">
           <PagesIndex.Data_Table columns={columns} data={data} />
           <h3 className="ml-3 mb-3 fw-bold responsive-total-amount">
-            Total Amount {totalAmount}/-
+            Total Amount - {totalAmount}/-
           </h3>
         </div>
       ),
@@ -291,9 +393,27 @@ const ManualRequest = () => {
         <div className="mt-4">
           <PagesIndex.Data_Table columns={columns} data={data} />{" "}
           <h3 className="ml-3 mb-3 fw-bold responsive-total-amount">
-            Total Amount {totalAmount}/-
+            Total Amount - {totalAmount}/-
           </h3>
         </div>
+      ),
+    },
+    {
+      title: "Failed Request",
+      content: (
+        <>
+          <div className="mt-4">
+            <PagesIndex.Data_Table
+              columns={columns}
+              data={data}
+              // selectableRows
+              // onSelectedRowsChange={handleChange}
+            />
+            <h3 className="ml-3 mb-3 fw-bold responsive-total-amount">
+              Total Amount - {totalAmount}/-
+            </h3>
+          </div>
+        </>
       ),
     },
   ];
@@ -308,7 +428,7 @@ const ManualRequest = () => {
         tabs={tabs}
         activeTabIndex={activeTabIndex}
         onTabSelect={(index) => {
-          setActiveTabIndex(index); // Update active tab index
+          setActiveTabIndex(index);
         }}
       />
       <PagesIndex.Toast />

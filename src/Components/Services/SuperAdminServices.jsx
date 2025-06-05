@@ -1468,3 +1468,35 @@ export const CHANGE_STATUS_GATWAY_API = async (data, token) => {
     return error;
   }
 };
+
+export const GATWAY_PAYMENT_DEPOSITE_OR_DECLINED123 = async (data, token) => {
+  try {
+    const res = await axios.post(
+      `${BASE_URL}${Api.PROCESSINGGATWAYPAYMENTAPPROVE}`,
+      data,
+      {
+        headers: header(token),
+      }
+    );
+
+    return res?.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+// UPDATE TOGGLE FEATURE
+export const UPDATE_TOGGLE_FEATURE = async (data, token) => {
+  try {
+    const res = await axios.post(
+      `${BASE_URL}${Api.UPDATE_TOGGLE_FEATURE}`,
+      data,
+      {
+        headers: header(token),
+      }
+    );
+    return res?.data;
+  } catch (error) {
+    return error;
+  }
+};

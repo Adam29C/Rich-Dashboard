@@ -306,11 +306,27 @@ const Api = {
 
   GATWAYPAYMENTLIST: "fundreq/get-payout-requests",
   WITHDRAWLIST: "nnData/get-payin-requests",
-  GATWAYPAYMENTAPPROVE: "fundreq/approve-payout",
+  // GATWAYPAYMENTAPPROVE: "fundreq/approve-payout",
 
   ALLPAYMENTGATWAYLIST: "nnData/api/admin/payment-gateways",
   CREATEPAYMENTGATWAY: "nnData/api/admin/payment-gateway",
   ACTIViACTIVE: "nnData/api/admin/activate-gateway",
+
+  // GATWAYPAYMENTLIST: "fundreq/get-payout-requests",
+  PENDINGGATWAYPAYMENTLIST: "fundreq/get-pending-payouts",
+
+  // GATWAYPAYMENTLIST: "fundreq/get-payout-requests",
+  // PENDINGGATWAYPAYMENTLIST: "fundreq/get-pending-payouts",
+
+  WITHDRAWLIST: "nnData/get-payin-requests",
+  GATWAYPAYMENTAPPROVE: "fundreq/update-pending-payout-request",
+  PROCESSINGGATWAYPAYMENTAPPROVE: "fundreq/approve-payout",
+
+  ALLPAYMENTGATWAYLIST: "nnData/api/admin/payment-gateways",
+  CREATEPAYMENTGATWAY: "nnData/api/admin/payment-gateway",
+  ACTIViACTIVE: "nnData/api/admin/activate-gateway",
+  GETSTATUS: "nnData/get-call-feature-status",
+  UPDATE_TOGGLE_FEATURE: "nnData/toggle-call-feature",
 };
 
 export { Api };
