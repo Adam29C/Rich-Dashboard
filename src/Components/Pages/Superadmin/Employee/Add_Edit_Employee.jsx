@@ -6,7 +6,7 @@ import { Get_permissions } from "../../../Redux/slice/CommonSlice";
 import { admin_Sidebar } from "../../../Layout/SIdebar/Sidebar_data";
 import { keyMapping } from "./permissions";
 
-console.log("admin_Sidebar", admin_Sidebar);
+console.log("keyMapping", keyMapping);
 
 function AddEmployee() {
   //get token in localstorage
@@ -278,10 +278,9 @@ function AddEmployee() {
       loginFor: 1,
     };
 
+    console.log("addreq", addreq);
+    console.log("updatereq", updatereq);
 
-    console.log("addreq" ,addreq);
-    console.log("updatereq" ,updatereq);
-    
     // return;
     const res = userData
       ? await PagesIndex.admin_services.UPDATE_EMPLOYEE(updatereq, token)

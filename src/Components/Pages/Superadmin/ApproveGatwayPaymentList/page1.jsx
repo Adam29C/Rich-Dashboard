@@ -21,8 +21,9 @@ const ManualRequest = () => {
     user_profit: 0,
   });
 
+  console.log("getTotals", getTotals);
+
   const [data, setData] = PagesIndex.useState([]);
-  const [data12, setData12] = PagesIndex.useState([]);
 
   // Log the corresponding tab name
   const tabTitles = ["pending", "processing", "approved", "rejected", "failed"];
@@ -31,85 +32,48 @@ const ManualRequest = () => {
   //get fund requestdata
 
   const getFundRequestList = async () => {
-    if (status == "pending") {
-      let abcccc1 = `${Api.PENDINGGATWAYPAYMENTLIST}?start_date=${abc(
-        new Date()
-      )}&end_date=${abc(new Date())}&status=${status.toUpperCase()}`;
+    let abcccc = `${
+      status == "pending" ? Api.PENDINGGATWAYPAYMENTLIST : Api.GATWAYPAYMENTLIST
+    }?start_date=${abc(new Date())}&end_date=${abc(
+      new Date()
+    )}&status=${status.toUpperCase()}`;
 
-      const res = await PagesIndex.admin_services.GATWAY_PAYMENT_LIST(
-        abcccc1,
-        token
-      );
+    const res = await PagesIndex.admin_services.GATWAY_PAYMENT_LIST(
+      abcccc,
+      token
+    );
 
-      let aarrrr = [];
-      let admin_profit = 0;
-      let user_profit = 0;
+    let aarrrr = [];
+    let admin_profit = 0;
+    let user_profit = 0;
+    res.data.forEach((item) => {
+      let dateObj = new Date(item.created_at);
 
-      if (res?.status) {
-        res.data.forEach((item) => {
-          let dateObj = new Date(item.created_at);
-          admin_profit += parseFloat(item.admin_profit_loss || 0);
-          user_profit += parseFloat(item.user_profit_loss || 0);
+      admin_profit += parseFloat(item.admin_profit_loss || 0);
+      user_profit += parseFloat(item.user_profit_loss || 0);
 
-          let formattedDate = dateObj.toLocaleString("en-IN", {
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric",
-            hour: "2-digit",
-            minute: "2-digit",
-            second: "2-digit",
-            hour12: true,
-          });
+      let formattedDate = dateObj.toLocaleString("en-IN", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true,
+      });
 
-          aarrrr.push({ ...item, created_at: formattedDate });
-          return;
-        });
+      aarrrr.push({ ...item, created_at: formattedDate });
+      return;
+    });
 
-        aarrrr.sort(
-          (a, b) => parseDate(b.created_at) - parseDate(a.created_at)
-        );
+    aarrrr.sort((a, b) => parseDate(b.created_at) - parseDate(a.created_at));
 
-        setData12(aarrrr);
-
-        setgetTotals({
-          admin_profit: admin_profit,
-          user_profit: user_profit,
-        });
-      }
-    } else {
-      let abcccc12 = `${Api.GATWAYPAYMENTLIST}?start_date=${abc(
-        new Date()
-      )}&end_date=${abc(new Date())}&status=${status.toUpperCase()}`;
-
-      const res12 = await PagesIndex.admin_services.GATWAY_PAYMENT_LIST(
-        abcccc12,
-        token
-      );
-
-      if (res12?.status) {
-        let newarrr = [];
-        res12.data.forEach((item) => {
-          let dateObj = new Date(item.created_at);
-
-          let formattedDate = dateObj.toLocaleString("en-IN", {
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric",
-            hour: "2-digit",
-            minute: "2-digit",
-            second: "2-digit",
-            hour12: true,
-          });
-
-          newarrr.push({ ...item, created_at: formattedDate });
-        });
-
-        newarrr.sort(
-          (a, b) => parseDate(b.created_at) - parseDate(a.created_at)
-        );
-
-        setData(newarrr);
-      }
+    if (res?.status) {
+      setData(aarrrr);
+      setgetTotals({
+        admin_profit: admin_profit,
+        user_profit: user_profit,
+      });
     }
   };
 
@@ -191,6 +155,10 @@ const ManualRequest = () => {
     }
   };
 
+  const totalAmount = useMemo(
+    () => data.reduce((acc, item) => acc + (parseFloat(item?.amount) || 0), 0),
+    [data]
+  );
 
   const columns = [
     {
@@ -228,7 +196,8 @@ const ManualRequest = () => {
       wrap: true,
       width: "150px",
       sortable: true,
-      omit: status === "processing" ? true : false,
+      omit: status === "processing" ? true  : false,
+
     },
     {
       name: "Req. Amount",
@@ -362,172 +331,6 @@ const ManualRequest = () => {
     },
   ];
 
-  const columns1 = [
-    {
-      name: "User Name",
-      selector: (row) => row.username,
-      width: "130px",
-      sortable: true,
-    },
-    {
-      name: "Contact No",
-      selector: (row) => row.mobile,
-      wrap: true,
-      width: "130px",
-      sortable: true,
-    },
-
-    {
-      name: "Account No.",
-      selector: (row) => row.account_no,
-      wrap: true,
-      width: "140px",
-      sortable: true,
-      color: "red",
-    },
-    {
-      name: "IFSC",
-      selector: (row) => row.ifsc_code,
-      wrap: true,
-      width: "130px",
-      sortable: true,
-    },
-    {
-      name: "Wallet Amount",
-      selector: (row) => row.wallet_balance,
-      wrap: true,
-      width: "150px",
-      sortable: true,
-    },
-    {
-      name: "Req. Amount",
-      selector: (row) => row.amount,
-      wrap: true,
-      width: "150px",
-      sortable: true,
-    },
-    {
-      name: "Profit/Loss",
-      wrap: true,
-      width: "130px",
-      sortable: true,
-      cell: (row) => {
-        const diff = parseInt(row.admin_profit_loss) - parseInt(row.amount);
-        return (
-          <span
-            style={{
-              color: diff > 0 ? "green" : "red",
-              fontWeight: "900",
-            }}
-          >
-            {diff > 0 ? `+ ${diff}` : `- ${Math.abs(diff)}`}
-          </span>
-        );
-      },
-    },
-
-    // {
-    //   name: "Transaction Id",
-    //   selector: (row) => {
-    //     return row.transaction_id || row.order_id || "null";
-    //   },
-
-    //   wrap: true,
-    //   width: "10px",
-    //   sortable: true,
-    // },
-    {
-      name: "Date & Time",
-
-      selector: (row) => {
-        let dateObj = row.created_at;
-        return dateObj.toLocaleString("en-IN", {
-          day: "2-digit",
-          month: "2-digit",
-          year: "numeric",
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit",
-          hour12: true,
-        });
-      },
-      wrap: true,
-      width: "150px",
-      sortable: true,
-    },
-    {
-      name: "Action",
-      wrap: false,
-      omit: status === "rejected" || status === "approved" ? true : false,
-      width: "220px",
-      selector: (row) => (
-        <div>
-          <div className="d-flex">
-            {status === "processing" ||
-            status === "pending" ||
-            status === "failed" ? (
-              <>
-                <button
-                  type="button"
-                  className="btn  btn-primary px-2 py-1 mx-1"
-                  onClick={(e) => {
-                    handleStatusChange(row?.request_id, "APPROVE");
-                  }}
-                >
-                  {status === "failed" ? "RETRY" : "APPROVE"}
-                </button>
-                {status !== "failed" && (
-                  <button
-                    type="button"
-                    className="btn  btn-danger px-2 py-1 w-50"
-                    onClick={(e) => {
-                      handleStatusChange(
-                        row?.request_id,
-
-                        "REJECT"
-                      );
-                    }}
-                  >
-                    Decline
-                  </button>
-                )}
-              </>
-            ) : (
-              ""
-            )}
-          </div>
-
-          {/* {status === "pending" ||
-          status === "processing" ||
-          status === "failed" ? (
-            <select
-              className="p-1"
-              aria-label="Default select example"
-              // value={row.status}
-              onChange={(e) => {
-                handleStatusChange(row?.request_id, e.target.value, status);
-              }}
-            >
-              <option disabled selected value="">
-                select
-              </option>
-
-              {status === "failed" ? (
-                <option value="APPROVE">Retry</option>
-              ) : (
-                <>
-                  <option value="APPROVE">Approve</option>
-                  <option value="REJECT">Decline</option>
-                </>
-              )}
-            </select>
-          ) : (
-            row.status
-          )} */}
-        </div>
-      ),
-    },
-  ];
   const handleChange = ({ selectedRows }) => {
     let aaa = selectedRows.map((items) => {
       return items.request_id;
@@ -538,23 +341,6 @@ const ManualRequest = () => {
 
   const ApprovedAll = () => {};
 
-  const totalAmount = useMemo(
-    () =>
-      data12.reduce((acc, item) => acc + (parseFloat(item?.amount) || 0), 0),
-    [data12]
-  );
-
-  const totalAmount122 = useMemo(
-    () => data.reduce((acc, item) => acc + (parseFloat(item?.amount) || 0), 0),
-    [data]
-  );
-
-
-  console.log("totalAmount122" ,totalAmount122);
-  console.log("totalAmount" ,totalAmount);
-
-  
-
   const tabs = [
     {
       title: "Pending Request",
@@ -562,8 +348,8 @@ const ManualRequest = () => {
         <>
           <div className="mt-4">
             <PagesIndex.Data_Table
-              columns={columns1}
-              data={data12}
+              columns={columns}
+              data={data}
               // selectableRows
               onSelectedRowsChange={handleChange}
             />
@@ -586,7 +372,7 @@ const ManualRequest = () => {
               // onSelectedRowsChange={handleChange}
             />
             <h3 className="ml-3 mb-3 fw-bold responsive-total-amount">
-              Total Amount -{totalAmount122}/-
+              Total Amount -{totalAmount}/-
             </h3>
           </div>
         </>
@@ -598,7 +384,7 @@ const ManualRequest = () => {
         <div className="mt-4">
           <PagesIndex.Data_Table columns={columns} data={data} />
           <h3 className="ml-3 mb-3 fw-bold responsive-total-amount">
-            Total Amount - {totalAmount122}/-
+            Total Amount - {totalAmount}/-
           </h3>
         </div>
       ),
@@ -609,7 +395,7 @@ const ManualRequest = () => {
         <div className="mt-4">
           <PagesIndex.Data_Table columns={columns} data={data} />{" "}
           <h3 className="ml-3 mb-3 fw-bold responsive-total-amount">
-            Total Amount - {totalAmount122}/-
+            Total Amount - {totalAmount}/-
           </h3>
         </div>
       ),
@@ -626,7 +412,7 @@ const ManualRequest = () => {
               // onSelectedRowsChange={handleChange}
             />
             <h3 className="ml-3 mb-3 fw-bold responsive-total-amount">
-              Total Amount - {totalAmount122}/-
+              Total Amount - {totalAmount}/-
             </h3>
           </div>
         </>

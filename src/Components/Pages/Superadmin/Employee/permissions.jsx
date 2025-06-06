@@ -509,6 +509,11 @@ export const InitialValues = {
   "Upi Fund Report": false,
   Invoices: false,
   "Manage Gatways": false,
+  "Pay-In History": false,
+  "Pay-Out List": false,
+  "Withdrawal Requests": false,
+  "All Gateway History": false,
+  "Manage Gateways": false,
 };
 
 export const keyMapping = {
@@ -538,7 +543,6 @@ export const keyMapping = {
   abResult: "Jackpot Game Result",
   jackpotrefundpayment: "Jackpot Refund User Points",
   jackpotrevertpayment: "Jackpot Revert Result Payment ",
-
   cg: "Cutting Group",
   fcg: "Final OC Cutting Group",
   wallet: "Wallet",
@@ -593,9 +597,11 @@ export const keyMapping = {
   upiId: "UPI Id",
   addFoundMode: "",
   deleteUser: "Deleted Users",
-  gatwaypaymenthistory: "Gatway Deposite History",
-  gatwaypaymenthistorylist: "Gatway Withdrawal List",
+  gatwaypaymenthistory: "Pay-In History",
+  gatwaypaymenthistorylist: "Pay-Out List",
   withdrawrequest: "Withdrawal Requests",
-  gatewayhistory: "Gatway History",
-  managegatways: "Manage Gatways",
+  gatewayhistory: "All Gateway History",
+  "Manage Gateways": false,
+  managegatways: "Manage Gateways",
+  managepayoutrequest: "Gateway Requests",
 };

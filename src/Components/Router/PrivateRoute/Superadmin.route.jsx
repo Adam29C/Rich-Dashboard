@@ -125,6 +125,8 @@ import GatwayHistory123 from "../../Pages/Superadmin/Reports/GatwayHistory";
 // import AddEmployee32 from "../../Pages/Superadmin/Employee/Add_Edit_Employee32";
 import AddEmployee from "../../Pages/Superadmin/Employee/Add_Edit_Employee";
 
+import page1 from "../../Pages/Superadmin/ApproveGatwayPaymentList/page1";
+
 // Mock authentication status
 
 const adminRoutes = [
@@ -516,6 +518,10 @@ const adminRoutes = [
       {
         path: "gatway/history",
         element: <PrivateRoute element={GatwayHistory123} />,
+      },
+      {
+        path: "withdraw/page1",
+        element: <PrivateRoute element={page1} />,
       },
     ],
   },

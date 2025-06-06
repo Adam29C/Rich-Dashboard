@@ -207,9 +207,9 @@ export const admin_Sidebar = [
   },
   {
     id: 19,
-    route: "wallet/gatwaypaymenthistory",
+    route: "wallet/gatwaypaymenthistorylist",
     headerTitle: "Gateways",
-    permission: "masters",
+    permission: "managepayoutrequest",
     title: "Gateway Requests",
     Icon: "ti-money",
     NestedElement: [
