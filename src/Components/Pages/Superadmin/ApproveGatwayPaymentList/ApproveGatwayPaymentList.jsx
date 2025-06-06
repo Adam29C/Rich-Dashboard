@@ -222,7 +222,7 @@ const ManualRequest = () => {
       wrap: true,
       width: "150px",
       sortable: true,
-      omit: status === "processing" || "failed" ? true : false,
+      omit: status === "pending"  ? false : true,
     },
     {
       name: "Req. Amount",
@@ -259,7 +259,11 @@ const ManualRequest = () => {
       width: "150px",
       sortable: true,
       cell: (row) => {
-        return <h1 className={`profit`}>{row.status ==="PROCESSING" ? "PENDING" :row.status }</h1>;
+        return (
+          <h1 className={`profit`}>
+            {row.status === "PROCESSING" ? "PENDING" : row.status}
+          </h1>
+        );
       },
     },
     {
