@@ -40,7 +40,12 @@ const ViewWallet = () => {
     const Previous_Amount = data?.Previous_Amount;
     const Current_Amount = data?.Current_Amount;
 
-    if (parseInt(Previous_Amount) < parseInt(Current_Amount)) {
+    console.log("description", description);
+
+    if (
+      parseInt(Previous_Amount) < parseInt(Current_Amount) ||
+      description.includes("withdrawal request has been declined by admin")
+    ) {
       return "green";
     } else if (description.includes("withdrawn")) {
       return "red";

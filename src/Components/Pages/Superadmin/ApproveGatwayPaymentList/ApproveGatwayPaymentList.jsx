@@ -222,7 +222,7 @@ const ManualRequest = () => {
       wrap: true,
       width: "150px",
       sortable: true,
-      omit: status === "processing" ? true : false,
+      omit: status === "processing" || "failed" ? true : false,
     },
     {
       name: "Req. Amount",
