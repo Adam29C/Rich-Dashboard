@@ -17,13 +17,12 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300..900&display=swap'); */
 /* @import url('https://fonts.googleapis.com/css2?family=Spectral+SC:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap'); */
 
-@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap");
 
 :root {
   /* --primary-color: linear-gradient(97.51deg, #1c3e35 -39.91%, #4aa48c 117.67%); */
   --secondary-color: #fff;
   --primary-color: #5ebdc4;
-
 }
 
 .gradient-1,
@@ -127,11 +126,11 @@
   --khatri-color: linear-gradient(97.51deg, #1c3e35 -39.91%, #4aa48c 117.67%);
   /* background: linear-gradient(97.51deg, #1C3E35 -39.91%, #4AA48C 117.67%); */
   /* --khatri-color: #458163; */
-  --font-family-sans-serif: sans-serif, serif, -apple-system,
-    BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-family-monospace: sans-serif, serif, SFMono-Regular, Menlo,
-    Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-family-sans-serif: sans-serif, serif, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-family-monospace: sans-serif, serif, SFMono-Regular, Menlo, Monaco,
+    Consolas, "Liberation Mono", "Courier New", monospace;
   --main-bg-color: "#7571F9";
 }
 
@@ -154,7 +153,7 @@
 }
 
 html {
-  font-family: Libre Baskerville, serif  sans-serif;
+  font-family: Libre Baskerville, serif sans-serif;
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
@@ -181,7 +180,7 @@ section {
 
 body {
   margin: 0;
-  font-family: sans-serif, serif , "Roboto", sans-serif;
+  font-family: sans-serif, serif, "Roboto", sans-serif;
   font-size: 0.875rem;
   /* font-weight: 800; */
   line-height: 1.5;
@@ -313,8 +312,8 @@ pre,
 code,
 kbd,
 samp {
-  font-family: sans-serif, serif  , SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
-    "Courier New", monospace;
+  font-family: sans-serif, serif, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
   font-size: 1em;
 }
 
@@ -4457,7 +4456,6 @@ input[type="button"].btn-block {
   flex: 1 1 auto;
   /* padding: 1.25rem; */
   padding: 0.48rem 0.91rem !important;
-  
 }
 
 .card-title {
@@ -5472,7 +5470,7 @@ button.close {
 
 @media (min-width: 576px) {
   .modal-dialog {
-    max-width: 500px;
+    max-width: 700px;
     margin: 1.75rem auto;
   }
   .modal-dialog-centered {
@@ -5497,7 +5495,7 @@ button.close {
   z-index: 1070;
   display: block;
   margin: 0;
-  font-family:sans-serif, serif , "Roboto", sans-serif;
+  font-family: sans-serif, serif, "Roboto", sans-serif;
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
@@ -5611,7 +5609,7 @@ button.close {
   z-index: 1060;
   display: block;
   max-width: 276px;
-  font-family: sans-serif, serif ,"Roboto", sans-serif;
+  font-family: sans-serif, serif, "Roboto", sans-serif;
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
@@ -10275,19 +10273,19 @@ sub {
   }
 }
 
-.nav-header{
-  background: var(--primary-color) 
+.nav-header {
+  background: var(--primary-color);
 }
 .nav-header .brand-logo {
   z-index: 999;
   /* background-color: red */
-  background: var(--primary-color) !important; 
+  background: var(--primary-color) !important;
 }
 .nav-header .brand-logo a {
   /* padding: 1.607rem 1.8125rem; */
   padding: 1rem;
   display: block;
-background:  var(--primary-color) !important;
+  background: var(--primary-color) !important;
 }
 .nav-header .brand-logo a i {
   font-size: 1.375rem;
@@ -11021,8 +11019,8 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 .nk-sidebar .metismenu > li > a {
   transition: none;
 }
-#menu{
-/* height: 100vh !important; */
+#menu {
+  /* height: 100vh !important; */
 }
 .nk-sidebar .metismenu > li:hover i,
 .nk-sidebar .metismenu > li:focus i,
@@ -14322,7 +14320,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 }
 #morris-donut-chart text {
   font-size: 10px !important;
-  font-family: sans-serif, serif , "Poppins";
+  font-family: sans-serif, serif, "Poppins";
 }
 #morris-donut-chart text tspan {
   font-size: 10px !important;
@@ -14871,7 +14869,6 @@ input[type="checkbox"]:checked:after {
 .table-bordered thead th {
   border-bottom-width: 1px;
   width: 110px;
-
 }
 
 .table-primary {
@@ -21567,7 +21564,7 @@ html[dir="rtl"]
 }
 
 body {
-  font-family: sans-serif, serif , sans-serif;
+  font-family: sans-serif, serif, sans-serif;
   background-image: url("bgimage.jpg");
   repeat: no-repeat;
 }
@@ -22118,15 +22115,13 @@ a:hover {
   font-size: 12px;
 }
 
-
-.rdt_TableCell{
-    white-space: normal !important;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.rdt_TableCell {
+  white-space: normal !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-
-.jURlRn div:first-child{
+.jURlRn div:first-child {
   white-space: normal !important;
 }
 
@@ -22150,3 +22145,29 @@ a:hover {
   padding: 0;
 }
 
+.profit {
+  font-size: 12px;
+  font-weight: 700;
+  color: white;
+  background-color: #28a765;
+  padding: 6px 8px;
+  border-radius: 5px;
+}
+
+.losss {
+  font-size: 13px;
+  font-weight: 700;
+  color: white;
+  background-color: #dc3545;
+  padding: 6px 8px;
+  border-radius: 5px;
+}
+
+.pending-status {
+  font-size: 13px;
+  font-weight: 700;
+  color: white;
+  background-color: #a4a42d;
+  padding: 6px 8px;
+  border-radius: 5px;
+}

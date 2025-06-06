@@ -8,6 +8,7 @@ import {
 } from "../../../Utils/Common_Date";
 import { Api } from "../../../Config/Api";
 import { parseDate } from "../../../Utils/ManageSorting";
+import ReusableModal from "../../../Helpers/Modal/ModalComponent_main";
 
 const ManualRequest = () => {
   //get token in localstorage
@@ -16,6 +17,9 @@ const ManualRequest = () => {
   //all state
   const [activeTabIndex, setActiveTabIndex] = PagesIndex.useState(0);
   const [GetIds, setGetIds] = PagesIndex.useState([]);
+  const [ModalStateHistory, setModalStateHistory] = PagesIndex.useState(false);
+  const [ProfileData, setProfileData] = PagesIndex.useState(false);
+
   const [getTotals, setgetTotals] = PagesIndex.useState({
     admin_profit: 0,
     user_profit: 0,
@@ -25,7 +29,14 @@ const ManualRequest = () => {
   const [data12, setData12] = PagesIndex.useState([]);
 
   // Log the corresponding tab name
-  const tabTitles = ["pending", "processing", "approved", "rejected", "failed"];
+  const tabTitles = [
+    "pending",
+    "processing",
+    "inprocess",
+    "approved",
+    "rejected",
+    "failed",
+  ];
   const status = tabTitles[activeTabIndex];
 
   //get fund requestdata
@@ -79,7 +90,9 @@ const ManualRequest = () => {
     } else {
       let abcccc12 = `${Api.GATWAYPAYMENTLIST}?start_date=${abc(
         new Date()
-      )}&end_date=${abc(new Date())}&status=${status.toUpperCase()}`;
+      )}&end_date=${abc(new Date())}&status=${
+        status == "inprocess" ? "INPROGRESS" : status.toUpperCase()
+      }`;
 
       const res12 = await PagesIndex.admin_services.GATWAY_PAYMENT_LIST(
         abcccc12,
@@ -116,33 +129,6 @@ const ManualRequest = () => {
   useEffect(() => {
     getFundRequestList();
   }, [activeTabIndex]);
-
-  //handle status change
-
-  // const handleStatusChange = async (id, value) => {
-  //   const apidata = {
-  //     request_id: id,
-  //     action: value,
-  //   };
-
-  //   value === "APPROVE";
-  //   if (window.confirm("Do you really want to proceed?")) {
-  //   } else {
-  //     console.log("User canceled the action.");
-  //   }
-
-  //   const res =
-  //     await PagesIndex.admin_services.GATWAY_PAYMENT_DEPOSITE_OR_DECLINED(
-  //       apidata,
-  //       token
-  //     );
-
-  //   if (res.status) {
-  //     PagesIndex.toast.success(res.message);
-  //     getFundRequestList();
-  //   }
-  //   console.log("dfdffsfsfds", res);
-  // };
 
   const handleStatusChange = async (id, value) => {
     try {
@@ -190,7 +176,10 @@ const ManualRequest = () => {
       PagesIndex.toast.error(response.response.data.error);
     }
   };
-
+  const getProfile = async (id) => {
+    setProfileData(id);
+    setModalStateHistory(!ModalStateHistory);
+  };
 
   const columns = [
     {
@@ -200,7 +189,7 @@ const ManualRequest = () => {
       sortable: true,
     },
     {
-      name: "Contact No",
+      name: "Mobile No",
       selector: (row) => row.mobile,
       wrap: true,
       width: "130px",
@@ -237,6 +226,7 @@ const ManualRequest = () => {
       width: "150px",
       sortable: true,
     },
+
     {
       name: "Profit/Loss",
       wrap: true,
@@ -253,12 +243,20 @@ const ManualRequest = () => {
               fontWeight: "900",
             }}
           >
-            {diff > 0 ? `+ ${diff}` : `- ${Math.abs(diff)}`}
+            {diff > 0 ? `PROFIT + ${diff}` : `LOSS - ${Math.abs(diff)}`}
           </span>
         );
       },
     },
-
+    {
+      name: "status",
+      wrap: true,
+      width: "150px",
+      sortable: true,
+      cell: (row) => {
+        return <h1 className={`profit`}>{row.status}</h1>;
+      },
+    },
     {
       name: "Transaction Id",
       selector: (row) => {
@@ -289,10 +287,28 @@ const ManualRequest = () => {
       sortable: true,
     },
     {
+      name: "View",
+      wrap: true,
+      width: "90px",
+      sortable: true,
+      selector: (row) => (
+        <div>
+          <i
+            className="fa-solid fa-eye view  text-primary"
+            style={{ fontSize: "17px" }}
+            onClick={() => getProfile(row)}
+          ></i>
+        </div>
+      ),
+    },
+    {
       name: "Action",
       wrap: false, // Text wrap enable karega
-      omit: status === "rejected" || status === "approved" ? true : false,
-      width: "220px",
+      omit:
+        status === "rejected" || status === "approved" || status === "inprocess"
+          ? true
+          : false,
+      // width: "300px",
       selector: (row) => (
         <div>
           <div className="d-flex">
@@ -312,7 +328,7 @@ const ManualRequest = () => {
                 {status !== "failed" && (
                   <button
                     type="button"
-                    className="btn  btn-danger px-2 py-1 w-50"
+                    className="btn  btn-danger px-2 py-1 "
                     onClick={(e) => {
                       handleStatusChange(
                         row?.request_id,
@@ -321,7 +337,7 @@ const ManualRequest = () => {
                       );
                     }}
                   >
-                    Decline
+                    {status === "processing" ? "CANCEL & REFUND" : "Reject"}
                   </button>
                 )}
               </>
@@ -329,34 +345,6 @@ const ManualRequest = () => {
               ""
             )}
           </div>
-
-          {/* {status === "pending" ||
-          status === "processing" ||
-          status === "failed" ? (
-            <select
-              className="p-1"
-              aria-label="Default select example"
-              // value={row.status}
-              onChange={(e) => {
-                handleStatusChange(row?.request_id, e.target.value, status);
-              }}
-            >
-              <option disabled selected value="">
-                select
-              </option>
-
-              {status === "failed" ? (
-                <option value="APPROVE">Retry</option>
-              ) : (
-                <>
-                  <option value="APPROVE">Approve</option>
-                  <option value="REJECT">Decline</option>
-                </>
-              )}
-            </select>
-          ) : (
-            row.status
-          )} */}
         </div>
       ),
     },
@@ -377,21 +365,21 @@ const ManualRequest = () => {
       sortable: true,
     },
 
-    {
-      name: "Account No.",
-      selector: (row) => row.account_no,
-      wrap: true,
-      width: "140px",
-      sortable: true,
-      color: "red",
-    },
-    {
-      name: "IFSC",
-      selector: (row) => row.ifsc_code,
-      wrap: true,
-      width: "130px",
-      sortable: true,
-    },
+    // {
+    //   name: "Account No.",
+    //   selector: (row) => row.account_no,
+    //   wrap: true,
+    //   width: "140px",
+    //   sortable: true,
+    //   color: "red",
+    // },
+    // {
+    //   name: "IFSC",
+    //   selector: (row) => row.ifsc_code,
+    //   wrap: true,
+    //   width: "130px",
+    //   sortable: true,
+    // },
     {
       name: "Wallet Amount",
       selector: (row) => row.wallet_balance,
@@ -407,6 +395,15 @@ const ManualRequest = () => {
       sortable: true,
     },
     {
+      name: "status",
+      wrap: true,
+      width: "150px",
+      sortable: true,
+      cell: (row) => {
+        return <h1 className={`pending-status`}>{row.status}</h1>;
+      },
+    },
+    {
       name: "Profit/Loss",
       wrap: true,
       width: "130px",
@@ -414,31 +411,25 @@ const ManualRequest = () => {
       cell: (row) => {
         const diff = parseInt(row.admin_profit_loss) - parseInt(row.amount);
         return (
-          <span
-            style={{
-              color: diff > 0 ? "green" : "red",
-              fontWeight: "900",
-            }}
-          >
-            {diff > 0 ? `+ ${diff}` : `- ${Math.abs(diff)}`}
-          </span>
+          <h1 className={`${diff > 0 ? "profit" : "losss"}`}>
+            {diff > 0 ? (
+              <>
+                PROFIT <br />
+                <span>{`₹ ${parseFloat(diff).toFixed(2)}`}</span>
+              </>
+            ) : (
+              <>
+                LOSS <br />
+                <span>{`₹ ${parseFloat(Math.abs(diff)).toFixed(2)}`}</span>
+              </>
+            )}
+          </h1>
         );
       },
     },
 
-    // {
-    //   name: "Transaction Id",
-    //   selector: (row) => {
-    //     return row.transaction_id || row.order_id || "null";
-    //   },
-
-    //   wrap: true,
-    //   width: "10px",
-    //   sortable: true,
-    // },
     {
       name: "Date & Time",
-
       selector: (row) => {
         let dateObj = row.created_at;
         return dateObj.toLocaleString("en-IN", {
@@ -456,74 +447,51 @@ const ManualRequest = () => {
       sortable: true,
     },
     {
+      name: "View",
+      wrap: true,
+      width: "90px",
+      sortable: true,
+      selector: (row) => (
+        <div>
+          <i
+            className="fa-solid fa-eye view  text-primary"
+            style={{ fontSize: "17px" }}
+            onClick={() => getProfile(row)}
+          ></i>
+        </div>
+      ),
+    },
+    {
       name: "Action",
       wrap: false,
       omit: status === "rejected" || status === "approved" ? true : false,
-      width: "220px",
+      width: "280px",
       selector: (row) => (
         <div>
           <div className="d-flex">
-            {status === "processing" ||
-            status === "pending" ||
-            status === "failed" ? (
-              <>
+            <>
+              <button
+                type="button"
+                className="btn  btn-primary px-2 py-1 mx-1"
+                onClick={(e) => {
+                  handleStatusChange(row?.request_id, "APPROVE");
+                }}
+              >
+                APPROVE
+              </button>
+              {status !== "failed" && (
                 <button
                   type="button"
-                  className="btn  btn-primary px-2 py-1 mx-1"
+                  className="btn  btn-danger px-2 py-1 w-50"
                   onClick={(e) => {
-                    handleStatusChange(row?.request_id, "APPROVE");
+                    handleStatusChange(row?.request_id, "REJECT");
                   }}
                 >
-                  {status === "failed" ? "RETRY" : "APPROVE"}
+                  REJECT
                 </button>
-                {status !== "failed" && (
-                  <button
-                    type="button"
-                    className="btn  btn-danger px-2 py-1 w-50"
-                    onClick={(e) => {
-                      handleStatusChange(
-                        row?.request_id,
-
-                        "REJECT"
-                      );
-                    }}
-                  >
-                    Decline
-                  </button>
-                )}
-              </>
-            ) : (
-              ""
-            )}
-          </div>
-
-          {/* {status === "pending" ||
-          status === "processing" ||
-          status === "failed" ? (
-            <select
-              className="p-1"
-              aria-label="Default select example"
-              // value={row.status}
-              onChange={(e) => {
-                handleStatusChange(row?.request_id, e.target.value, status);
-              }}
-            >
-              <option disabled selected value="">
-                select
-              </option>
-
-              {status === "failed" ? (
-                <option value="APPROVE">Retry</option>
-              ) : (
-                <>
-                  <option value="APPROVE">Approve</option>
-                  <option value="REJECT">Decline</option>
-                </>
               )}
-            </select>
-          ) : (
-            row.status
-          )} */}
+            </>
+          </div>
         </div>
       ),
     },
@@ -549,12 +517,6 @@ const ManualRequest = () => {
     [data]
   );
 
-
-  console.log("totalAmount122" ,totalAmount122);
-  console.log("totalAmount" ,totalAmount);
-
-  
-
   const tabs = [
     {
       title: "Pending Request",
@@ -575,7 +537,25 @@ const ManualRequest = () => {
       ),
     },
     {
-      title: "Processing Request",
+      title: "Payout Requests",
+      content: (
+        <>
+          <div className="mt-4">
+            <PagesIndex.Data_Table
+              columns={columns}
+              data={data}
+              // selectableRows
+              // onSelectedRowsChange={handleChange}
+            />
+            <h3 className="ml-3 mb-3 fw-bold responsive-total-amount">
+              Total Amount -{totalAmount122}/-
+            </h3>
+          </div>
+        </>
+      ),
+    },
+    {
+      title: "Inprocess Request",
       content: (
         <>
           <div className="mt-4">
@@ -646,6 +626,74 @@ const ManualRequest = () => {
         onTabSelect={(index) => {
           setActiveTabIndex(index);
         }}
+      />
+
+      <ReusableModal
+        show={ModalStateHistory}
+        onClose={setModalStateHistory}
+        dialogClassName="modal-60w"
+        title={"User Profile"}
+        size={"md"}
+        body={
+          <>
+            <div className="main">
+              <div className="profile-content">
+                <div className="container-fluid">
+                  <div className="row">
+                    <div className="col-md-6 ml-auto mr-auto">
+                      <div className="profile">
+                        <div className="name">
+                          <h6 className="title" id="username">
+                            User Name :{ProfileData.username}
+                          </h6>
+                          <p className="walletbalance" id="balance">
+                            Wallet Balance : {ProfileData.wallet_balance}/-
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="user-data">
+                <div className="container-fluid">
+                  <table className="table table-bordered profile-content-table">
+                    <tbody>
+                      <tr>
+                        <td className="font-weight-bold">Bank Name</td>
+                        <td id="bankName">{ProfileData.bank_name}</td>
+                      </tr>
+                      <tr>
+                        <td className="font-weight-bold">Account Number</td>
+                        <td id="accNo"> {ProfileData.account_no}</td>
+                      </tr>
+                      <tr>
+                        <td className="font-weight-bold">IFSC Code</td>
+                        <td id="ifsc">{ProfileData.ifsc_code}</td>
+                      </tr>
+                      <tr>
+                        <td className="font-weight-bold">
+                          Account Holder Name
+                        </td>
+                        <td id="accHolder">
+                          {ProfileData.account_holder_name}
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td className="font-weight-bold">Personal Number</td>
+                        <td id="regular">{ProfileData.mobile}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </>
+        }
+        primaryButtonText="Save Changes"
+        secondaryButtonText="Close"
+        showFooter={false}
       />
       <PagesIndex.Toast />
     </PagesIndex.Main_Containt>
