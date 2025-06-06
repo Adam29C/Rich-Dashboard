@@ -259,7 +259,7 @@ const ManualRequest = () => {
       width: "150px",
       sortable: true,
       cell: (row) => {
-        return <h1 className={`profit`}>{row.status}</h1>;
+        return <h1 className={`profit`}>{row.status ==="PROCESSING" ? "PENDING" :row.status }</h1>;
       },
     },
     {
@@ -342,7 +342,7 @@ const ManualRequest = () => {
                       );
                     }}
                   >
-                    {status === "processing" ? "CANCEL & REFUND" : "Reject"}
+                    {status === "processing" ? "REJECT & REFUND" : "Reject"}
                   </button>
                 )}
               </>
