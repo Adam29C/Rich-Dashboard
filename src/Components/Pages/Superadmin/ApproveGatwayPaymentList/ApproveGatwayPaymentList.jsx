@@ -19,7 +19,7 @@ const ManualRequest = () => {
   const [GetIds, setGetIds] = PagesIndex.useState([]);
   const [ModalStateHistory, setModalStateHistory] = PagesIndex.useState(false);
   const [ProfileData, setProfileData] = PagesIndex.useState(false);
-
+  const [loading, setLoading] = PagesIndex.useState(true);
   const [getTotals, setgetTotals] = PagesIndex.useState({
     admin_profit: 0,
     user_profit: 0,
@@ -43,6 +43,7 @@ const ManualRequest = () => {
 
   const getFundRequestList = async () => {
     if (status == "pending") {
+      setLoading(true);
       let abcccc1 = `${Api.PENDINGGATWAYPAYMENTLIST}?start_date=${abc(
         new Date()
       )}&end_date=${abc(new Date())}&status=${status.toUpperCase()}`;
@@ -51,6 +52,7 @@ const ManualRequest = () => {
         abcccc1,
         token
       );
+      setLoading(false);
 
       let aarrrr = [];
       let admin_profit = 0;
@@ -88,6 +90,8 @@ const ManualRequest = () => {
         });
       }
     } else {
+      setLoading(true);
+
       let abcccc12 = `${Api.GATWAYPAYMENTLIST}?start_date=${abc(
         new Date()
       )}&end_date=${abc(new Date())}&status=${
@@ -100,6 +104,7 @@ const ManualRequest = () => {
       );
 
       if (res12?.status) {
+        setLoading(false);
         let newarrr = [];
         res12.data.forEach((item) => {
           let dateObj = new Date(item.created_at);
@@ -517,6 +522,12 @@ const ManualRequest = () => {
     [data]
   );
 
+  const CustomLoader = () => (
+    <div className="custom-loader-wrapper">
+      <div className="custom-spinner"></div>
+      <div className="loader-text">Loading Data...</div>
+    </div>
+  );
   const tabs = [
     {
       title: "Pending Request",
@@ -526,12 +537,15 @@ const ManualRequest = () => {
             <PagesIndex.Data_Table
               columns={columns1}
               data={data12}
+              isLoading={loading}
               // selectableRows
               onSelectedRowsChange={handleChange}
             />
             <h3 className="ml-3 mb-3 fw-bold responsive-total-amount">
               Total Amount - {totalAmount}/-
             </h3>
+
+            <CustomLoader />
           </div>
         </>
       ),
@@ -545,6 +559,7 @@ const ManualRequest = () => {
               columns={columns}
               data={data}
               // selectableRows
+              isLoading={loading}
               // onSelectedRowsChange={handleChange}
             />
             <h3 className="ml-3 mb-3 fw-bold responsive-total-amount">
@@ -564,6 +579,7 @@ const ManualRequest = () => {
               data={data}
               // selectableRows
               // onSelectedRowsChange={handleChange}
+              isLoading={loading}
             />
             <h3 className="ml-3 mb-3 fw-bold responsive-total-amount">
               Total Amount -{totalAmount122}/-
@@ -576,7 +592,11 @@ const ManualRequest = () => {
       title: "Approved Request",
       content: (
         <div className="mt-4">
-          <PagesIndex.Data_Table columns={columns} data={data} />
+          <PagesIndex.Data_Table
+            columns={columns}
+            data={data}
+            isLoading={loading}
+          />
           <h3 className="ml-3 mb-3 fw-bold responsive-total-amount">
             Total Amount - {totalAmount122}/-
           </h3>
@@ -587,7 +607,11 @@ const ManualRequest = () => {
       title: "Declined Request",
       content: (
         <div className="mt-4">
-          <PagesIndex.Data_Table columns={columns} data={data} />{" "}
+          <PagesIndex.Data_Table
+            columns={columns}
+            data={data}
+            isLoading={loading}
+          />{" "}
           <h3 className="ml-3 mb-3 fw-bold responsive-total-amount">
             Total Amount - {totalAmount122}/-
           </h3>
@@ -602,6 +626,7 @@ const ManualRequest = () => {
             <PagesIndex.Data_Table
               columns={columns}
               data={data}
+              isLoading={loading}
               // selectableRows
               // onSelectedRowsChange={handleChange}
             />
