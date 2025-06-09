@@ -1,11 +1,6 @@
 import React, { useEffect, useMemo } from "react";
 import PagesIndex from "../../PagesIndex";
-import {
-  abc,
-  get_Time_From_Unix_Dete_string,
-  Get_Year_With_Time_With_Column_Saprate,
-  show,
-} from "../../../Utils/Common_Date";
+import { abc } from "../../../Utils/Common_Date";
 import { Api } from "../../../Config/Api";
 import { parseDate } from "../../../Utils/ManageSorting";
 import ReusableModal from "../../../Helpers/Modal/ModalComponent_main";
@@ -42,11 +37,15 @@ const ManualRequest = () => {
   //get fund requestdata
 
   const getFundRequestList = async () => {
+    setData([]);
+    setData12([]);
+
     if (status == "pending") {
       setLoading(true);
       let abcccc1 = `${Api.PENDINGGATWAYPAYMENTLIST}?start_date=${abc(
         new Date()
       )}&end_date=${abc(new Date())}&status=${status.toUpperCase()}`;
+      setLoading(false);
 
       const res = await PagesIndex.admin_services.GATWAY_PAYMENT_LIST(
         abcccc1,
@@ -102,9 +101,9 @@ const ManualRequest = () => {
         abcccc12,
         token
       );
+      // setLoading(false);
 
       if (res12?.status) {
-        setLoading(false);
         let newarrr = [];
         res12.data.forEach((item) => {
           let dateObj = new Date(item.created_at);
@@ -125,6 +124,8 @@ const ManualRequest = () => {
         newarrr.sort(
           (a, b) => parseDate(b.created_at) - parseDate(a.created_at)
         );
+
+        setLoading(false);
 
         setData(newarrr);
       }
@@ -222,7 +223,7 @@ const ManualRequest = () => {
       wrap: true,
       width: "150px",
       sortable: true,
-      omit: status === "pending"  ? false : true,
+      omit: status === "pending" ? false : true,
     },
     {
       name: "Req. Amount",
