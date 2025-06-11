@@ -230,6 +230,8 @@ const ExamplePage = ({
     },
   ];
 
+
+  
   const fields1 = [
     {
       name: "date",
@@ -326,12 +328,13 @@ const ExamplePage = ({
       value: "session",
       sortable: true,
       style: (row) => ({
-        display: gameType === "JackPot" ? "none" : "block",
+        display: gameType === "JackPot" ? "none" : "",
+        width : '9%'
       }),
     },
     {
       name: "Result Date",
-      value: "createdAt",
+      value: "resultDate",
       sortable: true,
     },
     {

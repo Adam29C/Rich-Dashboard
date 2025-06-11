@@ -4,7 +4,10 @@ import PagesIndex from "../../../../PagesIndex";
 import { getActualDateFormate, today } from "../../../../../Utils/Common_Date";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { Games_Provider_List ,Games_Provider_List1 } from "../../../../../Redux/slice/CommonSlice";
+import {
+  Games_Provider_List,
+  Games_Provider_List1,
+} from "../../../../../Redux/slice/CommonSlice";
 
 const ExamplePage = () => {
   //get token in local storage
@@ -28,9 +31,8 @@ const ExamplePage = () => {
     return state.CommonSlice.gameProviders1;
   });
 
+  console.log("data1111111111", data);
 
-  console.log("data1111111111" ,data);
-  
   //get game result function
   const getGameResultApi = async () => {
     const res = await PagesIndex.admin_services.GAME_RESULT(token);
@@ -98,12 +100,18 @@ const ExamplePage = () => {
     onSubmit: async (values) => {
       setDisableSubmit(true);
       const req = {
-        winningDigit: +values.winningDigit,
+        winningDigit: values.winningDigit,
         resultDate: today(values.resultDate),
         session: values.session,
         providerId: values.providerId,
         providerName: values.providerName,
       };
+
+
+
+      // console.log("req" ,req);
+      
+      // return;
 
       try {
         const res = await PagesIndex.admin_services.ADD_GAME_RESULT(req, token);
