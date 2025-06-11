@@ -151,6 +151,8 @@ const Api = {
   STARLINE_GAME_REPORT: "starSalesReport/userReportStar",
   JACKPOT_REPORT: "abSalesReport/userReportAB",
   JACKPOT_BIDS_REPORT: "totalBids/andarBaharBidsData",
+  JACKPOT__TOTAL_BIDS_REPORT: "abTotalBid/andarBaharBidsData",
+
 
   GET_FUND_REPORT_DETAILS: "fundReports",
   GET_FUND_REPORT: "fundReports",

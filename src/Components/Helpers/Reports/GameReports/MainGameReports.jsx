@@ -160,11 +160,18 @@ const MainGameReports = ({
             });
           });
 
+          console.log("finalaray", finalaray);
+
           // Add totals as a separate entry or object
           finalaray.push({
             totalBiddingPoint: totalBiddingPoint,
             totalWiningPoint: totalWiningPoint,
             totalPointDifference: totalPointDifference,
+          });
+
+          finalaray.sort((a, b) => {
+            const parseTime = (timeStr) => new Date(`1970/01/01 ${timeStr}`);
+            return parseTime(a.providerName) - parseTime(b.providerName);
           });
 
           setTableData(finalaray);
