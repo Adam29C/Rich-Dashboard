@@ -2,7 +2,10 @@ import React from "react";
 import Split_Main_Containt from "../../Layout/Main/Split_Main_Content";
 import { useFormik } from "formik";
 import PagesIndex from "../../Pages/PagesIndex";
-import { Games_Provider_List  ,Games_Provider_List1} from "../../Redux/slice/CommonSlice";
+import {
+  Games_Provider_List,
+  Games_Provider_List1,
+} from "../../Redux/slice/CommonSlice";
 import { Api } from "../../Config/Api";
 import { today } from "../../Utils/Common_Date";
 import ReusableModal from "../Modal/ModalComponent_main";
@@ -24,6 +27,10 @@ const SplitForm = () => {
   const [ShowBidInfoModal, setShowBidInfoModal] = PagesIndex.useState(false);
   const [ShowBidInfoList, setShowBidInfoList] = PagesIndex.useState([]);
   const [Refresh, setRefresh] = PagesIndex.useState(false);
+  const [RowData, setRowData] = PagesIndex.useState([]);
+
+  console.log("RowData", RowData);
+
   const { gameProviders1 } = PagesIndex.useSelector(
     (state) => state.CommonSlice
   );
@@ -313,7 +320,7 @@ const SplitForm = () => {
         });
 
         // console.log("jodiArray" ,jodiArray);
-        
+
         if (
           !values.gameSession === "Half Sangam Digits" ||
           !values.gameSession === "Full Sangam Digits"
@@ -406,6 +413,7 @@ const SplitForm = () => {
         return `${parseInt(item) > 0 ? `View Bids Info (${item})` : "No Bids"}`;
       },
       onClick: (row) => {
+        setRowData(row);
         showBidInfor(row);
       },
     },
@@ -528,8 +536,56 @@ const SplitForm = () => {
     },
   ];
 
+  const fetchData = async (page, rowsPerPage, searchQuery) => {
+    // const payload = {
+    //   page: page,
+    //   limit: rowsPerPage || 25,
+    //   search: searchQuery,
+    // };
+
+    try {
+      // const response = await PagesIndex.admin_services.GET_WALLET_LIST(
+      //   payload,
+      //   token
+      // );
+
+      let session =
+        formik.values.gameSession === "Open" ||
+        formik.values.gameSession === "Close"
+          ? RowData?.session
+          : "Close";
+      const payload = {
+        date: formik.values.gameDate || today(new Date()),
+        id: formik.values.providerId,
+        bidDigit: RowData?._id,
+        gameSession: session,
+        page: page,
+        limit: rowsPerPage,
+      };
+      // const response1 = await PagesIndex.report_service.ALL_GAME_REPORT_API(
+      //   Api.GET_BID_DATA,
+      //   payload,
+      //   token
+      // );
+
+      const response1 = await PagesIndex.report_service.ALL_GAME_REPORT_API(
+        Api.GET_BID_DATA,
+        payload,
+        token
+      );
+
+      console.log("mainRes", response1);
+
+      const totalRows = response1.pagination.totalCount;
+      let mainRes = response1.bidData;
+
+      return { mainRes, totalRows };
+    } catch {}
+  };
+
   const showBidInfor = async (rowdata) => {
     setShowBidInfoModal(!ShowBidInfoModal);
+    return;
 
     let session =
       formik.values.gameSession === "Open" ||
@@ -550,7 +606,7 @@ const SplitForm = () => {
       token
     );
 
-    setTotalPages(response1.totalCount);
+    setTotalPages(response1.pagination.totalCount);
     setShowBidInfoList(response1.bidData);
   };
 
@@ -566,6 +622,8 @@ const SplitForm = () => {
   PagesIndex.useEffect(() => {
     tata();
   }, [SearchInTable]);
+
+  console.log("UserPagenateData", UserPagenateData);
 
   const cardLayouts = [
     {
@@ -682,8 +740,9 @@ const SplitForm = () => {
         body={
           <>
             <PagesIndex.TableWithCustomPeginationNew
-              tableData={ShowBidInfoList && ShowBidInfoList}
-              TotalPagesCount={(TotalPages && TotalPages) || []}
+              fetchData={fetchData}
+              data={ShowBidInfoList && ShowBidInfoList}
+              //  TotalPagesCount={TotalPages && TotalPages}
               columns={visibleFields2}
               showIndex={true}
               Refresh={Refresh}
