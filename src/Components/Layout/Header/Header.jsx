@@ -56,7 +56,7 @@ const Header = () => {
 
         if (now.getHours() === 12 && now.getMinutes() === 59) {
           if (!alertShown) {
-            alert("Your Session Expired. Please Login Again.");
+           // alert("Your Session Expired. Please Login Again.");
             alertShown = true;
           }
 
